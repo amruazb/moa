@@ -291,7 +291,7 @@ export async function generateDocument(
 
     // Generate and download the document
     const buffer = await Packer.toBuffer(doc)
-    const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' })
+    const blob = new Blob([buffer as any], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' })
     const fileName = `MOA_Amendment_${conversionInfo.from}_to_${conversionInfo.to}_${data.company.name || 'Document'}_${new Date().toISOString().split('T')[0]}.docx`
     saveAs(blob, fileName)
 

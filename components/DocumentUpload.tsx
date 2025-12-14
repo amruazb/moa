@@ -26,9 +26,17 @@ const UploadArea = ({ type, title, description, icon, acceptedTypes }: UploadAre
     toast.success(`${title} uploaded successfully!`)
 
     try {
-      const extractedData = await processDocument(file, type)
-      setExtractedData(extractedData)
-      toast.success('Data extracted successfully!')
+      // Map upload type to processor type
+      let processorType: 'companyLicense' | 'partyDocument' | null = null
+      if (type === 'tradeLicense') {
+        processorType = 'companyLicense'
+      }
+
+      if (processorType) {
+        const extractedData = await processDocument(file, processorType)
+        setExtractedData(extractedData)
+        toast.success('Data extracted successfully!')
+      }
     } catch (error) {
       toast.error('Failed to extract data from document')
       console.error('Document processing error:', error)

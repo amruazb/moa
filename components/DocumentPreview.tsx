@@ -18,10 +18,19 @@ export const DocumentPreview = () => {
 
   // Safe defaults
   const company = extractedData.company || { name: '', newName: '', licenseNumber: '', moaDate: '' }
-  const firstParty = extractedData.firstParty || { name: '', eidNumber: '', dob: '', nationality: '' }
-  const secondParty = extractedData.secondParty || { name: '', eidNumber: '', dob: '', nationality: '' }
-  const oldMoa = extractedData.oldMoa || { notarizationNumber: '', notarizationDate: '', originalShares: { firstParty: 49, secondParty: 51 } }
-  const shares = extractedData.shares || { firstParty: 0, secondParty: 100 }
+
+  // Map store arrays to legacy single-party structure for preview
+  const firstParty = extractedData.sourceParties?.[0] || { name: '', eidNumber: '', dob: '', nationality: '' }
+  const secondParty = extractedData.destinationParties?.[0] || { name: '', eidNumber: '', dob: '', nationality: '' }
+
+  // Map oldMoa structure
+  const oldMoa = extractedData.oldMoa || { notarizationNumber: '', notarizationDate: '', originalShares: [0] }
+
+  // Map shares structure - assuming array indices match parties
+  const shares = {
+    firstParty: extractedData.shares?.source?.[0] || 0,
+    secondParty: extractedData.shares?.destination?.[0] || 0
+  }
 
   useEffect(() => {
     updatePreview()
@@ -37,8 +46,8 @@ export const DocumentPreview = () => {
     let preamble = ''
     if (shares.secondParty === 100) {
       preamble = language === 'ar'
-        ? `الطرف الأول، ${firstPartyName}، ينقل جميع أسهمه (${oldMoa.originalShares?.firstParty || shares.firstParty}%) في ${companyName} إلى الطرف الثاني، ${secondPartyName}، مجاناً. هذا النقل يحول الشركة من شركة ذات مسؤولية محدودة إلى شركة مساهمة خاصة.`
-        : `The First Party, ${firstPartyName}, hereby transfers all of their shares (${oldMoa.originalShares?.firstParty || shares.firstParty}%) in ${companyName} to the Second Party, ${secondPartyName}, free of cost. This transfer converts the company from LLC to SPC structure.`
+        ? `الطرف الأول، ${firstPartyName}، ينقل جميع أسهمه (${oldMoa.originalShares?.[0] || shares.firstParty}%) في ${companyName} إلى الطرف الثاني، ${secondPartyName}، مجاناً. هذا النقل يحول الشركة من شركة ذات مسؤولية محدودة إلى شركة مساهمة خاصة.`
+        : `The First Party, ${firstPartyName}, hereby transfers all of their shares (${oldMoa.originalShares?.[0] || shares.firstParty}%) in ${companyName} to the Second Party, ${secondPartyName}, free of cost. This transfer converts the company from LLC to SPC structure.`
     } else {
       preamble = language === 'ar'
         ? `اتفاقية نقل الأسهم بين ${firstPartyName} و ${secondPartyName} لتحويل ${companyName} من شركة ذات مسؤولية محدودة إلى شركة مساهمة خاصة.`
@@ -76,10 +85,10 @@ export const DocumentPreview = () => {
       setProcessing(true)
       const safeData = {
         company,
-        firstParty,
-        secondParty,
-        oldMoa,
-        shares
+        sourceParties: extractedData.sourceParties || [firstParty],
+        destinationParties: extractedData.destinationParties || [secondParty],
+        oldMoa: extractedData.oldMoa || { notarizationNumber: '', notarizationDate: '', originalShares: [] },
+        shares: extractedData.shares || { source: [shares.firstParty], destination: [shares.secondParty] }
       }
       // Get conversion type from store
       const { conversionType } = useDocumentStore.getState()

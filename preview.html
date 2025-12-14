@@ -1,0 +1,370 @@
+
+                  < !DOCTYPE html >
+                    <html lang="en" >
+                      <head>
+                      <meta charset="UTF-8" >
+                        <style>
+                        @import url('https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;700&display=swap');
+  
+  body {
+  font - family: "Times New Roman", "Noto Naskh Arabic", serif;
+  font - size: 11pt;
+  line - height: 1.3;
+  color: #000;
+  margin: 0;
+  padding: 20px;
+  background - color: #fff;
+}
+  
+  .container {
+  max - width: 900px;
+  margin: 0 auto;
+  background: white;
+}
+
+  /* Grid Layout for Side-by-Side */
+  .row {
+  display: flex;
+  flex - direction: row;
+  gap: 20px;
+  align - items: flex - start;
+  margin - bottom: 15px;
+}
+  .col - en { flex: 1; text - align: left; direction: ltr; }
+  .col - ar { flex: 1; text - align: right; direction: rtl; }
+
+  /* Header Box Styling */
+  .header - container {
+  background - color: #e0e0e0;
+  padding: 15px;
+  margin - bottom: 30px;
+  border: 1px solid #ccc;
+}
+  .header - title - en { font - weight: bold; font - size: 14pt; text - align: center; }
+  .header - title - ar { font - weight: bold; font - size: 16pt; text - align: center; font - family: "Noto Naskh Arabic", serif; }
+  .company - name { text - align: center; margin - top: 10px; font - weight: bold; font - size: 12pt; }
+
+  /* Typography */
+  u { text - decoration: underline; }
+  strong { font - weight: bold; }
+  .fill { font - weight: normal; } /* Data fields usually normal weight in bold context, or vice versa */
+
+  /* Table Styling */
+  .shares - table th, .shares - table td {
+  border: 1px solid #000;
+  padding: 6px;
+  text - align: center;
+  vertical - align: middle;
+  font - size: 10pt;
+}
+  .header - box th {
+  background - color: #f2f2f2; /* Light grey header background */
+  font - weight: bold;
+}
+  
+  ul { margin: 0; padding - left: 20px; }
+ul[dir = "rtl"] { padding - right: 20px; padding - left: 0; }
+  li { margin - bottom: 5px; }
+
+/* Print */
+@media print {
+    body { background: none; margin: 0; padding: 0; }
+    .container { width: 100 %; max - width: none; }
+    .header - box th { background - color: #f2f2f2!important; -webkit - print - color - adjust: exact; }
+    .header - container { background - color: #e0e0e0!important; -webkit - print - color - adjust: exact; }
+}
+</style>
+  </head>
+  < body >
+
+  <div class="container" >
+
+    <!--Main Header-- >
+      <div class="header-container" >
+        <div class="row" style = "margin-bottom: 0; align-items: center;" >
+          <div class="col-en header-title-en" >
+            +Addendum to the Partnership Agreement<br>
+        Assignment of shares of<br>
+"NAS OIL FIELD SERVICE L.L.C"
+  </div>
+  < div class="col-ar header-title-ar" >
+    ملحق عقد شراكة<br>
+        تنازل عن حصص شركة<br>
+"ناس لخدمات حقول النفط - ذ.م.م"
+  </div>
+  </div>
+  </div>
+
+  < !--Parties -->
+    
+  < div class="party-section" >
+    <div class="row party-header" >
+      <div class="col-en" > <u style="font-weight: bold;" > First Party:  </u></div >
+        <div class="col-ar" dir = "rtl" > <u style="font-weight: bold;" > الطرف الأول:  </u></div >
+          </div>
+          < div class="row party-details" >
+            <div class="col-en" >
+              <strong>MR.ADEL SAIF AMER HASAN ALJABERI, </strong><br>
+Nationality: <span class="fill" > U.A.E </span><br>
+          ID Card No: <span class="fill" > 784197984097051 </span><br>
+          Date of Birth: <span class="fill" > 07/07/1979 </span>
+  </div>
+  < div class="col-ar" dir = "rtl" >
+    <strong>السيد / عادل سيف عامر حسن الجابري </strong><br>
+الجنسية: <span class="fill" > إماراتي </span><br>
+          بطاقة هوية رقم: <span class="fill" > 784197984097051 </span><br>
+          تاريخ الميلاد: <span class="fill" > 07/07/1979 </span>
+  </div>
+  </div>
+      
+  < div class="row rep-row" >
+    <div class="col-en" >
+      <strong>Represented by: </strong><br>
+        < span class="fill" > Mr.Mohamed Shamnas Chakeeri Mohamed Hassan Chakeeri </span>, <span class="fill">Indian</span > National, <br>
+          Date of Birth: <span class="fill" > 30/05/1986 </span><br>
+          Holder of Emirates ID No.: <span class="fill" > 784198697519274 </span><br>
+          By virtue of < span class="fill" > Power of Attorney attested by Notary Public, Abu Dhabi, under No.: 2599023557 dated 14/04/2025 </span><br>
+          residing at < span class="fill" > UAE </span>.
+  </div>
+  < div class="col-ar" dir = "rtl" >
+    <strong>ممثل بواسطة: </strong><br>
+السيد / <span class="fill" > محمد شمناس شاكيري محمد حسن شاكيري </span> <span class="fill">الهند</span > الجنسية<br>
+          تاريخ الميلاد: <span class="fill" > 30/05/1986 </span><br>
+          حامل بطاقة الهوية الإماراتية رقم: <span class="fill" > 784198697519274 </span><br>
+بموجب < span class="fill" > توكيل رسمي موثق لدى كاتب العدل، أبوظبي برقم 2599023557 بتاريخ 14/04/2025 </span><br>
+          ويقيم في: <span class="fill" > الإمارات </span>
+  </div>
+  </div>
+    
+</div>
+  <br>
+  < div class="party-section" >
+    <div class="row party-header" >
+      <div class="col-en" > <u style="font-weight: bold;" > Second Party:  </u></div >
+        <div class="col-ar" dir = "rtl" > <u style="font-weight: bold;" > الطرف الثاني:  </u></div >
+          </div>
+          < div class="row party-details" >
+            <div class="col-en" >
+              <strong>MR.MOHAMED SHAMNAS CHAKEERI MOHAMED HASSAN CHAKEERI, </strong><br>
+Nationality: <span class="fill" > India </span><br>
+          ID Card No: <span class="fill" > 784198697519274 </span><br>
+          Date of Birth: <span class="fill" > 30/05/1986 </span>
+  </div>
+  < div class="col-ar" dir = "rtl" >
+    <strong>السيد / محمد شمناس شاكيري محمد حسن شاكيري كوني ما نها </strong><br>
+الجنسية: <span class="fill" > الهند </span><br>
+          بطاقة هوية رقم: <span class="fill" > 784198697519274 </span><br>
+          تاريخ الميلاد: <span class="fill" > 30/05/1986 </span>
+  </div>
+  </div>
+      
+</div>
+  <br>
+  < div class="party-section" >
+    <div class="row party-header" >
+      <div class="col-en" > <u style="font-weight: bold;" > Third Party:  </u></div >
+        <div class="col-ar" dir = "rtl" > <u style="font-weight: bold;" > الطرف الثالث:  </u></div >
+          </div>
+          < div class="row party-details" >
+            <div class="col-en" >
+              <strong>MR.AMIR AROLI VEETTIL, </strong><br>
+Nationality: <span class="fill" > India </span><br>
+          ID Card No: <span class="fill" > 784197659368092 </span><br>
+          Date of Birth: <span class="fill" > 14/01/1976 </span>
+  </div>
+  < div class="col-ar" dir = "rtl" >
+    <strong>السيد / امير ارولي فيتيل </strong><br>
+الجنسية: <span class="fill" > الهند </span><br>
+          بطاقة هوية رقم: <span class="fill" > 784197659368092 </span><br>
+          تاريخ الميلاد: <span class="fill" > 14/01/1976 </span>
+  </div>
+  </div>
+      
+</div>
+  
+
+<div style="height: 20px;" > </div>
+
+  < !--Preamble Header-- >
+    <div class="row" style = "margin-bottom: 0;" >
+      <div class="col-en" > <div style="background:#e0e0e0; text-align:center; padding:5px; font-weight:bold; border:1px solid #ccc;" > Preamble < /div></div >
+        <div class="col-ar" > <div style="background:#e0e0e0; text-align:center; padding:5px; font-weight:bold; border:1px solid #ccc;" > المقدمة < /div></div >
+          </div>
+
+          < br >
+
+          <div class="row" >
+            <div class="col-en" style = "text-align: justify;" >
+              Whereas the First party and Second party, owns the company namely(<strong>NAS OIL FIELD SERVICE L.L.C < /strong>) under the Commercial License No <strong>CN-2415224</strong >...
+                <br><br>
+                The First party wishes to assign a portion of his share of 9 % from the capital of said company to the Third Party who has accepted it.
+    </div>
+              < div class= "col-ar" dir = "rtl" style = "text-align: justify;" >
+              حيث أن الطرف الأول والطرف الثاني يملكان الشركة المـسماة("<strong>ناس لخدمات حقول النفط - ذ.م.م</strong>") بموجب الرخصة التجارية رقم : <strong>CN-2415224 </strong>...
+              < br > <br>
+              يرغب الطرف الأول في التنازل عن جزء من حصته البالغة 9 % من رأس مال الشركة المذكورة إلى الطرف الثالث الذي قبل ذلك.
+    </div>
+              </div>
+
+              < div class= "row" >
+              <div class="col-en" > <strong>And the above parties have agreed to the following: </strong></div >
+              <div class="col-ar" dir = "rtl" > <strong>فقد اتفق الأطراف المذكورون على ما يلي: </strong></div >
+              </div>
+
+              < !--Clauses -->
+              <div class="row" >
+              <div class="col-en" >
+              <ul>
+              <li>The foregoing preamble is an integral part of this addendum.</li>
+              < li > The First Party assigned a portion of his shares, amounting to 9 % (equivalent to 9 shares) of the capital of the said company, without payment, to the Third Party, who accepted it.</li>
+                </ul>
+                </div>
+                < div class="col-ar" dir = "rtl" >
+                  <ul>
+                  <li>التمهيد السابق جزء لا يتجزأ من هذا الملحق.</li>
+                    < li > تنازل الطرف الأول عن جزء من حصته البالغة 9 % (عدد الحصص: 9) من رأس مال الشركة المذكورة بدون مقابل للطرف الثالث القابل بذلك.</li>
+                      </ul>
+                      </div>
+                      </div>
+
+                      < div class="row" >
+                        <div class="col-en" >
+                          With this assignment the First, Second and Third Parties shall become the sole owners of company and the shares of the company shall be divided among the partners as following:
+</div>
+  < div class="col-ar" dir = "rtl" >
+    بهذا التنازل يكون الطرف الأول والثاني والثالث المالكين الوحيدين للشركة وحصص الشركة موزعة بين الشريكين على الوجه التالي:
+</div>
+  </div>
+
+  < !--Shares Table-- >
+    
+                  < div style = "margin: 20px 0;" >
+                    <!--Arabic Table Part-- >
+                      <table class="shares-table" style = "width: 100%; border-collapse: collapse; margin-bottom: 0;" >
+                        <thead>
+                        <tr class="header-box" >
+                          <th width="15%" > نسبة المشاركة </th>
+                            < th width = "20%" > القيمة </th>
+                              < th width = "15%" > عدد الحصص </th>
+                                < th width = "50%" > أمساء الشركاء </th>
+                                  </tr>
+                                  </thead>
+                                  <tbody>
+                
+  < tr >
+  <td>1% </td>
+    < td > 1,000 </td>
+      < td > 1 </td>
+        < td style = "text-align: right; direction: rtl;" > <strong>الطرف الأول: السيد / عادل سيف عامر حسن الجابري  </strong></td >
+          </tr>
+            
+  < tr >
+  <td>90% </td>
+    < td > 90,000 </td>
+      < td > 90 </td>
+        < td style = "text-align: right; direction: rtl;" > <strong>الطرف الثاني: السيد / محمد شمناس شاكيري محمد حسن شاكيري كوني ما نها  </strong></td >
+          </tr>
+            
+  < tr >
+  <td>9% </td>
+    < td > 9,000 </td>
+      < td > 9 </td>
+        < td style = "text-align: right; direction: rtl;" > <strong>الطرف الثالث: السيد / امير ارولي فيتيل  </strong></td >
+          </tr>
+            
+<tr style="background-color: #f9f9f9;" >
+  <td><strong>100% </strong></td >
+    <td><strong>100,000 </strong></td >
+      <td><strong>100 </strong></td >
+        <td style="text-align: right;" > <strong>المجموع < /strong></td >
+          </tr>
+          </tbody>
+          </table>
+
+          < !--English Table Part-- >
+            <table class="shares-table" style = "width: 100%; border-collapse: collapse; margin-top: -1px;" >
+              <thead>
+              <tr class="header-box" >
+                <th width="50%" style = "text-align: left;" > Name of Partners </th>
+                  < th width = "15%" > Number of shares </th>
+                    < th width = "20%" > Value </th>
+                      < th width = "15%" > Percentage of Participation </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                
+          < tr >
+          <td style="text-align: left;" > <strong>First Party: Mr.ADEL SAIF AMER HASAN ALJABERI  </strong></td >
+            <td>1 </td>
+              < td > 1,000 </td>
+                < td > 1% </td>
+                  </tr>
+                    
+          < tr >
+          <td style="text-align: left;" > <strong>Second Party: Mr.MOHAMED SHAMNAS CHAKEERI MOHAMED HASSAN CHAKEERI  </strong></td >
+            <td>90 </td>
+              < td > 90,000 </td>
+                < td > 90% </td>
+                  </tr>
+                    
+          < tr >
+          <td style="text-align: left;" > <strong>Third Party: Mr.AMIR AROLI VEETTIL  </strong></td >
+            <td>9 </td>
+              < td > 9,000 </td>
+                < td > 9% </td>
+                  </tr>
+                    
+<tr style="background-color: #f9f9f9;" >
+  <td style="text-align: left;" > <strong>Total < /strong></td >
+    <td><strong>100 </strong></td >
+      <td><strong>100,000 </strong></td >
+        <td><strong>100% </strong></td >
+          </tr>
+          </tbody>
+          </table>
+          </div>
+            
+
+<br>
+
+  <!--Article 9 / Management-- >
+    <div class="row" >
+      <div class="col-en" style = "font-size: 10pt; text-align: justify;" >
+        
+      The article 9 shall be amended as follows : <br>
+  The Partners have agreed < strong > Mr.MOHAMED SHAMNAS CHAKEERI MOHAMED HASSAN CHAKEERI </strong> Indian National, holder of ID Card No: 784198697519274, shall be the Managing Director of the Company in all respects, including all managerial, Financial and commercial matters.<br><br>
+      The Managing Director shall be appointed for unlimited period, unless otherwise is decided vide resolution passed by the General Assembly of the Company.< br > <br>
+  The Managing Director shall have all powers necessary for the management of the company, signing on its behalf and carrying out all acts required by its objectives.< br > <br>
+    <strong>Power of the Managing Director include the following: </strong>
+      < ul >
+      <li>All rights, authorities, and powers granted to the Managing Director under the previous Memorandum of Association shall remain in full force and effect.</li>
+        < li > Carrying out all administrative, technical and financial aspects without limitation to the powers entrusted in them.</li>
+          < li > Carrying out the works required to achieve the company's goals and objectives.</li>
+            < li > Concluding commercial contracts in the name of the Company.</li>
+              < li > He is authorized to sign submit, collect and follow up related documents to all local authorities, government, semi - government Private Sector organizations.</li>
+                </ul>
+                  
+</div>
+  < div class="col-ar" dir = "rtl" style = "font-size: 10pt; text-align: justify;" >
+    
+      تعديل المادة 9 كما يلي: <br>
+  اتفق الشركاء على أن يكون < strong > السيد / محمد شمناس شاكيري محمد حسن شاكيري كوني ما نها </strong>، الهندي الجنسية، يحمل بطاقة هوية رقم: 784198697519274 المدير التنفيذي للشركة في جميع المجالات شاملة كافة المسائل الإدارية والمالية والتجارية.<br><br>
+      يكون تعيين المدير التنفيذي لمدة غير محدودة، ما لم يقرر خلاف ذلك عن طريق قرار صادر من الجمعية العمومية للشركة.< br > <br>
+  يكون للمدير التنفيذي كافة الصلاحيات الضرورية لإدارة الشركة والتوقيع نيابة عنها والقيام بجميع الاعمال التي تقتضيها أغراضها.< br > <br>
+    <strong>تتضمن سلطات المدير ما يلي: </strong>
+      < ul dir = "rtl" >
+        <li>تظل جميع الحقوق والصلاحيات والاختصاصات الممنوحة للمدير العام بموجب عقد التأسيس السابق سارية ونافذة.</li>
+          < li > القيام بجميع الأعمال الإدارية والفنية والمالية وبدون الحد من شمولية الصلاحيات المعطاة لهم.</li>
+            < li > القيام بكافة الأعمال اللازمة لتحقيق أغراض الشركة وأهدافها.</li>
+              < li > إبرام العقود التجارية باسم الشركة.</li>
+                < li > وهو مفوض للتوقيع وتقديم واستلام ومتابعة المستندات المعنية الي جميع الدوائر الحكومية وشبه الحكومية والمؤسسات الخاصة.</li>
+                  </ul>
+                    
+</div>
+  </div>
+
+  </div>
+
+  </body>
+  </html>
+    

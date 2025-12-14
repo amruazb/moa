@@ -3,6 +3,7 @@ import { ConversionType, ValidationError } from '@/lib/validation'
 
 export interface CompanyData {
   name: string
+  nameAr?: string
   newName: string
   licenseNumber: string
   moaDate: string
@@ -10,9 +11,14 @@ export interface CompanyData {
 
 export interface PartyData {
   name: string
+  nameAr?: string
   eidNumber: string
   dob: string
   nationality: string
+  nationalityAr?: string
+  // New fields for Passport support
+  documentType?: 'eid' | 'passport'
+  expiryDate?: string
 }
 
 export interface OldMoaData {

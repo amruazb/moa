@@ -28,7 +28,7 @@ const DataField = ({ label, value, onChange, placeholder, type = 'text', icon }:
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
-      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 text-gray-900 placeholder:text-gray-400"
     />
   </div>
 )
@@ -271,10 +271,14 @@ export const DataExtraction = () => {
                   icon={<User className="w-4 h-4" />}
                 />
                 <DataField
-                  label={language === 'ar' ? 'رقم الهوية' : 'EID Number'}
+                  label={
+                    party.documentType === 'passport'
+                      ? (language === 'ar' ? 'رقم جواز السفر' : 'Passport Number')
+                      : (language === 'ar' ? 'رقم الهوية' : 'EID Number')
+                  }
                   value={party.eidNumber}
                   onChange={(value) => handlePartyChange('source', index, 'eidNumber', value)}
-                  placeholder="784-XXXX-XXXXXXX-X"
+                  placeholder={party.documentType === 'passport' ? 'A1234567' : '784-XXXX-XXXXXXX-X'}
                   icon={<Hash className="w-4 h-4" />}
                 />
                 <DataField
@@ -285,6 +289,16 @@ export const DataExtraction = () => {
                   type="date"
                   icon={<Calendar className="w-4 h-4" />}
                 />
+                {party.documentType === 'passport' && (
+                  <DataField
+                    label={language === 'ar' ? 'تاريخ الانتهاء' : 'Expiry Date'}
+                    value={party.expiryDate || ''}
+                    onChange={(value) => handlePartyChange('source', index, 'expiryDate', value)}
+                    placeholder=""
+                    type="date"
+                    icon={<Calendar className="w-4 h-4" />}
+                  />
+                )}
                 <DataField
                   label={language === 'ar' ? 'الجنسية' : 'Nationality'}
                   value={party.nationality}
@@ -365,10 +379,14 @@ export const DataExtraction = () => {
                   icon={<User className="w-4 h-4" />}
                 />
                 <DataField
-                  label={language === 'ar' ? 'رقم الهوية' : 'EID Number'}
+                  label={
+                    party.documentType === 'passport'
+                      ? (language === 'ar' ? 'رقم جواز السفر' : 'Passport Number')
+                      : (language === 'ar' ? 'رقم الهوية' : 'EID Number')
+                  }
                   value={party.eidNumber}
                   onChange={(value) => handlePartyChange('destination', index, 'eidNumber', value)}
-                  placeholder="784-XXXX-XXXXXXX-X"
+                  placeholder={party.documentType === 'passport' ? 'A1234567' : '784-XXXX-XXXXXXX-X'}
                   icon={<Hash className="w-4 h-4" />}
                 />
                 <DataField
@@ -379,6 +397,16 @@ export const DataExtraction = () => {
                   type="date"
                   icon={<Calendar className="w-4 h-4" />}
                 />
+                {party.documentType === 'passport' && (
+                  <DataField
+                    label={language === 'ar' ? 'تاريخ الانتهاء' : 'Expiry Date'}
+                    value={party.expiryDate || ''}
+                    onChange={(value) => handlePartyChange('destination', index, 'expiryDate', value)}
+                    placeholder=""
+                    type="date"
+                    icon={<Calendar className="w-4 h-4" />}
+                  />
+                )}
                 <DataField
                   label={language === 'ar' ? 'الجنسية' : 'Nationality'}
                   value={party.nationality}
