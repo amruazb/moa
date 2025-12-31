@@ -1,27 +1,15 @@
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 import './globals.css'
-import { Toaster } from 'react-hot-toast'
+import type { ReactNode } from 'react'
 
-const inter = Inter({ subsets: ['latin'] })
-
-export const metadata: Metadata = {
-  title: 'MOA Document Editor Agent',
-  description: 'LLC to SPC Conversion Document Processor',
+export const metadata = {
+  title: 'MOA Document Tool',
+  description: 'MOA OCR, preview, and export'
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        {children}
-        <Toaster position="top-right" />
-      </body>
+      <body className="min-h-screen bg-gray-50 text-gray-900">{children}</body>
     </html>
   )
 }
-

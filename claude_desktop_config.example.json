@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "moa-document-editor": {
+      "command": "node",
+      "args": ["/full/path/to/moa/mcp-server.js"],
+      "env": {
+        "NODE_ENV": "production"
+      }
+    }
+  }
+}

@@ -1,54 +1,102 @@
-export interface Company {
-    nameEn: string;
-    nameAr: string;
-    licenseNumber: string;
-    addressEn?: string;
-    addressAr?: string;
+import { DocumentData } from '@/store/documentStore'
+
+export interface PrimaryParty {
+  name: string
+  nameAr: string
+  nationality: string
+  nationalityAr: string
+  eid: string
+  passport: string
+  dob: string
+  address: string
+  addressAr: string
 }
 
-export interface Representative {
-    nameEn: string;
-    nameAr: string;
-    nationalityEn: string;
-    nationalityAr: string;
-    dob: string; // YYYY-MM-DD
-    idNumber: string;
-    addressEn?: string;
-    addressAr?: string;
-    capacityEn: string; // e.g., "by virtue of Power of Attorney"
-    capacityAr: string; // e.g., "بموجب وكالة"
+export interface CompanyInfo {
+  name: string
+  nameAr: string
+  emirate: string
+  emirateAr: string
+  address: string
+  addressAr: string
+  moaDate: string
+  activities: string
+  activitiesAr: string
 }
 
-export interface Party {
-    nameEn: string;
-    nameAr: string;
-    nationalityEn: string;
-    nationalityAr: string;
-    idNumber: string;
-    dob: string; // YYYY-MM-DD
-    addressEn?: string;
-    addressAr?: string;
-    representative?: Representative;
-    // New fields for Passport support
-    documentType?: 'eid' | 'passport';
-    expiryDate?: string;
+export interface ManagerInfo {
+  name: string
+  nameAr: string
+  id: string
 }
 
-export interface ShareAllocation {
-    partyIndex: number; // Index of the party in the parties array
-    shareCount: number;
-    shareValue: number;
-    percentage: number;
+export interface TextStyle {
+  bold?: boolean
+  italic?: boolean
+  underline?: boolean
+  fontSize?: 'small' | 'normal' | 'large'
+  letterSpacing?: 'normal' | 'wide' | 'wider'
 }
 
-export interface MOAData {
-    company: Company;
-    parties: Party[];
-    totalShares: number;
-    totalCapital: number;
-    shareAllocations: ShareAllocation[];
-    // Metadata for placeholders or specific clauses if needed
-    effectiveDate?: string;
-    locationEn?: string;
-    locationAr?: string;
+export interface MOAContext {
+  company: CompanyInfo
+  primary: PrimaryParty
+  manager: ManagerInfo
+  eidOrPassport: string
+  activitiesEn: string[]
+  activitiesAr: string[]
+  capital: number
+  shareCount: number
+  shareValue: number
+}
+
+export function extractContext(data: DocumentData): MOAContext {
+  const company = data.company || {}
+  const source = data.sourceParties || []
+  const manager = data.managerArticle || {}
+
+  const primary: PrimaryParty = {
+    name: source[0]?.name || 'N/A',
+    nameAr: source[0]?.nameAr || 'غير متوفر',
+    nationality: source[0]?.nationality || 'N/A',
+    nationalityAr: source[0]?.nationalityAr || 'غير متوفر',
+    eid: source[0]?.eidNumber || '',
+    passport: source[0]?.passportNumber || '',
+    dob: source[0]?.dob || '',
+    address: source[0]?.address || company.address || '',
+    addressAr: source[0]?.addressAr || company.addressAr || ''
+  }
+
+  const eidOrPassport = primary.eid || primary.passport || 'N/A'
+  
+  const activitiesEn = (company.activities || '')
+    .split(/[,;]/).map((s: string) => s.trim()).filter(Boolean)
+  const activitiesAr = (company.activitiesAr || '')
+    .split(/[,؛]/).map((s: string) => s.trim()).filter(Boolean)
+
+  return {
+    company: {
+      name: company.name || 'N/A',
+      nameAr: company.nameAr || 'غير متوفر',
+      emirate: company.emirate || 'Abu Dhabi',
+      emirateAr: company.emirateAr || 'أبوظبي',
+      address: company.address || '',
+      addressAr: company.addressAr || '',
+      moaDate: company.moaDate || '____',
+      activities: company.activities || '',
+      activitiesAr: company.activitiesAr || ''
+    },
+    primary,
+    manager: {
+      name: manager.managerName || primary.name,
+      nameAr: manager.managerNameAr || primary.nameAr,
+      id: manager.managerIdNumber || eidOrPassport
+    },
+    eidOrPassport,
+    activitiesEn,
+    activitiesAr,
+    capital: 10000,
+    shareCount: 100,
+    shareValue: 100
+  }
 }
