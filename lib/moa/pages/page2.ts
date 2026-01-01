@@ -33,7 +33,7 @@ export function page2(ctx: MOAContext): string {
       
       <div class="article-pair">
         <div class="block">
-          <p><strong><u>3-Directors(S):</u></strong> The director or the directors of the company appointed pursuant to this memorandum.</p>
+          <p><strong><u>3-Director(S):</u></strong> The director or the directors of the company appointed pursuant to this memorandum.</p>
         </div>
         <div class="block rtl">
           <p><strong><u>3- المدير/ المديرون:</u></strong> المدير او المديري الشركة المعينين بموجب هذا العقد.</p>

@@ -74,6 +74,7 @@ const DOCUMENT_CACHE_KEY = 'moa_document_data'
 
 // Function to save data to cache
 const saveToCache = (data: DocumentData) => {
+  if (typeof window === 'undefined') return
   try {
     localStorage.setItem(DOCUMENT_CACHE_KEY, JSON.stringify(data))
   } catch (error) {
@@ -83,6 +84,7 @@ const saveToCache = (data: DocumentData) => {
 
 // Function to load data from cache
 const loadFromCache = (): DocumentData | null => {
+  if (typeof window === 'undefined') return null
   try {
     const cached = localStorage.getItem(DOCUMENT_CACHE_KEY)
     return cached ? JSON.parse(cached) : null
@@ -93,7 +95,8 @@ const loadFromCache = (): DocumentData | null => {
 }
 
 // Function to clear cache
-const clearCache = () => {
+const clearCacheStorage = () => {
+  if (typeof window === 'undefined') return
   try {
     localStorage.removeItem(DOCUMENT_CACHE_KEY)
   } catch (error) {
@@ -102,7 +105,7 @@ const clearCache = () => {
 }
 
 export const useDocumentStore = create<DocumentStore>((set, get) => ({
-  extractedData: loadFromCache() || sampleSpcFilled,
+  extractedData: sampleSpcFilled, // Always start with default, load from cache on client
   isProcessing: false,
   setExtractedData: (data) => {
     const newState = { ...get().extractedData, ...data }
@@ -118,13 +121,13 @@ export const useDocumentStore = create<DocumentStore>((set, get) => ({
     }
   },
   clearCache: () => {
-    clearCache()
+    clearCacheStorage()
     // Reset to default after clearing cache
     set({ extractedData: sampleSpcFilled })
   },
   resetToDefault: () => {
     set({ extractedData: sampleSpcFilled })
     // Also clear the cache to match the reset
-    clearCache()
+    clearCacheStorage()
   }
 }))

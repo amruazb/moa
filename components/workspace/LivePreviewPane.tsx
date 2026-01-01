@@ -1,15 +1,17 @@
 "use client"
 
 import { useDocumentStore } from '@/store/documentStore'
+import { useFormattingStore } from '@/store/formattingStore'
 import { generateMOAHTML } from '@/lib/moaGenerator'
 import { useRef } from 'react'
 
 export function LivePreviewPane() {
   const { extractedData } = useDocumentStore()
+  const { settings } = useFormattingStore()
   const previewRef = useRef<HTMLDivElement>(null)
   
-  // Generate HTML on every update
-  const htmlContent = generateMOAHTML(extractedData)
+  // Generate HTML on every update with formatting settings
+  const htmlContent = generateMOAHTML(extractedData, settings)
 
   const generatePDF = async () => {
     if (!previewRef.current) return
@@ -18,7 +20,52 @@ export function LivePreviewPane() {
       // Dynamically import html2pdf to avoid SSR issues
       const html2pdf = (await import('html2pdf.js')).default
       
-      const element = previewRef.current
+      // Clone the element for PDF generation
+      const clone = previewRef.current.cloneNode(true) as HTMLElement
+      
+      // Create a wrapper with proper styling for PDF
+      const wrapper = document.createElement('div')
+      wrapper.style.position = 'absolute'
+      wrapper.style.left = '-9999px'
+      wrapper.style.top = '0'
+      wrapper.style.width = '190mm'
+      wrapper.appendChild(clone)
+      document.body.appendChild(wrapper)
+      
+      // Apply PDF-specific styles to fix width issues
+      const docElements = clone.querySelectorAll('.doc')
+      docElements.forEach((el) => {
+        (el as HTMLElement).style.width = '100%';
+        (el as HTMLElement).style.maxWidth = '100%';
+        (el as HTMLElement).style.boxShadow = 'none';
+      })
+      
+      const pageElements = clone.querySelectorAll('.page')
+      pageElements.forEach((el) => {
+        (el as HTMLElement).style.width = '100%';
+        (el as HTMLElement).style.maxWidth = '100%';
+        (el as HTMLElement).style.padding = '5mm';
+        (el as HTMLElement).style.minHeight = 'auto';
+      })
+      
+      // Fix bilingual blocks to prevent overflow
+      const bilingualElements = clone.querySelectorAll('.bilingual')
+      bilingualElements.forEach((el) => {
+        (el as HTMLElement).style.width = '100%';
+        (el as HTMLElement).style.maxWidth = '100%';
+        (el as HTMLElement).style.overflow = 'hidden';
+      })
+      
+      const blockElements = clone.querySelectorAll('.block')
+      blockElements.forEach((el) => {
+        (el as HTMLElement).style.overflow = 'hidden';
+        (el as HTMLElement).style.wordWrap = 'break-word';
+      })
+      
+      clone.style.maxHeight = 'none'
+      clone.style.overflow = 'visible'
+      clone.style.width = '100%'
+      
       const opt = {
         margin: [10, 10, 10, 10] as [number, number, number, number],
         filename: `MOA_${extractedData.company?.name || 'document'}.pdf`,
@@ -26,17 +73,22 @@ export function LivePreviewPane() {
         html2canvas: { 
           scale: 2,
           useCORS: true,
-          letterRendering: true
+          letterRendering: true,
+          logging: false,
+          width: 718, // 190mm at 96dpi
         },
         jsPDF: { 
           unit: 'mm', 
           format: 'a4', 
           orientation: 'portrait' as const
         },
-        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+        pagebreak: { mode: ['css', 'legacy'], avoid: ['tr', 'td', '.block'] }
       }
       
-      await html2pdf().set(opt).from(element).save()
+      await html2pdf().set(opt).from(clone).save()
+      
+      // Clean up
+      document.body.removeChild(wrapper)
     } catch (error) {
       console.error('PDF generation error:', error)
       alert('PDF generation failed. Please try again.')

@@ -1,7 +1,7 @@
 import { MOAContext } from '../types'
 
 export function page4(ctx: MOAContext): string {
-  const { company, primary, capital, capitalWordsEn, capitalWordsAr, shareCount, shareValue } = ctx
+  const { company, primary, capital, shareCount, shareValue } = ctx
 
   return `
     <div class="page">
@@ -36,7 +36,7 @@ export function page4(ctx: MOAContext): string {
       <div class="article-pair">
         <div class="block">
           <h3 class="underline center">Article (6)</h3>
-          <p>The capital of the Company is fixed at AED ${capital.toLocaleString()} (${capitalWordsEn} Dirhams) divided into (${shareCount}) shares of a nominal value of AED ${shareValue.toLocaleString()} each. Capital is fully subscribed and paid, and has been distributed among partners as follows:</p>
+          <p>The capital of the Company is fixed at AED ${capital.toLocaleString()} (Ten Thousand Dirhams) divided into (${shareCount}) shares of a nominal value of AED ${shareValue} each. Capital is fully subscribed and paid, and has been distributed among partners as follows:</p>
           <table>
             <tr><th>Partner</th><th>Shares</th><th>Value (AED)</th><th>%</th></tr>
             <tr><td>${primary.name}</td><td>${shareCount}</td><td>${capital.toLocaleString()}</td><td>100%</td></tr>
@@ -45,7 +45,7 @@ export function page4(ctx: MOAContext): string {
         </div>
         <div class="block rtl">
           <h3 class="underline center">المادة (6)</h3>
-          <p>رأس مال الشركة ${capital.toLocaleString()} درهم إماراتي (${capitalWordsAr} درهم) موزع على (${shareCount}) حصة قيمة كل حصة ${shareValue.toLocaleString()} درهم إماراتي وجميعها حصص نقدية تم سدادها بالكامل وقد توزعت على الشريك كما يلي:</p>
+          <p>رأس مال الشركة ${capital.toLocaleString()} درهم إماراتي (عشرة الآف درهم) موزع على (${shareCount}) حصة قيمة كل حصة ${shareValue} درهم إماراتي وجميعها حصص نقدية تم سدادها بالكامل وقد توزعت على الشريك كما يلي:</p>
           <table>
             <tr><th>الشريك</th><th>الحصص</th><th>القيمة (درهم)</th><th>%</th></tr>
             <tr><td>${primary.nameAr}</td><td>${shareCount}</td><td>${capital.toLocaleString()}</td><td>100%</td></tr>

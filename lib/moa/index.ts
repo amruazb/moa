@@ -1,10 +1,12 @@
 import { DocumentData } from '@/store/documentStore'
+import { FontSettings } from '@/store/formattingStore'
 import { extractContext } from './types'
-import { moaStyles } from './styles'
+import { generateMoaStyles } from './styles'
 import * as pages from './pages'
 
-export function generateMOAHTML(data: DocumentData): string {
+export function generateMOAHTML(data: DocumentData, formattingSettings?: FontSettings): string {
   const ctx = extractContext(data)
+  const styles = generateMoaStyles(formattingSettings)
 
   return `
 <!DOCTYPE html>
@@ -13,7 +15,7 @@ export function generateMOAHTML(data: DocumentData): string {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MOA - ${ctx.company.name}</title>
-  <style>${moaStyles}</style>
+  <style>${styles}</style>
 </head>
 <body>
   <div class="doc">
