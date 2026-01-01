@@ -2,12 +2,46 @@
 
 import { useDocumentStore } from '@/store/documentStore'
 import { generateMOAHTML } from '@/lib/moaGenerator'
+import { useRef } from 'react'
 
 export function LivePreviewPane() {
   const { extractedData } = useDocumentStore()
+  const previewRef = useRef<HTMLDivElement>(null)
   
   // Generate HTML on every update
   const htmlContent = generateMOAHTML(extractedData)
+
+  const generatePDF = async () => {
+    if (!previewRef.current) return
+    
+    try {
+      // Dynamically import html2pdf to avoid SSR issues
+      const html2pdf = (await import('html2pdf.js')).default
+      
+      const element = previewRef.current
+      const opt = {
+        margin: [10, 10, 10, 10] as [number, number, number, number],
+        filename: `MOA_${extractedData.company?.name || 'document'}.pdf`,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { 
+          scale: 2,
+          useCORS: true,
+          letterRendering: true
+        },
+        jsPDF: { 
+          unit: 'mm', 
+          format: 'a4', 
+          orientation: 'portrait' as const
+        },
+        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+      }
+      
+      await html2pdf().set(opt).from(element).save()
+    } catch (error) {
+      console.error('PDF generation error:', error)
+      alert('PDF generation failed. Please try again.')
+    }
+  }
 
   return (
     <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
@@ -51,29 +85,7 @@ export function LivePreviewPane() {
             HTML
           </button>
           <button 
-            onClick={async () => {
-              try {
-                const res = await fetch('/api/generate-document', {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({ data: extractedData, format: 'pdf' })
-                })
-                if (res.ok) {
-                  const blob = await res.blob()
-                  const url = URL.createObjectURL(blob)
-                  const a = document.createElement('a')
-                  a.href = url
-                  a.download = `MOA_${extractedData.company?.name || 'document'}.pdf`
-                  a.click()
-                  URL.revokeObjectURL(url)
-                } else {
-                  alert('PDF generation not yet implemented.')
-                }
-              } catch (error) {
-                console.error('PDF generation error:', error)
-                alert('PDF generation failed')
-              }
-            }}
+            onClick={generatePDF}
             className="px-3 py-1.5 text-xs font-medium bg-white text-slate-700 rounded-lg border border-slate-300 hover:border-slate-400 transition"
           >
             PDF
@@ -82,6 +94,7 @@ export function LivePreviewPane() {
       </div>
       {/* Preview Content */}
       <div 
+        ref={previewRef}
         className="overflow-y-auto max-h-[calc(100vh-180px)] p-4 bg-white"
         dangerouslySetInnerHTML={{ __html: htmlContent }}
       />
