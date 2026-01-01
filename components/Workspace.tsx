@@ -2,32 +2,37 @@
 
 import { ExtractionForm } from './workspace/ExtractionForm'
 import { LivePreviewPane } from './workspace/LivePreviewPane'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useDocumentStore } from '@/store/documentStore'
 
 export function Workspace() {
-  const [activeTab, setActiveTab] = useState<'edit' | 'preview'>('edit')
+  const initializeFromCache = useDocumentStore((state) => state.initializeFromCache)
+  
+  useEffect(() => {
+    // Initialize from cache when component mounts
+    initializeFromCache()
+  }, [initializeFromCache])
+  
   return (
-    <div className="grid lg:grid-cols-3 gap-5">
-      <div className="lg:col-span-1 space-y-4">
-        <div className="flex items-center gap-2 text-sm">
-          {(['edit', 'preview'] as const).map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`px-4 py-2 rounded-full border text-xs font-semibold transition shadow-sm ${
-                activeTab === tab
-                  ? 'border-slate-900 bg-slate-900 text-white'
-                  : 'border-gray-200 bg-white text-gray-600 hover:border-slate-300 hover:text-slate-900'
-              }`}
-            >
-              {tab === 'edit' ? 'Edit' : 'Preview'}
-            </button>
-          ))}
+    <div className="flex gap-6 items-start">
+      {/* Left side - Edit Form */}
+      <div className="w-[480px] flex-shrink-0">
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+          <div className="flex items-center gap-2 mb-4">
+            <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+            </svg>
+            <h2 className="text-sm font-semibold text-gray-900">Document Editor</h2>
+          </div>
+          <ExtractionForm />
         </div>
-        {activeTab === 'edit' && <ExtractionForm />}
       </div>
-      <div className="lg:col-span-2">
-        <LivePreviewPane />
+      
+      {/* Right side - Live Preview */}
+      <div className="flex-1 min-w-0">
+        <div className="sticky top-4">
+          <LivePreviewPane />
+        </div>
       </div>
     </div>
   )

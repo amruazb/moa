@@ -1,4 +1,5 @@
 import { DocumentData } from '@/store/documentStore'
+import { numberToWordsEn, numberToWordsAr, calculateShareValue } from '@/lib/utils/numberToWords'
 
 export interface PrimaryParty {
   name: string
@@ -46,6 +47,8 @@ export interface MOAContext {
   activitiesEn: string[]
   activitiesAr: string[]
   capital: number
+  capitalWordsEn: string
+  capitalWordsAr: string
   shareCount: number
   shareValue: number
 }
@@ -54,6 +57,7 @@ export function extractContext(data: DocumentData): MOAContext {
   const company = data.company || {}
   const source = data.sourceParties || []
   const manager = data.managerArticle || {}
+  const capitalData = data.capital || {}
 
   const primary: PrimaryParty = {
     name: source[0]?.name || 'N/A',
@@ -73,6 +77,11 @@ export function extractContext(data: DocumentData): MOAContext {
     .split(/[,;]/).map((s: string) => s.trim()).filter(Boolean)
   const activitiesAr = (company.activitiesAr || '')
     .split(/[,؛]/).map((s: string) => s.trim()).filter(Boolean)
+
+  // Get capital values from store or use defaults
+  const capital = capitalData.totalCapital || 10000
+  const shareCount = capitalData.shareCount || 100
+  const shareValue = capitalData.shareValue || calculateShareValue(capital, shareCount)
 
   return {
     company: {
@@ -95,8 +104,10 @@ export function extractContext(data: DocumentData): MOAContext {
     eidOrPassport,
     activitiesEn,
     activitiesAr,
-    capital: 10000,
-    shareCount: 100,
-    shareValue: 100
+    capital,
+    capitalWordsEn: numberToWordsEn(capital),
+    capitalWordsAr: numberToWordsAr(capital),
+    shareCount,
+    shareValue
   }
 }

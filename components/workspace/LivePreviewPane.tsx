@@ -10,27 +10,29 @@ export function LivePreviewPane() {
   const htmlContent = generateMOAHTML(extractedData)
 
   return (
-    <div className="bg-white border border-gray-100 rounded-2xl p-4 shadow-[0_20px_45px_rgba(15,23,42,0.08)] overflow-hidden">
-      <div className="flex items-center justify-between mb-3 pb-2 border-b border-gray-200">
-        <div>
-          <h3 className="text-sm font-semibold text-slate-900">Live Preview</h3>
-          <p className="text-[11px] text-slate-500">Bilingual layout auto-updates as you edit.</p>
+    <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+      {/* Header */}
+      <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 bg-gray-50">
+        <div className="flex items-center gap-2">
+          <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+          <div>
+            <h3 className="text-sm font-semibold text-slate-900">Live Preview</h3>
+            <p className="text-[11px] text-slate-500">Auto-updates as you edit</p>
+          </div>
         </div>
         <div className="flex gap-2">
           <button 
             onClick={() => {
-              // Open in new window for printing
               const printWindow = window.open('', '_blank')
               if (printWindow) {
                 printWindow.document.write(htmlContent)
                 printWindow.document.close()
-                // Wait for styles to load then print
-                setTimeout(() => {
-                  printWindow.print()
-                }, 500)
+                setTimeout(() => printWindow.print(), 500)
               }
             }}
-            className="px-3 py-2 text-xs font-semibold bg-blue-600 text-white rounded-lg hover:bg-blue-700 shadow-sm"
+            className="px-3 py-1.5 text-xs font-medium bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
           >
             Print
           </button>
@@ -44,9 +46,9 @@ export function LivePreviewPane() {
               a.click()
               URL.revokeObjectURL(url)
             }}
-            className="px-3 py-2 text-xs font-semibold bg-slate-900 text-white rounded-lg hover:bg-slate-800 shadow-sm"
+            className="px-3 py-1.5 text-xs font-medium bg-slate-800 text-white rounded-lg hover:bg-slate-900 transition"
           >
-            Download HTML
+            HTML
           </button>
           <button 
             onClick={async () => {
@@ -65,21 +67,22 @@ export function LivePreviewPane() {
                   a.click()
                   URL.revokeObjectURL(url)
                 } else {
-                  alert('PDF generation not yet implemented. Install puppeteer-core first.')
+                  alert('PDF generation not yet implemented.')
                 }
               } catch (error) {
                 console.error('PDF generation error:', error)
                 alert('PDF generation failed')
               }
             }}
-            className="px-3 py-2 text-xs font-semibold bg-white text-slate-800 rounded-lg border border-slate-200 hover:border-slate-400"
+            className="px-3 py-1.5 text-xs font-medium bg-white text-slate-700 rounded-lg border border-slate-300 hover:border-slate-400 transition"
           >
-            Download PDF
+            PDF
           </button>
         </div>
       </div>
+      {/* Preview Content */}
       <div 
-        className="overflow-y-auto max-h-[75vh] border rounded-xl p-4 bg-slate-50"
+        className="overflow-y-auto max-h-[calc(100vh-180px)] p-4 bg-white"
         dangerouslySetInnerHTML={{ __html: htmlContent }}
       />
     </div>

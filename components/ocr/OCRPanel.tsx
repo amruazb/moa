@@ -19,22 +19,58 @@ export function OCRPanel({ targetPartyType = 'source', targetPartyIndex = 0 }: O
       ? [...(extractedData.sourceParties || [])]
       : [...(extractedData.destinationParties || [])]
     
+    // Try to match EID to existing party by name (from Trade License)
+    // Normalize names for comparison
+    const normalizeName = (name: string) => 
+      (name || '').toLowerCase().replace(/[^a-z\u0600-\u06FF]/g, '')
+    
+    const eidNameEn = normalizeName(data.nameEn)
+    const eidNameAr = normalizeName(data.nameAr)
+    
+    // Find matching party by name
+    let matchedIndex = -1
+    for (let i = 0; i < parties.length; i++) {
+      const partyNameEn = normalizeName(parties[i].name || '')
+      const partyNameAr = normalizeName(parties[i].nameAr || '')
+      
+      // Match if English or Arabic names are similar
+      if ((eidNameEn && partyNameEn && (
+            partyNameEn.includes(eidNameEn) || 
+            eidNameEn.includes(partyNameEn) ||
+            partyNameEn === eidNameEn
+          )) ||
+          (eidNameAr && partyNameAr && (
+            partyNameAr.includes(eidNameAr) || 
+            eidNameAr.includes(partyNameAr) ||
+            partyNameAr === eidNameAr
+          ))) {
+        matchedIndex = i
+        break
+      }
+    }
+    
+    // If no match found, use the target index
+    const updateIndex = matchedIndex >= 0 ? matchedIndex : targetPartyIndex
+    
     // Ensure the party exists
-    while (parties.length <= targetPartyIndex) {
+    while (parties.length <= updateIndex) {
       parties.push({})
     }
     
-    // Update party data from Emirates ID
-    parties[targetPartyIndex] = {
-      ...parties[targetPartyIndex],
-      name: data.nameEn || parties[targetPartyIndex].name,
-      nameAr: data.nameAr || parties[targetPartyIndex].nameAr,
-      eidNumber: data.idNumber || parties[targetPartyIndex].eidNumber,
-      nationality: data.nationality || parties[targetPartyIndex].nationality,
-      nationalityAr: data.nationalityAr || parties[targetPartyIndex].nationalityAr,
-      dob: data.dateOfBirth || parties[targetPartyIndex].dob,
+    // Update party data from Emirates ID - ONLY EID number and DOB
+    // Names come from Trade License, not from EID scan
+    parties[updateIndex] = {
+      ...parties[updateIndex],
+      // DO NOT update names - keep existing names from Trade License
+      // name: data.nameEn || parties[updateIndex].name,
+      // nameAr: data.nameAr || parties[updateIndex].nameAr,
+      eidNumber: data.idNumber || parties[updateIndex].eidNumber,
+      dob: data.dateOfBirth || parties[updateIndex].dob,
       documentType: 'eid',
-      expiryDate: data.expiryDate || parties[targetPartyIndex].expiryDate,
+      // Keep nationality from Trade License if already set, otherwise use EID
+      nationality: parties[updateIndex].nationality || data.nationality,
+      nationalityAr: parties[updateIndex].nationalityAr || data.nationalityAr,
+      expiryDate: data.expiryDate || parties[updateIndex].expiryDate,
     }
     
     if (targetPartyType === 'source') {
@@ -49,21 +85,48 @@ export function OCRPanel({ targetPartyType = 'source', targetPartyIndex = 0 }: O
       ? [...(extractedData.sourceParties || [])]
       : [...(extractedData.destinationParties || [])]
     
+    // Try to match Passport to existing party by name (from Trade License)
+    const normalizeName = (name: string) => 
+      (name || '').toLowerCase().replace(/[^a-z\u0600-\u06FF]/g, '')
+    
+    const passportNameEn = normalizeName(data.nameEn)
+    
+    // Find matching party by name
+    let matchedIndex = -1
+    for (let i = 0; i < parties.length; i++) {
+      const partyNameEn = normalizeName(parties[i].name || '')
+      
+      if (passportNameEn && partyNameEn && (
+            partyNameEn.includes(passportNameEn) || 
+            passportNameEn.includes(partyNameEn) ||
+            partyNameEn === passportNameEn
+          )) {
+        matchedIndex = i
+        break
+      }
+    }
+    
+    // If no match found, use the target index
+    const updateIndex = matchedIndex >= 0 ? matchedIndex : targetPartyIndex
+    
     // Ensure the party exists
-    while (parties.length <= targetPartyIndex) {
+    while (parties.length <= updateIndex) {
       parties.push({})
     }
     
-    // Update party data from Passport
-    parties[targetPartyIndex] = {
-      ...parties[targetPartyIndex],
-      name: data.nameEn || parties[targetPartyIndex].name,
-      passportNumber: data.passportNumber || parties[targetPartyIndex].passportNumber,
-      nationality: data.nationality || parties[targetPartyIndex].nationality,
-      nationalityAr: data.nationalityAr || parties[targetPartyIndex].nationalityAr,
-      dob: data.dateOfBirth || parties[targetPartyIndex].dob,
+    // Update party data from Passport - ONLY passport number and DOB
+    // Names come from Trade License, not from Passport scan
+    parties[updateIndex] = {
+      ...parties[updateIndex],
+      // DO NOT update names - keep existing names from Trade License
+      // name: data.nameEn || parties[updateIndex].name,
+      passportNumber: data.passportNumber || parties[updateIndex].passportNumber,
+      dob: data.dateOfBirth || parties[updateIndex].dob,
       documentType: 'passport',
-      expiryDate: data.expiryDate || parties[targetPartyIndex].expiryDate,
+      // Keep nationality from Trade License if already set
+      nationality: parties[updateIndex].nationality || data.nationality,
+      nationalityAr: parties[updateIndex].nationalityAr || data.nationalityAr,
+      expiryDate: data.expiryDate || parties[updateIndex].expiryDate,
     }
     
     if (targetPartyType === 'source') {
@@ -77,10 +140,13 @@ export function OCRPanel({ targetPartyType = 'source', targetPartyIndex = 0 }: O
     // Update company data
     const company = extractedData.company || {}
     
+    // Clean up trade name - remove "Trade Name" prefix if present
+    const cleanName = (name: string) => name?.replace(/^Trade\s*Name[:\s]*/i, '').trim() || ''
+    
     setExtractedData({
       company: {
         ...company,
-        name: data.tradeName || company.name,
+        name: cleanName(data.tradeName) || company.name,
         nameAr: data.tradeNameAr || company.nameAr,
         registrationDate: data.issueDate || company.registrationDate,
         // Extract activities as semicolon-separated string

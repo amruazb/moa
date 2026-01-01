@@ -61,6 +61,11 @@ export const blankSpcSample: DocumentData = {
     managerNationalityAr: '',
     managerIdNumber: '',
     managerDocType: 'eid'
+  },
+  capital: {
+    totalCapital: 10000,
+    shareCount: 100,
+    shareValue: 100
   }
 }
 
@@ -109,5 +114,10 @@ export const sampleSpcFilled: DocumentData = {
     managerNationalityAr: 'صينية',
     managerIdNumber: '784198776344974',
     managerDocType: 'eid'
+  },
+  capital: {
+    totalCapital: 10000,
+    shareCount: 100,
+    shareValue: 100
   }
 }

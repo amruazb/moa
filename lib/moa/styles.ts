@@ -158,4 +158,51 @@ export const moaStyles = `
   
   /* Avoid page breaks inside elements */
   .article-pair, .card, .block, table { page-break-inside: avoid; }
+  
+  /* Bilingual Two-Column Layout (matching sample MOA format) */
+  .bilingual-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+  .bilingual-header .header-left,
+  .bilingual-header .header-right {
+    flex: 1;
+    text-align: center;
+  }
+  .bilingual-header h1 { font-size: 12pt; font-weight: 700; margin-bottom: 4px; }
+  .bilingual-header h2 { font-size: 10pt; font-weight: 600; margin-bottom: 3px; }
+  .bilingual-header h3 { font-size: 9pt; font-weight: 600; }
+  
+  .law-reference {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    font-size: 8pt;
+  }
+  .law-reference .law-left,
+  .law-reference .law-right {
+    flex: 1;
+    text-align: center;
+    font-style: italic;
+  }
+  
+  .bilingual-content {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 12px;
+    align-items: flex-start;
+  }
+  .bilingual-content .content-left,
+  .bilingual-content .content-right {
+    flex: 1;
+    font-size: 9pt;
+    line-height: 1.6;
+  }
+  .bilingual-content .content-left { text-align: left; }
+  .bilingual-content .content-right { text-align: right; }
+  .bilingual-content h3 { font-size: 9.5pt; font-weight: 700; margin-bottom: 6px; }
+  .bilingual-content p { margin-bottom: 6px; }
 `

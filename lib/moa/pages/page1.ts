@@ -7,68 +7,48 @@ export function page1(ctx: MOAContext): string {
     <div class="page">
       <div class="title">
         <h1>Memorandum of Association</h1>
-        <h1 class="rtl">عقد تأسيس شركة</h1>
-        <h2>of a Limited Liability Company (SPC)</h2>
-        <h2 class="rtl">شركة ذات مسؤولية محدودة (ش.ذ.م.م - ش.ت.ق)</h2>
-        <div class="subtitle">${company.name}</div>
-        <div class="subtitle rtl">${company.nameAr}</div>
+        <h1 class="rtl">عقد تأسيس</h1>
+        <h2>of a Limited Liability Company</h2>
+        <h2 class="rtl">شركة ذات مسؤولية محدودة</h2>
+        <div class="subtitle">(${company.name})</div>
+        <div class="subtitle rtl">(${company.nameAr})</div>
       </div>
       
-      <div class="section-bar"><span>Preamble</span><span class="rtl">المقدمة</span></div>
-      <div class="grid">
-        <div class="card">
-          <div class="heading">Agreement</div>
-          <p style="font-size:9.5pt; line-height:1.55;">This agreement has been concluded on this day ${company.moaDate} in accordance with the provisions of Federal Companies Law.</p>
-        </div>
-        <div class="card rtl">
-          <div class="heading">الاتفاق</div>
-          <p style="font-size:9.5pt; line-height:1.7;">أبرم هذا العقد بتاريخ ${company.moaDate} وفقاً لأحكام قانون الشركات الاتحادي.</p>
-        </div>
+      <div class="article-pair" style="font-size:7.5pt; font-style:italic; margin-bottom:10px;">
+        <div class="block">(IN ACCORDANCE WITH COMMERCIAL COMPANY'S LAW NO (32) 2021 AND ITS AMENDMENTS AND MINISTERIAL DECREES THEREOF)</div>
+        <div class="block rtl">(وفقا لاحكام القانون الاتحادى رقم (32) لسنة 2021 م وتعديلاته ولوائحه الوزارية)</div>
       </div>
       
-      <div class="section-bar"><span>First Party</span><span class="rtl">الطرف الأول</span></div>
-      <div class="grid">
-        <div class="card">
-          <div class="row"><span class="label">Name</span><span class="value">${primary.name}</span></div>
-          <div class="row"><span class="label">Nationality</span><span class="value">${primary.nationality}</span></div>
-          <div class="row"><span class="label">ID / Passport</span><span class="value">${eidOrPassport}</span></div>
-          <div class="row"><span class="label">Date of Birth</span><span class="value">${primary.dob || 'N/A'}</span></div>
-          <div class="row"><span class="label">Address</span><span class="value">${primary.address || 'N/A'}</span></div>
-        </div>
-        <div class="card rtl">
-          <div class="row rtl"><span class="label">الاسم</span><span class="value">${primary.nameAr}</span></div>
-          <div class="row rtl"><span class="label">الجنسية</span><span class="value">${primary.nationalityAr}</span></div>
-          <div class="row rtl"><span class="label">الهوية / الجواز</span><span class="value">${eidOrPassport}</span></div>
-          <div class="row rtl"><span class="label">تاريخ الميلاد</span><span class="value">${primary.dob || 'غير متوفر'}</span></div>
-          <div class="row rtl"><span class="label">العنوان</span><span class="value">${primary.addressAr || 'غير متوفر'}</span></div>
-        </div>
-      </div>
-      
-      <div class="section-bar"><span>Definitions</span><span class="rtl">تعريفات</span></div>
-      <div class="bilingual">
+      <div class="article-pair">
         <div class="block">
-          <ol class="list">
-            <li><strong>Company:</strong> The company established under this memorandum.</li>
-            <li><strong>Commercial Companies Law:</strong> Federal Law No (32) of 2021.</li>
-            <li><strong>Directors:</strong> The director(s) appointed pursuant to this memorandum.</li>
-            <li><strong>Ministry:</strong> The Ministry of Economy.</li>
-            <li><strong>Competent Authority:</strong> The local authority for corporate affairs.</li>
-            <li><strong>Partners:</strong> Parties to this memorandum who become shareholders.</li>
-            <li><strong>Commercial Register:</strong> Record handled by the Authority.</li>
-          </ol>
+          <p>This agreement has been concluded on this day ${company.moaDate} in accordance with the provisions of Federal Companies Law No.32/2021</p>
         </div>
         <div class="block rtl">
-          <ol class="list" style="direction:rtl;">
-            <li><strong>الشركة:</strong> الشركة التي تأسست بموجب هذا العقد.</li>
-            <li><strong>قانون الشركات:</strong> القانون الاتحادي رقم (32) لسنة 2021.</li>
-            <li><strong>المديرون:</strong> المدير أو المديرون المعينون بموجب هذا العقد.</li>
-            <li><strong>الوزارة:</strong> وزارة الاقتصاد.</li>
-            <li><strong>السلطة المختصة:</strong> الجهة المحلية للشؤون المؤسسية.</li>
-            <li><strong>الشركاء:</strong> أطراف هذا العقد ممن يصبحون شركاء.</li>
-            <li><strong>السجل التجاري:</strong> سجل تديره السلطة لتقييد التجار.</li>
-          </ol>
+          <p>أبرم هذا العقد في هذا اليوم ${company.moaDate} وفقا لأحكام قانون الشركات الإتحادي رقم (32) لسنة 2021</p>
         </div>
       </div>
+      
+      <div class="article-pair">
+        <div class="block">
+          <h3 class="bold">First Party:</h3>
+          <p>Ms. ${primary.name} ${primary.nationality} national, holder of ID: Card No: ${eidOrPassport} and Born On ${primary.dob} having address at ${primary.address || company.emirate + ', U.A.E'}</p>
+        </div>
+        <div class="block rtl">
+          <h3 class="bold">الطرف الاول:</h3>
+          <p>السيدة/ ${primary.nameAr}، ${primary.nationalityAr} الجنسية بحمل بطاقة هوية رقم: ${eidOrPassport} والمولود في ${primary.dob} وعنوانه ${primary.addressAr || company.emirateAr + '، ا.ع.م.'}</p>
+        </div>
+      </div>
+      
+      <div class="section-bar"><span>PREAMBLE</span><span class="rtl">المقدمة</span></div>
+      <div class="article-pair">
+        <div class="block">
+          <p>The first party, in her lawful sound capacity to contract, have agreed to incorporate a Limited Liability Company .Sole Propretorship Company in the Emirate of ${company.emirate} in accordance with the provisions of the Federal Law No. 32 of 2021, as amended concerning commercial companies (the Commercial Law) and provisions of this contract and as per the following conditions:-</p>
+        </div>
+        <div class="block rtl">
+          <p>اتفق الطرف الأول وهي بكامل أهلية القانونية للتعاقد على تأسيس شركة ذات مسؤولية محدودة ش. ش. و، في إمارة ${company.emirateAr} وفقا لأحكام القانون الاتحادي رقم (32) لسنة 2021 وتعديلاته بشأن الشركات التجارية (القانون التجاري) وأحكام هذا العقد ووفقا للشروط التالية:</p>
+        </div>
+      </div>
+      
       <div class="page-num">1</div>
     </div>`
 }

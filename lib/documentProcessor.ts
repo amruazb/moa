@@ -110,7 +110,7 @@ function parsePartyDocument(text: string): ParsedResult {
   
   // Extract EID (784-YYYY-NNNNNNN-C format)
   const eidMatch = clean.match(/\b(784-\d{4}-\d{7}-\d)\b/)
-  const eidNumber = eidMatch ? eidMatch[1] : ''
+  const eidNumber = eidMatch ? eidMatch[1].replace(/[\-]/g, '') : '' // Remove hyphens
   
   // Extract passport number if no EID
   const passportMatch = !eidNumber ? clean.match(/\b([A-Z]\d{7,9})\b/) : null
