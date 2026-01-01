@@ -233,7 +233,7 @@ export function extractEmiratesID(text: string): EmiratesIDData | null {
     }
   }
   
-  // Extract Nationality
+  // Extract Nationalityy
   let nationality = '';
   const natMatch = fullText.match(/Nationality[:\s]*([A-Z]+)/i);
   if (natMatch) {
