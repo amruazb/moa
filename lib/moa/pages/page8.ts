@@ -1,36 +1,48 @@
 import { MOAContext } from '../types'
 
 export function page8(ctx: MOAContext): string {
+  const { primary } = ctx
+
   return `
     <div class="page">
       <div class="article-pair">
         <div class="block">
-          <h3 class="underline center">Article (16)</h3>
-          <p>The General Assembly shall meet at least once a year within three months from the end of the financial year. Extraordinary meetings may be called by the manager or upon request of partners holding at least 25% of the capital. The invitation to the meeting shall be sent at least fifteen days before the meeting date.</p>
+          <h3 class="underline center">Article (28)</h3>
+          <p>This Company shall have a copy of the Memorandum of Association and The Article of Association of the Limited Liability Company, a register of the names of the shareholders and a register of the managers. The company shall have all books defined in the Commercial Code and registration in the Commercial Register, and the Commercial Companies Law.</p>
         </div>
         <div class="block rtl">
-          <h3 class="underline center">المادة (16)</h3>
-          <p>تجتمع الجمعية العمومية مرة واحدة على الأقل في السنة خلال ثلاثة أشهر من نهاية السنة المالية. ويجوز دعوة اجتماعات استثنائية من قبل المدير أو بناء على طلب شركاء يملكون ما لا يقل عن 25% من رأس المال. وترسل الدعوة إلى الاجتماع قبل خمسة عشر يوماً على الأقل من موعد الاجتماع.</p>
+          <h3 class="underline center">المادة (28)</h3>
+          <p>يجب أن يحتفظ لدى الشركة بنسخة من عقد تأسيس الشركة ذات المسؤولية المحدودة ونظامها الأساسي, وسجل بأسماء الشركاء وسجل بأسماء المديرين. ويكون لدى الشركة جميع الدفاتر المقررة في قانون المعاملات التجارية والقيد في السجل التجاري, وفي قانون الشركات التجارية.</p>
         </div>
       </div>
       <div class="article-pair">
         <div class="block">
-          <h3 class="underline center">Article (17)</h3>
-          <p>The meeting of the General Assembly shall not be valid unless attended by partners representing at least 75% of the capital. If this quorum is not met, a second meeting shall be convened within fifteen days, which shall be valid regardless of the number of partners present.</p>
+          <h3 class="underline center">Article (29)</h3>
+          <p>This contract shall be registered in the commercial register and published in accordance with the law. Ms. ${primary.name} is solely authorized to carry out all necessary procedures in this regard. All costs, expenses, and other amounts incurred for establishing the company shall be deducted from the general expense account.</p>
         </div>
         <div class="block rtl">
-          <h3 class="underline center">المادة (17)</h3>
-          <p>لا يكون اجتماع الجمعية العمومية صحيحاً إلا بحضور شركاء يمثلون 75% على الأقل من رأس المال. وإذا لم يكتمل هذا النصاب، يُدعى إلى اجتماع ثانٍ خلال خمسة عشر يوماً، يكون صحيحاً بصرف النظر عن عدد الشركاء الحاضرين.</p>
+          <h3 class="underline center">المادة (29)</h3>
+          <p>يقيد هذا العقد في السجل التجاري وينشر طبقاً للقانون، وقد فوض السيدة/ ${primary.nameAr} في اتخاذ كافة الإجراءات اللازمة في هذا الشأن. وتخصم جميع المصروفات والنفقات والتكاليف التي تم إنفاقها في سبيل تأسيس الشركة من حساب المصروفات العامة.</p>
         </div>
       </div>
       <div class="article-pair">
         <div class="block">
-          <h3 class="underline center">Article (18)</h3>
-          <p>Resolutions of the General Assembly shall be passed by a majority of the capital represented at the meeting, except for resolutions relating to amendment of the Memorandum, increase or decrease of capital, merger, or dissolution, which shall require the approval of partners representing at least 75% of the capital.</p>
+          <h3 class="underline center">Article (30)</h3>
+          <p>This agreement is made in three copies, with Ms. ${primary.name} retaining one copy, and the remaining copies to be submitted to the relevant authority for necessary action.</p>
         </div>
         <div class="block rtl">
-          <h3 class="underline center">المادة (18)</h3>
-          <p>تصدر قرارات الجمعية العمومية بأغلبية رأس المال الممثل في الاجتماع، باستثناء القرارات المتعلقة بتعديل عقد التأسيس أو زيادة أو تخفيض رأس المال أو الاندماج أو الحل، التي تستلزم موافقة شركاء يمثلون ما لا يقل عن 75% من رأس المال.</p>
+          <h3 class="underline center">المادة (30)</h3>
+          <p>حرر هذا العقد من ثلاث نسخ، يحتفظ السيدة/ ${primary.nameAr} بنسخة، وتودع النسختان المتبقيتان لدى جهات الاختصاص للعمل بهما.</p>
+        </div>
+      </div>
+      <div class="article-pair" style="margin-top: 40px;">
+        <div class="block" style="min-height: 120px;">
+          <p><strong>Ms. ${primary.name}</strong></p>
+          <p style="margin-top: 50px;"><strong>Signature:</strong> ________________________________</p>
+        </div>
+        <div class="block rtl" style="min-height: 120px;">
+          <p><strong>السيدة/ ${primary.nameAr || primary.name}</strong></p>
+          <p style="margin-top: 50px;"><strong>التوقيع:</strong> ________________________________</p>
         </div>
       </div>
       <div class="page-num">8</div>

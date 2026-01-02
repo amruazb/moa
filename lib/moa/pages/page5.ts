@@ -5,34 +5,68 @@ export function page5(ctx: MOAContext): string {
     <div class="page">
       <div class="article-pair">
         <div class="block">
-          <p>b) The company shall be managed and its signature shall be by the Managing Director appointed herein.</p>
+          <h3 class="underline center">CHAPTER IV</h3>
+          <h3 class="center">General Assembly</h3>
         </div>
         <div class="block rtl">
-          <p>ب) يتولى إدارة الشركة والتوقيع عنها المديرة المفوض المعين في هذا العقد.</p>
+          <h3 class="underline center">الباب الرابع</h3>
+          <h3 class="center">الجمعية العمومية</h3>
         </div>
       </div>
       <div class="article-pair">
         <div class="block">
-          <h3 class="underline center">CHAPTER III</h3>
-          <h3 class="center">Management of the Company</h3>
+          <h3 class="underline center">Article (15)</h3>
+          <p>The General Assembly shall be comprised of all the partners. Each partner shall have a number of votes proportional to their share in the capital. The General Assembly shall have the authority to:</p>
+          <ul class="list">
+            <li>Approve the annual accounts and balance sheet</li>
+            <li>Decide on the distribution of profits</li>
+            <li>Appoint and dismiss the manager</li>
+            <li>Amend the Memorandum of Association</li>
+            <li>Increase or decrease the capital</li>
+            <li>Approve the merger or dissolution of the Company</li>
+          </ul>
         </div>
         <div class="block rtl">
-          <h3 class="underline center">الباب الثالث</h3>
-          <h3 class="center">إدارة الشركة</h3>
+          <h3 class="underline center">المادة (15)</h3>
+          <p>تتألف الجمعية العمومية من جميع الشركاء. ولكل شريك عدد من الأصوات يتناسب مع حصته في رأس المال. وتختص الجمعية العمومية بما يلي:</p>
+          <ul class="list">
+            <li>المصادقة على الحسابات السنوية والميزانية</li>
+            <li>البت في توزيع الأرباح</li>
+            <li>تعيين وعزل المدير</li>
+            <li>تعديل عقد التأسيس</li>
+            <li>زيادة أو تخفيض رأس المال</li>
+            <li>الموافقة على اندماج أو حل الشركة</li>
+          </ul>
         </div>
       </div>
       <div class="article-pair">
         <div class="block">
-          <h3 class="underline center">Article (10)</h3>
-          <p>a) The sole owner may solely appoint one or more managers from among the partners or from third parties and fix their remuneration. The manager shall have full power and authority to manage the Company and act on its behalf in all matters related to the Company's objectives and activities, except matters which are legally required to be resolved by the General Assembly.</p>
-          <p>b) The manager may delegate some of their powers to another person and may appoint agents and attorneys for specific matters.</p>
-          <p>c) The manager shall exercise their powers in accordance with the provisions of this Memorandum and within the limits of the Company's objectives. They shall not undertake any activity that may cause harm to the Company or conflict with its interests.</p>
+          <h3 class="underline center">Article (16)</h3>
+          <p>The General Assembly shall hold at least one annual meeting within four months from the end of each financial year. The manager may call for an extraordinary meeting of the General Assembly whenever necessary.</p>
         </div>
         <div class="block rtl">
-          <h3 class="underline center">المادة (10)</h3>
-          <p>أ) يجوز للمالك الوحيد تعيين مدير أو أكثر من بين الشركاء أو من الغير ويحدد أجره. يكون للمدير كافة الصلاحيات والسلطات لإدارة الشركة والتصرف نيابة عنها في جميع الأمور المتعلقة بأغراض الشركة وأنشطتها، باستثناء الأمور التي يتطلب القانون أن يتم البت فيها بقرار من الجمعية العمومية.</p>
-          <p>ب) يجوز للمدير تفويض بعض صلاحياته لشخص آخر كما يجوز له تعيين وكلاء ومحامين لأمور محددة.</p>
-          <p>ج) يمارس المدير صلاحياته وفقاً لأحكام هذا العقد وفي حدود أغراض الشركة. ولا يجوز له القيام بأي نشاط قد يلحق الضرر بالشركة أو يتعارض مع مصالحها.</p>
+          <h3 class="underline center">المادة (16)</h3>
+          <p>تعقد الجمعية العمومية اجتماعاً سنوياً واحداً على الأقل خلال أربعة أشهر من نهاية كل سنة مالية. ويجوز للمدير دعوة الجمعية العمومية لاجتماع استثنائي كلما دعت الحاجة.</p>
+        </div>
+      </div>
+      <div class="article-pair">
+        <div class="block">
+          <h3 class="underline center">Article (17)</h3>
+          <p>The notice of the General Assembly meeting shall be given at least fifteen days before the date of the meeting. The notice shall specify the date, time, place, and agenda of the meeting.</p>
+        </div>
+        <div class="block rtl">
+          <h3 class="underline center">المادة (17)</h3>
+          <p>يتم الإخطار باجتماع الجمعية العمومية قبل خمسة عشر يوماً على الأقل من تاريخ الاجتماع. ويجب أن يتضمن الإخطار تاريخ ووقت ومكان وجدول أعمال الاجتماع.</p>
+        </div>
+      </div>
+      <div class="article-pair">
+        <div class="block">
+          <h3 class="underline center">Article (18)</h3>
+          <p>The General Assembly meeting shall not be valid unless attended by partners representing at least 75% of the capital. If the required quorum is not present, a second meeting shall be held within thirty days, which shall be valid regardless of the number of partners present.</p>
+        </div>
+        <div class="block rtl">
+          <h3 class="underline center">المادة (18)</h3>
+          <p>لا يكون اجتماع الجمعية العمومية صحيحاً إلا إذا حضره شركاء يمثلون 75% على الأقل من رأس المال. وإذا لم يتوفر النصاب المطلوب يعقد اجتماع ثانٍ خلال ثلاثين يوماً يكون صحيحاً بغض النظر عن عدد الشركاء الحاضرين.</p>
         </div>
       </div>
       <div class="page-num">5</div>

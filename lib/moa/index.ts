@@ -28,10 +28,6 @@ export function generateMOAHTML(data: DocumentData, formattingSettings?: FontSet
     ${pages.page7(ctx)}
     ${pages.page8(ctx)}
     ${pages.page9(ctx)}
-    ${pages.page10(ctx)}
-    ${pages.page11(ctx)}
-    ${pages.page12(ctx)}
-    ${pages.page13(ctx)}
   </div>
 </body>
 </html>

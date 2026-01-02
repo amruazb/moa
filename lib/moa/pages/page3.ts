@@ -1,69 +1,81 @@
 import { MOAContext } from '../types'
-
-const defaultActivitiesEn = ['Retail Sale of Coffee', 'Retail Sale of Tea', 'Retail of Sale Juice', 'Importing']
-const defaultActivitiesAr = ['بيع البن - بالتجزئة', 'بيع الشاي – بالتجزئة', 'بيع العصائر – بالتجزئة', 'استيراد']
+import { numberToWordsEn, numberToWordsAr } from '@/lib/utils/numberToWords'
 
 export function page3(ctx: MOAContext): string {
-  const { company, activitiesEn, activitiesAr } = ctx
-  const actEn = activitiesEn.length ? activitiesEn : defaultActivitiesEn
-  const actAr = activitiesAr.length ? activitiesAr : defaultActivitiesAr
+  const { company, primary, capital, shareCount, shareValue } = ctx
+  const capitalWordsEn = numberToWordsEn(capital)
+  const capitalWordsAr = numberToWordsAr(capital)
 
   return `
     <div class="page">
       <div class="article-pair">
         <div class="block">
-          <h3 class="underline">8- PREFACE:</h3>
-          <p>The preamble and definitions mentioned above shall constitute an integral part of memorandum and shall be read and interpreted therewith.</p>
+          <p>Such period may be increased or decreased by resolution of assembly of the partners.</p>
         </div>
         <div class="block rtl">
-          <h3 class="underline">8- التمهيد:</h3>
-          <p>تعتبر المقدمة والتعريفات المذكورة اعلاه جزء لايتجزأ من هذا العقد ويقرأ ويفسر معه.</p>
+          <p>بقرار يصدر من الجمعية العمومية للشركاء.</p>
         </div>
       </div>
       <div class="article-pair">
         <div class="block">
-          <h3 class="underline center">Article (1)</h3>
-          <h3 class="underline center">NAME OF THE COMPANY:</h3>
-          <p>The name of company will be: <strong class="underline">${company.name}</strong> This name may be amended or changed if necessary.</p>
+          <h3 class="underline center">Article (5)</h3>
+          <p>The head office of the Company shall be in ${company.emirate}. The General Assembly of the partners may transfer the head office of the company to another location in the same Emirate or decide to establish branches in the United Arab Emirates. If the head office is transferred to another Emirate, this should be in accordance with a resolution of the General Assembly of the Partners.</p>
         </div>
         <div class="block rtl">
-          <h3 class="underline center">المادة (1)</h3>
-          <h3 class="underline center">اسم الشركة</h3>
-          <p>يكون اسم الشركة: <strong class="underline">${company.nameAr}</strong>، ويجوز تعديل هذا الاسم أو تغييره إذا ما اقتضت الضرورة ذلك.</p>
+          <h3 class="underline center">المادة (5)</h3>
+          <p>يكون مركز الشركة الرئيسي في ${company.emirateAr} ويجوز بقرار من الجمعية العمومية نقل المركز الرئيسي إلى أيه جهة أخرى في نفس الإمارة كما يجوز له أن يقرر إنشاء فروع للشركة في دولة الإمارات العربية المتحدة وإذا نقل المركز الرئيس إلى إمارة أخرى فيلزم أن يكون بناء على قرار من الجمعية العمومية للشركاء.</p>
         </div>
       </div>
       <div class="article-pair">
         <div class="block">
-          <h3 class="underline center">Article (2)</h3>
-          <h3 class="underline center">HEAD OFFICE OF THE COMPANY:</h3>
-          <p>The Registered and Head Office of the Company shall be located in the Emirates ${company.emirate}. The Company is entitled to open branches, offices or agencies within the U.A.E. and abroad.</p>
+          <h3 class="underline center">CHAPTER II</h3>
+          <h3 class="center">Capital and Shares</h3>
         </div>
         <div class="block rtl">
-          <h3 class="underline center">المادة (2)</h3>
-          <h3 class="underline center">المقر الرئيسى للشركة</h3>
-          <p>يكون مقر الشركة الرئيسى والمسجل في إمارة ${company.emirateAr}، الإمارات العربية المتحدة ويحق للشركة أن تؤسس فروعا او مكاتب لها داخل أو خارج الدولة.</p>
+          <h3 class="underline center">الباب الثاني</h3>
+          <h3 class="center">رأس مال الشركة وحصص الشركاء</h3>
         </div>
       </div>
       <div class="article-pair">
         <div class="block">
-          <h3 class="underline center">Article (3)</h3>
-          <p><strong>The objective of the company is:</strong></p>
-          <ul class="list">${actEn.map(a => '<li>' + a + '</li>').join('')}</ul>
+          <h3 class="underline center">Article (6)</h3>
+          <p>The capital of the Company is fixed at AED ${capital.toLocaleString()} (${capitalWordsEn} Dirhams) divided into (${shareCount}) shares of a nominal value of AED ${shareValue.toLocaleString()} each. Capital is fully subscribed and paid, and has been distributed among partners as follows:</p>
+          <table>
+            <tr><th>Partner</th><th>Shares</th><th>Value (AED)</th><th>%</th></tr>
+            <tr><td>${primary.name}</td><td>${shareCount}</td><td>${capital.toLocaleString()}</td><td>100%</td></tr>
+            <tr><td><strong>Total</strong></td><td><strong>${shareCount}</strong></td><td><strong>${capital.toLocaleString()}</strong></td><td><strong>100%</strong></td></tr>
+          </table>
         </div>
         <div class="block rtl">
-          <h3 class="underline center">المادة (3)</h3>
-          <p><strong>الغرض من تأسيس الشركة هو:</strong></p>
-          <ul class="list">${actAr.map(a => '<li>' + a + '</li>').join('')}</ul>
+          <h3 class="underline center">المادة (6)</h3>
+          <p>رأس مال الشركة ${capital.toLocaleString()} درهم إماراتي (${capitalWordsAr} درهم) موزع على (${shareCount}) حصة قيمة كل حصة ${shareValue.toLocaleString()} درهم إماراتي وجميعها حصص نقدية تم سدادها بالكامل وقد توزعت على الشريك كما يلي:</p>
+          <table>
+            <tr><th>الشريك</th><th>الحصص</th><th>القيمة (درهم)</th><th>%</th></tr>
+            <tr><td>${primary.nameAr || 'غير متوفر'}</td><td>${shareCount}</td><td>${capital.toLocaleString()}</td><td>100%</td></tr>
+            <tr><td><strong>المجموع</strong></td><td><strong>${shareCount}</strong></td><td><strong>${capital.toLocaleString()}</strong></td><td><strong>100%</strong></td></tr>
+          </table>
         </div>
       </div>
       <div class="article-pair">
         <div class="block">
-          <h3 class="underline center">Article (4)</h3>
-          <p>Duration of the company shall be twenty five years commencing from the date of registration of the company in the commercial register and is renewable by consent of the general assembly.</p>
+          <h3 class="underline center">Article (7)</h3>
+          <p>a) The capital shall be increased by resolution of the General Assembly of the Partners in accordance with the provisions of the Commercial Companies Law.</p>
         </div>
         <div class="block rtl">
-          <h3 class="underline center">المادة (4)</h3>
-          <p>تكون مدة الشركة خمسة و عشرون سنة تبدأ من تاريخ قيدها في السجل التجاري وتجدد بموافقة الجمعية العمومية.</p>
+          <h3 class="underline center">المادة (7)</h3>
+          <p>أ) يجوز زيادة رأس المال بقرار من الجمعية العمومية للشركاء وفقاً لأحكام قانون الشركات التجارية.</p>
+        </div>
+      </div>
+      <div class="article-pair">
+        <div class="block">
+          <h3 class="underline center">Article (8)</h3>
+          <p>a) A partner may transfer any of his/her shares in the company to another partner or to a third party provided that such transfer is made to appropriate deed of assignment and registered in the Commercial Register.</p>
+          <p>b) In the event of assignment to a third party, the new member becomes liable for the same obligations as the original transferring partner.</p>
+        </div>
+        <div class="block rtl">
+          <h3 class="underline center">المادة (8)</h3>
+          <p>أ) يجوز للشريك التنازل عن حصصه في الشركة لشريك آخر أو للغير بشرط أن يتم التنازل بموجب عقد تنازل مناسب ويقيد في السجل التجاري.</p>
+          <p>ب) في حالة التنازل للغير، يصبح العضو الجديد ملتزماً بنفس التزامات الشريك المتنازل الأصلي.</p>
         </div>
       </div>
       <div class="page-num">3</div>

@@ -3,10 +3,24 @@ import { create } from 'zustand'
 export interface FontSettings {
   englishFont: string
   arabicFont: string
-  baseFontSize: 'small' | 'medium' | 'large' | 'xlarge'
+  englishFontSize: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge' | 'xxxlarge'
+  arabicFontSize: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge' | 'xxxlarge'
+  baseFontSize: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge' | 'xxxlarge' // legacy, for backward compatibility
+  englishLineSpacing: number // line-height multiplier
+  arabicLineSpacing: number // line-height multiplier
   boldEditedFields: boolean
   columnRatio: number // 0.5 = equal, < 0.5 = more space for Arabic
 }
+
+export const LINE_SPACINGS = [
+  { value: 1.0, label: '1.0' },
+  { value: 1.2, label: '1.2' },
+  { value: 1.4, label: '1.4' },
+  { value: 1.5, label: '1.5' },
+  { value: 1.6, label: '1.6' },
+  { value: 1.8, label: '1.8' },
+  { value: 2.0, label: '2.0' },
+] as const
 
 export const ENGLISH_FONTS = [
   { value: 'Noto Sans', label: 'Noto Sans' },
@@ -18,6 +32,7 @@ export const ENGLISH_FONTS = [
 ]
 
 export const ARABIC_FONTS = [
+  { value: 'Arabic Transparent', label: 'Arabic Transparent' },
   { value: 'Noto Sans Arabic', label: 'Noto Sans Arabic' },
   { value: 'Amiri', label: 'Amiri (أميري)' },
   { value: 'Cairo', label: 'Cairo (القاهرة)' },
@@ -27,18 +42,25 @@ export const ARABIC_FONTS = [
 ]
 
 export const FONT_SIZES = [
-  { value: 'small', label: 'Small', basePt: 8 },
-  { value: 'medium', label: 'Medium', basePt: 9 },
-  { value: 'large', label: 'Large', basePt: 10 },
-  { value: 'xlarge', label: 'Extra Large', basePt: 11 },
+  { value: 'xsmall', label: 'XS', basePt: 7 },
+  { value: 'small', label: 'S', basePt: 8 },
+  { value: 'medium', label: 'M', basePt: 9 },
+  { value: 'large', label: 'L', basePt: 10 },
+  { value: 'xlarge', label: 'XL', basePt: 11 },
+  { value: 'xxlarge', label: '2XL', basePt: 12 },
+  { value: 'xxxlarge', label: '3XL', basePt: 14 },
 ] as const
 
 const FORMATTING_CACHE_KEY = 'moa_formatting_settings'
 
 const defaultSettings: FontSettings = {
   englishFont: 'Noto Sans',
-  arabicFont: 'Noto Sans Arabic',
+  arabicFont: 'Arabic Transparent',
+  englishFontSize: 'medium',
+  arabicFontSize: 'medium',
   baseFontSize: 'medium',
+  englishLineSpacing: 1.5,
+  arabicLineSpacing: 1.6,
   boldEditedFields: true,
   columnRatio: 0.5,
 }

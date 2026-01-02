@@ -6,16 +6,20 @@ export const getBaseFontSize = (size: FontSettings['baseFontSize']) => {
 
 export const generateMoaStyles = (settings?: FontSettings): string => {
   const englishFont = settings?.englishFont || 'Noto Sans'
-  const arabicFont = settings?.arabicFont || 'Noto Sans Arabic'
-  const basePt = getBaseFontSize(settings?.baseFontSize || 'medium')
+  const arabicFont = settings?.arabicFont || 'Arabic Transparent'
+  const englishPt = getBaseFontSize(settings?.englishFontSize || settings?.baseFontSize || 'medium')
+  const arabicPt = getBaseFontSize(settings?.arabicFontSize || settings?.baseFontSize || 'medium')
+  const basePt = englishPt // Use English as base for general elements
   const boldEdited = settings?.boldEditedFields ?? true
   const columnRatio = settings?.columnRatio ?? 0.5
+  const englishLineHeight = settings?.englishLineSpacing ?? 1.5
+  const arabicLineHeight = settings?.arabicLineSpacing ?? 1.6
   
   // Convert ratio to percentage for CSS
   const englishPercent = Math.round(columnRatio * 100)
   const arabicPercent = 100 - englishPercent
   
-  // Font imports for Google Fonts
+  // Font imports for Google Fonts (Arabic Transparent is a system font)
   const fontImports = `
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&family=Noto+Sans+Arabic:wght@400;600;700&family=Amiri:wght@400;700&family=Cairo:wght@400;600;700&family=Tajawal:wght@400;500;700&family=Scheherazade+New:wght@400;700&family=Noto+Naskh+Arabic:wght@400;700&display=swap');
   `
@@ -55,10 +59,13 @@ export const generateMoaStyles = (settings?: FontSettings): string => {
   .page {
     width: 210mm;
     min-height: 297mm;
-    padding: 12mm 10mm 15mm 10mm;
+    padding: 10mm 10mm 51mm 10mm;
     position: relative;
     border-bottom: 1px solid #e0e0e0;
     background: #fff;
+    /* Allow content to expand beyond min-height if font is larger */
+    height: auto;
+    overflow: visible;
   }
   .page + .page { page-break-before: always; }
   
@@ -156,24 +163,30 @@ export const generateMoaStyles = (settings?: FontSettings): string => {
   /* Block Styles */
   .block {
     border: 1px solid #d0d0d0;
-    padding: 6px 8px;
+    padding: ${Math.max(6, basePt * 0.6)}px ${Math.max(8, basePt * 0.8)}px;
     border-radius: 3px;
     background: #fff;
-    font-size: ${basePt - 1}pt;
-    line-height: 1.5;
+    font-size: ${englishPt}pt;
+    line-height: ${englishLineHeight};
     min-width: 0;
   }
-  .block h3 { font-size: ${basePt - 0.5}pt; font-weight: 700; margin-bottom: 4px; }
-  .block p { margin-bottom: 4px; word-wrap: break-word; }
-  .block ol, .block ul { padding-left: 12px; margin: 4px 0; }
-  .block.rtl ol, .block.rtl ul { padding-right: 12px; padding-left: 0; }
-  .block li { margin-bottom: 2px; }
+  .block.rtl {
+    font-size: ${arabicPt}pt;
+    line-height: ${arabicLineHeight};
+  }
+  .block h3 { font-size: ${englishPt + 0.5}pt; font-weight: 700; margin-bottom: ${Math.max(4, basePt * 0.4)}px; }
+  .block.rtl h3 { font-size: ${arabicPt + 0.5}pt; }
+  .block p { margin-bottom: ${Math.max(4, basePt * 0.4)}px; word-wrap: break-word; }
+  .block ol, .block ul { padding-left: 18px; margin: ${Math.max(4, basePt * 0.4)}px 0; list-style-type: disc; }
+  .block.rtl ol, .block.rtl ul { padding-right: 18px; padding-left: 0; }
+  .block li { margin-bottom: 2px; list-style-type: disc; }
+  .block.rtl li { list-style-type: disc; }
   
   /* Article Pair Grid - Dynamic column ratio */
   .article-pair {
     display: flex;
     gap: 10px;
-    margin-bottom: 6px;
+    margin-bottom: ${Math.max(6, basePt * 0.6)}px;
     align-items: stretch;
     width: 100%;
   }
@@ -206,8 +219,9 @@ export const generateMoaStyles = (settings?: FontSettings): string => {
   
   /* Section & Table */
   .section-bar { background: #e5e7eb; color: #111827; padding: 4px 8px; font-weight: 700; font-size: ${basePt - 1}pt; margin: 10px 0 8px; display: flex; justify-content: space-between; }
-  .list { padding-left: 12px; font-size: ${basePt - 1}pt; line-height: 1.5; }
-  .list li { margin-bottom: 2px; }
+  .list { padding-left: 18px; font-size: ${englishPt - 1}pt; line-height: 1.5; list-style-type: disc; }
+  .list li { margin-bottom: 2px; list-style-type: disc; display: list-item; }
+  .rtl .list, .block.rtl .list { padding-left: 0; padding-right: 18px; font-size: ${arabicPt - 1}pt; }
   
   table { width: 100%; border-collapse: collapse; margin-top: 6px; font-size: ${basePt - 1.5}pt; }
   th, td { border: 1px solid #c9c9c9; padding: 3px 5px; text-align: center; }
@@ -216,7 +230,7 @@ export const generateMoaStyles = (settings?: FontSettings): string => {
   /* LTR & RTL Font Families */
   .ltr { font-family: '${englishFont}', sans-serif; }
   .rtl { direction: rtl; font-family: '${arabicFont}', sans-serif; }
-  .page-num { position: absolute; bottom: 8mm; right: 10mm; font-size: ${basePt - 1}pt; color: #6b7280; }
+  .page-num { position: absolute; bottom: 10mm; right: 10mm; font-size: ${basePt - 1}pt; color: #6b7280; }
   strong.underline { text-decoration: underline; }
   
   /* Avoid page breaks inside elements */
