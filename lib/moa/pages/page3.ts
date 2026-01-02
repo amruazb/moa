@@ -1,7 +1,7 @@
 import { MOAContext, pageFooter } from '../types'
 import { numberToWordsEn, numberToWordsAr } from '@/lib/utils/numberToWords'
 
-export function page3(ctx: MOAContext): string {
+export function page3(ctx: MOAContext, pageNum: number = 3): string {
   const { company, primary, capital, shareCount, shareValue } = ctx
   const capitalWordsEn = numberToWordsEn(capital)
   const capitalWordsAr = numberToWordsAr(capital)
@@ -80,6 +80,6 @@ export function page3(ctx: MOAContext): string {
         </div>
       </div>
       </div>
-      ${pageFooter(3)}
+      ${pageFooter(pageNum)}
     </div>`
 }

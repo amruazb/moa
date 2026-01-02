@@ -8,6 +8,31 @@ export function generateMOAHTML(data: DocumentData, formattingSettings?: FontSet
   const ctx = extractContext(data)
   const styles = generateMoaStyles(formattingSettings)
 
+  // Build pages array - each page function gets its position dynamically
+  const pageGenerators = [
+    pages.page1,
+    pages.page2,
+    pages.page3,
+    pages.page4,
+    pages.page5,
+    pages.page6,
+    pages.page7,
+    pages.page8,
+    pages.page9,
+  ]
+
+  // Generate pages with dynamic page numbers (1-indexed)
+  const totalPages = pageGenerators.length
+  const pagesHTML = pageGenerators.map((pageFn, index) => {
+    const pageNum = index + 1
+    const isLastPage = pageNum === totalPages
+    // For page8, pass isLastPage=true since it's the actual last content page
+    if (pageFn === pages.page8) {
+      return (pageFn as typeof pages.page8)(ctx, pageNum, isLastPage || pageNum === totalPages)
+    }
+    return pageFn(ctx, pageNum)
+  }).join('\n')
+
   return `
 <!DOCTYPE html>
 <html lang="en">
@@ -19,15 +44,7 @@ export function generateMOAHTML(data: DocumentData, formattingSettings?: FontSet
 </head>
 <body>
   <div class="doc">
-    ${pages.page1(ctx)}
-    ${pages.page2(ctx)}
-    ${pages.page3(ctx)}
-    ${pages.page4(ctx)}
-    ${pages.page5(ctx)}
-    ${pages.page6(ctx)}
-    ${pages.page7(ctx)}
-    ${pages.page8(ctx)}
-    ${pages.page9(ctx)}
+    ${pagesHTML}
   </div>
 </body>
 </html>

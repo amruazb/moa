@@ -14,16 +14,16 @@ export const generateMoaStyles = (settings?: FontSettings): string => {
   const columnRatio = settings?.columnRatio ?? 0.5
   const englishLineHeight = settings?.englishLineSpacing ?? 1.5
   const arabicLineHeight = settings?.arabicLineSpacing ?? 1.6
-  
+
   // Convert ratio to percentage for CSS
   const englishPercent = Math.round(columnRatio * 100)
   const arabicPercent = 100 - englishPercent
-  
+
   // Font imports for Google Fonts (Arabic Transparent is a system font)
   const fontImports = `
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&family=Noto+Sans+Arabic:wght@400;600;700&family=Amiri:wght@400;700&family=Cairo:wght@400;600;700&family=Tajawal:wght@400;500;700&family=Scheherazade+New:wght@400;700&family=Noto+Naskh+Arabic:wght@400;700&display=swap');
   `
-  
+
   return `
   ${fontImports}
   
@@ -58,35 +58,37 @@ export const generateMoaStyles = (settings?: FontSettings): string => {
   
   .page {
     width: 210mm;
-    min-height: 297mm;
-    height: 297mm;
-    display: grid;
-    grid-template-rows: 1fr auto;
+    min-height: 297mm; /* Minimum A4 height */
+    /* height: auto on screen - let content determine height */
+    display: flex;
+    flex-direction: column;
     border-bottom: 1px solid #e0e0e0;
     background: #fff;
     box-sizing: border-box;
-    page-break-after: always;
-    page-break-inside: auto;
+    margin-bottom: 20px; /* Visual separation between pages on screen */
+    position: relative;
   }
-  .page:last-child { page-break-after: auto; }
-  .page + .page { page-break-before: always; }
+  .page:last-child { margin-bottom: 0; }
   
   /* Page content wrapper - flexible area above footer */
   .page-content {
+    flex: 1; /* Take remaining space */
     padding: 10mm 10mm 5mm 10mm;
-    overflow: hidden;
-    max-height: calc(297mm - 51mm);
-    position: relative;
+    box-sizing: border-box;
   }
   
-  /* Print Styles - Match screen exactly */
+  /* Page footer - fixed 2-inch (51mm) height */
+  .page-footer {
+    flex-shrink: 0; /* Don't shrink */
+  }
+  
+  /* Print Styles - Allow natural content flow with proper pagination */
   @media print {
     html, body { 
       background: #fff !important; 
       padding: 0 !important; 
       margin: 0 !important;
       width: 210mm !important;
-      height: auto !important;
     }
     .doc { 
       box-shadow: none !important; 
@@ -94,31 +96,31 @@ export const generateMoaStyles = (settings?: FontSettings): string => {
       max-width: 210mm !important;
       margin: 0 !important;
     }
+    
+    /* Pages flow naturally - browser handles pagination */
     .page { 
       border-bottom: none !important; 
       width: 210mm !important;
       max-width: 210mm !important;
-      min-height: 297mm !important;
-      height: 297mm !important;
-      display: grid !important;
-      grid-template-rows: 1fr auto !important;
+      min-height: auto !important;
+      height: auto !important;
       margin: 0 !important;
+      padding-bottom: 51mm !important; /* Ensure footer space at bottom */
       page-break-after: always !important;
-      page-break-inside: avoid !important;
       box-sizing: border-box !important;
+      display: block !important;
+      position: relative !important;
     }
     .page:last-child {
       page-break-after: auto !important;
     }
     
-    /* Keep content area constrained */
+    /* Content flows naturally */
     .page-content {
-      overflow: hidden !important;
-      max-height: calc(297mm - 51mm) !important;
-      page-break-inside: auto !important;
+      padding: 10mm 10mm 5mm 10mm !important;
     }
     
-    /* Keep article pairs together */
+    /* Keep article pairs together when possible */
     .article-pair {
       page-break-inside: avoid !important;
     }
@@ -126,23 +128,30 @@ export const generateMoaStyles = (settings?: FontSettings): string => {
     /* Avoid breaking inside individual blocks */
     .block {
       page-break-inside: avoid !important;
-      overflow: hidden !important;
     }
     
-    .page-num { display: block !important; } /* Show page numbers */
+    /* Section bars should keep with following content */
+    .section-bar {
+      page-break-after: avoid !important;
+    }
     
-    /* Footer stays at bottom via grid */
+    .page-num { display: block !important; }
+    
+    /* Footer at bottom of each printed page */
     .page-footer {
+      position: fixed !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      height: 51mm !important;
+      background: #fff !important;
       break-inside: avoid !important;
     }
     
-    /* Ensure content doesn't overflow */
+    /* Ensure content doesn't overflow horizontally */
     .bilingual, .article-pair, .grid {
       width: 100% !important;
       max-width: 100% !important;
-    }
-    .block {
-      overflow: hidden !important;
     }
   }
   
@@ -272,37 +281,79 @@ export const generateMoaStyles = (settings?: FontSettings): string => {
   /* Avoid page breaks inside elements */
   .article-pair, .card, .block, table { page-break-inside: avoid; }
   
-  /* Bilingual Two-Column Layout (matching sample MOA format) */
+  /* Bilingual Two-Column Layout - Premium Header Design */
   .bilingual-header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 15px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #ccc;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 15px 20px;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    border: 2px solid #1e3a5f;
+    border-radius: 6px;
+    position: relative;
     width: 100%;
   }
+  .bilingual-header::before {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    right: 4px;
+    bottom: 4px;
+    border: 1px solid #cbd5e1;
+    border-radius: 3px;
+    pointer-events: none;
+  }
   .bilingual-header .header-left {
-    flex: 0 0 calc(${englishPercent}% - 5px);
-    width: calc(${englishPercent}% - 5px);
+    flex: 0 0 calc(${englishPercent}% - 20px);
+    width: calc(${englishPercent}% - 20px);
     text-align: center;
     font-family: '${englishFont}', sans-serif;
+    padding-right: 15px;
+    border-right: 2px solid #1e3a5f;
   }
   .bilingual-header .header-right {
-    flex: 0 0 calc(${arabicPercent}% - 5px);
-    width: calc(${arabicPercent}% - 5px);
+    flex: 0 0 calc(${arabicPercent}% - 20px);
+    width: calc(${arabicPercent}% - 20px);
     text-align: center;
     font-family: '${arabicFont}', sans-serif;
+    padding-left: 15px;
   }
-  .bilingual-header h1 { font-size: ${basePt + 3}pt; font-weight: 700; margin-bottom: 4px; }
-  .bilingual-header h2 { font-size: ${basePt + 1}pt; font-weight: 600; margin-bottom: 3px; }
-  .bilingual-header h3 { font-size: ${basePt}pt; font-weight: 600; }
+  .bilingual-header h1 { 
+    font-size: ${basePt + 4}pt; 
+    font-weight: 700; 
+    margin-bottom: 6px; 
+    color: #1e3a5f;
+    letter-spacing: 0.5px;
+    text-transform: capitalize;
+  }
+  .bilingual-header h2 { 
+    font-size: ${basePt + 1}pt; 
+    font-weight: 600; 
+    margin-bottom: 5px; 
+    color: #334155;
+  }
+  .bilingual-header h3 { 
+    font-size: ${basePt}pt; 
+    font-weight: 600; 
+    color: #475569;
+    background: rgba(30, 58, 95, 0.08);
+    padding: 3px 10px;
+    border-radius: 3px;
+    display: inline-block;
+  }
   
   .law-reference {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 15px;
+    margin-bottom: 18px;
     font-size: ${basePt - 1}pt;
     width: 100%;
+    padding: 8px 15px;
+    background: #fafafa;
+    border-left: 3px solid #1e3a5f;
+    border-right: 3px solid #1e3a5f;
   }
   .law-reference .law-left {
     flex: 0 0 calc(${englishPercent}% - 5px);
@@ -310,6 +361,7 @@ export const generateMoaStyles = (settings?: FontSettings): string => {
     text-align: center;
     font-style: italic;
     font-family: '${englishFont}', sans-serif;
+    color: #475569;
   }
   .law-reference .law-right {
     flex: 0 0 calc(${arabicPercent}% - 5px);
@@ -317,6 +369,7 @@ export const generateMoaStyles = (settings?: FontSettings): string => {
     text-align: center;
     font-style: italic;
     font-family: '${arabicFont}', sans-serif;
+    color: #475569;
   }
   
   .bilingual-content {

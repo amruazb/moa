@@ -1,6 +1,6 @@
 import { MOAContext, pageFooter } from '../types'
 
-export function page4(ctx: MOAContext): string {
+export function page4(ctx: MOAContext, pageNum: number = 4): string {
   const { manager } = ctx
 
   return `
@@ -97,6 +97,6 @@ export function page4(ctx: MOAContext): string {
         </div>
       </div>
       </div>
-      ${pageFooter(4)}
+      ${pageFooter(pageNum)}
     </div>`
 }

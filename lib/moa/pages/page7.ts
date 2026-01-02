@@ -1,6 +1,6 @@
 import { MOAContext, pageFooter } from '../types'
 
-export function page7(ctx: MOAContext): string {
+export function page7(ctx: MOAContext, pageNum: number = 7): string {
   const { company } = ctx
 
   return `
@@ -77,6 +77,6 @@ export function page7(ctx: MOAContext): string {
         </div>
       </div>
       </div>
-      ${pageFooter(7)}
+      ${pageFooter(pageNum)}
     </div>`
 }

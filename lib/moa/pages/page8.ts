@@ -1,6 +1,6 @@
 import { MOAContext, pageFooter } from '../types'
 
-export function page8(ctx: MOAContext): string {
+export function page8(ctx: MOAContext, pageNum: number = 8, isLastPage: boolean = false): string {
   const { primary } = ctx
 
   return `
@@ -47,6 +47,6 @@ export function page8(ctx: MOAContext): string {
         </div>
       </div>
       </div>
-      ${pageFooter(8, true)}
+      ${pageFooter(pageNum, isLastPage)}
     </div>`
 }

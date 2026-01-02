@@ -3,7 +3,7 @@ import { MOAContext, pageFooter } from '../types'
 const defaultActivitiesEn = ['Retail Sale of Coffee', 'Retail Sale of Tea', 'Retail of Sale Juice', 'Importing']
 const defaultActivitiesAr = ['بيع البن - بالتجزئة', 'بيع الشاي – بالتجزئة', 'بيع العصائر – بالتجزئة', 'استيراد']
 
-export function page2(ctx: MOAContext): string {
+export function page2(ctx: MOAContext, pageNum: number = 2): string {
   const { company, activitiesEn, activitiesAr } = ctx
   const actEn = activitiesEn.length ? activitiesEn : defaultActivitiesEn
   const actAr = activitiesAr.length ? activitiesAr : defaultActivitiesAr
@@ -104,6 +104,6 @@ export function page2(ctx: MOAContext): string {
         </div>
       </div>
       </div>
-      ${pageFooter(2)}
+      ${pageFooter(pageNum)}
     </div>`
 }
