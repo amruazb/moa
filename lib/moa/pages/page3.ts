@@ -1,4 +1,4 @@
-import { MOAContext } from '../types'
+import { MOAContext, pageFooter } from '../types'
 import { numberToWordsEn, numberToWordsAr } from '@/lib/utils/numberToWords'
 
 export function page3(ctx: MOAContext): string {
@@ -8,6 +8,7 @@ export function page3(ctx: MOAContext): string {
 
   return `
     <div class="page">
+      <div class="page-content">
       <div class="article-pair">
         <div class="block">
           <p>Such period may be increased or decreased by resolution of assembly of the partners.</p>
@@ -78,6 +79,7 @@ export function page3(ctx: MOAContext): string {
           <p>ب) في حالة التنازل للغير، يصبح العضو الجديد ملتزماً بنفس التزامات الشريك المتنازل الأصلي.</p>
         </div>
       </div>
-      <div class="page-num">3</div>
+      </div>
+      ${pageFooter(3)}
     </div>`
 }

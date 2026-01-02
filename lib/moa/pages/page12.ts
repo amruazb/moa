@@ -1,10 +1,11 @@
-import { MOAContext } from '../types'
+import { MOAContext, pageFooter } from '../types'
 
 export function page12(ctx: MOAContext): string {
   const { primary } = ctx
 
   return `
     <div class="page">
+      <div class="page-content">
       <div class="article-pair">
         <div class="block">
           <h3 class="underline center">Article (27)</h3>
@@ -35,6 +36,7 @@ export function page12(ctx: MOAContext): string {
           <p style="margin-top: 30px;"><strong>التوقيع:</strong> ________________________________</p>
         </div>
       </div>
-      <div class="page-num">12</div>
+      </div>
+      ${pageFooter(12, true)}
     </div>`
 }

@@ -1,4 +1,4 @@
-import { MOAContext } from '../types'
+import { MOAContext, pageFooter } from '../types'
 
 const defaultActivitiesEn = ['Retail Sale of Coffee', 'Retail Sale of Tea', 'Retail of Sale Juice', 'Importing']
 const defaultActivitiesAr = ['بيع البن - بالتجزئة', 'بيع الشاي – بالتجزئة', 'بيع العصائر – بالتجزئة', 'استيراد']
@@ -10,6 +10,7 @@ export function page2(ctx: MOAContext): string {
 
   return `
     <div class="page">
+      <div class="page-content">
       <div class="article-pair">
         <div class="block">
           <p><strong><u>4-Ministry:</u></strong> The ministry of Economy</p>
@@ -102,7 +103,7 @@ export function page2(ctx: MOAContext): string {
           <p>تكون مدة الشركة خمسة و عشرون سنة تبدأ من تاريخ قيدها في السجل التجاري وتجدد بموافقة الجمعية العمومية.</p>
         </div>
       </div>
-      
-      <div class="page-num">2</div>
+      </div>
+      ${pageFooter(2)}
     </div>`
 }

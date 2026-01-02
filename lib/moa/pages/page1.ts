@@ -1,10 +1,11 @@
-import { MOAContext } from '../types'
+import { MOAContext, pageFooter } from '../types'
 
 export function page1(ctx: MOAContext): string {
   const { company, primary, eidOrPassport } = ctx
-  
+
   return `
     <div class="page">
+      <div class="page-content">
       <div class="bilingual-header">
         <div class="header-left">
           <h1>Memorandum of Association</h1>
@@ -89,7 +90,7 @@ export function page1(ctx: MOAContext): string {
           <p><strong><u>3- المدير/ المديرون:</u></strong> المدير او المديري الشركة المعينين بموجب هذا العقد.</p>
         </div>
       </div>
-      
-      <div class="page-num">1</div>
+      </div>
+      ${pageFooter(1)}
     </div>`
 }

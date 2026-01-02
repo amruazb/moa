@@ -31,8 +31,8 @@ export const generateMoaStyles = (settings?: FontSettings): string => {
   
   /* A4 Paper: 210mm x 297mm - Print margins */
   @page {
-    size: A4;
-    margin: 10mm 10mm 10mm 10mm;
+    size: A4 portrait;
+    margin: 0;
   }
   
   body {
@@ -59,46 +59,82 @@ export const generateMoaStyles = (settings?: FontSettings): string => {
   .page {
     width: 210mm;
     min-height: 297mm;
-    padding: 10mm 10mm 51mm 10mm;
-    position: relative;
+    height: 297mm;
+    display: grid;
+    grid-template-rows: 1fr auto;
     border-bottom: 1px solid #e0e0e0;
     background: #fff;
-    /* Allow content to expand beyond min-height if font is larger */
-    height: auto;
-    overflow: visible;
+    box-sizing: border-box;
+    page-break-after: always;
+    page-break-inside: auto;
   }
+  .page:last-child { page-break-after: auto; }
   .page + .page { page-break-before: always; }
   
-  /* Print Styles */
+  /* Page content wrapper - flexible area above footer */
+  .page-content {
+    padding: 10mm 10mm 5mm 10mm;
+    overflow: hidden;
+    max-height: calc(297mm - 51mm);
+    position: relative;
+  }
+  
+  /* Print Styles - Match screen exactly */
   @media print {
     html, body { 
       background: #fff !important; 
       padding: 0 !important; 
       margin: 0 !important;
-      width: 100% !important;
+      width: 210mm !important;
       height: auto !important;
     }
     .doc { 
       box-shadow: none !important; 
-      width: 100% !important; 
-      max-width: 100% !important;
+      width: 210mm !important; 
+      max-width: 210mm !important;
       margin: 0 !important;
     }
     .page { 
       border-bottom: none !important; 
-      min-height: auto !important;
-      height: auto !important;
-      padding: 5mm 5mm 8mm 5mm !important; /* Tighter padding for print */
-      width: 100% !important;
-      max-width: 100% !important;
+      width: 210mm !important;
+      max-width: 210mm !important;
+      min-height: 297mm !important;
+      height: 297mm !important;
+      display: grid !important;
+      grid-template-rows: 1fr auto !important;
       margin: 0 !important;
-      page-break-after: always;
-      page-break-inside: avoid;
+      page-break-after: always !important;
+      page-break-inside: avoid !important;
+      box-sizing: border-box !important;
     }
     .page:last-child {
-      page-break-after: auto;
+      page-break-after: auto !important;
     }
-    .page-num { display: none !important; } /* Hide page numbers - browser adds them */
+    
+    /* Keep content area constrained */
+    .page-content {
+      overflow: hidden !important;
+      max-height: calc(297mm - 51mm) !important;
+      page-break-inside: auto !important;
+    }
+    
+    /* Keep article pairs together */
+    .article-pair {
+      page-break-inside: avoid !important;
+    }
+    
+    /* Avoid breaking inside individual blocks */
+    .block {
+      page-break-inside: avoid !important;
+      overflow: hidden !important;
+    }
+    
+    .page-num { display: block !important; } /* Show page numbers */
+    
+    /* Footer stays at bottom via grid */
+    .page-footer {
+      break-inside: avoid !important;
+    }
     
     /* Ensure content doesn't overflow */
     .bilingual, .article-pair, .grid {
@@ -312,6 +348,56 @@ export const generateMoaStyles = (settings?: FontSettings): string => {
   }
   .bilingual-content h3 { font-size: ${basePt + 0.5}pt; font-weight: 700; margin-bottom: 6px; }
   .bilingual-content p { margin-bottom: 6px; }
+
+  /* Page Footer - Signature & Seal Area - Fixed 2 inches (51mm) */
+  .page-footer {
+    height: 51mm;
+    min-height: 51mm;
+    max-height: 51mm;
+    padding: 3mm 10mm 10mm 10mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-top: 1px solid #ccc;
+    background: #fff;
+    box-sizing: border-box;
+  }
+  .page-footer .footer-left {
+    flex: 1;
+    text-align: left;
+    font-size: ${basePt - 2}pt;
+    font-family: '${englishFont}', sans-serif;
+  }
+  .page-footer .footer-center {
+    flex: 1;
+    text-align: center;
+    font-size: ${basePt - 2}pt;
+  }
+  .page-footer .footer-right {
+    flex: 1;
+    text-align: right;
+    font-size: ${basePt - 2}pt;
+    font-family: '${arabicFont}', sans-serif;
+    direction: rtl;
+  }
+  .page-footer .signature-line {
+    border-bottom: 1px solid #333;
+    width: 120px;
+    display: inline-block;
+    margin-bottom: 3px;
+  }
+  .page-footer .footer-label {
+    display: block;
+    margin-top: 2px;
+    color: #666;
+  }
+  .page-footer .page-num {
+    position: absolute;
+    bottom: 10mm;
+    right: 10mm;
+    font-size: ${basePt - 1}pt;
+    color: #6b7280;
+  }
 `
 }
 

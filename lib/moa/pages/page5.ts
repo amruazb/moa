@@ -1,8 +1,9 @@
-import { MOAContext } from '../types'
+import { MOAContext, pageFooter } from '../types'
 
 export function page5(ctx: MOAContext): string {
   return `
     <div class="page">
+      <div class="page-content">
       <div class="article-pair">
         <div class="block">
           <h3 class="underline center">CHAPTER IV</h3>
@@ -69,6 +70,7 @@ export function page5(ctx: MOAContext): string {
           <p>لا يكون اجتماع الجمعية العمومية صحيحاً إلا إذا حضره شركاء يمثلون 75% على الأقل من رأس المال. وإذا لم يتوفر النصاب المطلوب يعقد اجتماع ثانٍ خلال ثلاثين يوماً يكون صحيحاً بغض النظر عن عدد الشركاء الحاضرين.</p>
         </div>
       </div>
-      <div class="page-num">5</div>
+      </div>
+      ${pageFooter(5)}
     </div>`
 }

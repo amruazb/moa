@@ -72,7 +72,7 @@ export function extractContext(data: DocumentData): MOAContext {
   }
 
   const eidOrPassport = primary.eid || primary.passport || 'N/A'
-  
+
   const activitiesEn = (company.activities || '')
     .split(/[,;]/).map((s: string) => s.trim()).filter(Boolean)
   const activitiesAr = (company.activitiesAr || '')
@@ -110,4 +110,32 @@ export function extractContext(data: DocumentData): MOAContext {
     shareCount,
     shareValue
   }
+}
+
+// Generate page footer with signature and seal areas
+export function pageFooter(pageNum: number, isLastPage: boolean = false): string {
+  if (isLastPage) {
+    // Last page only has translator seal in center (signature already in content)
+    return `
+    <div class="page-footer">
+      <div class="footer-center">
+        <span class="signature-line"></span>
+        <span class="footer-label">ختم المترجم والتوقيع / Translator Seal & Sign</span>
+    </div>
+      <span class="page-num">${pageNum}</span>
+    </div>`
+  }
+
+  return `
+    <div class="page-footer">
+      <div class="footer-left">
+        <span class="signature-line"></span>
+        <span class="footer-label">Signature / التوقيع</span>
+      </div>
+      <div class="footer-center">
+        <span class="signature-line"></span>
+        <span class="footer-label">ختم المترجم والتوقيع / Translator Seal & Sign</span>
+      </div>
+      <span class="page-num">${pageNum}</span>
+    </div>`
 }

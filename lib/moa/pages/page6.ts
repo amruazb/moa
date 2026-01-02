@@ -1,8 +1,9 @@
-import { MOAContext } from '../types'
+import { MOAContext, pageFooter } from '../types'
 
 export function page6(ctx: MOAContext): string {
   return `
     <div class="page">
+      <div class="page-content">
       <div class="article-pair">
         <div class="block">
           <h3 class="underline center">Article (19)</h3>
@@ -63,6 +64,7 @@ export function page6(ctx: MOAContext): string {
           <p>أ) تؤلف الارباح الصافية السنوية بعد خصم جميع المصاريف العمومية والتكاليف الأخرى ويقتطع منها مبلغ يوازي 10% (عشرة بالمائة) لتكوين الاحتياطي القانوني المنصوص في القانون ويوقف هذا الاقتطاع عند بلوغ مجموع الاحتياطي قدرا يوازي نصف رأس المال.</p>
         </div>
       </div>
-      <div class="page-num">6</div>
+      </div>
+      ${pageFooter(6)}
     </div>`
 }

@@ -1,10 +1,11 @@
-import { MOAContext } from '../types'
+import { MOAContext, pageFooter } from '../types'
 
 export function page4(ctx: MOAContext): string {
   const { manager } = ctx
 
   return `
     <div class="page">
+      <div class="page-content">
       <div class="article-pair">
         <div class="block">
           <h3 class="underline center">Article (9)</h3>
@@ -95,6 +96,7 @@ export function page4(ctx: MOAContext): string {
           <p>لا يجوز للمدير أن يمارس أو يشارك في نشاط منافس لنشاط الشركة دون موافقة كتابية من جميع الشركاء. ومخالفة هذا الحكم يخول الشركة المطالبة بالتعويض عن أية أضرار تلحق بها.</p>
         </div>
       </div>
-      <div class="page-num">4</div>
+      </div>
+      ${pageFooter(4)}
     </div>`
 }

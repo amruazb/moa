@@ -1,10 +1,11 @@
-import { MOAContext } from '../types'
+import { MOAContext, pageFooter } from '../types'
 
 export function page11(ctx: MOAContext): string {
   const { company } = ctx
 
   return `
     <div class="page">
+      <div class="page-content">
       <div class="article-pair">
         <div class="block">
           <h3 class="underline center">CHAPTER VII</h3>
@@ -45,6 +46,7 @@ export function page11(ctx: MOAContext): string {
           <p>تسري أحكام القانون الاتحادي رقم (32) لسنة 2021 في شأن الشركات التجارية وتعديلاته ولوائحه التنفيذية في مالم يرد بشأنها نص خاص في هذا العقد.</p>
         </div>
       </div>
-      <div class="page-num">11</div>
+      </div>
+      ${pageFooter(11)}
     </div>`
 }
