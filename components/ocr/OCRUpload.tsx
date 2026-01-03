@@ -30,14 +30,17 @@ export function OCRUpload({ documentType, onExtracted, label, description }: OCR
       }
       reader.readAsDataURL(file)
 
+      // Compress/resize image for faster processing
+      const optimizedFile = await optimizeImage(file)
+
       // Send to API for OCR processing
       const formData = new FormData()
-      formData.append('file', file)
+      formData.append('file', optimizedFile)
       formData.append('documentType', documentType)
 
-      // Add timeout for fetch (60 seconds)
+      // Timeout based on Vercel plan (10s for Free, 60s for Pro)
       const controller = new AbortController()
-      const timeoutId = setTimeout(() => controller.abort(), 60000)
+      const timeoutId = setTimeout(() => controller.abort(), 9000) // 9s to be safe
 
       const response = await fetch('/api/ocr', {
         method: 'POST',
@@ -64,7 +67,7 @@ export function OCRUpload({ documentType, onExtracted, label, description }: OCR
     } catch (err) {
       if (err instanceof Error) {
         if (err.name === 'AbortError') {
-          setError('Processing timed out. The document may be too large or complex.')
+          setError('Processing timed out (Vercel Free tier = 10s limit). Try: 1) Compress image before upload, 2) Use clearer photo, or 3) Upgrade to Pro plan.')
         } else {
           setError(err.message)
         }
@@ -207,4 +210,53 @@ export function OCRUpload({ documentType, onExtracted, label, description }: OCR
       </div>
     </div>
   )
+}
+
+// Optimize image for faster OCR processing
+async function optimizeImage(file: File): Promise<File> {
+  return new Promise((resolve, reject) => {
+    const img = new Image()
+    const canvas = document.createElement('canvas')
+    const ctx = canvas.getContext('2d')
+    
+    img.onload = () => {
+      let width = img.width
+      let height = img.height
+      
+      // Target max width for Vercel Free tier (faster processing)
+      const maxWidth = 1200
+      
+      if (width > maxWidth) {
+        height = (height * maxWidth) / width
+        width = maxWidth
+      }
+      
+      canvas.width = width
+      canvas.height = height
+      
+      // Draw with slight quality reduction for faster processing
+      ctx?.drawImage(img, 0, 0, width, height)
+      
+      canvas.toBlob((blob) => {
+        if (blob) {
+          // Create new File object
+          const optimizedFile = new File([blob], file.name, {
+            type: file.type,
+            lastModified: Date.now()
+          })
+          resolve(optimizedFile)
+        } else {
+          // If optimization fails, use original
+          resolve(file)
+        }
+      }, file.type, 0.85) // 85% quality
+    }
+    
+    img.onerror = () => {
+      // If image load fails, use original
+      resolve(file)
+    }
+    
+    img.src = URL.createObjectURL(file)
+  })
 }

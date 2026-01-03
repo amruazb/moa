@@ -4,10 +4,10 @@ import { DocumentType, OCRResult, EmiratesIDData, PassportData, TradeCertificate
 import { getArabicNationality, parseDate, normalizeName } from '@/lib/ocr/extractors'
 
 // Set maximum duration for Vercel serverless function (in seconds)
-// Free tier: 10s, Pro: 60s, Enterprise: 900s
-export const maxDuration = 60
+// Free tier: 10s, Pro: 60s (change to 60 if you have Pro plan)
+export const maxDuration = 10
 
-// OCR with English only
+// OCR with English only - optimized for speed
 async function runOCREnglish(imageBuffer: Buffer): Promise<string> {
   console.log('Starting OCR (English)...')
   const startTime = Date.now()
@@ -21,10 +21,9 @@ async function runOCREnglish(imageBuffer: Buffer): Promise<string> {
           console.log(`OCR English: ${Math.round(m.progress * 100)}%`)
         }
       },
-      // Optimize for serverless environment
-      langPath: 'https://tessdata.projectnaptha.com/4.0.0',
-      workerPath: 'https://cdn.jsdelivr.net/npm/tesseract.js@4.1.4/dist/worker.min.js',
-      corePath: 'https://cdn.jsdelivr.net/npm/tesseract.js-core@4.0.4/tesseract-core.wasm.js'
+      // Server-side optimization
+      tessedit_pageseg_mode: Tesseract.PSM.AUTO,
+      preserve_interword_spaces: '1'
     }
   )
   
@@ -32,7 +31,7 @@ async function runOCREnglish(imageBuffer: Buffer): Promise<string> {
   return text
 }
 
-// OCR with Arabic only
+// OCR with Arabic only - optimized for speed
 async function runOCRArabic(imageBuffer: Buffer): Promise<string> {
   console.log('Starting OCR (Arabic)...')
   const startTime = Date.now()
@@ -46,10 +45,9 @@ async function runOCRArabic(imageBuffer: Buffer): Promise<string> {
           console.log(`OCR Arabic: ${Math.round(m.progress * 100)}%`)
         }
       },
-      // Optimize for serverless environment
-      langPath: 'https://tessdata.projectnaptha.com/4.0.0',
-      workerPath: 'https://cdn.jsdelivr.net/npm/tesseract.js@4.1.4/dist/worker.min.js',
-      corePath: 'https://cdn.jsdelivr.net/npm/tesseract.js-core@4.0.4/tesseract-core.wasm.js'
+      // Server-side optimization
+      tessedit_pageseg_mode: Tesseract.PSM.AUTO,
+      preserve_interword_spaces: '1'
     }
   )
   
