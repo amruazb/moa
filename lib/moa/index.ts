@@ -30,11 +30,6 @@ export function generateMOAHTML(data: DocumentData, formattingSettings?: FontSet
   const totalPages = pageGenerators.length
   const pagesHTML = pageGenerators.map((pageFn, index) => {
     const pageNum = index + 1
-    const isLastPage = pageNum === totalPages
-    // For page11, pass isLastPage flag (it's the last page with signature)
-    if (pageFn === pages.page11) {
-      return (pageFn as typeof pages.page11)(ctx, pageNum, isLastPage)
-    }
     return pageFn(ctx, pageNum)
   }).join('\n')
 
