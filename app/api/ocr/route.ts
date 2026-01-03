@@ -3,6 +3,10 @@ import Tesseract from 'tesseract.js'
 import { DocumentType, OCRResult, EmiratesIDData, PassportData, TradeCertificateData } from '@/lib/ocr/types'
 import { getArabicNationality, parseDate, normalizeName } from '@/lib/ocr/extractors'
 
+// Set maximum duration for Vercel serverless function (in seconds)
+// Free tier: 10s, Pro: 60s, Enterprise: 900s
+export const maxDuration = 60
+
 // OCR with English only
 async function runOCREnglish(imageBuffer: Buffer): Promise<string> {
   console.log('Starting OCR (English)...')
@@ -16,7 +20,11 @@ async function runOCREnglish(imageBuffer: Buffer): Promise<string> {
         if (m.status === 'recognizing text' && m.progress > 0) {
           console.log(`OCR English: ${Math.round(m.progress * 100)}%`)
         }
-      }
+      },
+      // Optimize for serverless environment
+      langPath: 'https://tessdata.projectnaptha.com/4.0.0',
+      workerPath: 'https://cdn.jsdelivr.net/npm/tesseract.js@4.1.4/dist/worker.min.js',
+      corePath: 'https://cdn.jsdelivr.net/npm/tesseract.js-core@4.0.4/tesseract-core.wasm.js'
     }
   )
   
@@ -37,7 +45,11 @@ async function runOCRArabic(imageBuffer: Buffer): Promise<string> {
         if (m.status === 'recognizing text' && m.progress > 0) {
           console.log(`OCR Arabic: ${Math.round(m.progress * 100)}%`)
         }
-      }
+      },
+      // Optimize for serverless environment
+      langPath: 'https://tessdata.projectnaptha.com/4.0.0',
+      workerPath: 'https://cdn.jsdelivr.net/npm/tesseract.js@4.1.4/dist/worker.min.js',
+      corePath: 'https://cdn.jsdelivr.net/npm/tesseract.js-core@4.0.4/tesseract-core.wasm.js'
     }
   )
   

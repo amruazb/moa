@@ -35,13 +35,21 @@ export function OCRUpload({ documentType, onExtracted, label, description }: OCR
       formData.append('file', file)
       formData.append('documentType', documentType)
 
+      // Add timeout for fetch (60 seconds)
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), 60000)
+
       const response = await fetch('/api/ocr', {
         method: 'POST',
-        body: formData
+        body: formData,
+        signal: controller.signal
       })
 
+      clearTimeout(timeoutId)
+
       if (!response.ok) {
-        throw new Error('OCR processing failed')
+        const errorData = await response.json().catch(() => ({}))
+        throw new Error(errorData.error || 'OCR processing failed')
       }
 
       const result = await response.json()
@@ -54,7 +62,15 @@ export function OCRUpload({ documentType, onExtracted, label, description }: OCR
         setError(result.error || 'Failed to extract data from document')
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Processing failed')
+      if (err instanceof Error) {
+        if (err.name === 'AbortError') {
+          setError('Processing timed out. The document may be too large or complex.')
+        } else {
+          setError(err.message)
+        }
+      } else {
+        setError('Processing failed')
+      }
     } finally {
       setIsProcessing(false)
     }
