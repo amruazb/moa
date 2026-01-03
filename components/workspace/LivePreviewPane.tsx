@@ -15,78 +15,106 @@ export function LivePreviewPane() {
 
   const generatePDF = async () => {
     if (!previewRef.current) return
-    
+
     try {
       // Dynamically import html2pdf to avoid SSR issues
       const html2pdf = (await import('html2pdf.js')).default
-      
+
       // Clone the element for PDF generation
       const clone = previewRef.current.cloneNode(true) as HTMLElement
-      
+
       // Create a wrapper with proper styling for PDF
       const wrapper = document.createElement('div')
       wrapper.style.position = 'absolute'
       wrapper.style.left = '-9999px'
       wrapper.style.top = '0'
-      wrapper.style.width = '190mm'
+      wrapper.style.width = '210mm'
+      wrapper.className = 'pdf-mode'
       wrapper.appendChild(clone)
       document.body.appendChild(wrapper)
-      
-      // Apply PDF-specific styles to fix width issues
+
+      // Apply PDF-specific styles - each page is A4 sized
       const docElements = clone.querySelectorAll('.doc')
       docElements.forEach((el) => {
-        (el as HTMLElement).style.width = '100%';
-        (el as HTMLElement).style.maxWidth = '100%';
+        (el as HTMLElement).style.width = '210mm';
+        (el as HTMLElement).style.maxWidth = '210mm';
         (el as HTMLElement).style.boxShadow = 'none';
       })
-      
+
+      // Each page is exactly A4 size with footer at bottom
       const pageElements = clone.querySelectorAll('.page')
       pageElements.forEach((el) => {
-        (el as HTMLElement).style.width = '100%';
-        (el as HTMLElement).style.maxWidth = '100%';
-        (el as HTMLElement).style.padding = '5mm';
-        (el as HTMLElement).style.minHeight = 'auto';
+        (el as HTMLElement).style.width = '210mm';
+        (el as HTMLElement).style.height = '297mm';
+        (el as HTMLElement).style.maxHeight = '297mm';
+        (el as HTMLElement).style.display = 'flex';
+        (el as HTMLElement).style.flexDirection = 'column';
+        (el as HTMLElement).style.marginBottom = '0';
+        (el as HTMLElement).style.borderBottom = 'none';
+        (el as HTMLElement).style.overflow = 'hidden';
+        (el as HTMLElement).style.pageBreakAfter = 'always';
       })
-      
+
+      // Content area fills space above footer
+      const contentElements = clone.querySelectorAll('.page-content')
+      contentElements.forEach((el) => {
+        (el as HTMLElement).style.flex = '1';
+        (el as HTMLElement).style.overflow = 'hidden';
+      })
+
+      // Footer is exactly 51mm (2 inches) at bottom of each page
+      const footerElements = clone.querySelectorAll('.page-footer')
+      footerElements.forEach((el) => {
+        (el as HTMLElement).style.flexShrink = '0';
+        (el as HTMLElement).style.height = '51mm';
+        (el as HTMLElement).style.minHeight = '51mm';
+        (el as HTMLElement).style.maxHeight = '51mm';
+        (el as HTMLElement).style.display = 'flex';
+      })
+
       // Fix bilingual blocks to prevent overflow
-      const bilingualElements = clone.querySelectorAll('.bilingual')
+      const bilingualElements = clone.querySelectorAll('.bilingual, .bilingual-header, .bilingual-content, .article-pair')
       bilingualElements.forEach((el) => {
         (el as HTMLElement).style.width = '100%';
         (el as HTMLElement).style.maxWidth = '100%';
         (el as HTMLElement).style.overflow = 'hidden';
       })
-      
+
       const blockElements = clone.querySelectorAll('.block')
       blockElements.forEach((el) => {
         (el as HTMLElement).style.overflow = 'hidden';
         (el as HTMLElement).style.wordWrap = 'break-word';
       })
-      
+
       clone.style.maxHeight = 'none'
       clone.style.overflow = 'visible'
-      clone.style.width = '100%'
-      
+      clone.style.width = '210mm'
+
+      // PDF options - no extra margins since pages are pre-sized
       const opt = {
-        margin: [10, 10, 10, 10] as [number, number, number, number],
+        margin: 0,
         filename: `MOA_${extractedData.company?.name || 'document'}.pdf`,
         image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { 
+        html2canvas: {
           scale: 2,
           useCORS: true,
           letterRendering: true,
           logging: false,
-          width: 718, // 190mm at 96dpi
+          width: 794, // 210mm at 96dpi
         },
-        jsPDF: { 
-          unit: 'mm', 
-          format: 'a4', 
+        jsPDF: {
+          unit: 'mm',
+          format: 'a4',
           orientation: 'portrait' as const
         },
-        pagebreak: { mode: ['css', 'legacy'], avoid: ['tr', 'td', '.block'] }
+        pagebreak: {
+          mode: ['css'] as unknown as string[],
+          after: ['.page']
+        }
       }
-      
+
       await html2pdf().set(opt).from(clone).save()
-      
+
       // Clean up
       document.body.removeChild(wrapper)
     } catch (error) {

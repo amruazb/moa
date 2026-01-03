@@ -192,6 +192,26 @@ export function FormattingToolbar() {
         </div>
       </div>
 
+      {/* Page Margin Slider */}
+      <div className="mt-4">
+        <label className="block text-xs font-medium text-gray-600 mb-2">
+          Page Margin (Left/Right): {settings.pageMargin || 10}mm
+        </label>
+        <div className="flex items-center gap-3">
+          <span className="text-xs text-gray-500">5mm</span>
+          <input
+            type="range"
+            min="5"
+            max="25"
+            step="1"
+            value={settings.pageMargin || 10}
+            onChange={(e) => setSettings({ pageMargin: parseInt(e.target.value) })}
+            className="flex-1 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-purple-600"
+          />
+          <span className="text-xs text-gray-500">25mm</span>
+        </div>
+      </div>
+
       {/* Preview */}
       <div className="mt-4 p-3 bg-gray-50 rounded-lg border border-gray-200">
         <p className="text-xs text-gray-500 mb-2">Preview:</p>

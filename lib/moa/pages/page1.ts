@@ -10,12 +10,12 @@ export function page1(ctx: MOAContext, pageNum: number = 1): string {
         <div class="header-left">
           <h1>Memorandum of Association</h1>
           <h2>of a Limited Liability Company</h2>
-          <h3>(${company.name})</h3>
+          <h3>(<span class="edited">${company.name}</span>)</h3>
         </div>
         <div class="header-right">
           <h1>عقد تأسيس</h1>
           <h2>شركة ذات مسؤولية محدودة</h2>
-          <h3>(${company.nameAr})</h3>
+          <h3>(<span class="edited">${company.nameAr}</span>)</h3>
         </div>
       </div>
       
@@ -26,31 +26,31 @@ export function page1(ctx: MOAContext, pageNum: number = 1): string {
       
       <div class="article-pair">
         <div class="block">
-          <p>This agreement has been concluded on this day ${company.moaDate} in accordance with the provisions of Federal Companies Law No.32/2021</p>
+          <p>This agreement has been concluded on this day <span class="edited">${company.moaDate}</span> in accordance with the provisions of Federal Companies Law No.32/2021</p>
         </div>
         <div class="block rtl">
-          <p>أبرم هذا العقد في هذا اليوم ${company.moaDate} وفقا لأحكام قانون الشركات الإتحادي رقم (32) لسنة 2021</p>
+          <p>أبرم هذا العقد في هذا اليوم <span class="edited">${company.moaDate}</span> وفقا لأحكام قانون الشركات الإتحادي رقم (32) لسنة 2021</p>
         </div>
       </div>
       
       <div class="article-pair">
         <div class="block">
           <h3 class="bold">First Party:</h3>
-          <p>Ms. ${primary.name} ${primary.nationality} national, holder of ID: Card No: ${eidOrPassport} and Born On ${primary.dob} having address at ${primary.address || company.emirate + ', U.A.E'}</p>
+          <p>Ms. <span class="edited">${primary.name}</span> <span class="edited">${primary.nationality}</span> national, holder of ID: Card No: <span class="edited">${eidOrPassport}</span> and Born On <span class="edited">${primary.dob}</span> having address at <span class="edited">${primary.address || company.emirate + ', U.A.E'}</span></p>
         </div>
         <div class="block rtl">
           <h3 class="bold">الطرف الاول:</h3>
-          <p>السيدة/ ${primary.nameAr}، ${primary.nationalityAr} الجنسية بحمل بطاقة هوية رقم: ${eidOrPassport} والمولود في ${primary.dob} وعنوانه ${primary.addressAr || company.emirateAr + '، ا.ع.م.'}</p>
+          <p>السيدة/ <span class="edited">${primary.nameAr}</span>، <span class="edited">${primary.nationalityAr}</span> الجنسية بحمل بطاقة هوية رقم: <span class="edited">${eidOrPassport}</span> والمولود في <span class="edited">${primary.dob}</span> وعنوانه <span class="edited">${primary.addressAr || company.emirateAr + '، ا.ع.م.'}</span></p>
         </div>
       </div>
       
       <div class="section-bar"><span>PREAMBLE</span><span class="rtl">المقدمة</span></div>
       <div class="article-pair">
         <div class="block">
-          <p>The first party, in her lawful sound capacity to contract, have agreed to incorporate a Limited Liability Company .Sole Propretorship Company in the Emirate of ${company.emirate} in accordance with the provisions of the Federal Law No. 32 of 2021, as amended concerning commercial companies (the Commercial Law) and provisions of this contract and as per the following conditions:-</p>
+          <p>The first party, in her lawful sound capacity to contract, have agreed to incorporate a Limited Liability Company .Sole Propretorship Company in the Emirate of <span class="edited">${company.emirate}</span> in accordance with the provisions of the Federal Law No. 32 of 2021, as amended concerning commercial companies (the Commercial Law) and provisions of this contract and as per the following conditions:-</p>
         </div>
         <div class="block rtl">
-          <p>اتفق الطرف الأول وهي بكامل أهلية القانونية للتعاقد على تأسيس شركة ذات مسؤولية محدودة ش. ش. و، في إمارة ${company.emirateAr} وفقا لأحكام القانون الاتحادي رقم (32) لسنة 2021 وتعديلاته بشأن الشركات التجارية (القانون التجاري) وأحكام هذا العقد ووفقا للشروط التالية:</p>
+          <p>اتفق الطرف الأول وهي بكامل أهلية القانونية للتعاقد على تأسيس شركة ذات مسؤولية محدودة ش. ش. و، في إمارة <span class="edited">${company.emirateAr}</span> وفقا لأحكام القانون الاتحادي رقم (32) لسنة 2021 وتعديلاته بشأن الشركات التجارية (القانون التجاري) وأحكام هذا العقد ووفقا للشروط التالية:</p>
         </div>
       </div>
       
@@ -61,33 +61,6 @@ export function page1(ctx: MOAContext, pageNum: number = 1): string {
         </div>
         <div class="block rtl">
           <p>يكون للكلمات والعبارات التالية في هذا العقد المعاني والمبينة امام كل منها ما لم يقض سياق النص بغير ذلك.</p>
-        </div>
-      </div>
-      
-      <div class="article-pair">
-        <div class="block">
-          <p><strong><u>1- Company:</u></strong> The Company established under this memorandum and registered in commercial register.</p>
-        </div>
-        <div class="block rtl">
-          <p><strong><u>1-الشركة:</u></strong> الشركة التي تأسست بموجب هذا العقد والمقيدة في السجل التجاري.</p>
-        </div>
-      </div>
-      
-      <div class="article-pair">
-        <div class="block">
-          <p><strong><u>2- Commercial Companies Law:</u></strong> Federal law No (32) of 2021 on Commercial Companies.</p>
-        </div>
-        <div class="block rtl">
-          <p><strong><u>2-قانون الشركات التجارية:</u></strong> القانون الاتحادي رقم :(32) لسنة 2021 في شأن الشركات التجارية.</p>
-        </div>
-      </div>
-      
-      <div class="article-pair">
-        <div class="block">
-          <p><strong><u>3-Director(S):</u></strong> The director or the directors of the company appointed pursuant to this memorandum.</p>
-        </div>
-        <div class="block rtl">
-          <p><strong><u>3- المدير/ المديرون:</u></strong> المدير او المديري الشركة المعينين بموجب هذا العقد.</p>
         </div>
       </div>
       </div>

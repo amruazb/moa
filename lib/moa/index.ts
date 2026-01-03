@@ -19,6 +19,8 @@ export function generateMOAHTML(data: DocumentData, formattingSettings?: FontSet
     pages.page7,
     pages.page8,
     pages.page9,
+    pages.page10,
+    pages.page11,
   ]
 
   // Generate pages with dynamic page numbers (1-indexed)
@@ -26,9 +28,9 @@ export function generateMOAHTML(data: DocumentData, formattingSettings?: FontSet
   const pagesHTML = pageGenerators.map((pageFn, index) => {
     const pageNum = index + 1
     const isLastPage = pageNum === totalPages
-    // For page8, pass isLastPage=true since it's the actual last content page
-    if (pageFn === pages.page8) {
-      return (pageFn as typeof pages.page8)(ctx, pageNum, isLastPage || pageNum === totalPages)
+    // For page11, pass isLastPage flag (it's the last page with signature)
+    if (pageFn === pages.page11) {
+      return (pageFn as typeof pages.page11)(ctx, pageNum, isLastPage)
     }
     return pageFn(ctx, pageNum)
   }).join('\n')

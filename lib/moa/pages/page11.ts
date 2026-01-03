@@ -1,52 +1,46 @@
 import { MOAContext, pageFooter } from '../types'
 
-export function page11(ctx: MOAContext, pageNum: number = 11): string {
-  const { company } = ctx
+export function page11(ctx: MOAContext, pageNum: number = 11, isLastPage: boolean = true): string {
+  const { primary } = ctx
 
   return `
     <div class="page">
       <div class="page-content">
       <div class="article-pair">
         <div class="block">
-          <h3 class="underline center">CHAPTER VII</h3>
-          <h3 class="center">Disputes</h3>
+          <h3 class="underline center">Article (29)</h3>
+          <p>This contract shall be registered in the commercial register and published in accordance with the law. Ms. ${primary.name} is solely authorized to carry out all necessary procedures in this regard. All costs, expenses, and other amounts incurred for establishing the company shall be deducted from the general expense account.</p>
         </div>
         <div class="block rtl">
-          <h3 class="underline center">الباب السابع</h3>
-          <h3 class="center">المنازعات</h3>
+          <h3 class="underline center">المادة (29)</h3>
+          <p>يقيد هذا العقد في السجل التجاري وينشر طبقاً للقانون، وقد فوض السيدة/ ${primary.nameAr} في اتخاذ كافة الإجراءات اللازمة في هذا الشأن. وتخصم جميع المصروفات والنفقات والتكاليف التي تم إنفاقها في سبيل تأسيس الشركة من حساب المصروفات العامة.</p>
         </div>
       </div>
+
       <div class="article-pair">
         <div class="block">
-          <h3 class="underline center">Article (25)</h3>
-          <p>Any dispute arising during company duration or during liquidation thereof, between partners or between themselves and the Managing Director or between themselves and liquidators concerning any matters related to the Company or business thereof shall be subject to the jurisdiction of court where main centre is located (${company.emirate} courts).</p>
+          <h3 class="underline center">Article (30)</h3>
+          <p>This agreement is made in three copies, with Ms. ${primary.name} retaining one copy, and the remaining copies to be submitted to the relevant authority for necessary action.</p>
         </div>
         <div class="block rtl">
-          <h3 class="underline center">المادة (25)</h3>
-          <p>كل نزاع يثار أثناء مدة الشركة أوأثناء تصفيتها بين الشركاء أوبينهم وبين المديرة التنفيذية أوبينهم وبين المصفين حول أمور تتعلق بالشركة أوبأعمالها، يكون النظر فيه من اختصاص محاكم المركز الرئيس (محاكم ${company.emirateAr}).</p>
+          <h3 class="underline center">المادة (30)</h3>
+          <p>حرر هذا العقد من ثلاث نسخ، يحتفظ السيدة/ ${primary.nameAr} بنسخة، وتودع النسختان المتبقيتان لدى جهات الاختصاص للعمل بهما.</p>
         </div>
       </div>
-      <div class="article-pair">
-        <div class="block">
-          <h3 class="underline center">CHAPTER VIII</h3>
-          <h3 class="center">Concluding Provisions</h3>
+
+      <div style="margin-top: 80px; display: flex; justify-content: space-between; gap: 40px; padding: 0 20px;">
+        <div style="flex: 1; text-align: center; padding: 20px 30px;">
+          <p style="font-size: 11pt; margin-bottom: 0;"><strong>Ms. ${primary.name}</strong></p>
+          <div style="margin-top: 80px; border-bottom: 1px solid #333; width: 200px; margin-left: auto; margin-right: auto;"></div>
+          <p style="margin-top: 8px; font-size: 10pt;"><strong>Signature</strong></p>
         </div>
-        <div class="block rtl">
-          <h3 class="underline center">الباب الثامن</h3>
-          <h3 class="center">أحكام ختامية</h3>
-        </div>
-      </div>
-      <div class="article-pair">
-        <div class="block">
-          <h3 class="underline center">Article (26)</h3>
-          <p>The provisions of Federal Law No. (32) Of 2021 concerning Commercial Companies and its amendments and executive regulations shall apply to whatever not covered by a specific provision in this Memorandum.</p>
-        </div>
-        <div class="block rtl">
-          <h3 class="underline center">المادة (26)</h3>
-          <p>تسري أحكام القانون الاتحادي رقم (32) لسنة 2021 في شأن الشركات التجارية وتعديلاته ولوائحه التنفيذية في مالم يرد بشأنها نص خاص في هذا العقد.</p>
+        <div style="flex: 1; text-align: center; padding: 20px 30px; direction: rtl;">
+          <p style="font-size: 11pt; margin-bottom: 0;"><strong>السيدة/ ${primary.nameAr || primary.name}</strong></p>
+          <div style="margin-top: 80px; border-bottom: 1px solid #333; width: 200px; margin-left: auto; margin-right: auto;"></div>
+          <p style="margin-top: 8px; font-size: 10pt;"><strong>التوقيع</strong></p>
         </div>
       </div>
       </div>
-      ${pageFooter(pageNum)}
+      ${pageFooter(pageNum, isLastPage)}
     </div>`
 }

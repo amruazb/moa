@@ -1,99 +1,76 @@
 import { MOAContext, pageFooter } from '../types'
+import { numberToWordsEn, numberToWordsAr } from '@/lib/utils/numberToWords'
 
 export function page4(ctx: MOAContext, pageNum: number = 4): string {
-  const { manager } = ctx
+  const { company, primary, capital, shareCount, shareValue } = ctx
+  const capitalWordsEn = numberToWordsEn(capital)
+  const capitalWordsAr = numberToWordsAr(capital)
 
   return `
     <div class="page">
       <div class="page-content">
       <div class="article-pair">
         <div class="block">
-          <h3 class="underline center">Article (9)</h3>
-          <p>a) Each partner is liable for the company obligation to the extent of value of shares in the capital.</p>
-          <p>b) The company shall be managed and its signature shall be by the Managing Director appointed herein.</p>
+          <h3 class="underline center">Article (5)</h3>
+          <p>The head office of the Company shall be in <span class="edited">${company.emirate}</span>. The General Assembly of the partners may transfer the head office of the company to another location in the same Emirate or decide to establish branches in the United Arab Emirates. If the head office is transferred to another Emirate, this should be in accordance with a resolution of the General Assembly of the Partners.</p>
         </div>
         <div class="block rtl">
-          <h3 class="underline center">المادة (9)</h3>
-          <p>أ) يكون كل شريك مسؤولاً عن التزامات الشركة بقدر حصته في رأس المال.</p>
-          <p>ب) يتولى إدارة الشركة والتوقيع عنها المديرة المفوض المعين في هذا العقد.</p>
+          <h3 class="underline center">المادة (5)</h3>
+          <p>يكون مركز الشركة الرئيسي في <span class="edited">${company.emirateAr}</span> ويجوز بقرار من الجمعية العمومية نقل المركز الرئيسي إلى أيه جهة أخرى في نفس الإمارة كما يجوز له أن يقرر إنشاء فروع للشركة في دولة الإمارات العربية المتحدة وإذا نقل المركز الرئيس إلى إمارة أخرى فيلزم أن يكون بناء على قرار من الجمعية العمومية للشركاء.</p>
         </div>
       </div>
+
       <div class="article-pair">
         <div class="block">
-          <h3 class="underline center">CHAPTER III</h3>
-          <h3 class="center">Management of the Company</h3>
+          <h3 class="underline center">CHAPTER II</h3>
+          <h3 class="center">Capital and Shares</h3>
         </div>
         <div class="block rtl">
-          <h3 class="underline center">الباب الثالث</h3>
-          <h3 class="center">إدارة الشركة</h3>
+          <h3 class="underline center">الباب الثاني</h3>
+          <h3 class="center">رأس مال الشركة وحصص الشركاء</h3>
         </div>
       </div>
+
       <div class="article-pair">
         <div class="block">
-          <h3 class="underline center">Article (10)</h3>
-          <p>a) The sole owner may solely appoint one or more managers from among the partners or from third parties and fix their remuneration. The manager shall have full power and authority to manage the Company and act on its behalf in all matters related to the Company's objectives and activities, except matters which are legally required to be resolved by the General Assembly.</p>
-          <p>b) The manager may delegate some of their powers to another person and may appoint agents and attorneys for specific matters.</p>
-          <p>c) The manager shall exercise their powers in accordance with the provisions of this Memorandum and within the limits of the Company's objectives. They shall not undertake any activity that may cause harm to the Company or conflict with its interests.</p>
+          <h3 class="underline center">Article (6)</h3>
+          <p>The capital of the Company is fixed at AED <span class="edited">${capital.toLocaleString()}</span> (<span class="edited">${capitalWordsEn}</span> Dirhams) divided into (<span class="edited">${shareCount}</span>) shares of a nominal value of AED <span class="edited">${shareValue.toLocaleString()}</span> each. Capital is fully subscribed and paid, and has been distributed among partners as follows:</p>
+          <table>
+            <tr><th>Partner</th><th>Shares</th><th>Value (AED)</th><th>%</th></tr>
+            <tr><td class="edited">${primary.name}</td><td class="edited">${shareCount}</td><td class="edited">${capital.toLocaleString()}</td><td>100%</td></tr>
+            <tr><td><strong>Total</strong></td><td><strong class="edited">${shareCount}</strong></td><td><strong class="edited">${capital.toLocaleString()}</strong></td><td><strong>100%</strong></td></tr>
+          </table>
         </div>
         <div class="block rtl">
-          <h3 class="underline center">المادة (10)</h3>
-          <p>أ) يجوز للمالك الوحيد تعيين مدير أو أكثر من بين الشركاء أو من الغير ويحدد أجره. يكون للمدير كافة الصلاحيات والسلطات لإدارة الشركة والتصرف نيابة عنها في جميع الأمور المتعلقة بأغراض الشركة وأنشطتها، باستثناء الأمور التي يتطلب القانون أن يتم البت فيها بقرار من الجمعية العمومية.</p>
-          <p>ب) يجوز للمدير تفويض بعض صلاحياته لشخص آخر كما يجوز له تعيين وكلاء ومحامين لأمور محددة.</p>
-          <p>ج) يمارس المدير صلاحياته وفقاً لأحكام هذا العقد وفي حدود أغراض الشركة. ولا يجوز له القيام بأي نشاط قد يلحق الضرر بالشركة أو يتعارض مع مصالحها.</p>
+          <h3 class="underline center">المادة (6)</h3>
+          <p>رأس مال الشركة <span class="edited">${capital.toLocaleString()}</span> درهم إماراتي (<span class="edited">${capitalWordsAr}</span> درهم) موزع على (<span class="edited">${shareCount}</span>) حصة قيمة كل حصة <span class="edited">${shareValue.toLocaleString()}</span> درهم إماراتي وجميعها حصص نقدية تم سدادها بالكامل وقد توزعت على الشريك كما يلي:</p>
+          <table>
+            <tr><th>الشريك</th><th>الحصص</th><th>القيمة (درهم)</th><th>%</th></tr>
+            <tr><td class="edited">${primary.nameAr || 'غير متوفر'}</td><td class="edited">${shareCount}</td><td class="edited">${capital.toLocaleString()}</td><td>100%</td></tr>
+            <tr><td><strong>المجموع</strong></td><td><strong class="edited">${shareCount}</strong></td><td><strong class="edited">${capital.toLocaleString()}</strong></td><td><strong>100%</strong></td></tr>
+          </table>
         </div>
       </div>
+
       <div class="article-pair">
         <div class="block">
-          <h3 class="underline center">Article (11)</h3>
-          <p>Ms. ${manager.name}, ID No. ${manager.id}, has been appointed as Managing Director with full authority to manage the Company's affairs, including but not limited to:</p>
-          <ul class="list">
-            <li>Opening and operating bank accounts</li>
-            <li>Signing contracts on behalf of the Company</li>
-            <li>Representing the Company before all authorities</li>
-            <li>Hiring and dismissing employees</li>
-            <li>Taking all necessary actions for the Company's benefit</li>
-          </ul>
+          <h3 class="underline center">Article (7)</h3>
+          <p>a) The capital shall be increased by resolution of the General Assembly of the Partners in accordance with the provisions of the Commercial Companies Law.</p>
         </div>
         <div class="block rtl">
-          <h3 class="underline center">المادة (11)</h3>
-          <p>تم تعيين السيدة/ ${manager.nameAr}، الهوية رقم ${manager.id}، كمديرة مفوضة مع كافة الصلاحيات لإدارة شؤون الشركة، بما في ذلك على سبيل المثال لا الحصر:</p>
-          <ul class="list">
-            <li>فتح وتشغيل الحسابات المصرفية</li>
-            <li>توقيع العقود نيابة عن الشركة</li>
-            <li>تمثيل الشركة أمام جميع الجهات</li>
-            <li>توظيف وفصل الموظفين</li>
-            <li>اتخاذ جميع الإجراءات اللازمة لمصلحة الشركة</li>
-          </ul>
+          <h3 class="underline center">المادة (7)</h3>
+          <p>أ) يجوز زيادة رأس المال بقرار من الجمعية العمومية للشركاء وفقاً لأحكام قانون الشركات التجارية.</p>
         </div>
       </div>
+
       <div class="article-pair">
         <div class="block">
-          <h3 class="underline center">Article (12)</h3>
-          <p>The manager shall keep accurate records and accounts of all the Company's transactions and shall prepare an annual balance sheet and profit and loss account within three months from the end of each financial year.</p>
+          <h3 class="underline center">Article (8)</h3>
+          <p>a) A partner may transfer any of his/her shares in the company to another partner or to a third party provided that such transfer is made to appropriate deed of assignment and registered in the Commercial Register.</p>
         </div>
         <div class="block rtl">
-          <h3 class="underline center">المادة (12)</h3>
-          <p>يحتفظ المدير بسجلات وحسابات دقيقة لجميع معاملات الشركة ويعد ميزانية سنوية وحساب أرباح وخسائر خلال ثلاثة أشهر من نهاية كل سنة مالية.</p>
-        </div>
-      </div>
-      <div class="article-pair">
-        <div class="block">
-          <h3 class="underline center">Article (13)</h3>
-          <p>The manager's appointment shall be for an unlimited period unless otherwise specified by the partners. The manager may resign upon giving thirty days' written notice to the partners.</p>
-        </div>
-        <div class="block rtl">
-          <h3 class="underline center">المادة (13)</h3>
-          <p>يكون تعيين المدير لمدة غير محددة ما لم يحدد الشركاء خلاف ذلك. ويجوز للمدير الاستقالة بعد إخطار الشركاء كتابياً قبل ثلاثين يوماً.</p>
-        </div>
-      </div>
-      <div class="article-pair">
-        <div class="block">
-          <h3 class="underline center">Article (14)</h3>
-          <p>The manager shall not carry on or participate in a business competing with that of the Company without the written consent of all partners. Violation of this provision shall entitle the Company to claim compensation for any damages suffered.</p>
-        </div>
-        <div class="block rtl">
-          <h3 class="underline center">المادة (14)</h3>
-          <p>لا يجوز للمدير أن يمارس أو يشارك في نشاط منافس لنشاط الشركة دون موافقة كتابية من جميع الشركاء. ومخالفة هذا الحكم يخول الشركة المطالبة بالتعويض عن أية أضرار تلحق بها.</p>
+          <h3 class="underline center">المادة (8)</h3>
+          <p>أ) يجوز للشريك التنازل عن حصصه في الشركة لشريك آخر أو للغير بشرط أن يتم التنازل بموجب عقد تنازل مناسب ويقيد في السجل التجاري.</p>
         </div>
       </div>
       </div>

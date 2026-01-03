@@ -1,79 +1,66 @@
 import { MOAContext, pageFooter } from '../types'
 
-export function page7(ctx: MOAContext, pageNum: number = 7): string {
-  const { company } = ctx
-
+export function page7(_ctx: MOAContext, pageNum: number = 7): string {
   return `
     <div class="page">
       <div class="page-content">
       <div class="article-pair">
         <div class="block">
-          <h3 class="underline center">CHAPTER VI</h3>
-          <h3 class="center">Dissolution and Liquidation</h3>
+          <h3 class="underline center">Article (15)</h3>
+          <p>The General Assembly shall be comprised of all the partners. Each partner shall have a number of votes proportional to their share in the capital. The General Assembly shall have the authority to:</p>
+          <ul class="list">
+            <li>Approve the annual accounts and balance sheet</li>
+            <li>Decide on the distribution of profits</li>
+            <li>Appoint and dismiss the manager</li>
+            <li>Amend the Memorandum of Association</li>
+            <li>Increase or decrease the capital</li>
+            <li>Approve the merger or dissolution of the Company</li>
+          </ul>
         </div>
         <div class="block rtl">
-          <h3 class="underline center">الباب السادس</h3>
-          <h3 class="center">حل الشركة وتصفيتها</h3>
+          <h3 class="underline center">المادة (15)</h3>
+          <p>تتألف الجمعية العمومية من جميع الشركاء. ولكل شريك عدد من الأصوات يتناسب مع حصته في رأس المال. وتختص الجمعية العمومية بما يلي:</p>
+          <ul class="list">
+            <li>المصادقة على الحسابات السنوية والميزانية</li>
+            <li>البت في توزيع الأرباح</li>
+            <li>تعيين وعزل المدير</li>
+            <li>تعديل عقد التأسيس</li>
+            <li>زيادة أو تخفيض رأس المال</li>
+            <li>الموافقة على اندماج أو حل الشركة</li>
+          </ul>
         </div>
       </div>
+
       <div class="article-pair">
         <div class="block">
-          <h3 class="underline center">Article (24)</h3>
-          <p>At the end of the duration of the company or in the event of its premature dissolution, the general assembly, upon request of the General Assembly, shall determine the means of liquidation, appoint one or more liquidators and fix their authority and authority of the manager shall cease upon appointment of the liquidator, while the authority of General Assembly shall remain throughout the liquidation period till the liquidators are discharged.</p>
+          <h3 class="underline center">Article (16)</h3>
+          <p>The General Assembly shall hold at least one annual meeting within four months from the end of each financial year. The manager may call for an extraordinary meeting of the General Assembly whenever necessary.</p>
         </div>
         <div class="block rtl">
-          <h3 class="underline center">المادة (24)</h3>
-          <p>عند انتهاء مدة الشركة أوفي حالة حلها قبل الأجل المحدد, تبين الجمعية العمومية بناء على طلب الجمعية العمومية طريقة التصفية وتعين مصفي أوعدة مصفين وتحدد سلطاتهم وتنتهي سلطة المدير بتعيين المصفين, أما سلطة الجمعية العمومية فتبقى قائمة طوال مدة التصفية إلى أن يتم إخلاء عهدة المصفين.</p>
+          <h3 class="underline center">المادة (16)</h3>
+          <p>تعقد الجمعية العمومية اجتماعاً سنوياً واحداً على الأقل خلال أربعة أشهر من نهاية كل سنة مالية. ويجوز للمدير دعوة الجمعية العمومية لاجتماع استثنائي كلما دعت الحاجة.</p>
         </div>
       </div>
+
       <div class="article-pair">
         <div class="block">
-          <h3 class="underline center">Article (25)</h3>
-          <p>The Managing Director shall make company dissolution public by register the same in the commercial register, and publish the same in two Arabic dailies. The provisions of the said law shall apply to company liquidation.</p>
+          <h3 class="underline center">Article (17)</h3>
+          <p>The notice of the General Assembly meeting shall be given at least fifteen days before the date of the meeting. The notice shall specify the date, time, place, and agenda of the meeting.</p>
         </div>
         <div class="block rtl">
-          <h3 class="underline center">المادة (25)</h3>
-          <p>على المديرة المفوضة إشهار حل الشراكة بقيده في السجل التجاري ونشره في صحيفتين يوميتين تصدران باللغة العربية وتطبق على حل الشركة وتصفيتها أحكام القانون المذكور.</p>
+          <h3 class="underline center">المادة (17)</h3>
+          <p>يتم الإخطار باجتماع الجمعية العمومية قبل خمسة عشر يوماً على الأقل من تاريخ الاجتماع. ويجب أن يتضمن الإخطار تاريخ ووقت ومكان وجدول أعمال الاجتماع.</p>
         </div>
       </div>
+
       <div class="article-pair">
         <div class="block">
-          <h3 class="underline center">CHAPTER VII</h3>
-          <h3 class="center">Disputes</h3>
+          <h3 class="underline center">Article (18)</h3>
+          <p>The General Assembly meeting shall not be valid unless attended by partners representing at least 75% of the capital. If the required quorum is not present, a second meeting shall be held within thirty days, which shall be valid regardless of the number of partners present.</p>
         </div>
         <div class="block rtl">
-          <h3 class="underline center">الباب السابع</h3>
-          <h3 class="center">المنازعات</h3>
-        </div>
-      </div>
-      <div class="article-pair">
-        <div class="block">
-          <h3 class="underline center">Article (26)</h3>
-          <p>Any dispute arising during company duration or during liquidation thereof, between partners or between themselves and the Managing Director or between themselves and liquidators concerning any matters related to the Company or business thereof shall be subject to the jurisdiction of court where main centre is located (${company.emirate} courts).</p>
-        </div>
-        <div class="block rtl">
-          <h3 class="underline center">المادة (26)</h3>
-          <p>كل نزاع يثار أثناء مدة الشركة أوأثناء تصفيتها بين الشركاء أوبينهم وبين المديرة التنفيذية أوبينهم وبين المصفين حول أمور تتعلق بالشركة أوبأعمالها، يكون النظر فيه من اختصاص محاكم المركز الرئيس (محاكم ${company.emirateAr}).</p>
-        </div>
-      </div>
-      <div class="article-pair">
-        <div class="block">
-          <h3 class="underline center">CHAPTER VIII</h3>
-          <h3 class="center">Closing Provisions</h3>
-        </div>
-        <div class="block rtl">
-          <h3 class="underline center">الباب الثامن</h3>
-          <h3 class="center">الأحكام الختامية</h3>
-        </div>
-      </div>
-      <div class="article-pair">
-        <div class="block">
-          <h3 class="underline center">Article (27)</h3>
-          <p>This Company shall be subject to the provision of the Commercial Companies Law. No.2 of 2015 and the Company law in the mentioned Emirate.</p>
-        </div>
-        <div class="block rtl">
-          <h3 class="underline center">المادة (27)</h3>
-          <p>تخضع هذه الشركة لأحكام قانون الشركات التجارية الصادر بالقانون الاتحادي رقم 2 لسنة 2015 وقانون الشركات في الإمارة المذكورة.</p>
+          <h3 class="underline center">المادة (18)</h3>
+          <p>لا يكون اجتماع الجمعية العمومية صحيحاً إلا إذا حضره شركاء يمثلون 75% على الأقل من رأس المال. وإذا لم يتوفر النصاب المطلوب يعقد اجتماع ثانٍ خلال ثلاثين يوماً يكون صحيحاً بغض النظر عن عدد الشركاء الحاضرين.</p>
         </div>
       </div>
       </div>

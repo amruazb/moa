@@ -14,6 +14,7 @@ export const generateMoaStyles = (settings?: FontSettings): string => {
   const columnRatio = settings?.columnRatio ?? 0.5
   const englishLineHeight = settings?.englishLineSpacing ?? 1.5
   const arabicLineHeight = settings?.arabicLineSpacing ?? 1.6
+  const pageMargin = settings?.pageMargin ?? 10 // left/right margin in mm
 
   // Convert ratio to percentage for CSS
   const englishPercent = Math.round(columnRatio * 100)
@@ -26,15 +27,19 @@ export const generateMoaStyles = (settings?: FontSettings): string => {
 
   return `
   ${fontImports}
-  
+
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  
-  /* A4 Paper: 210mm x 297mm - Print margins */
+
+  /* A4 Paper: 210mm x 297mm
+   * Each page is exactly A4 size with footer at bottom
+   * Content that overflows will be visible (not hidden) on screen
+   * Print will paginate content properly
+   */
   @page {
     size: A4 portrait;
-    margin: 0;
+    margin: 0; /* User sets margins to None in print dialog */
   }
-  
+
   body {
     font-family: '${englishFont}', '${arabicFont}', sans-serif;
     font-size: ${basePt}pt;
@@ -44,10 +49,11 @@ export const generateMoaStyles = (settings?: FontSettings): string => {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
-  
+
   /* Edited/Dynamic content styling */
   .edited { font-weight: ${boldEdited ? '700' : '400'}; }
-  
+
+  /* Document container */
   .doc {
     width: 210mm;
     max-width: 210mm;
@@ -55,104 +61,210 @@ export const generateMoaStyles = (settings?: FontSettings): string => {
     background: #fff;
     box-shadow: 0 18px 42px rgba(0,0,0,0.08);
   }
-  
+
+  /* Each page is exactly A4 height */
   .page {
     width: 210mm;
-    min-height: 297mm; /* Minimum A4 height */
-    /* height: auto on screen - let content determine height */
+    height: 297mm;
+    max-height: 297mm;
     display: flex;
     flex-direction: column;
-    border-bottom: 1px solid #e0e0e0;
     background: #fff;
     box-sizing: border-box;
-    margin-bottom: 20px; /* Visual separation between pages on screen */
+    margin-bottom: 40px;
     position: relative;
+    overflow: hidden; /* Hide overflow to show exact page boundary */
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    border: 1px solid #ccc;
   }
-  .page:last-child { margin-bottom: 0; }
-  
-  /* Page content wrapper - flexible area above footer */
+  .page:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Page break indicator - visible gap between pages */
+  .page::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #999, transparent);
+  }
+  .page:last-child::after {
+    display: none;
+  }
+
+  /* Page content wrapper - calculated height = 297mm - footer (46mm) - top padding */
   .page-content {
-    flex: 1; /* Take remaining space */
-    padding: 10mm 10mm 5mm 10mm;
+    flex: 1 1 auto;
+    height: calc(297mm - 46mm - 15mm); /* Available content height */
+    max-height: calc(297mm - 46mm - 15mm);
+    padding: 15mm ${pageMargin}mm 5mm ${pageMargin}mm;
     box-sizing: border-box;
+    overflow: visible; /* Show overflow visually */
   }
-  
-  /* Page footer - fixed 2-inch (51mm) height */
+
+  /* Page footer - fixed 46mm at bottom */
   .page-footer {
-    flex-shrink: 0; /* Don't shrink */
+    flex-shrink: 0;
+    height: 46mm;
+    min-height: 46mm;
+    max-height: 46mm;
+    padding: 5mm ${pageMargin}mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    background: #fff;
+    box-sizing: border-box;
+    width: 100%;
   }
-  
-  /* Print Styles - Allow natural content flow with proper pagination */
+
+  .page-footer .footer-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100%;
+  }
+
+  .page-footer .footer-left {
+    align-items: flex-start;
+  }
+
+  .page-footer .footer-center {
+    align-items: center;
+  }
+
+  .page-footer .footer-right {
+    align-items: flex-end;
+    justify-content: flex-end;
+  }
+
+  .page-footer .signature-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2mm;
+  }
+
+  /* Print Styles - Fixed pages, each exactly A4 */
   @media print {
-    html, body { 
-      background: #fff !important; 
-      padding: 0 !important; 
-      margin: 0 !important;
-      width: 210mm !important;
-    }
-    .doc { 
-      box-shadow: none !important; 
-      width: 210mm !important; 
-      max-width: 210mm !important;
+    html, body {
+      background: #fff !important;
+      padding: 0 !important;
       margin: 0 !important;
     }
-    
-    /* Pages flow naturally - browser handles pagination */
-    .page { 
-      border-bottom: none !important; 
+
+    .doc {
+      box-shadow: none !important;
       width: 210mm !important;
       max-width: 210mm !important;
-      min-height: auto !important;
-      height: auto !important;
       margin: 0 !important;
-      padding-bottom: 51mm !important; /* Ensure footer space at bottom */
+    }
+
+    /* Each page is exactly A4, prints one per physical page */
+    .page {
+      width: 210mm !important;
+      height: 297mm !important;
+      max-height: 297mm !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      display: flex !important;
+      flex-direction: column !important;
       page-break-after: always !important;
+      page-break-inside: avoid !important;
+      overflow: hidden !important;
       box-sizing: border-box !important;
-      display: block !important;
-      position: relative !important;
+      box-shadow: none !important;
+      border: none !important;
     }
+
+    .page::after {
+      display: none !important;
+    }
+
     .page:last-child {
       page-break-after: auto !important;
     }
-    
-    /* Content flows naturally */
+
+    /* Content area - match live view exactly */
     .page-content {
-      padding: 10mm 10mm 5mm 10mm !important;
+      flex: 1 1 auto !important;
+      height: calc(297mm - 46mm - 15mm) !important;
+      max-height: calc(297mm - 46mm - 15mm) !important;
+      padding: 15mm ${pageMargin}mm 5mm ${pageMargin}mm !important;
+      overflow: hidden !important;
+      box-sizing: border-box !important;
     }
-    
-    /* Keep article pairs together when possible */
+
+    /* Per-page footer at bottom - match live view exactly */
+    .page-footer {
+      flex-shrink: 0 !important;
+      height: 46mm !important;
+      min-height: 46mm !important;
+      max-height: 46mm !important;
+      padding: 5mm ${pageMargin}mm !important;
+      display: flex !important;
+      box-sizing: border-box !important;
+    }
+
+    /* Hide the global print footer */
+    .print-footer {
+      display: none !important;
+    }
+
+    /* Keep related content together */
     .article-pair {
       page-break-inside: avoid !important;
-    }
-    
-    /* Avoid breaking inside individual blocks */
-    .block {
-      page-break-inside: avoid !important;
-    }
-    
-    /* Section bars should keep with following content */
-    .section-bar {
-      page-break-after: avoid !important;
-    }
-    
-    .page-num { display: block !important; }
-    
-    /* Footer at bottom of each printed page */
-    .page-footer {
-      position: fixed !important;
-      bottom: 0 !important;
-      left: 0 !important;
-      right: 0 !important;
-      height: 51mm !important;
-      background: #fff !important;
       break-inside: avoid !important;
     }
-    
-    /* Ensure content doesn't overflow horizontally */
-    .bilingual, .article-pair, .grid {
+
+    .block {
+      page-break-inside: avoid !important;
+      break-inside: avoid !important;
+    }
+
+    .section-bar {
+      page-break-after: avoid !important;
+      break-after: avoid !important;
+    }
+
+    /* Horizontal overflow prevention */
+    .bilingual, .article-pair, .grid, .bilingual-header, .law-reference, .bilingual-content {
       width: 100% !important;
       max-width: 100% !important;
     }
+  }
+
+  /* Global print footer - not used */
+  .print-footer {
+    display: none;
+  }
+
+  /* PDF-specific styles - applied via class when generating PDF */
+  .pdf-mode .doc {
+    box-shadow: none !important;
+    width: 210mm !important;
+  }
+
+  .pdf-mode .page {
+    width: 210mm !important;
+    height: 297mm !important;
+    border-bottom: none !important;
+    margin-bottom: 0 !important;
+  }
+
+  .pdf-mode .page-footer {
+    display: flex !important;
+    height: 46mm !important;
+    min-height: 46mm !important;
+  }
+
+  .pdf-mode .print-footer {
+    display: none !important;
   }
   
   /* Title Styles */
@@ -402,52 +514,28 @@ export const generateMoaStyles = (settings?: FontSettings): string => {
   .bilingual-content h3 { font-size: ${basePt + 0.5}pt; font-weight: 700; margin-bottom: 6px; }
   .bilingual-content p { margin-bottom: 6px; }
 
-  /* Page Footer - Signature & Seal Area - Fixed 2 inches (51mm) */
-  .page-footer {
-    height: 51mm;
-    min-height: 51mm;
-    max-height: 51mm;
-    padding: 3mm 10mm 10mm 10mm;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    border-top: 1px solid #ccc;
-    background: #fff;
-    box-sizing: border-box;
+  /* Page Footer inner elements - Signature & Seal Area (overrides for fonts) */
+  .page-footer .footer-section {
+    font-size: ${basePt - 2}pt;
   }
   .page-footer .footer-left {
-    flex: 1;
-    text-align: left;
-    font-size: ${basePt - 2}pt;
     font-family: '${englishFont}', sans-serif;
   }
-  .page-footer .footer-center {
-    flex: 1;
-    text-align: center;
-    font-size: ${basePt - 2}pt;
-  }
   .page-footer .footer-right {
-    flex: 1;
-    text-align: right;
-    font-size: ${basePt - 2}pt;
     font-family: '${arabicFont}', sans-serif;
-    direction: rtl;
   }
   .page-footer .signature-line {
-    border-bottom: 1px solid #333;
-    width: 120px;
-    display: inline-block;
-    margin-bottom: 3px;
+    display: none;
   }
   .page-footer .footer-label {
     display: block;
-    margin-top: 2px;
-    color: #666;
+    margin-top: 3mm;
+    color: #555;
+    font-size: ${basePt - 2}pt;
+    text-align: center;
+    white-space: nowrap;
   }
   .page-footer .page-num {
-    position: absolute;
-    bottom: 10mm;
-    right: 10mm;
     font-size: ${basePt - 1}pt;
     color: #6b7280;
   }

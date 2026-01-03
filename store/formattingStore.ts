@@ -10,6 +10,7 @@ export interface FontSettings {
   arabicLineSpacing: number // line-height multiplier
   boldEditedFields: boolean
   columnRatio: number // 0.5 = equal, < 0.5 = more space for Arabic
+  pageMargin: number // left/right margin in mm (5-25mm)
 }
 
 export const LINE_SPACINGS = [
@@ -63,6 +64,7 @@ const defaultSettings: FontSettings = {
   arabicLineSpacing: 1.6,
   boldEditedFields: true,
   columnRatio: 0.5,
+  pageMargin: 10, // 10mm default left/right margin
 }
 
 const loadFromCache = (): FontSettings => {

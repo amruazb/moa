@@ -64,7 +64,7 @@ export function extractContext(data: DocumentData): MOAContext {
     nameAr: source[0]?.nameAr || 'غير متوفر',
     nationality: source[0]?.nationality || 'N/A',
     nationalityAr: source[0]?.nationalityAr || 'غير متوفر',
-    eid: source[0]?.eidNumber || '',
+    eid: (source[0]?.eidNumber || '').replace(/-/g, ''),
     passport: source[0]?.passportNumber || '',
     dob: source[0]?.dob || '',
     address: source[0]?.address || company.address || '',
@@ -99,7 +99,7 @@ export function extractContext(data: DocumentData): MOAContext {
     manager: {
       name: manager.managerName || primary.name,
       nameAr: manager.managerNameAr || primary.nameAr,
-      id: manager.managerIdNumber || eidOrPassport
+      id: (manager.managerIdNumber || eidOrPassport).replace(/-/g, '')
     },
     eidOrPassport,
     activitiesEn,
@@ -113,29 +113,41 @@ export function extractContext(data: DocumentData): MOAContext {
 }
 
 // Generate page footer with signature and seal areas
+// Fixed 2-inch (51mm) height for consistent alignment across print/PDF
 export function pageFooter(pageNum: number, isLastPage: boolean = false): string {
   if (isLastPage) {
     // Last page only has translator seal in center (signature already in content)
     return `
     <div class="page-footer">
-      <div class="footer-center">
-        <span class="signature-line"></span>
-        <span class="footer-label">ختم المترجم والتوقيع / Translator Seal & Sign</span>
-    </div>
-      <span class="page-num">${pageNum}</span>
+      <div class="footer-section footer-left"></div>
+      <div class="footer-section footer-center">
+        <div class="signature-box">
+          <span class="signature-line"></span>
+          <span class="footer-label">ختم المترجم والتوقيع / Translator Seal & Sign</span>
+        </div>
+      </div>
+      <div class="footer-section footer-right">
+        <span class="page-num">${pageNum}</span>
+      </div>
     </div>`
   }
 
   return `
     <div class="page-footer">
-      <div class="footer-left">
-        <span class="signature-line"></span>
-        <span class="footer-label">Signature / التوقيع</span>
+      <div class="footer-section footer-left">
+        <div class="signature-box">
+          <span class="signature-line"></span>
+          <span class="footer-label">Signature / التوقيع</span>
+        </div>
       </div>
-      <div class="footer-center">
-        <span class="signature-line"></span>
-        <span class="footer-label">ختم المترجم والتوقيع / Translator Seal & Sign</span>
+      <div class="footer-section footer-center">
+        <div class="signature-box">
+          <span class="signature-line"></span>
+          <span class="footer-label">ختم المترجم والتوقيع / Translator Seal & Sign</span>
+        </div>
       </div>
-      <span class="page-num">${pageNum}</span>
+      <div class="footer-section footer-right">
+        <span class="page-num">${pageNum}</span>
+      </div>
     </div>`
 }
