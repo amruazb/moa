@@ -147,7 +147,7 @@ async function runClientOCR(
   language: 'eng' | 'ara',
   onProgress: (progress: number) => void
 ): Promise<string> {
-  const worker = await Tesseract.createWorker(language, 1, {
+  const worker = await Tesseract.createWorker({
     logger: (m) => {
       if (m.status === 'recognizing text') {
         onProgress(m.progress)
@@ -158,6 +158,9 @@ async function runClientOCR(
     workerPath: 'https://cdn.jsdelivr.net/npm/tesseract.js@4.1.4/dist/worker.min.js',
     corePath: 'https://cdn.jsdelivr.net/npm/tesseract.js-core@4.0.4/tesseract-core.wasm.js'
   })
+  
+  await worker.loadLanguage(language)
+  await worker.initialize(language)
   
   const { data: { text } } = await worker.recognize(imageBlob)
   await worker.terminate()

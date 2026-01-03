@@ -20,10 +20,7 @@ async function runOCREnglish(imageBuffer: Buffer): Promise<string> {
         if (m.status === 'recognizing text' && m.progress > 0) {
           console.log(`OCR English: ${Math.round(m.progress * 100)}%`)
         }
-      },
-      // Server-side optimization
-      tessedit_pageseg_mode: Tesseract.PSM.AUTO,
-      preserve_interword_spaces: '1'
+      }
     }
   )
   
@@ -44,10 +41,7 @@ async function runOCRArabic(imageBuffer: Buffer): Promise<string> {
         if (m.status === 'recognizing text' && m.progress > 0) {
           console.log(`OCR Arabic: ${Math.round(m.progress * 100)}%`)
         }
-      },
-      // Server-side optimization
-      tessedit_pageseg_mode: Tesseract.PSM.AUTO,
-      preserve_interword_spaces: '1'
+      }
     }
   )
   
