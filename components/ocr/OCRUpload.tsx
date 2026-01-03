@@ -51,8 +51,21 @@ export function OCRUpload({ documentType, onExtracted, label, description }: OCR
       clearTimeout(timeoutId)
 
       if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}))
-        throw new Error(errorData.error || 'OCR processing failed')
+        // Handle timeout (504) and other errors
+        if (response.status === 504) {
+          throw new Error('TIMEOUT: OCR took too long (>10s). Your image is too large/complex for Vercel Free tier. Try: 1) Take a clearer photo, 2) Reduce image size further, or 3) Upgrade to Pro plan.')
+        }
+        
+        // Try to parse JSON error, fallback to status text
+        let errorMessage = 'OCR processing failed'
+        try {
+          const errorData = await response.json()
+          errorMessage = errorData.error || errorMessage
+        } catch {
+          // Response is not JSON (likely HTML error page)
+          errorMessage = `Server error (${response.status}): ${response.statusText}`
+        }
+        throw new Error(errorMessage)
       }
 
       const result = await response.json()
@@ -146,6 +159,13 @@ export function OCRUpload({ documentType, onExtracted, label, description }: OCR
       {description && (
         <p className="text-xs text-gray-500">{description}</p>
       )}
+      
+      {/* Helpful tip for better results */}
+      {!preview && (
+        <p className="text-xs text-amber-600 bg-amber-50 border border-amber-200 rounded px-2 py-1">
+          💡 Tip: Use clear, well-lit photos for best results (auto-compresses to 800px)
+        </p>
+      )}
 
       <div
         onDrop={handleDrop}
@@ -223,8 +243,8 @@ async function optimizeImage(file: File): Promise<File> {
       let width = img.width
       let height = img.height
       
-      // Target max width for Vercel Free tier (faster processing)
-      const maxWidth = 1200
+      // More aggressive compression for Vercel Free tier (must finish in <10s)
+      const maxWidth = 800  // Reduced from 1200
       
       if (width > maxWidth) {
         height = (height * maxWidth) / width
@@ -249,7 +269,7 @@ async function optimizeImage(file: File): Promise<File> {
           // If optimization fails, use original
           resolve(file)
         }
-      }, file.type, 0.85) // 85% quality
+      }, file.type, 0.75) // 75% quality - more aggressive compression
     }
     
     img.onerror = () => {
