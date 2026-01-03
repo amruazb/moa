@@ -2,6 +2,12 @@
 
 import { useState, useCallback, useRef } from 'react'
 import { DocumentType } from '@/lib/ocr/types'
+import dynamic from 'next/dynamic'
+
+// Dynamically import ClientOCR to avoid SSR issues
+const ClientOCR = dynamic(() => import('./ClientOCR').then(mod => ({ default: mod.ClientOCR })), {
+  ssr: false
+})
 
 interface OCRUploadProps {
   documentType: DocumentType
@@ -15,12 +21,15 @@ export function OCRUpload({ documentType, onExtracted, label, description }: OCR
   const [preview, setPreview] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
+  const [useClientOCR, setUseClientOCR] = useState(false)
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const processFile = useCallback(async (file: File) => {
     setIsProcessing(true)
     setError(null)
     setSuccess(false)
+    setUploadedFile(file)
 
     try {
       // Create preview
@@ -53,7 +62,7 @@ export function OCRUpload({ documentType, onExtracted, label, description }: OCR
       if (!response.ok) {
         // Handle timeout (504) and other errors
         if (response.status === 504) {
-          throw new Error('TIMEOUT: OCR took too long (>10s). Your image is too large/complex for Vercel Free tier. Try: 1) Take a clearer photo, 2) Reduce image size further, or 3) Upgrade to Pro plan.')
+          throw new Error('TIMEOUT')
         }
         
         // Try to parse JSON error, fallback to status text
@@ -79,8 +88,9 @@ export function OCRUpload({ documentType, onExtracted, label, description }: OCR
       }
     } catch (err) {
       if (err instanceof Error) {
-        if (err.name === 'AbortError') {
-          setError('Processing timed out (Vercel Free tier = 10s limit). Try: 1) Compress image before upload, 2) Use clearer photo, or 3) Upgrade to Pro plan.')
+        if (err.name === 'AbortError' || err.message === 'TIMEOUT') {
+          // Offer client-side OCR as fallback
+          setError('SERVER_TIMEOUT')
         } else {
           setError(err.message)
         }
@@ -111,9 +121,38 @@ export function OCRUpload({ documentType, onExtracted, label, description }: OCR
     setPreview(null)
     setError(null)
     setSuccess(false)
+    setUseClientOCR(false)
+    setUploadedFile(null)
     if (fileInputRef.current) {
       fileInputRef.current.value = ''
     }
+  }
+
+  // Switch to client-side OCR
+  const tryClientOCR = () => {
+    if (uploadedFile) {
+      setUseClientOCR(true)
+      setError(null)
+    }
+  }
+
+  // If using client OCR, render that component
+  if (useClientOCR && uploadedFile) {
+    return (
+      <ClientOCR
+        documentType={documentType}
+        onExtracted={(data) => {
+          onExtracted(data)
+          setSuccess(true)
+          setUseClientOCR(false)
+        }}
+        imageFile={uploadedFile}
+        onCancel={() => {
+          setUseClientOCR(false)
+          clearUpload()
+        }}
+      />
+    )
   }
 
   const getIcon = () => {
@@ -212,8 +251,24 @@ export function OCRUpload({ documentType, onExtracted, label, description }: OCR
                   Data extracted successfully!
                 </div>
               )}
-              {error && (
+              {error && error !== 'SERVER_TIMEOUT' && (
                 <div className="text-xs text-red-600">{error}</div>
+              )}
+              {error === 'SERVER_TIMEOUT' && (
+                <div className="space-y-2">
+                  <div className="text-xs text-amber-700 bg-amber-50 border border-amber-300 rounded px-2 py-1">
+                    ⏱️ Server timeout: OCR took &gt;10s (Vercel Free tier limit)
+                  </div>
+                  <button
+                    onClick={tryClientOCR}
+                    className="w-full text-xs bg-blue-600 text-white px-3 py-2 rounded hover:bg-blue-700 font-medium"
+                  >
+                    🚀 Try Browser OCR (No timeout, runs locally)
+                  </button>
+                  <p className="text-xs text-gray-500">
+                    Or: Take clearer photo • Upgrade to Pro plan
+                  </p>
+                </div>
               )}
             </div>
           </div>
