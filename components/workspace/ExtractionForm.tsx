@@ -130,6 +130,7 @@ export function ExtractionForm() {
   const destinationParties = extractedData.destinationParties || []
   const shares = extractedData.shares || { source: [], destination: [] }
   const managerArticle = extractedData.managerArticle || {}
+  const ownerArticle = extractedData.ownerArticle || {}
   const capitalData = extractedData.capital || { totalCapital: 10000, shareCount: 100, shareValue: 100 }
 
   const updateCompany = (field: string, value: string) => {
@@ -156,6 +157,10 @@ export function ExtractionForm() {
 
   const updateManager = (field: string, value: string) => {
     setExtractedData({ managerArticle: { ...managerArticle, [field]: value } })
+  }
+
+  const updateOwner = (field: string, value: string) => {
+    setExtractedData({ ownerArticle: { ...ownerArticle, [field]: value } })
   }
 
   const updateCapital = (field: string, value: number) => {
@@ -215,6 +220,71 @@ export function ExtractionForm() {
         managerDocType: 'passport'
       }
     })
+  }
+
+  // Owner OCR handlers
+  const handleOwnerEIDExtracted = (data: EmiratesIDData) => {
+    // ONLY extract EID number and DOB from scan
+    // Names and nationality should come from Trade License or manual entry
+    setExtractedData({
+      ownerArticle: {
+        ...ownerArticle,
+        // DO NOT update names from EID - keep existing names from Trade License
+        // DO NOT update nationality from EID - keep existing nationality from Trade License
+        ownerIdNumber: data.idNumber || ownerArticle.ownerIdNumber,
+        ownerDob: data.dateOfBirth || ownerArticle.ownerDob,
+        ownerDocType: 'eid'
+      }
+    })
+  }
+
+  const handleOwnerPassportExtracted = (data: PassportData) => {
+    // ONLY extract passport number and DOB from scan
+    // Names and nationality should come from Trade License or manual entry
+    setExtractedData({
+      ownerArticle: {
+        ...ownerArticle,
+        // DO NOT update names from Passport - keep existing names from Trade License
+        // DO NOT update nationality from Passport - keep existing nationality from Trade License
+        ownerIdNumber: data.passportNumber || ownerArticle.ownerIdNumber,
+        ownerDob: data.dateOfBirth || ownerArticle.ownerDob,
+        ownerDocType: 'passport'
+      }
+    })
+  }
+
+  const handleOwnerTradeCertificateExtracted = (data: TradeCertificateData) => {
+    // Extract owner data from trade certificate
+    if (data.owners && data.owners.length > 0) {
+      // Find owner role first, otherwise use first owner
+      const owner = data.owners.find(o => o.role?.toLowerCase() === 'owner') || data.owners[0]
+      if (owner) {
+        setExtractedData({
+          ownerArticle: {
+            ...ownerArticle,
+            ownerName: owner.nameEn || ownerArticle.ownerName,
+            ownerNameAr: owner.nameAr || ownerArticle.ownerNameAr,
+            ownerNationality: owner.nationality || ownerArticle.ownerNationality,
+            ownerNationalityAr: owner.nationalityAr || ownerArticle.ownerNationalityAr,
+          }
+        })
+      }
+    }
+  }
+
+  const syncOwnerFromSource = () => {
+    const source = sourceParties[0]
+    if (source) {
+      setExtractedData({
+        ownerArticle: {
+          ...ownerArticle,
+          ownerName: source.name || '',
+          ownerNameAr: source.nameAr || '',
+          ownerIdNumber: source.eidNumber || source.passportNumber || '',
+          ownerDocType: source.eidNumber ? 'eid' : 'passport'
+        }
+      })
+    }
   }
 
   const addDestParty = () => {
@@ -421,6 +491,56 @@ export function ExtractionForm() {
         </div>
         <div className="text-[10px] text-gray-500 bg-blue-50 p-2 rounded">
           <strong>Preview:</strong> AED {(capitalData.totalCapital || 0).toLocaleString()} divided into {capitalData.shareCount || 0} shares @ AED {(capitalData.shareValue || 0).toLocaleString()} each
+        </div>
+      </fieldset>
+
+      {/* Owner Article Section */}
+      <fieldset className="border border-gray-200 rounded-xl p-3 space-y-2">
+        <legend className="text-xs font-semibold text-slate-900 px-2">Owner (Article 5)</legend>
+        <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center gap-2">
+            <OCRButton 
+              documentType="trade_certificate" 
+              onExtracted={handleOwnerTradeCertificateExtracted}
+              label="Scan Trade License"
+            />
+            <OCRButton 
+              documentType="emirates_id" 
+              onExtracted={handleOwnerEIDExtracted}
+              label="Scan EID"
+            />
+            <OCRButton 
+              documentType="passport" 
+              onExtracted={handleOwnerPassportExtracted}
+              label="Scan Passport"
+            />
+          </div>
+          <button
+            onClick={syncOwnerFromSource}
+            className="inline-flex items-center gap-1 px-2 py-1 text-xs rounded bg-green-50 text-green-600 hover:bg-green-100"
+          >
+            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+            Sync from Source Party
+          </button>
+        </div>
+        <div className="grid grid-cols-2 gap-2">
+          <label className="block text-xs text-gray-600">Owner Name (EN)
+            <input className="mt-1 w-full rounded border px-2 py-1 text-xs" value={ownerArticle.ownerName || ''} onChange={(e) => updateOwner('ownerName', e.target.value)} />
+          </label>
+          <label className="block text-xs text-gray-600">Owner Name (AR)
+            <input className="mt-1 w-full rounded border px-2 py-1 text-xs" dir="rtl" value={ownerArticle.ownerNameAr || ''} onChange={(e) => updateOwner('ownerNameAr', e.target.value)} />
+          </label>
+          <label className="block text-xs text-gray-600">Owner ID Number
+            <input className="mt-1 w-full rounded border px-2 py-1 text-xs" value={ownerArticle.ownerIdNumber || ''} onChange={(e) => updateOwner('ownerIdNumber', e.target.value)} />
+          </label>
+          <label className="block text-xs text-gray-600">ID Type
+            <select className="mt-1 w-full rounded border px-2 py-1 text-xs" value={ownerArticle.ownerDocType || 'eid'} onChange={(e) => updateOwner('ownerDocType', e.target.value)}>
+              <option value="eid">Emirates ID</option>
+              <option value="passport">Passport</option>
+            </select>
+          </label>
         </div>
       </fieldset>
 

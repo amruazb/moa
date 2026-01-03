@@ -213,41 +213,91 @@ function extractEmiratesID(englishText: string, arabicText: string = ''): Emirat
   }
   
   // ========== PRIORITY 3: Arabic name from Arabic OCR ==========
-  const arabicLabels = ['الاسم', 'الإسم', 'تاريخ', 'الجنسية', 'رقم', 'الميلاد', 'الصلاحية', 'الهوية', 'بطاقة', 'الصين', 'الهند', 'جمهورية', 'الشعبية', 'التوقيع', 'الجنس', 'ذهبية', 'المتحدة', 'العربية', 'الإمارات', 'الاتحادية', 'الهيئة', 'والجنسية', 'للهوية']
+  const arabicLabels = ['الاسم', 'الإسم', 'تاريخ', 'الجنسية', 'رقم', 'الميلاد', 'الصلاحية', 'الهوية', 'بطاقة', 'الصين', 'الهند', 'جمهورية', 'الشعبية', 'التوقيع', 'الجنس', 'ذهبية', 'المتحدة', 'العربية', 'الإمارات', 'الاتحادية', 'الهيئة', 'والجنسية', 'للهوية', 'الجنسية', 'مدير', 'الإصدار', 'الانتهاء', 'حتى']
   
-  // Try to find specific Arabic name pattern "لى يوين" or similar
   if (arabicText) {
-    // First check for known name pattern
-    const knownNameMatch = arabicText.match(/لى\s*يوين/i) || arabicText.match(/لي\s*يوين/i)
-    if (knownNameMatch) {
-      nameAr = knownNameMatch[0]
-    }
+    // Strategy 1: Look for specific name patterns (support both لى and لي variants)
+    const nameVariants = [
+      /لي\s*يوين/i,
+      /لى\s*يوين/i,
+      /([\u0600-\u06FF]{2,}\s+[\u0600-\u06FF]{2,})/g  // Generic: 2+ Arabic words
+    ]
     
-    // Otherwise look for "الاسم: NAME" pattern
-    if (!nameAr) {
-      const arabicNameMatch = arabicText.match(/الا?سم[:\s]*([^\n\d]+)/i)
-      if (arabicNameMatch && containsArabic(arabicNameMatch[1])) {
-        const extracted = arabicNameMatch[1].trim()
-        // Clean up - remove labels
-        const cleaned = extracted.split(/\s+/).filter(w => 
-          containsArabic(w) && !arabicLabels.includes(w) && w.length >= 2
-        ).join(' ')
-        if (cleaned.length >= 3) {
-          nameAr = cleaned
+    for (const pattern of nameVariants) {
+      const match = arabicText.match(pattern)
+      if (match) {
+        const candidate = match[0] || match[1]
+        // Validate it's a real name (not a label)
+        if (candidate && !arabicLabels.some(label => candidate.includes(label))) {
+          nameAr = candidate.trim()
+          console.log('Found Arabic name (pattern match):', nameAr)
+          break
         }
       }
     }
     
-    // Fallback: find Arabic text that looks like a name (2-4 words)
+    // Strategy 2: Look for "الاسم: NAME" or similar label patterns
+    if (!nameAr) {
+      const labelPatterns = [
+        /الا?سم[\s:]*([\ \u0600-\u06FF\s]{4,30}?)(?=تاريخ|الجنسية|\d|$)/i,
+        /Name[\s:]*([\ \u0600-\u06FF\s]{4,30}?)(?=تاريخ|Date|\d|$)/i
+      ]
+      
+      for (const pattern of labelPatterns) {
+        const match = arabicText.match(pattern)
+        if (match && match[1] && containsArabic(match[1])) {
+          const extracted = match[1].trim()
+          // Clean up - remove labels
+          const cleaned = extracted.split(/\s+/).filter(w => 
+            containsArabic(w) && !arabicLabels.some(label => w.includes(label)) && w.length >= 2
+          ).join(' ')
+          if (cleaned.length >= 3 && cleaned.length <= 30) {
+            nameAr = cleaned
+            console.log('Found Arabic name (label match):', nameAr)
+            break
+          }
+        }
+      }
+    }
+    
+    // Strategy 3: Smart line-by-line search for name-like patterns
     if (!nameAr) {
       for (const line of arabicLines) {
-        if (containsArabic(line)) {
+        if (containsArabic(line) && line.length >= 4 && line.length <= 50) {
           const words = line.split(/\s+/).filter(w => 
-            containsArabic(w) && !arabicLabels.includes(w) && w.length >= 2
+            containsArabic(w) && !arabicLabels.some(label => w.includes(label)) && w.length >= 2
           )
+          // Names typically have 2-4 words
           if (words.length >= 2 && words.length <= 4) {
-            nameAr = words.join(' ')
-            break
+            const candidate = words.join(' ')
+            // Additional validation: no numbers, reasonable length
+            if (!/\d/.test(candidate) && candidate.length >= 4 && candidate.length <= 30) {
+              nameAr = candidate
+              console.log('Found Arabic name (line search):', nameAr)
+              break
+            }
+          }
+        }
+      }
+    }
+    
+    // Strategy 4: If we have English name but no Arabic, try to find any 2-word Arabic sequence
+    // that appears near the English name in the combined text
+    if (!nameAr && nameEn) {
+      const combinedText = englishText + '\n' + arabicText
+      const namePosition = combinedText.toLowerCase().indexOf(nameEn.toLowerCase())
+      if (namePosition > -1) {
+        // Look for Arabic text within 200 chars before or after English name
+        const contextStart = Math.max(0, namePosition - 200)
+        const contextEnd = Math.min(combinedText.length, namePosition + nameEn.length + 200)
+        const context = combinedText.substring(contextStart, contextEnd)
+        
+        const contextMatch = context.match(/([\u0600-\u06FF]{2,}\s+[\u0600-\u06FF]{2,})/)
+        if (contextMatch) {
+          const candidate = contextMatch[1].trim()
+          if (!arabicLabels.some(label => candidate.includes(label)) && candidate.length <= 30) {
+            nameAr = candidate
+            console.log('Found Arabic name (context match):', nameAr)
           }
         }
       }
@@ -473,21 +523,60 @@ function extractTradeCertificate(text: string): TradeCertificateData {
   }
   
   // Try to extract Arabic names separately and match them
-  const arabicNamePattern = /(لى\s*يوين|[\u0600-\u06FF]+\s+[\u0600-\u06FF]+)/g
-  const arabicNames = fullText.match(arabicNamePattern) || []
-  // Filter out common labels
-  const arabicLabels = ['الصين', 'الهند', 'مالك', 'مدير', 'الإسم', 'الجنسية', 'الصلة', 'الرمز']
-  const validArabicNames = arabicNames.filter(n => !arabicLabels.includes(n.trim()) && n.length >= 4)
+  const arabicLabels = ['الصين', 'الهند', 'مالك', 'مدير', 'الإسم', 'الاسم', 'الجنسية', 'الصلة', 'الرمز', 'الملكية', 'والممثلين', 'ذ.م.م', 'ش.ش.و', 'الشركة', 'كافيه']
   
-  // Assign Arabic names to owners if we found any
-  if (validArabicNames.length > 0 && owners.length > 0) {
-    // Remove duplicates from Arabic names
-    const uniqueArabicNames = [...new Set(validArabicNames)]
-    owners.forEach((owner, idx) => {
-      if (idx < uniqueArabicNames.length) {
-        owner.nameAr = uniqueArabicNames[idx]
-      }
+  // Better approach: Look for Arabic names in the same row as English names
+  // Pattern: ID Number + Arabic Role + Arabic Nationality + Arabic Name
+  // Example: 42644548 مالك الصين لي يوين
+  const arabicOwnerPattern = /(\d+)\s+(مالك|مدير)\s+(الصين|الهند|[\u0600-\u06FF]+)\s+([\u0600-\u06FF\s]{4,30}?)(?=\d|مالك|مدير|Owner|Manager|Economic|الأنشطة|$)/gi
+  let arabicOwnerMatch
+  const arabicOwnerNames = new Map() // Map ID to Arabic name
+  
+  while ((arabicOwnerMatch = arabicOwnerPattern.exec(fullText)) !== null) {
+    const idNum = arabicOwnerMatch[1]
+    const arabicName = arabicOwnerMatch[4].trim()
+    // Clean up the Arabic name - remove any trailing labels
+    const cleanedName = arabicName.split(/\s+/).filter(word => 
+      !arabicLabels.some(label => word.includes(label)) && word.length >= 2
+    ).join(' ')
+    
+    if (cleanedName.length >= 4) {
+      arabicOwnerNames.set(idNum, cleanedName)
+      console.log('Found Arabic name for ID', idNum, ':', cleanedName)
+    }
+  }
+  
+  // Match Arabic names to owners by ID number
+  owners.forEach(owner => {
+    if (owner.idNumber && arabicOwnerNames.has(owner.idNumber)) {
+      owner.nameAr = arabicOwnerNames.get(owner.idNumber)!
+    }
+  })
+  
+  // Fallback: If no match by ID, try generic Arabic name patterns
+  if (owners.some(o => !o.nameAr)) {
+    const arabicNamePattern = /([\u0600-\u06FF]{2,}\s+[\u0600-\u06FF]{2,})/g
+    const arabicNames = fullText.match(arabicNamePattern) || []
+    const validArabicNames = arabicNames.filter(n => {
+      const trimmed = n.trim()
+      // Filter out labels and short words
+      if (arabicLabels.some(label => trimmed.includes(label))) return false
+      if (trimmed.length < 4) return false
+      // Check if it's a real name pattern (2-3 words, reasonable length)
+      const words = trimmed.split(/\s+/)
+      return words.length >= 2 && words.length <= 4 && trimmed.length <= 30
     })
+    
+    if (validArabicNames.length > 0) {
+      const uniqueArabicNames = [...new Set(validArabicNames)]
+      let nameIndex = 0
+      owners.forEach(owner => {
+        if (!owner.nameAr && nameIndex < uniqueArabicNames.length) {
+          owner.nameAr = uniqueArabicNames[nameIndex]
+          nameIndex++
+        }
+      })
+    }
   }
   
   // If no owners found, try simpler pattern - look for names after China/India etc

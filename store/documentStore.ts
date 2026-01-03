@@ -57,6 +57,15 @@ export interface DocumentData {
     managerDob?: string
     managerDocType?: 'eid' | 'passport'
   }
+  ownerArticle?: {
+    ownerName?: string
+    ownerNameAr?: string
+    ownerNationality?: string
+    ownerNationalityAr?: string
+    ownerIdNumber?: string
+    ownerDob?: string
+    ownerDocType?: 'eid' | 'passport'
+  }
   capital?: CapitalData
 }
 
