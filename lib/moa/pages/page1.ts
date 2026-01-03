@@ -1,7 +1,7 @@
 import { MOAContext, pageFooter } from '../types'
 
 export function page1(ctx: MOAContext, pageNum: number = 1): string {
-  const { company, primary, eidOrPassport } = ctx
+  const { company, primary, eidOrPassport, pronouns } = ctx
 
   return `
     <div class="page">
@@ -36,28 +36,28 @@ export function page1(ctx: MOAContext, pageNum: number = 1): string {
       <div class="article-pair">
         <div class="block">
           <h3 class="bold">First Party:</h3>
-          <p>Ms. <span class="edited">${primary.name}</span> <span class="edited">${primary.nationality}</span> national, holder of ID: Card No: <span class="edited">${eidOrPassport}</span> and Born On <span class="edited">${primary.dob}</span> having address at <span class="edited">${primary.address || company.emirate + ', U.A.E'}</span></p>
+          <p><strong>${pronouns.title}</strong> <span class="edited">${primary.name}</span> <span class="edited">${primary.nationality}</span> national, holder of ID: Card No: <span class="edited">${eidOrPassport}</span> and Born On <span class="edited">${primary.dob}</span> having address at <span class="edited">${primary.address || company.emirate + ', U.A.E'}</span></p>
         </div>
         <div class="block rtl">
           <h3 class="bold">الطرف الاول:</h3>
-          <p>السيدة/ <span class="edited">${primary.nameAr}</span>، <span class="edited">${primary.nationalityAr}</span> الجنسية بحمل بطاقة هوية رقم: <span class="edited">${eidOrPassport}</span> والمولود في <span class="edited">${primary.dob}</span> وعنوانه <span class="edited">${primary.addressAr || company.emirateAr + '، ا.ع.م.'}</span></p>
+          <p><strong>${pronouns.titleAr}/</strong> <span class="edited">${primary.nameAr}</span>، <span class="edited">${primary.nationalityAr}</span> الجنسية بحمل بطاقة هوية رقم: <span class="edited">${eidOrPassport}</span> والمولود في <span class="edited">${primary.dob}</span> وعنوانه <span class="edited">${primary.addressAr || company.emirateAr + '، ا.ع.م.'}</span></p>
         </div>
       </div>
       
       <div class="section-bar"><span>PREAMBLE</span><span class="rtl">المقدمة</span></div>
       <div class="article-pair">
         <div class="block">
-          <p>The first party, in her lawful sound capacity to contract, have agreed to incorporate a Limited Liability Company .Sole Propretorship Company in the Emirate of <span class="edited">${company.emirate}</span> in accordance with the provisions of the Federal Law No. 32 of 2021, as amended concerning commercial companies (the Commercial Law) and provisions of this contract and as per the following conditions:-</p>
+          <p>The first party, in ${pronouns.possessive} lawful sound capacity to contract, has agreed to incorporate a Limited Liability Company .Sole Proprietorship Company in the Emirate of <span class="edited">${company.emirate}</span> in accordance with the provisions of the Federal Law No. 32 of 2021, as amended concerning commercial companies (the Commercial Law) and provisions of this contract and as per the following conditions:-</p>
         </div>
         <div class="block rtl">
-          <p>اتفق الطرف الأول وهي بكامل أهلية القانونية للتعاقد على تأسيس شركة ذات مسؤولية محدودة ش. ش. و، في إمارة <span class="edited">${company.emirateAr}</span> وفقا لأحكام القانون الاتحادي رقم (32) لسنة 2021 وتعديلاته بشأن الشركات التجارية (القانون التجاري) وأحكام هذا العقد ووفقا للشروط التالية:</p>
+          <p>اتفق الطرف الأول و${pronouns.subjectAr} بكامل أهلية القانونية للتعاقد على تأسيس شركة ذات مسؤولية محدودة ش. ش. و، في إمارة <span class="edited">${company.emirateAr}</span> وفقا لأحكام القانون الاتحادي رقم (32) لسنة 2021 وتعديلاته بشأن الشركات التجارية (القانون التجاري) وأحكام هذا العقد ووفقا للشروط التالية:</p>
         </div>
       </div>
       
       <div class="section-bar"><span>DEFINITIONS</span><span class="rtl">تعريفات</span></div>
       <div class="article-pair">
         <div class="block">
-          <p>In applying this memorandum, the following terms shall have the following in meanings, unless the context requires otherwise.</p>
+          <p>In applying this memorandum, the following terms shall have the following meanings, unless the context requires otherwise.</p>
         </div>
         <div class="block rtl">
           <p>يكون للكلمات والعبارات التالية في هذا العقد المعاني والمبينة امام كل منها ما لم يقض سياق النص بغير ذلك.</p>

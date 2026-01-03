@@ -1,61 +1,67 @@
 import { MOAContext, pageFooter } from '../types'
 
-export function page8(_ctx: MOAContext, pageNum: number = 8): string {
+export function page8(ctx: MOAContext, pageNum: number = 8): string {
+  const { pronouns, company } = ctx
+
   return `
     <div class="page">
       <div class="page-content">
       <div class="article-pair">
         <div class="block">
-          <h3 class="underline center">Article (19)</h3>
-          <p>Resolutions of the General Assembly shall be passed by a majority of the capital represented at the meeting, except for resolutions relating to amendment of the Memorandum, increase or decrease of capital, merger, or dissolution, which shall require the approval of partners representing at least 75% of the capital.</p>
+          <h3 class="underline center">Article (11) - Continued</h3>
+          <p>10- To authorize and sanction all vouchers/books/ledgers of accounts and payments particular with all expenses.</p>
+          <p>11- To sub-delegate all or part of such powers to any other person after the approval of General Assembly.</p>
+          <p>12- The appointment of the Managing Director cannot be revoked nor the powers stated herein curtailed except by a resolution of the General Meeting representing at least 51% of the share capital of the Company.</p>
         </div>
         <div class="block rtl">
-          <h3 class="underline center">المادة (19)</h3>
-          <p>تصدر قرارات الجمعية العمومية بأغلبية رأس المال الممثل في الاجتماع، باستثناء القرارات المتعلقة بتعديل عقد التأسيس أو زيادة أو تخفيض رأس المال أو الاندماج أو الحل، التي تستلزم موافقة شركاء يمثلون ما لا يقل عن 75% من رأس المال.</p>
+          <h3 class="underline center">المادة (11) - تابع</h3>
+          <p>10- اعتماد وتصديق كافة الفواتير والسندات والدفاتر الحسابية والدفعات الخاصة بكافة المصروفات.</p>
+          <p>11- تفويض كل أو أي من هذه السلطات إلى أي شخص آخر بعد موافقة الجمعية العمومية.</p>
+          <p>12- لا يجوز إلغاء تعيين المدير أو الحد من سلطاته الواردة في هذا العقد إلا بقرار صادر في الجمعية من قبل ما لا يقل عن 51% من رأسمال الشركة.</p>
         </div>
       </div>
 
       <div class="article-pair">
         <div class="block">
-          <h3 class="underline center">Article (20)</h3>
-          <p>A partner may appoint another partner or a third party to represent them at the General Assembly meeting by virtue of a written power of attorney. A representative may not represent more than one partner at any meeting.</p>
+          <h3 class="underline center">Article (12)</h3>
+          <p>The Company communications referred to in this Memorandum whether between the Parties or between the Parties and the Company shall take the form of registered letters.</p>
         </div>
         <div class="block rtl">
-          <h3 class="underline center">المادة (20)</h3>
-          <p>يجوز للشريك أن ينيب عنه شريكاً آخر أو شخصاً من الغير لتمثيله في اجتماع الجمعية العمومية بموجب توكيل كتابي. ولا يجوز للنائب أن يمثل أكثر من شريك واحد في أي اجتماع.</p>
+          <h3 class="underline center">المادة (12)</h3>
+          <p>تكون تبليغات الشركة المشار إليها في هذا العقد سواء كانت بين الشركاء أو بينهم وبين الشركة على هيئة خطابات مسجلة موصى عليها.</p>
         </div>
       </div>
 
       <div class="article-pair">
         <div class="block">
-          <h3 class="underline center">Article (21)</h3>
-          <p>General Assembly deliberations and resolutions shall be registered in minutes then be entered in special numbered register signed by chairman, the reporter, the two reviewers and the accounts controller.</p>
+          <h3 class="underline center">CHAPTER IV</h3>
+          <h3 class="center">General Assembly</h3>
         </div>
         <div class="block rtl">
-          <h3 class="underline center">المادة (21)</h3>
-          <p>تدون مداولات الجمعية العمومية وقراراتها في محاضر تقيد في سجل خاص مرقمة صفحاته ويوقع عليها رئيس الجمعية ومقرر الاجتماع ومراجعي الأصوات ومراقب الحسابات.</p>
+          <h3 class="underline center">الباب الرابع</h3>
+          <h3 class="center">الجمعية العمومية</h3>
         </div>
       </div>
 
       <div class="article-pair">
         <div class="block">
-          <h3 class="underline center">CHAPTER V</h3>
-          <h3 class="center">Financial Year</h3>
+          <h3 class="underline center">Article (13)</h3>
+          <p>The General Assembly represents all partners and it may be convened only in <span class="edited">${company.emirate}</span> City, Emirate of <span class="edited">${company.emirate}</span>.</p>
         </div>
         <div class="block rtl">
-          <h3 class="underline center">الباب الخامس</h3>
-          <h3 class="center">السنة المالية للشركة</h3>
+          <h3 class="underline center">المادة (13)</h3>
+          <p>تمثل الجمعية العمومية كافة الشركاء ولا يجوز انعقادها إلا في مدينة <span class="edited">${company.emirateAr}</span> بإمارة <span class="edited">${company.emirateAr}</span>.</p>
         </div>
       </div>
 
       <div class="article-pair">
         <div class="block">
-          <h3 class="underline center">Article (22)</h3>
-          <p>The financial year shall commence at the beginning of January and end at the end of December of each year, provided that the first year shall include the period from the date of final incorporation of the Company till the coming December. The first general assembly shall be convened immediately after this year.</p>
+          <h3 class="underline center">Article (14)</h3>
+          <p>Any partner shall have the right to attend the General Assembly regardless of the number of shares owned by ${pronouns.object}, whether personally or by proxy to represent ${pronouns.object} in the General Assembly.</p>
         </div>
         <div class="block rtl">
-          <h3 class="underline center">المادة (22)</h3>
-          <p>تبدأ السنة المالية للشركة في أول يناير (كانون الثاني) من كل سنة وتنتهي في آخر ديسمبر (كانون الأول) من كل سنة, على أن السنة الأولى تشمل المدة التي تنقضي من تاريخ تأسيس الشركة النهائي حتى ديسمبر (كانون الأول) التالي وتنعقد أول جمعية عمومية عقب هذا السنة.</p>
+          <h3 class="underline center">المادة (14)</h3>
+          <p>لكل شريك حق حضور الجمعية العمومية مهما كان عدد الحصص التي يمتلكها سواء كان ذلك بطريقة شخصية أو بطريقة إنابة شريك آخر لتمثيله في الجمعية.</p>
         </div>
       </div>
       </div>

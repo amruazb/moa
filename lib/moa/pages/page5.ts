@@ -6,51 +6,37 @@ export function page5(_ctx: MOAContext, pageNum: number = 5): string {
       <div class="page-content">
       <div class="article-pair">
         <div class="block">
-          <h3 class="underline center">Article (8) - Continued</h3>
-          <p>b) In the event of assignment to a third party, the new member becomes liable for the same obligations as the original transferring partner.</p>
+          <h3 class="underline center">Article (8)</h3>
+          <p>Shares are transferable among partners or between them and third party provided that such transfer or disposal shall be entered in the register prepared for such purpose.</p>
+          <p>Anyone, who intends to sell out their share to third party, shall notify the company management via duly registered letter and the management shall, in its turn, notify the partners within the subsequent seven days.</p>
+          <p>Within Two months from first notification date, the partners may recover their shares upon same conditions, otherwise such right shall lapse. If the right of purchase is exercised by more than one partner, the shares being sold shall be distributed among them proportionately to their shares in the capital.</p>
         </div>
         <div class="block rtl">
-          <h3 class="underline center">المادة (8) - تابع</h3>
-          <p>ب) في حالة التنازل للغير، يصبح العضو الجديد ملتزماً بنفس التزامات الشريك المتنازل الأصلي.</p>
+          <h3 class="underline center">المادة (8)</h3>
+          <p>الحصص قابلة للانتقال بين الشركاء أو بينهم وبين الغير. ويجب أن يثبت هذا الانتقال أو التصرف في الحصص في السجل المعد لذلك الغرض.</p>
+          <p>ويجب على كل من يعتزم بيع حصته للغير أن يقوم بإخطار إدارة الشركة بذلك بخطاب موصى عليه وتقوم الإدارة بدورها بإخطار الشركاء بذلك خلال السبعة أيام التالية.</p>
+          <p>وللشركاء خلال شهرين من الإخطار الأول استرداد الحصة بالشروط نفسها وإلا سقط هذا الحق وإذا استعمل حق الشراء من قبل أكثر من شريك واحد يتم توزيع الحصص المباعة بينهم بشكل يتناسب مع حصة كل منهم في رأس المال.</p>
         </div>
       </div>
 
       <div class="article-pair">
         <div class="block">
           <h3 class="underline center">Article (9)</h3>
-          <p>a) Each partner is liable for the company obligation to the extent of value of shares in the capital.</p>
-          <p>b) The company shall be managed and its signature shall be by the Managing Director appointed herein.</p>
+          <p>A special register for partners shall be maintained by the company's head office containing the following:-</p>
+          <ol class="list">
+            <li>Names of the Partners, their nationalities and domiciles</li>
+            <li>Number of shares held by each Partner and the amount paid.</li>
+            <li>Cases of assignment of shares and transfer of ownership thereof, indicating the date and signature of the assigner and assignee, in case of disposal of the shares between the existing Partners and signature of the Managing Director and the person to whom the shares devolved, in case of transfer by inheritance.</li>
+          </ol>
         </div>
         <div class="block rtl">
           <h3 class="underline center">المادة (9)</h3>
-          <p>أ) يكون كل شريك مسؤولاً عن التزامات الشركة بقدر حصته في رأس المال.</p>
-          <p>ب) يتولى إدارة الشركة والتوقيع عنها المديرة المفوض المعين في هذا العقد.</p>
-        </div>
-      </div>
-
-      <div class="article-pair">
-        <div class="block">
-          <h3 class="underline center">CHAPTER III</h3>
-          <h3 class="center">Management of the Company</h3>
-        </div>
-        <div class="block rtl">
-          <h3 class="underline center">الباب الثالث</h3>
-          <h3 class="center">إدارة الشركة</h3>
-        </div>
-      </div>
-
-      <div class="article-pair">
-        <div class="block">
-          <h3 class="underline center">Article (10)</h3>
-          <p>a) The sole owner may solely appoint one or more managers from among the partners or from third parties and fix their remuneration. The manager shall have full power and authority to manage the Company and act on its behalf in all matters related to the Company's objectives and activities, except matters which are legally required to be resolved by the General Assembly.</p>
-          <p>b) The manager may delegate some of their powers to another person and may appoint agents and attorneys for specific matters.</p>
-          <p>c) The manager shall exercise their powers in accordance with the provisions of this Memorandum and within the limits of the Company's objectives. They shall not undertake any activity that may cause harm to the Company or conflict with its interests.</p>
-        </div>
-        <div class="block rtl">
-          <h3 class="underline center">المادة (10)</h3>
-          <p>أ) يجوز للمالك الوحيد تعيين مدير أو أكثر من بين الشركاء أو من الغير ويحدد أجره. يكون للمدير كافة الصلاحيات والسلطات لإدارة الشركة والتصرف نيابة عنها في جميع الأمور المتعلقة بأغراض الشركة وأنشطتها، باستثناء الأمور التي يتطلب القانون أن يتم البت فيها بقرار من الجمعية العمومية.</p>
-          <p>ب) يجوز للمدير تفويض بعض صلاحياته لشخص آخر كما يجوز له تعيين وكلاء ومحامين لأمور محددة.</p>
-          <p>ج) يمارس المدير صلاحياته وفقاً لأحكام هذا العقد وفي حدود أغراض الشركة. ولا يجوز له القيام بأي نشاط قد يلحق الضرر بالشركة أو يتعارض مع مصالحها.</p>
+          <p>يحتفظ بمكتب الشركة الرئيس بسجل خاص للشركاء يتضمن ما يلي:-</p>
+          <ol class="list">
+            <li>أسماء الشركاء وجنسياتهم ومحال إقامتهم</li>
+            <li>عدد الحصص التي يملكها كل شريك ومقدار ما دفعه</li>
+            <li>حالات التنازل عن الحصص وانتقال ملكيتها مع بيان تاريخ وتوقيع المتنازل والمتنازل إليه في حالة التصرف بين الأحياء وتوقيع المدير المفوض ومن آلت إليه الحصص في حالة الانتقال بطريق الميراث.</li>
+          </ol>
         </div>
       </div>
       </div>

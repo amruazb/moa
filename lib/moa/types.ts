@@ -1,9 +1,56 @@
 import { DocumentData } from '@/store/documentStore'
 import { numberToWordsEn, numberToWordsAr, calculateShareValue } from '@/lib/utils/numberToWords'
 
+export type Salutation = 'mr' | 'ms' | 'mrs'
+
+export interface Pronouns {
+  title: string        // Mr. / Ms. / Mrs.
+  titleAr: string      // السيد / السيدة
+  subject: string      // he / she
+  subjectAr: string    // هو / هي
+  object: string       // him / her
+  possessive: string   // his / her
+  reflexive: string    // himself / herself
+}
+
+export function getPronouns(salutation: Salutation = 'ms'): Pronouns {
+  if (salutation === 'mr') {
+    return {
+      title: 'Mr.',
+      titleAr: 'السيد',
+      subject: 'he',
+      subjectAr: 'هو',
+      object: 'him',
+      possessive: 'his',
+      reflexive: 'himself'
+    }
+  }
+  if (salutation === 'mrs') {
+    return {
+      title: 'Mrs.',
+      titleAr: 'السيدة',
+      subject: 'she',
+      subjectAr: 'هي',
+      object: 'her',
+      possessive: 'her',
+      reflexive: 'herself'
+    }
+  }
+  return {
+    title: 'Ms.',
+    titleAr: 'السيدة',
+    subject: 'she',
+    subjectAr: 'هي',
+    object: 'her',
+    possessive: 'her',
+    reflexive: 'herself'
+  }
+}
+
 export interface PrimaryParty {
   name: string
   nameAr: string
+  salutation: Salutation
   nationality: string
   nationalityAr: string
   eid: string
@@ -43,6 +90,7 @@ export interface MOAContext {
   company: CompanyInfo
   primary: PrimaryParty
   manager: ManagerInfo
+  pronouns: Pronouns
   eidOrPassport: string
   activitiesEn: string[]
   activitiesAr: string[]
@@ -59,9 +107,13 @@ export function extractContext(data: DocumentData): MOAContext {
   const manager = data.managerArticle || {}
   const capitalData = data.capital || {}
 
+  const salutation = (source[0]?.salutation as Salutation) || 'ms'
+  const pronouns = getPronouns(salutation)
+
   const primary: PrimaryParty = {
     name: source[0]?.name || 'N/A',
     nameAr: source[0]?.nameAr || 'غير متوفر',
+    salutation: salutation,
     nationality: source[0]?.nationality || 'N/A',
     nationalityAr: source[0]?.nationalityAr || 'غير متوفر',
     eid: (source[0]?.eidNumber || '').replace(/-/g, ''),
@@ -101,6 +153,7 @@ export function extractContext(data: DocumentData): MOAContext {
       nameAr: manager.managerNameAr || primary.nameAr,
       id: (manager.managerIdNumber || eidOrPassport).replace(/-/g, '')
     },
+    pronouns,
     eidOrPassport,
     activitiesEn,
     activitiesAr,

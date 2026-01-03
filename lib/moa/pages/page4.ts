@@ -55,24 +55,14 @@ export function page4(ctx: MOAContext, pageNum: number = 4): string {
       <div class="article-pair">
         <div class="block">
           <h3 class="underline center">Article (7)</h3>
-          <p>a) The capital shall be increased by resolution of the General Assembly of the Partners in accordance with the provisions of the Commercial Companies Law.</p>
+          <p>The capital may be increased in one or more payments either by issuing new shares or by converting the free capital reserve to shares upon resolution of the assembly and in accordance with the provisions stipulated in law and its executive regulations.</p>
         </div>
         <div class="block rtl">
           <h3 class="underline center">المادة (7)</h3>
-          <p>أ) يجوز زيادة رأس المال بقرار من الجمعية العمومية للشركاء وفقاً لأحكام قانون الشركات التجارية.</p>
+          <p>يجوز زيادة رأس المال على دفعة واحدة أو أكثر سواء بإصدار حصص جديدة أو بتحويل رأس المال الاحتياطي الحر إلى حصص ويتم ذلك بقرار من قبل الجمعية العمومية وطبقاً لأحكام المنصوص عليها في القانون ولوائحها التنفيذية.</p>
         </div>
       </div>
 
-      <div class="article-pair">
-        <div class="block">
-          <h3 class="underline center">Article (8)</h3>
-          <p>a) A partner may transfer any of his/her shares in the company to another partner or to a third party provided that such transfer is made to appropriate deed of assignment and registered in the Commercial Register.</p>
-        </div>
-        <div class="block rtl">
-          <h3 class="underline center">المادة (8)</h3>
-          <p>أ) يجوز للشريك التنازل عن حصصه في الشركة لشريك آخر أو للغير بشرط أن يتم التنازل بموجب عقد تنازل مناسب ويقيد في السجل التجاري.</p>
-        </div>
-      </div>
       </div>
       ${pageFooter(pageNum)}
     </div>`

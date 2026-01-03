@@ -490,6 +490,13 @@ export function ExtractionForm() {
               </div>
             </div>
             <div className="grid grid-cols-2 gap-2">
+              <label className="block text-xs text-gray-600">Salutation
+                <select className="mt-1 w-full rounded border px-2 py-1 text-xs" value={party.salutation || 'ms'} onChange={(e) => updateSourceParty(idx, 'salutation', e.target.value)}>
+                  <option value="ms">Ms. (Female)</option>
+                  <option value="mrs">Mrs. (Female/Married)</option>
+                  <option value="mr">Mr. (Male)</option>
+                </select>
+              </label>
               <label className="block text-xs text-gray-600">Name (EN)
                 <input className="mt-1 w-full rounded border px-2 py-1 text-xs" value={party.name || ''} onChange={(e) => updateSourceParty(idx, 'name', e.target.value)} />
               </label>

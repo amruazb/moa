@@ -22,6 +22,7 @@ export interface CompanyData {
 export interface PartyData {
   name?: string
   nameAr?: string
+  salutation?: 'mr' | 'ms'
   eidNumber?: string
   passportNumber?: string
   dob?: string

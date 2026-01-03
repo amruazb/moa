@@ -1,61 +1,52 @@
 import { MOAContext, pageFooter } from '../types'
 
-export function page9(_ctx: MOAContext, pageNum: number = 9): string {
+export function page9(ctx: MOAContext, pageNum: number = 9): string {
+  const { pronouns } = ctx
+
   return `
     <div class="page">
       <div class="page-content">
       <div class="article-pair">
         <div class="block">
-          <h3 class="underline center">Article (23)</h3>
-          <p>a) Annual net profit shall be considered after deducting all general expenses and other costs. 10% (ten Percentage) shall be deducted to form legal reserve as stipulated in law. Such deduction shall be stopped if the legal reserve reached 50% of the capital.</p>
+          <h3 class="underline center">Article (15)</h3>
+          <p>The General Assembly shall be presided by the Local partner or ${pronouns.possessive} deputy. The chairman shall appoint one reporter and two reviewers for votes counting, upon approval of the General Assembly.</p>
         </div>
         <div class="block rtl">
-          <h3 class="underline center">المادة (23)</h3>
-          <p>أ) تؤلف الارباح الصافية السنوية بعد خصم جميع المصاريف العمومية والتكاليف الأخرى ويقتطع منها مبلغ يوازي 10% (عشرة بالمائة) لتكوين الاحتياطي القانوني المنصوص في القانون ويوقف هذا الاقتطاع عند بلوغ مجموع الاحتياطي قدرا يوازي نصف رأس المال.</p>
+          <h3 class="underline center">المادة (15)</h3>
+          <p>يرأس الجمعية العمومية الشريك المواطن أو من ينوب عنه ويعين الرئيس مقرراً للاجتماع ومراجعين اثنين لفرز الأصوات على أن تقرر الجمعية العمومية تعيينهم.</p>
         </div>
       </div>
 
       <div class="article-pair">
         <div class="block">
-          <h3 class="underline center">CHAPTER VI</h3>
-          <h3 class="center">Dissolution and Liquidation</h3>
+          <h3 class="underline center">Article (16)</h3>
+          <p>Invitation for the General Assembly shall be served via registered letters to each partner within at least 14 days prior to the scheduled time. Invitation letter shall include the agenda, place and time of the meeting.</p>
         </div>
         <div class="block rtl">
-          <h3 class="underline center">الباب السادس</h3>
-          <h3 class="center">حل الشركة وتصفيتها</h3>
+          <h3 class="underline center">المادة (16)</h3>
+          <p>توجه الدعوة لحضور الجمعيات العمومية بموجب خطابات موصى عليها ترسل لكل شريك قبل موعد انعقادها بأربعة عشر يوم على الأقل. ويجب أن يتضمن خطاب الدعوة بيان جدول الأعمال ومكان الاجتماع وزمانه.</p>
         </div>
       </div>
 
       <div class="article-pair">
         <div class="block">
-          <h3 class="underline center">Article (24)</h3>
-          <p>At the end of the duration of the company or in the event of its premature dissolution, the general assembly, upon request of the General Assembly, shall determine the means of liquidation, appoint one or more liquidators and fix their authority and authority of the manager shall cease upon appointment of the liquidator, while the authority of General Assembly shall remain throughout the liquidation period till the liquidators are discharged.</p>
+          <h3 class="underline center">Article (17)</h3>
+          <p>The general assembly may not deliberate any matter except those specified in the agenda; resolutions adopted by the general assembly shall be binding on all partners.</p>
         </div>
         <div class="block rtl">
-          <h3 class="underline center">المادة (24)</h3>
-          <p>عند انتهاء مدة الشركة أوفي حالة حلها قبل الأجل المحدد, تبين الجمعية العمومية بناء على طلب الجمعية العمومية طريقة التصفية وتعين مصفي أوعدة مصفين وتحدد سلطاتهم وتنتهي سلطة المدير بتعيين المصفين, أما سلطة الجمعية العمومية فتبقى قائمة طوال مدة التصفية إلى أن يتم إخلاء عهدة المصفين.</p>
+          <h3 class="underline center">المادة (17)</h3>
+          <p>لا يجوز للجمعية العمومية العادية أن تتداول في غير المسائل الواردة بجدول الأعمال المبين في خطاب الدعوة وتكون القرارات التي تصدرها الجمعية ملزمة لجميع الشركاء.</p>
         </div>
       </div>
 
       <div class="article-pair">
         <div class="block">
-          <h3 class="underline center">Article (25)</h3>
-          <p>The Managing Director shall make company dissolution public by register the same in the commercial register, and publish the same in two Arabic dailies. The provisions of the said law shall apply to company liquidation.</p>
+          <h3 class="underline center">Article (18)</h3>
+          <p>The general assembly shall be convened on yearly basis by invitation from the Board of Directors within four months following end of the financial year, particularly to hear Managing Director's report on financial position and activity, to approve the balance sheet and loss and profit account, and determine dividends to be distributed among partners. And to appoint directors, determine their remuneration and other matters. Resolutions of the general assembly</p>
         </div>
         <div class="block rtl">
-          <h3 class="underline center">المادة (25)</h3>
-          <p>على المديرة المفوضة إشهار حل الشراكة بقيده في السجل التجاري ونشره في صحيفتين يوميتين تصدران باللغة العربية وتطبق على حل الشركة وتصفيتها أحكام القانون المذكور.</p>
-        </div>
-      </div>
-
-      <div class="article-pair">
-        <div class="block">
-          <h3 class="underline center">CHAPTER VII</h3>
-          <h3 class="center">Disputes</h3>
-        </div>
-        <div class="block rtl">
-          <h3 class="underline center">الباب السابع</h3>
-          <h3 class="center">المنازعات</h3>
+          <h3 class="underline center">المادة (18)</h3>
+          <p>تنعقد الجمعية العمومية كل سنة بناء على دعوة من مجلس إدارة الشركة خلال الأربعة أشهر التالية لنهاية السنة المالية للشركة وتجتمع على الأخص لسماع تقرير المديرة التنفيذية عن نشاط الشركة ومركزها المالي والتصديق على الميزانية العمومية وحساب الأرباح والخسائر وتحديد حصص الأرباح التي توزع على الشركاء وتعيين المديرين وتحديد مكافأتهم وغير ذلك من المسائل. ولا تكون قرارات الجمعية</p>
         </div>
       </div>
       </div>
