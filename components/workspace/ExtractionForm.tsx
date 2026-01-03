@@ -306,7 +306,7 @@ export function ExtractionForm() {
       }))
       setExtractedData({ sourceParties: newSourceParties })
       
-      // Also update Manager (Article 11) with the first owner/manager
+      // Also update Manager (Article 10) with the first owner/manager
       // Find manager role first, otherwise use first owner
       const manager = data.owners.find(o => o.role?.toLowerCase() === 'manager') || data.owners[0]
       if (manager) {
@@ -426,7 +426,7 @@ export function ExtractionForm() {
 
       {/* Manager Article Section */}
       <fieldset className="border border-gray-200 rounded-xl p-3 space-y-2">
-        <legend className="text-xs font-semibold text-slate-900 px-2">Manager (Article 11)</legend>
+        <legend className="text-xs font-semibold text-slate-900 px-2">Manager (Article 10)</legend>
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
             <OCRButton 
@@ -467,125 +467,6 @@ export function ExtractionForm() {
             </select>
           </label>
         </div>
-      </fieldset>
-
-      {/* Source Parties */}
-      <fieldset className="border border-gray-200 rounded-xl p-3 space-y-3">
-        <legend className="text-xs font-semibold text-slate-900 px-2">Source Parties (Before Transfer)</legend>
-        {sourceParties.map((party, idx) => (
-          <div key={idx} className="border border-gray-100 rounded p-2 space-y-2 bg-gray-50">
-            <div className="flex items-center justify-between">
-              <div className="text-xs font-medium text-gray-700">Party {idx + 1}</div>
-              <div className="flex items-center gap-2">
-                <OCRButton 
-                  documentType="emirates_id" 
-                  onExtracted={handleEmiratesIDExtracted('source', idx)}
-                  label="Scan EID"
-                />
-                <OCRButton 
-                  documentType="passport" 
-                  onExtracted={handlePassportExtracted('source', idx)}
-                  label="Scan Passport"
-                />
-              </div>
-            </div>
-            <div className="grid grid-cols-2 gap-2">
-              <label className="block text-xs text-gray-600">Salutation
-                <select className="mt-1 w-full rounded border px-2 py-1 text-xs" value={party.salutation || 'ms'} onChange={(e) => updateSourceParty(idx, 'salutation', e.target.value)}>
-                  <option value="ms">Ms. (Female)</option>
-                  <option value="mrs">Mrs. (Female/Married)</option>
-                  <option value="mr">Mr. (Male)</option>
-                </select>
-              </label>
-              <label className="block text-xs text-gray-600">Name (EN)
-                <input className="mt-1 w-full rounded border px-2 py-1 text-xs" value={party.name || ''} onChange={(e) => updateSourceParty(idx, 'name', e.target.value)} />
-              </label>
-              <label className="block text-xs text-gray-600">Name (AR)
-                <input className="mt-1 w-full rounded border px-2 py-1 text-xs" dir="rtl" value={party.nameAr || ''} onChange={(e) => updateSourceParty(idx, 'nameAr', e.target.value)} />
-              </label>
-              <label className="block text-xs text-gray-600">Nationality (EN)
-                <input className="mt-1 w-full rounded border px-2 py-1 text-xs" value={party.nationality || ''} onChange={(e) => updateSourceParty(idx, 'nationality', e.target.value)} />
-              </label>
-              <label className="block text-xs text-gray-600">Nationality (AR)
-                <input className="mt-1 w-full rounded border px-2 py-1 text-xs" dir="rtl" value={party.nationalityAr || ''} onChange={(e) => updateSourceParty(idx, 'nationalityAr', e.target.value)} />
-              </label>
-              <label className="block text-xs text-gray-600">EID Number
-                <input className="mt-1 w-full rounded border px-2 py-1 text-xs" value={party.eidNumber || ''} onChange={(e) => updateSourceParty(idx, 'eidNumber', e.target.value)} />
-              </label>
-              <label className="block text-xs text-gray-600">Passport Number
-                <input className="mt-1 w-full rounded border px-2 py-1 text-xs" value={party.passportNumber || ''} onChange={(e) => updateSourceParty(idx, 'passportNumber', e.target.value)} />
-              </label>
-              <label className="block text-xs text-gray-600">DOB
-                <input type="date" className="mt-1 w-full rounded border px-2 py-1 text-xs" value={party.dob || ''} onChange={(e) => updateSourceParty(idx, 'dob', e.target.value)} />
-              </label>
-              <label className="block text-xs text-gray-600">Share (%)
-                <input type="number" step="0.01" className="mt-1 w-full rounded border px-2 py-1 text-xs" value={shares.source[idx] || ''} onChange={(e) => updateShares('source', idx, e.target.value)} />
-              </label>
-            </div>
-          </div>
-        ))}
-        <button onClick={addSourceParty} className="w-full py-2 border border-dashed border-gray-300 rounded text-xs text-gray-600 hover:bg-gray-50">
-          + Add Source Party
-        </button>
-      </fieldset>
-
-      {/* Destination Parties */}
-      <fieldset className="border border-gray-200 rounded-xl p-3 space-y-3">
-        <legend className="text-xs font-semibold text-slate-900 px-2">Destination Parties (After Transfer)</legend>
-        {destinationParties.map((party, idx) => (
-          <div key={idx} className="border border-gray-100 rounded p-2 space-y-2 bg-gray-50">
-            <div className="flex items-center justify-between">
-              <div className="text-xs font-medium text-gray-700">Party {idx + 1}</div>
-              <div className="flex items-center gap-2">
-                <OCRButton 
-                  documentType="emirates_id" 
-                  onExtracted={handleEmiratesIDExtracted('destination', idx)}
-                  label="Scan EID"
-                />
-                <OCRButton 
-                  documentType="passport" 
-                  onExtracted={handlePassportExtracted('destination', idx)}
-                  label="Scan Passport"
-                />
-              </div>
-            </div>
-            <div className="grid grid-cols-2 gap-2">
-              <label className="block text-xs text-gray-600">Name (EN)
-                <input className="mt-1 w-full rounded border px-2 py-1 text-xs" value={party.name || ''} onChange={(e) => updateDestParty(idx, 'name', e.target.value)} />
-              </label>
-              <label className="block text-xs text-gray-600">Name (AR)
-                <input className="mt-1 w-full rounded border px-2 py-1 text-xs" dir="rtl" value={party.nameAr || ''} onChange={(e) => updateDestParty(idx, 'nameAr', e.target.value)} />
-              </label>
-              <label className="block text-xs text-gray-600">Nationality (EN)
-                <input className="mt-1 w-full rounded border px-2 py-1 text-xs" value={party.nationality || ''} onChange={(e) => updateDestParty(idx, 'nationality', e.target.value)} />
-              </label>
-              <label className="block text-xs text-gray-600">Nationality (AR)
-                <input className="mt-1 w-full rounded border px-2 py-1 text-xs" dir="rtl" value={party.nationalityAr || ''} onChange={(e) => updateDestParty(idx, 'nationalityAr', e.target.value)} />
-              </label>
-              <label className="block text-xs text-gray-600">EID Number
-                <input className="mt-1 w-full rounded border px-2 py-1 text-xs" value={party.eidNumber || ''} onChange={(e) => updateDestParty(idx, 'eidNumber', e.target.value)} />
-              </label>
-              <label className="block text-xs text-gray-600">Passport Number
-                <input className="mt-1 w-full rounded border px-2 py-1 text-xs" value={party.passportNumber || ''} onChange={(e) => updateDestParty(idx, 'passportNumber', e.target.value)} />
-              </label>
-              <label className="block text-xs text-gray-600">DOB
-                <input type="date" className="mt-1 w-full rounded border px-2 py-1 text-xs" value={party.dob || ''} onChange={(e) => updateDestParty(idx, 'dob', e.target.value)} />
-              </label>
-              <label className="block text-xs text-gray-600">Capacity (EN)
-                <input className="mt-1 w-full rounded border px-2 py-1 text-xs" value={party.capacity || ''} onChange={(e) => updateDestParty(idx, 'capacity', e.target.value)} />
-              </label>
-              <label className="block text-xs text-gray-600">Capacity (AR)
-                <input className="mt-1 w-full rounded border px-2 py-1 text-xs" dir="rtl" value={party.capacityAr || ''} onChange={(e) => updateDestParty(idx, 'capacityAr', e.target.value)} />
-              </label>
-              <label className="block text-xs text-gray-600">Share (%)
-                <input type="number" step="0.01" className="mt-1 w-full rounded border px-2 py-1 text-xs" value={shares.destination[idx] || ''} onChange={(e) => updateShares('destination', idx, e.target.value)} />
-              </label>
-            </div>
-          </div>
-        ))}
-        <button onClick={addDestParty} className="w-full py-2 border border-dashed border-gray-300 rounded text-xs text-gray-600 hover:bg-gray-50">
-          + Add Destination Party
-        </button>
       </fieldset>
     </div>
   )
