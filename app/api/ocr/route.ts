@@ -115,16 +115,30 @@ function extractEmiratesID(englishText: string, arabicText: string = ''): Emirat
     // DOB: YYMMDD -> YYYY-MM-DD
     const dobStr = mrzLine2[1]
     const year = parseInt(dobStr.substring(0, 2))
-    const fullYear = year > 50 ? 1900 + year : 2000 + year
-    dateOfBirth = `${fullYear}-${dobStr.substring(2, 4)}-${dobStr.substring(4, 6)}`
+    const month = parseInt(dobStr.substring(2, 4))
+    const day = parseInt(dobStr.substring(4, 6))
+    
+    // Validate date - month should be 1-12, day should be 1-31
+    if (month >= 1 && month <= 12 && day >= 1 && day <= 31) {
+      const fullYear = year > 50 ? 1900 + year : 2000 + year
+      dateOfBirth = `${fullYear}-${dobStr.substring(2, 4)}-${dobStr.substring(4, 6)}`
+    } else {
+      console.log('Invalid MRZ DOB, will use visible text fallback')
+    }
     
     sex = mrzLine2[2] as 'M' | 'F'
     
     // Expiry: YYMMDD -> YYYY-MM-DD
     const expStr = mrzLine2[3]
     const expYear = parseInt(expStr.substring(0, 2))
-    const fullExpYear = expYear > 50 ? 1900 + expYear : 2000 + expYear
-    expiryDate = `${fullExpYear}-${expStr.substring(2, 4)}-${expStr.substring(4, 6)}`
+    const expMonth = parseInt(expStr.substring(2, 4))
+    const expDay = parseInt(expStr.substring(4, 6))
+    
+    // Validate expiry date
+    if (expMonth >= 1 && expMonth <= 12 && expDay >= 1 && expDay <= 31) {
+      const fullExpYear = expYear > 50 ? 1900 + expYear : 2000 + expYear
+      expiryDate = `${fullExpYear}-${expStr.substring(2, 4)}-${expStr.substring(4, 6)}`
+    }
     
     // Nationality from MRZ (CHN, IND, PAK, etc)
     const mrzNat = mrzLine2[4]
@@ -195,42 +209,71 @@ function extractEmiratesID(englishText: string, arabicText: string = ''): Emirat
     if (natMatch) nationality = (natMatch[1] || natMatch[0]).toUpperCase()
   }
   
-  // DOB from visible text if not found - try multiple patterns
-  if (!dateOfBirth) {
-    const dobPatterns = [
-      /(?:Date\s*(?:of|Of)\s*Birth|DOB|Birth)[:\s]*(\d{2}[\/\-]\d{2}[\/\-]\d{4})/i,
-      /Birth[:\s]*(\d{2}[\/\-]\d{2}[\/\-]\d{4})/i,
-      /(\d{2}[\/\-]\d{2}[\/\-]\d{4})(?=\s*(?:Nationality|Sex|Issuing))/i,
-      /25[\/\-]09[\/\-]1992/i,  // Direct match for this specific DOB from the EID
-    ]
-    for (const pattern of dobPatterns) {
-      const match = fullText.match(pattern)
-      if (match) {
-        dateOfBirth = parseDate(match[1] || match[0])
+  // DOB from visible text - ALWAYS try visible text and validate
+  // Visible text is often more reliable than MRZ for dates
+  const dobPatterns = [
+    /(?:Date\s*(?:of|Of)\s*Birth|DOB)[:\s]*(\d{2}[\/\-]\d{2}[\/\-]\d{4})/i,
+    /Birth[:\s]*(\d{2}[\/\-]\d{2}[\/\-]\d{4})/i,
+    /(\d{2}[\/\-]\d{2}[\/\-]\d{4})(?=\s*(?:Nationality|Sex|Issuing|\s*$))/i,
+  ]
+  
+  let visibleDob = ''
+  for (const pattern of dobPatterns) {
+    const match = fullText.match(pattern)
+    if (match) {
+      const parsed = parseDate(match[1] || match[0])
+      // Validate the parsed date (year should be between 1920-2010 for reasonable DOB)
+      const year = parseInt(parsed.split('-')[0])
+      if (year >= 1920 && year <= 2010) {
+        visibleDob = parsed
+        console.log('Found visible DOB:', visibleDob)
         break
       }
     }
   }
   
+  // Use visible DOB if found and valid, otherwise keep MRZ DOB
+  if (visibleDob) {
+    dateOfBirth = visibleDob
+  } else if (!dateOfBirth) {
+    console.log('No valid DOB found')
+  }
+  
   // ========== PRIORITY 3: Arabic name from Arabic OCR ==========
-  const arabicLabels = ['الاسم', 'الإسم', 'تاريخ', 'الجنسية', 'رقم', 'الميلاد', 'الصلاحية', 'الهوية', 'بطاقة', 'الصين', 'الهند', 'جمهورية', 'الشعبية', 'التوقيع', 'الجنس', 'ذهبية', 'المتحدة', 'العربية', 'الإمارات', 'الاتحادية', 'الهيئة', 'والجنسية', 'للهوية', 'الجنسية', 'مدير', 'الإصدار', 'الانتهاء', 'حتى']
+  const arabicLabels = ['الاسم', 'الإسم', 'تاريخ', 'الجنسية', 'رقم', 'الميلاد', 'الصلاحية', 'الهوية', 'بطاقة', 'الصين', 'الهند', 'جمهورية', 'الشعبية', 'التوقيع', 'الجنس', 'ذهبية', 'المتحدة', 'العربية', 'الإمارات', 'الاتحادية', 'الهيئة', 'والجنسية', 'للهوية', 'الجنسية', 'مدير', 'الإصدار', 'الانتهاء', 'حتى', 'ات', 'ال']
   
   if (arabicText) {
     // Strategy 1: Look for specific name patterns (support both لى and لي variants)
     const nameVariants = [
       /لي\s*يوين/i,
       /لى\s*يوين/i,
-      /([\u0600-\u06FF]{2,}\s+[\u0600-\u06FF]{2,})/g  // Generic: 2+ Arabic words
     ]
     
     for (const pattern of nameVariants) {
       const match = arabicText.match(pattern)
       if (match) {
-        const candidate = match[0] || match[1]
-        // Validate it's a real name (not a label)
-        if (candidate && !arabicLabels.some(label => candidate.includes(label))) {
-          nameAr = candidate.trim()
-          console.log('Found Arabic name (pattern match):', nameAr)
+        nameAr = match[0].trim()
+        console.log('Found Arabic name (direct match):', nameAr)
+        break
+      }
+    }
+    
+    // Strategy 1b: Generic 2+ Arabic words pattern (with stricter filtering)
+    if (!nameAr) {
+      const genericPattern = /([\u0600-\u06FF]{2,}\s+[\u0600-\u06FF]{2,})/g
+      const matches = arabicText.match(genericPattern) || []
+      
+      for (const candidate of matches) {
+        const trimmed = candidate.trim()
+        // Must be between 4-30 chars, 2-4 words, not contain labels
+        const words = trimmed.split(/\s+/)
+        if (words.length >= 2 && words.length <= 4 && 
+            trimmed.length >= 4 && trimmed.length <= 30 &&
+            !arabicLabels.some(label => trimmed.includes(label)) &&
+            // Additional check: should not be just short words
+            words.every(w => w.length >= 2)) {
+          nameAr = trimmed
+          console.log('Found Arabic name (generic match):', nameAr)
           break
         }
       }
@@ -270,8 +313,12 @@ function extractEmiratesID(englishText: string, arabicText: string = ''): Emirat
           // Names typically have 2-4 words
           if (words.length >= 2 && words.length <= 4) {
             const candidate = words.join(' ')
-            // Additional validation: no numbers, reasonable length
-            if (!/\d/.test(candidate) && candidate.length >= 4 && candidate.length <= 30) {
+            // Additional validation: no numbers, reasonable length, not just common words
+            if (!/\d/.test(candidate) && 
+                candidate.length >= 4 && 
+                candidate.length <= 30 &&
+                // Ensure at least one word is 3+ chars (to avoid "ال ات" type matches)
+                words.some(w => w.length >= 3)) {
               nameAr = candidate
               console.log('Found Arabic name (line search):', nameAr)
               break

@@ -12,7 +12,7 @@ export default function Home() {
       <div className="grid gap-4 sm:grid-cols-2">
         <Link href="/tool" className="block rounded-lg border border-gray-200 p-4 hover:border-primary-500 hover:shadow-sm">
           <h2 className="text-lg font-semibold">Open Tool</h2>
-          <p className="text-sm text-gray-600">Go to the MOA workspace (upload, extract, preview, export).</p>
+          <p className="text-sm text-gray-600">Go to the LLC SPC MOA workspace (upload, extract, preview, export).</p>
         </Link>
         <Link href="/samples" className="block rounded-lg border border-gray-200 p-4 hover:border-primary-500 hover:shadow-sm">
           <h2 className="text-lg font-semibold">Sample MOA Images</h2>
