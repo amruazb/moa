@@ -105,20 +105,27 @@ export function extractContext(data: DocumentData): MOAContext {
   const company = data.company || {}
   const source = data.sourceParties || []
   const manager = data.managerArticle || {}
+  const owner = data.ownerArticle || {}
   const capitalData = data.capital || {}
 
   const salutation = (source[0]?.salutation as Salutation) || 'ms'
   const pronouns = getPronouns(salutation)
 
+  // Prioritize ownerArticle data, then fall back to source[0]
+  const ownerEid = owner.ownerDocType === 'eid' ? (owner.ownerIdNumber || '') : ''
+  const ownerPassport = owner.ownerDocType === 'passport' ? (owner.ownerIdNumber || '') : ''
+  const sourceEid = source[0]?.documentType === 'eid' ? (source[0]?.eidNumber || '') : (source[0]?.eidNumber || '')
+  const sourcePassport = source[0]?.documentType === 'passport' ? (source[0]?.passportNumber || '') : (source[0]?.passportNumber || '')
+
   const primary: PrimaryParty = {
-    name: source[0]?.name || 'N/A',
-    nameAr: source[0]?.nameAr || 'غير متوفر',
+    name: owner.ownerName || source[0]?.name || 'N/A',
+    nameAr: owner.ownerNameAr || source[0]?.nameAr || 'غير متوفر',
     salutation: salutation,
-    nationality: source[0]?.nationality || 'N/A',
-    nationalityAr: source[0]?.nationalityAr || 'غير متوفر',
-    eid: (source[0]?.eidNumber || '').replace(/-/g, ''),
-    passport: source[0]?.passportNumber || '',
-    dob: source[0]?.dob || '',
+    nationality: owner.ownerNationality || source[0]?.nationality || 'N/A',
+    nationalityAr: owner.ownerNationalityAr || source[0]?.nationalityAr || 'غير متوفر',
+    eid: (ownerEid || sourceEid).replace(/-/g, ''),
+    passport: ownerPassport || sourcePassport,
+    dob: owner.ownerDob || source[0]?.dob || '',
     address: source[0]?.address || company.address || '',
     addressAr: source[0]?.addressAr || company.addressAr || ''
   }

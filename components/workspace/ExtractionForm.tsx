@@ -496,7 +496,7 @@ export function ExtractionForm() {
 
       {/* Owner Article Section */}
       <fieldset className="border border-gray-200 rounded-xl p-3 space-y-2">
-        <legend className="text-xs font-semibold text-slate-900 px-2">Owner (Article 5)</legend>
+        <legend className="text-xs font-semibold text-slate-900 px-2">Owner Details</legend>
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
             <OCRButton 
