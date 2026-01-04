@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { sampleSpcFilled } from '@/lib/sampleData'
+import { sampleSpcFilled, sampleLlcFilled } from '@/lib/sampleData'
 
 export interface CompanyData {
   name?: string
@@ -25,6 +25,7 @@ export interface PartyData {
   salutation?: 'mr' | 'ms'
   eidNumber?: string
   passportNumber?: string
+  uidNumber?: string  // UID number for passport holders
   dob?: string
   nationality?: string
   nationalityAr?: string
@@ -54,6 +55,7 @@ export interface DocumentData {
     managerNationality?: string
     managerNationalityAr?: string
     managerIdNumber?: string
+    managerUidNumber?: string  // UID number for passport holders
     managerDob?: string
     managerDocType?: 'eid' | 'passport'
   }
@@ -63,6 +65,7 @@ export interface DocumentData {
     ownerNationality?: string
     ownerNationalityAr?: string
     ownerIdNumber?: string
+    ownerUidNumber?: string  // UID number for passport holders
     ownerDob?: string
     ownerDocType?: 'eid' | 'passport'
   }
@@ -77,6 +80,7 @@ interface DocumentStore {
   initializeFromCache: () => void
   clearCache: () => void
   resetToDefault: () => void
+  resetToLLCDefault: () => void
 }
 
 // Cache key for storing document data
@@ -137,6 +141,11 @@ export const useDocumentStore = create<DocumentStore>((set, get) => ({
   },
   resetToDefault: () => {
     set({ extractedData: sampleSpcFilled })
+    // Also clear the cache to match the reset
+    clearCacheStorage()
+  },
+  resetToLLCDefault: () => {
+    set({ extractedData: sampleLlcFilled })
     // Also clear the cache to match the reset
     clearCacheStorage()
   }

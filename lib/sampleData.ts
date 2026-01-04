@@ -121,3 +121,74 @@ export const sampleSpcFilled: DocumentData = {
     shareValue: 100
   }
 }
+
+// LLC Sample - no SPC, with 2 partners
+export const sampleLlcFilled: DocumentData = {
+  company: {
+    name: 'PICK N PACK BAQALA - L.L.C',
+    nameAr: 'بقالة بيك ان باك - ذ.م.م',
+    newName: '',
+    newNameAr: '',
+    licenseNumber: '',
+    moaDate: '2026-01-02',
+    activities: 'Baqala - affiliated to a local chain store; Grocery; Retail Sale of Fresh Fruits and Vegetables',
+    activitiesAr: 'بقالة - تابعة لسلسلة متاجر محلية؛ بقالة؛ بيع الفواكه والخضروات الطازجة - بالتجزئة',
+    address: 'Abu Dhabi, U.A.E',
+    addressAr: 'أبوظبي، الإمارات',
+    emirate: 'Abu Dhabi',
+    emirateAr: 'أبوظبي',
+    notarizationNumber: '',
+    notarizationDate: '',
+    registrationDate: '2026-01-02'
+  },
+  sourceParties: [
+    {
+      name: 'IBRAHIM SHAFEEQ CHALILAKATH MOHMOOD CHALILAKATH',
+      nameAr: 'ابراهيم شفيق شاليلاكاث محمود شاليلاكاث',
+      salutation: 'mr',
+      nationality: 'India',
+      nationalityAr: 'الهند',
+      eidNumber: '784-1234-5678901-2',
+      passportNumber: '',
+      dob: '1985-05-15',
+      address: 'Abu Dhabi, U.A.E',
+      addressAr: 'أبوظبي، الإمارات',
+      capacity: 'Partner',
+      capacityAr: 'شريك',
+      documentType: 'eid',
+      expiryDate: ''
+    },
+    {
+      name: 'PANDARAPETTY ABDUL LATHEEF KUNHI MOITHEEN KUTTY',
+      nameAr: 'باندارابيتي عبداللطيف كونهي مويثين كوتي',
+      salutation: 'mr',
+      nationality: 'India',
+      nationalityAr: 'الهند',
+      eidNumber: '784-9876-5432109-8',
+      passportNumber: '',
+      dob: '1980-08-20',
+      address: 'Abu Dhabi, U.A.E',
+      addressAr: 'أبوظبي، الإمارات',
+      capacity: 'Partner',
+      capacityAr: 'شريك',
+      documentType: 'eid',
+      expiryDate: ''
+    }
+  ],
+  destinationParties: [],
+  shares: { source: [50, 50], destination: [] },
+  oldMoa: { notarizationNumber: '', notarizationDate: '', originalShares: [] },
+  managerArticle: {
+    managerName: 'IBRAHIM SHAFEEQ CHALILAKATH MOHMOOD CHALILAKATH',
+    managerNameAr: 'ابراهيم شفيق شاليلاكاث محمود شاليلاكاث',
+    managerNationality: 'India',
+    managerNationalityAr: 'الهند',
+    managerIdNumber: '784-1234-5678901-2',
+    managerDocType: 'eid'
+  },
+  capital: {
+    totalCapital: 300000,
+    shareCount: 100,
+    shareValue: 3000
+  }
+}

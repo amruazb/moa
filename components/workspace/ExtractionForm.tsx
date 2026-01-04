@@ -5,14 +5,14 @@ import { useDocumentStore } from '@/store/documentStore'
 import { DocumentType, EmiratesIDData, PassportData, TradeCertificateData } from '@/lib/ocr/types'
 
 // Inline OCR Upload Button Component
-function OCRButton({ 
-  documentType, 
-  onExtracted, 
-  label 
-}: { 
+function OCRButton({
+  documentType,
+  onExtracted,
+  label
+}: {
   documentType: DocumentType
   onExtracted: (data: any) => void
-  label: string 
+  label: string
 }) {
   const [isProcessing, setIsProcessing] = useState(false)
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle')
@@ -30,7 +30,7 @@ function OCRButton({
       formData.append('documentType', documentType)
 
       setStatusText('Scanning...')
-      
+
       const response = await fetch('/api/ocr', {
         method: 'POST',
         body: formData
@@ -81,12 +81,11 @@ function OCRButton({
       <button
         onClick={() => fileInputRef.current?.click()}
         disabled={isProcessing}
-        className={`inline-flex items-center gap-1 px-2 py-1 text-xs rounded transition-colors ${
-          isProcessing ? 'bg-blue-100 text-blue-600' :
+        className={`inline-flex items-center gap-1 px-2 py-1 text-xs rounded transition-colors ${isProcessing ? 'bg-blue-100 text-blue-600' :
           status === 'success' ? 'bg-green-100 text-green-600' :
-          status === 'error' ? 'bg-red-100 text-red-600' :
-          'bg-blue-50 text-blue-600 hover:bg-blue-100'
-        }`}
+            status === 'error' ? 'bg-red-100 text-red-600' :
+              'bg-blue-50 text-blue-600 hover:bg-blue-100'
+          }`}
       >
         {isProcessing ? (
           <>
@@ -303,10 +302,10 @@ export function ExtractionForm() {
 
   // OCR extraction handlers
   const handleEmiratesIDExtracted = (partyType: 'source' | 'destination', idx: number) => (data: EmiratesIDData) => {
-    const parties = partyType === 'source' 
+    const parties = partyType === 'source'
       ? [...sourceParties]
       : [...destinationParties]
-    
+
     // ONLY extract EID number and DOB from scan
     // Names and nationality should come from Trade License or manual entry
     parties[idx] = {
@@ -317,7 +316,7 @@ export function ExtractionForm() {
       dob: data.dateOfBirth || parties[idx].dob,
       documentType: 'eid',
     }
-    
+
     if (partyType === 'source') {
       setExtractedData({ sourceParties: parties })
     } else {
@@ -326,10 +325,10 @@ export function ExtractionForm() {
   }
 
   const handlePassportExtracted = (partyType: 'source' | 'destination', idx: number) => (data: PassportData) => {
-    const parties = partyType === 'source' 
+    const parties = partyType === 'source'
       ? [...sourceParties]
       : [...destinationParties]
-    
+
     // ONLY extract passport number and DOB from scan
     // Names and nationality should come from Trade License or manual entry
     parties[idx] = {
@@ -340,7 +339,7 @@ export function ExtractionForm() {
       dob: data.dateOfBirth || parties[idx].dob,
       documentType: 'passport',
     }
-    
+
     if (partyType === 'source') {
       setExtractedData({ sourceParties: parties })
     } else {
@@ -351,7 +350,7 @@ export function ExtractionForm() {
   const handleTradeCertificateExtracted = (data: TradeCertificateData) => {
     // Clean up trade name - remove "Trade Name" prefix if present
     const cleanName = (name: string) => name?.replace(/^Trade\s*Name[:\s]*/i, '').trim() || ''
-    
+
     setExtractedData({
       company: {
         ...company,
@@ -375,7 +374,7 @@ export function ExtractionForm() {
         capacityAr: owner.roleAr,
       }))
       setExtractedData({ sourceParties: newSourceParties })
-      
+
       // Also update Manager (Article 10) with the first owner/manager
       // Find manager role first, otherwise use first owner
       const manager = data.owners.find(o => o.role?.toLowerCase() === 'manager') || data.owners[0]
@@ -397,20 +396,20 @@ export function ExtractionForm() {
     <div className="space-y-4 overflow-y-auto max-h-[calc(100vh-180px)]">
       <div className="flex justify-between items-center sticky top-0 bg-white py-2 z-10 border-b border-gray-100 -mx-4 px-4 -mt-4">
         <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wide">Edit Data</h3>
-        <button 
+        <button
           onClick={handleClearCache}
           className="px-2 py-1 text-[10px] font-medium text-red-600 bg-red-50 rounded border border-red-200 hover:bg-red-100"
         >
           Clear
         </button>
       </div>
-      
+
       {/* Company Section */}
       <fieldset className="border border-gray-200 rounded-xl p-3 space-y-2">
         <legend className="text-xs font-semibold text-slate-900 px-2">Company</legend>
         <div className="flex justify-end mb-2">
-          <OCRButton 
-            documentType="trade_certificate" 
+          <OCRButton
+            documentType="trade_certificate"
             onExtracted={handleTradeCertificateExtracted}
             label="Scan Trade License"
           />
@@ -462,28 +461,28 @@ export function ExtractionForm() {
         <legend className="text-xs font-semibold text-slate-900 px-2">Capital & Shares (Article 6)</legend>
         <div className="grid grid-cols-3 gap-2">
           <label className="block text-xs text-gray-600">Total Capital (AED)
-            <input 
-              type="number" 
-              className="mt-1 w-full rounded border px-2 py-1 text-xs" 
-              value={capitalData.totalCapital || ''} 
-              onChange={(e) => updateCapital('totalCapital', parseFloat(e.target.value) || 0)} 
+            <input
+              type="number"
+              className="mt-1 w-full rounded border px-2 py-1 text-xs"
+              value={capitalData.totalCapital || ''}
+              onChange={(e) => updateCapital('totalCapital', parseFloat(e.target.value) || 0)}
               placeholder="e.g., 100000"
             />
           </label>
           <label className="block text-xs text-gray-600">Number of Shares
-            <input 
-              type="number" 
-              className="mt-1 w-full rounded border px-2 py-1 text-xs" 
-              value={capitalData.shareCount || ''} 
-              onChange={(e) => updateCapital('shareCount', parseFloat(e.target.value) || 0)} 
+            <input
+              type="number"
+              className="mt-1 w-full rounded border px-2 py-1 text-xs"
+              value={capitalData.shareCount || ''}
+              onChange={(e) => updateCapital('shareCount', parseFloat(e.target.value) || 0)}
               placeholder="e.g., 100"
             />
           </label>
           <label className="block text-xs text-gray-600">Value per Share (AED)
-            <input 
-              type="number" 
-              className="mt-1 w-full rounded border px-2 py-1 text-xs bg-gray-50" 
-              value={capitalData.shareValue || ''} 
+            <input
+              type="number"
+              className="mt-1 w-full rounded border px-2 py-1 text-xs bg-gray-50"
+              value={capitalData.shareValue || ''}
               readOnly
               title="Auto-calculated from Capital ÷ Shares"
             />
@@ -499,18 +498,18 @@ export function ExtractionForm() {
         <legend className="text-xs font-semibold text-slate-900 px-2">Owner Details</legend>
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
-            <OCRButton 
-              documentType="trade_certificate" 
+            <OCRButton
+              documentType="trade_certificate"
               onExtracted={handleOwnerTradeCertificateExtracted}
               label="Scan Trade License"
             />
-            <OCRButton 
-              documentType="emirates_id" 
+            <OCRButton
+              documentType="emirates_id"
               onExtracted={handleOwnerEIDExtracted}
               label="Scan EID"
             />
-            <OCRButton 
-              documentType="passport" 
+            <OCRButton
+              documentType="passport"
               onExtracted={handleOwnerPassportExtracted}
               label="Scan Passport"
             />
@@ -535,6 +534,9 @@ export function ExtractionForm() {
           <label className="block text-xs text-gray-600">Owner ID Number
             <input className="mt-1 w-full rounded border px-2 py-1 text-xs" value={ownerArticle.ownerIdNumber || ''} onChange={(e) => updateOwner('ownerIdNumber', e.target.value)} />
           </label>
+          <label className="block text-xs text-gray-600">UID Number (Passport)
+            <input className="mt-1 w-full rounded border px-2 py-1 text-xs" value={ownerArticle.ownerUidNumber || ''} onChange={(e) => updateOwner('ownerUidNumber', e.target.value)} placeholder="For passport holders" />
+          </label>
           <label className="block text-xs text-gray-600">ID Type
             <select className="mt-1 w-full rounded border px-2 py-1 text-xs" value={ownerArticle.ownerDocType || 'eid'} onChange={(e) => updateOwner('ownerDocType', e.target.value)}>
               <option value="eid">Emirates ID</option>
@@ -549,13 +551,13 @@ export function ExtractionForm() {
         <legend className="text-xs font-semibold text-slate-900 px-2">Manager (Article 10)</legend>
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
-            <OCRButton 
-              documentType="emirates_id" 
+            <OCRButton
+              documentType="emirates_id"
               onExtracted={handleManagerEIDExtracted}
               label="Scan EID"
             />
-            <OCRButton 
-              documentType="passport" 
+            <OCRButton
+              documentType="passport"
               onExtracted={handleManagerPassportExtracted}
               label="Scan Passport"
             />
@@ -579,6 +581,9 @@ export function ExtractionForm() {
           </label>
           <label className="block text-xs text-gray-600">Manager ID Number
             <input className="mt-1 w-full rounded border px-2 py-1 text-xs" value={managerArticle.managerIdNumber || ''} onChange={(e) => updateManager('managerIdNumber', e.target.value)} />
+          </label>
+          <label className="block text-xs text-gray-600">UID Number (Passport)
+            <input className="mt-1 w-full rounded border px-2 py-1 text-xs" value={managerArticle.managerUidNumber || ''} onChange={(e) => updateManager('managerUidNumber', e.target.value)} placeholder="For passport holders" />
           </label>
           <label className="block text-xs text-gray-600">ID Type
             <select className="mt-1 w-full rounded border px-2 py-1 text-xs" value={managerArticle.managerDocType || 'eid'} onChange={(e) => updateManager('managerDocType', e.target.value)}>
