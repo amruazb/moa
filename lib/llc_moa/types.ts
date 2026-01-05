@@ -94,7 +94,8 @@ export interface Partner {
     nationalityAr: string
     eid: string
     passport: string
-    eidOrPassport: string  // Computed: eid || passport
+    eidOrPassport: string  // Computed based on documentType
+    documentType: 'eid' | 'passport'  // Which document type is being used
     dob: string
     address: string
     addressAr: string
@@ -120,6 +121,10 @@ export interface ManagerInfo {
     id: string
     salutation: Salutation
     pronouns: Pronouns
+    nationality: string
+    nationalityAr: string
+    address: string
+    addressAr: string
 }
 
 export interface TextStyle {
@@ -153,6 +158,17 @@ export function getOrdinal(index: number, lang: 'en' | 'ar'): string {
     return arr[index] || `${index + 1}`
 }
 
+// Format date from YYYY-MM-DD to DD/MM/YYYY
+export function formatDateDMY(dateStr: string): string {
+    if (!dateStr) return ''
+    // Handle YYYY-MM-DD format
+    const parts = dateStr.split('-')
+    if (parts.length === 3) {
+        return `${parts[2]}/${parts[1]}/${parts[0]}`
+    }
+    return dateStr
+}
+
 export function extractLLCContext(data: DocumentData): LLCMOAContext {
     const company = data.company || {}
     const sourceParties = data.sourceParties || []
@@ -171,6 +187,7 @@ export function extractLLCContext(data: DocumentData): LLCMOAContext {
         const pronouns = getPronouns(salutation)
         const eid = (party.eidNumber || '').replace(/-/g, '')
         const passport = party.passportNumber || ''
+        const documentType = (party.documentType || (passport && !eid ? 'passport' : 'eid')) as 'eid' | 'passport'
         // Read shareCount from party directly or fall back to even distribution
         const shareCount = party.shareCount || sharesData[index] || Math.floor(totalShares / sourceParties.length)
 
@@ -183,7 +200,8 @@ export function extractLLCContext(data: DocumentData): LLCMOAContext {
             nationalityAr: party.nationalityAr || 'غير متوفر',
             eid,
             passport,
-            eidOrPassport: eid || passport || 'N/A',
+            eidOrPassport: documentType === 'passport' ? (passport || 'N/A') : (eid || 'N/A'),
+            documentType,
             dob: party.dob || '',
             address: party.address || company.address || '',
             addressAr: party.addressAr || company.addressAr || '',
@@ -204,9 +222,10 @@ export function extractLLCContext(data: DocumentData): LLCMOAContext {
             eid: '',
             passport: '',
             eidOrPassport: 'N/A',
+            documentType: 'eid',
             dob: '',
-            address: company.address || '',
-            addressAr: company.addressAr || '',
+            address: '',
+            addressAr: '',
             shareCount: 0,
             sharePercent: 0
         })
@@ -219,7 +238,11 @@ export function extractLLCContext(data: DocumentData): LLCMOAContext {
         nameAr: managerData.managerNameAr || partners[0].nameAr,
         id: (managerData.managerIdNumber || partners[0].eidOrPassport).replace(/-/g, ''),
         salutation: partners[0].salutation,
-        pronouns: partners[0].pronouns
+        pronouns: partners[0].pronouns,
+        nationality: managerData.managerNationality || partners[0].nationality,
+        nationalityAr: managerData.managerNationalityAr || partners[0].nationalityAr,
+        address: managerData.managerAddress || partners[0].address,
+        addressAr: managerData.managerAddressAr || partners[0].addressAr
     }
 
     // Parse activities

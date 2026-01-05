@@ -1,4 +1,4 @@
-import { LLCMOAContext, pageFooter, getOrdinal } from '../types'
+import { LLCMOAContext, pageFooter, getOrdinal, formatDateDMY } from '../types'
 
 export function page1(ctx: LLCMOAContext, pageNum: number = 1): string {
   const { company, partners } = ctx
@@ -7,16 +7,19 @@ export function page1(ctx: LLCMOAContext, pageNum: number = 1): string {
   const partnerSectionsHtml = partners.map((partner, index) => {
     const ordinalEn = getOrdinal(index, 'en')
     const ordinalAr = getOrdinal(index, 'ar')
+    const formattedDob = formatDateDMY(partner.dob)
+    const idLabelEn = partner.documentType === 'passport' ? 'Passport No' : 'Emirates ID Card No'
+    const idLabelAr = partner.documentType === 'passport' ? 'جواز السفر رقم' : 'بطاقة هوية رقم'
 
     return `
       <div class="article-pair">
         <div class="block">
           <h3 class="bold underline">${ordinalEn} Party:</h3>
-          <p><strong>${partner.pronouns.title}</strong> <span class="edited">${partner.name}</span>, <span class="edited">${partner.nationality}</span> national, holder of Emirates ID Card No: <span class="edited">${partner.eidOrPassport}</span>, Born On: <span class="edited">${partner.dob}</span>, Address: <span class="edited">${partner.address || company.emirate + ', U.A.E'}</span></p>
+          <p><strong>${partner.pronouns.title}</strong> <span class="edited">${partner.name}</span>, <span class="edited">${partner.nationality}</span> national, holder of ${idLabelEn}: <span class="edited">${partner.eidOrPassport}</span>, Born On: <span class="edited">${formattedDob}</span>, Address: <span class="edited">${partner.address || company.emirate + ', U.A.E'}</span></p>
         </div>
         <div class="block rtl">
           <h3 class="bold underline">الطرف ${ordinalAr}:</h3>
-          <p><strong>${partner.pronouns.titleAr}/</strong> <span class="edited">${partner.nameAr}</span>، <span class="edited">${partner.nationalityAr}</span> الجنسية، يحمل بطاقة هوية رقم: <span class="edited">${partner.eidOrPassport}</span>، تاريخ الميلاد: <span class="edited">${partner.dob}</span>، العنوان: <span class="edited">${partner.addressAr || company.emirateAr + '، ا.ع.م.'}</span></p>
+          <p><strong>${partner.pronouns.titleAr}/</strong> <span class="edited">${partner.nameAr}</span>، <span class="edited">${partner.nationalityAr}</span> الجنسية، يحمل ${idLabelAr}: <span class="edited">${partner.eidOrPassport}</span>، تاريخ الميلاد: <span class="edited">${formattedDob}</span>، العنوان: <span class="edited">${partner.addressAr || company.emirateAr + '، الإمارات'}</span></p>
         </div>
       </div>
     `

@@ -58,6 +58,8 @@ export interface DocumentData {
     managerUidNumber?: string  // UID number for passport holders
     managerDob?: string
     managerDocType?: 'eid' | 'passport'
+    managerAddress?: string
+    managerAddressAr?: string
   }
   ownerArticle?: {
     ownerName?: string

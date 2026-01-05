@@ -218,11 +218,21 @@ function PartnerCard({
                         onChange={(e) => onUpdate('nationalityAr', e.target.value)}
                     />
                 </label>
-                <label className="block text-xs text-gray-600">ID Number (EID/Passport)
+                <label className="block text-xs text-gray-600">ID Type
+                    <select
+                        className="mt-1 w-full rounded border px-2 py-1 text-xs"
+                        value={partner.documentType || 'eid'}
+                        onChange={(e) => onUpdate('documentType', e.target.value)}
+                    >
+                        <option value="eid">Emirates ID</option>
+                        <option value="passport">Passport</option>
+                    </select>
+                </label>
+                <label className="block text-xs text-gray-600">ID Number ({partner.documentType === 'passport' ? 'Passport' : 'EID'})
                     <input
                         className="mt-1 w-full rounded border px-2 py-1 text-xs"
-                        value={partner.eidNumber || partner.passportNumber || ''}
-                        onChange={(e) => onUpdate('eidNumber', e.target.value)}
+                        value={partner.documentType === 'passport' ? (partner.passportNumber || '') : (partner.eidNumber || '')}
+                        onChange={(e) => onUpdate(partner.documentType === 'passport' ? 'passportNumber' : 'eidNumber', e.target.value)}
                     />
                 </label>
                 <label className="block text-xs text-gray-600">UID Number (Passport)
@@ -239,6 +249,23 @@ function PartnerCard({
                         className="mt-1 w-full rounded border px-2 py-1 text-xs"
                         value={partner.dob || ''}
                         onChange={(e) => onUpdate('dob', e.target.value)}
+                    />
+                </label>
+                <label className="block text-xs text-gray-600">Address (EN)
+                    <input
+                        className="mt-1 w-full rounded border px-2 py-1 text-xs"
+                        value={partner.address || ''}
+                        onChange={(e) => onUpdate('address', e.target.value)}
+                        placeholder="e.g., Abu Dhabi, U.A.E"
+                    />
+                </label>
+                <label className="block text-xs text-gray-600">Address (AR)
+                    <input
+                        className="mt-1 w-full rounded border px-2 py-1 text-xs"
+                        dir="rtl"
+                        value={partner.addressAr || ''}
+                        onChange={(e) => onUpdate('addressAr', e.target.value)}
+                        placeholder="أبوظبي، الإمارات"
                     />
                 </label>
             </div>
@@ -428,7 +455,9 @@ export function LLCExtractionForm() {
                     managerNationality: partner.nationality || '',
                     managerNationalityAr: partner.nationalityAr || '',
                     managerIdNumber: partner.eidNumber || partner.passportNumber || '',
-                    managerDocType: partner.eidNumber ? 'eid' : 'passport'
+                    managerDocType: partner.eidNumber ? 'eid' : 'passport',
+                    managerAddress: partner.address || '',
+                    managerAddressAr: partner.addressAr || ''
                 }
             })
         }
@@ -600,6 +629,12 @@ export function LLCExtractionForm() {
                             <option value="eid">Emirates ID</option>
                             <option value="passport">Passport</option>
                         </select>
+                    </label>
+                    <label className="block text-xs text-gray-600">Address (EN)
+                        <input className="mt-1 w-full rounded border px-2 py-1 text-xs" value={managerArticle.managerAddress || ''} onChange={(e) => updateManager('managerAddress', e.target.value)} placeholder="e.g., Abu Dhabi, U.A.E" />
+                    </label>
+                    <label className="block text-xs text-gray-600">Address (AR)
+                        <input className="mt-1 w-full rounded border px-2 py-1 text-xs" dir="rtl" value={managerArticle.managerAddressAr || ''} onChange={(e) => updateManager('managerAddressAr', e.target.value)} placeholder="مثال: أبوظبي، الإمارات" />
                     </label>
                 </div>
             </fieldset>

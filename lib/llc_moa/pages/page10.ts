@@ -5,44 +5,61 @@ export function page10(_ctx: LLCMOAContext, pageNum: number = 10): string {
     <div class="page">
       <div class="page-content">
 
+      <div class="section-bar"><span>CHAPTER IV</span><span class="rtl">الباب الرابع</span></div>
+      <div class="section-bar"><span>General Assembly</span><span class="rtl">الجمعية العمومية</span></div>
+
       <div class="article-pair">
         <div class="block">
-          <h3 class="underline center">Article (19)</h3>
-          <h3 class="underline center">VOTING</h3>
-          <p>Each partner shall have one vote for each share held. A partner may authorize another partner or a third party to represent them at meetings by written proxy.</p>
+          <h3 class="underline center">Article (13)</h3>
+          <p>The general assembly represents all partners and it may be convened only in Abu Dhabi City, Emirate of Abu Dhabi.</p>
         </div>
         <div class="block rtl">
-          <h3 class="underline center">المادة (19)</h3>
-          <h3 class="underline center">التصويت</h3>
-          <p>يكون لكل شريك صوت واحد عن كل حصة يملكها. ويجوز للشريك توكيل شريك آخر أو الغير لتمثيله في الاجتماعات بموجب توكيل كتابي.</p>
+          <h3 class="underline center">المادة (13)</h3>
+          <p>تمثل الجمعية العمومية كافة الشركاء ولا يجوز انعقادها إلا في مدينة أبوظبي بإمارة أبوظبي.</p>
         </div>
       </div>
 
       <div class="article-pair">
         <div class="block">
-          <h3 class="underline center">Article (20)</h3>
-          <h3 class="underline center">RESOLUTIONS</h3>
-          <p>Resolutions of the General Assembly shall be passed by a majority of the shares represented at the meeting, unless the law or this Memorandum requires a greater majority. In case of equality of votes, the chairman of the meeting shall have a casting vote.</p>
+          <h3 class="underline center">Article (14)</h3>
+          <p>Any partner shall have the right to attend the general assembly regardless of the number of shares owned by him, whether personally or by proxy to represent him in the general assembly.</p>
         </div>
         <div class="block rtl">
-          <h3 class="underline center">المادة (20)</h3>
-          <h3 class="underline center">القرارات</h3>
-          <p>تصدر قرارات الجمعية العمومية بأغلبية الحصص الممثلة في الاجتماع، ما لم ينص القانون أو هذا العقد على أغلبية أكبر. وفي حالة تساوي الأصوات، يكون لرئيس الاجتماع صوت مرجح.</p>
+          <h3 class="underline center">المادة (14)</h3>
+          <p>لكل شريك حق حضور الجمعية العمومية مهما كان عدد الحصص التي يملكها سواء كان ذلك بطريقة شخصية أوبطريقة إنابة شريك آخر لتمثيله في الجمعية.</p>
         </div>
       </div>
 
-      <div class="section-bar"><span>CHAPTER SIX: DISSOLUTION & LIQUIDATION</span><span class="rtl">الباب السادس: الانحلال والتصفية</span></div>
+      <div class="article-pair">
+        <div class="block">
+          <h3 class="underline center">Article (15)</h3>
+          <p>The general assembly shall be presided by the Local partner or his deputy. The chairman shall appoint one reporter and two reviewers for votes counting, upon approval of the general assembly.</p>
+        </div>
+        <div class="block rtl">
+          <h3 class="underline center">المادة (15)</h3>
+          <p>يرأس الجمعية العمومية الشريك المواطن أو من ينوب عنه ويعين الرئيس مقررا للاجتماع ومراجعين اثنين لفرز الأصوات على أن تقرر الجمعية العمومية تعيينهم.</p>
+        </div>
+      </div>
 
       <div class="article-pair">
         <div class="block">
-          <h3 class="underline center">Article (21)</h3>
-          <h3 class="underline center">DEATH OR BANKRUPTCY OF A PARTNER</h3>
-          <p>In the event of death, bankruptcy, or insolvency of a partner, the Company shall not be dissolved but shall continue with the remaining partners and the heirs or legal representatives of the deceased or bankrupt partner. The heirs or legal representatives shall appoint one person to represent them in the Company.</p>
+          <h3 class="underline center">Article (16)</h3>
+          <p>Invitation for the General Assembly shall be served vide registered letters to each partner within at least 14 days prior to the scheduled time. Invitation letter shall include the agenda, place and time of the meeting.</p>
         </div>
         <div class="block rtl">
-          <h3 class="underline center">المادة (21)</h3>
-          <h3 class="underline center">وفاة أو إفلاس شريك</h3>
-          <p>في حالة وفاة أو إفلاس أو إعسار أحد الشركاء، لا تنحل الشركة بل تستمر مع باقي الشركاء وورثة أو الممثلين القانونيين للشريك المتوفى أو المفلس. ويعين الورثة أو الممثلون القانونيون شخصاً واحداً لتمثيلهم في الشركة.</p>
+          <h3 class="underline center">المادة (16)</h3>
+          <p>توجه الدعوة لحضور الجمعيات العمومية بموجب خطابات موصى عليها ترسل لكل شريك قبل موعد انعقادها بأربع عشر يوم على الأقل ويجب أن يشتمل خطاب الدعوة على بيان جداول الأعمال ومكان الاجتماع وزمانه.</p>
+        </div>
+      </div>
+
+      <div class="article-pair">
+        <div class="block">
+          <h3 class="underline center">Article (17)</h3>
+          <p>The general assembly may not deliberate any matter except those specified in the agenda; resolutions adopted by the general assembly shall be binding on all partners.</p>
+        </div>
+        <div class="block rtl">
+          <h3 class="underline center">المادة (17)</h3>
+          <p>لا يجوز للجمعية العمومية العادية أن تتداول في غير المسائل الواردة بجدول الأعمال المبين في خطاب الدعوة وتكون القرارت التي تصدرها الجمعية ملزمة لجميع الشركاء.</p>
         </div>
       </div>
 

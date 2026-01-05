@@ -7,55 +7,16 @@ export function page8(_ctx: LLCMOAContext, pageNum: number = 8): string {
 
       <div class="article-pair">
         <div class="block">
-          <h3 class="underline center">Article (12)</h3>
-          <h3 class="underline center">REMUNERATION OF DIRECTOR</h3>
-          <p>The Managing Director shall be entitled to remuneration as determined by the partners. The Managing Director shall not be personally liable for the Company's debts and obligations unless proved to have committed fraud or gross negligence.</p>
+          <p>3- Concluding commercial contracts in the name of the Company, contracts covered by the Company activity and related thereto.</p>
+          <p>4- The Managing Director shall represent the Company before all government, local and federal departments and private companies such as Ministry, Department of Economic Development, Municipalities, UAE Chambers, Seaports, Customs, Airports, Traffic and Licensing Department, Police Departments, Ruler's Offices, Ministry of Human Resources and Emiratization, And All Ministry Of Nation, All Other Governmental And Semi-Governmental Departments, Higher Corporation for Specialized Economic Zones, Critical National Infrastructure Authority, Federal Tax Authority, TAMM, all companies and commercial and professional entities, and to sign all documents, papers and contracts with / before them and/or do any other acts, deeds or things that may be related to the affairs of the company and sign on all papers and transactions.</p>
+          <p>5- The managing Director is authorized to open bank accounts in the name of the company at any bank it may deem fit, operate and close the same, mange all the company bank accounts, issue, sign and endorse cheques and documents, withdraw, L/Cs, guarantees, transfers and sign on all application related to the company activity and she is also authorized to operate the account via online or offline banking. And she has the right to obtain loans from any banks in United Arab Emirates.</p>
+          <p>6- she is also empowered to purchase all equipment's, vehicles, materials, supplies, goods and movable assets and dispose of or sell them when needed by company name</p>
         </div>
         <div class="block rtl">
-          <h3 class="underline center">المادة (12)</h3>
-          <h3 class="underline center">مكافأة المدير</h3>
-          <p>يستحق المدير مكافأة يحددها الشركاء. ولا يكون المدير مسؤولاً شخصياً عن ديون والتزامات الشركة ما لم يثبت ارتكابه لغش أو إهمال جسيم.</p>
-        </div>
-      </div>
-
-      <div class="article-pair">
-        <div class="block">
-          <h3 class="underline center">Article (13)</h3>
-          <h3 class="underline center">AUTHORIZED SIGNATURE</h3>
-          <p>The Company shall have an authorized signature which shall be the Company's name followed by the signature of the Managing Director or any person duly authorized by him. No person other than the Managing Director or his authorized delegate shall sign on behalf of the Company.</p>
-        </div>
-        <div class="block rtl">
-          <h3 class="underline center">المادة (13)</h3>
-          <h3 class="underline center">التوقيع المعتمد</h3>
-          <p>يكون للشركة توقيع معتمد وهو اسم الشركة متبوعاً بتوقيع المدير أو أي شخص مفوض منه حسب الأصول. ولا يحق لأي شخص آخر غير المدير أو من يفوضه التوقيع نيابة عن الشركة.</p>
-        </div>
-      </div>
-
-      <div class="section-bar"><span>CHAPTER FOUR: ACCOUNTS & PROFITS</span><span class="rtl">الباب الرابع: الحسابات والأرباح</span></div>
-
-      <div class="article-pair">
-        <div class="block">
-          <h3 class="underline center">Article (14)</h3>
-          <h3 class="underline center">BOOKS OF ACCOUNTS</h3>
-          <p>The Company shall maintain proper books of accounts at its head office showing its financial position. The financial year of the Company shall commence on the 1st of January and end on the 31st of December of each year.</p>
-        </div>
-        <div class="block rtl">
-          <h3 class="underline center">المادة (14)</h3>
-          <h3 class="underline center">دفاتر الحسابات</h3>
-          <p>تحتفظ الشركة بدفاتر حسابات منتظمة في مقرها الرئيسي تبين مركزها المالي. وتبدأ السنة المالية للشركة في الأول من يناير وتنتهي في الحادي والثلاثين من ديسمبر من كل عام.</p>
-        </div>
-      </div>
-
-      <div class="article-pair">
-        <div class="block">
-          <h3 class="underline center">Article (15)</h3>
-          <h3 class="underline center">DISTRIBUTION OF PROFITS</h3>
-          <p>Net profits of the Company after deducting all expenses, costs, and provisions shall be distributed among the partners in proportion to their shares in the capital. The partners may, by unanimous resolution, decide to retain all or part of the profits as reserves.</p>
-        </div>
-        <div class="block rtl">
-          <h3 class="underline center">المادة (15)</h3>
-          <h3 class="underline center">توزيع الأرباح</h3>
-          <p>توزع أرباح الشركة الصافية بعد خصم جميع المصروفات والتكاليف والمخصصات على الشركاء بنسبة حصصهم في رأس المال. ويجوز للشركاء بقرار إجماعي أن يقرروا الاحتفاظ بكل أو جزء من الأرباح كاحتياطيات.</p>
+          <p>3- إبرام العقود التجارية باسم الشركة وهي العقود التي يكون ضمن نشاط الشركة والمتصلة بها.</p>
+          <p>4- تقوم مديرة الإدارة بتمثيل الشركة لدى كافة المؤسسات الحكومية وشبه الحكومية والمحلية والاتحادية والمؤسسات الخاصة والشركات مثل دائرة التنمية الاقتصادية والبلديات وغرف الدولة ، والموانيء والجمارك والمطارات وإدارة المرور والترخيص وديوان الشرطة ومكاتب سمو الحاكم ووزارة الموارد البشرية والتوطين وكافة وزارات الدولة وكافة الدوائر الحكومية وشبه الحكومية الأخرى والمؤسسة العليا للمناطق الاقتصادية المتخصصة وجهاز حماية المنشآت والمرافق الحيوية والبيئة الاتحادية للضرائب وتم والهيئة التجارية والمهنية والتوقيع مع او امام الجهات المذكورة على كافة الأوراق والمستندات والعقود المتعلقة بأمور الشركة والتوقيع على كافة الأوراق والمعاملات.</p>
+          <p>5- مسيرة الإدارة مفوض لفتح الحسابات المصرفية باسم الشركة لدى اي بنك يراه مناسباً وتشغيلها واقفالها وإدارة جميع الحسابات المصرفية للشركة وإصدار وتوقيع وتظهير الشيكات والمستندات والسحب والإيداع وإصدار خطابات الاعتماد والكفالات والتحويلات وتوقيع كافة الطلبات المتعلقة بنشاط الشركة ولها الحق في إدارة الحساب بواسطة الإنترنت أو الهاتف. ولها الحق في الحصول على قروض من اي بنك في الإمارات العربية المتحدة</p>
+          <p>6- ولها الحق شراء جميع المعدات والمركبات والمواد والمهمات والبضائع والمنقولات والتصرف بها أو بيعها عند الحاجة باسم الشركة</p>
         </div>
       </div>
 
