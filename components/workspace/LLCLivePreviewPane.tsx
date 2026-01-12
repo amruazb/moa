@@ -3,12 +3,22 @@
 import { useDocumentStore } from '@/store/documentStore'
 import { useFormattingStore } from '@/store/formattingStore'
 import { generateLLCMoaHTML } from '@/lib/moaGenerator'
+import { generateLLCMoaDocx } from '@/lib/wordGenerator'
 import { useRef } from 'react'
 
 export function LLCLivePreviewPane() {
     const { extractedData } = useDocumentStore()
     const { settings } = useFormattingStore()
     const previewRef = useRef<HTMLDivElement>(null)
+
+    const generateWord = async () => {
+        try {
+            await generateLLCMoaDocx(extractedData)
+        } catch (error) {
+            console.error('Word generation error:', error)
+            alert('Word document generation failed. Please try again.')
+        }
+    }
 
     // Generate LLC MOA HTML on every update with formatting settings
     const htmlContent = generateLLCMoaHTML(extractedData, settings)
@@ -169,6 +179,12 @@ export function LLCLivePreviewPane() {
                         className="px-3 py-1.5 text-xs font-medium bg-white text-slate-700 rounded-lg border border-slate-300 hover:border-slate-400 transition"
                     >
                         PDF
+                    </button>
+                    <button
+                        onClick={generateWord}
+                        className="px-3 py-1.5 text-xs font-medium bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+                    >
+                        Word
                     </button>
                 </div>
             </div>

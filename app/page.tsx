@@ -20,7 +20,7 @@ export default function Home() {
           </p>
         </header>
 
-        <div className="grid gap-6 md:grid-cols-2 max-w-4xl mx-auto">
+        <div className="grid gap-6 md:grid-cols-3 max-w-6xl mx-auto">
           <Link
             href="/tool"
             className="group relative rounded-xl border-2 border-gray-200 bg-white p-8 hover:border-blue-500 hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1"
@@ -64,6 +64,31 @@ export default function Home() {
               Multi-partner memorandum for 2 or more partners. Full support for complex partnership structures and agreements.
             </p>
             <div className="mt-4 flex items-center text-purple-600 font-medium group-hover:translate-x-2 transition-transform">
+              Open Workspace
+              <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+          </Link>
+
+          <Link
+            href="/poa"
+            className="group relative rounded-xl border-2 border-gray-200 bg-white p-8 hover:border-amber-500 hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1"
+          >
+            <div className="flex items-start justify-between mb-4">
+              <div className="w-12 h-12 rounded-lg bg-amber-100 flex items-center justify-center group-hover:bg-amber-500 transition-colors">
+                <svg className="w-6 h-6 text-amber-600 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+              </div>
+            </div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-amber-600 transition-colors">
+              POA
+            </h2>
+            <p className="text-gray-600 leading-relaxed">
+              Special Power of Attorney for company owners to authorize attorneys for business operations.
+            </p>
+            <div className="mt-4 flex items-center text-amber-600 font-medium group-hover:translate-x-2 transition-transform">
               Open Workspace
               <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
