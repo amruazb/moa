@@ -96,22 +96,22 @@ export const generateMoaStyles = (settings?: FontSettings): string => {
     display: none;
   }
 
-  /* Page content wrapper - calculated height = 297mm - footer (46mm) - top padding */
+  /* Page content wrapper - calculated height = 297mm - footer (43mm) - top padding */
   .page-content {
     flex: 1 1 auto;
-    height: calc(297mm - 46mm - 15mm); /* Available content height */
-    max-height: calc(297mm - 46mm - 15mm);
+    height: calc(297mm - 43mm - 15mm); /* Available content height */
+    max-height: calc(297mm - 43mm - 15mm);
     padding: 15mm ${pageMargin}mm 5mm ${pageMargin}mm;
     box-sizing: border-box;
     overflow: visible; /* Show overflow visually */
   }
 
-  /* Page footer - fixed 46mm at bottom */
+  /* Page footer - fixed 43mm at bottom */
   .page-footer {
     flex-shrink: 0;
-    height: 46mm;
-    min-height: 46mm;
-    max-height: 46mm;
+    height: 43mm;
+    min-height: 43mm;
+    max-height: 43mm;
     padding: 5mm ${pageMargin}mm;
     display: flex;
     justify-content: space-between;
@@ -148,6 +148,7 @@ export const generateMoaStyles = (settings?: FontSettings): string => {
     flex-direction: column;
     align-items: center;
     gap: 2mm;
+    padding-top: 5mm; /* Push signature down 0.5cm */
   }
 
   /* Print Styles - Fixed pages, each exactly A4 */
@@ -193,8 +194,8 @@ export const generateMoaStyles = (settings?: FontSettings): string => {
     /* Content area - match live view exactly */
     .page-content {
       flex: 1 1 auto !important;
-      height: calc(297mm - 46mm - 15mm) !important;
-      max-height: calc(297mm - 46mm - 15mm) !important;
+      height: calc(297mm - 43mm - 15mm) !important;
+      max-height: calc(297mm - 43mm - 15mm) !important;
       padding: 15mm ${pageMargin}mm 5mm ${pageMargin}mm !important;
       overflow: hidden !important;
       box-sizing: border-box !important;
@@ -203,9 +204,9 @@ export const generateMoaStyles = (settings?: FontSettings): string => {
     /* Per-page footer at bottom - match live view exactly */
     .page-footer {
       flex-shrink: 0 !important;
-      height: 46mm !important;
-      min-height: 46mm !important;
-      max-height: 46mm !important;
+      height: 43mm !important;
+      min-height: 43mm !important;
+      max-height: 43mm !important;
       padding: 5mm ${pageMargin}mm !important;
       display: flex !important;
       box-sizing: border-box !important;
@@ -259,12 +260,114 @@ export const generateMoaStyles = (settings?: FontSettings): string => {
 
   .pdf-mode .page-footer {
     display: flex !important;
-    height: 46mm !important;
-    min-height: 46mm !important;
+    height: 43mm !important;
+    min-height: 43mm !important;
   }
 
   .pdf-mode .print-footer {
     display: none !important;
+  }
+
+  /* ===============================================
+   * CONTINUOUS FLOW DOCUMENT MODE
+   * Used for dynamic pagination with CSS page breaks
+   * =============================================== */
+  .continuous-document {
+    width: 210mm;
+    max-width: 210mm;
+    margin: 0 auto;
+    background: #fff;
+    box-shadow: 0 18px 42px rgba(0,0,0,0.08);
+    padding: 15mm ${pageMargin}mm;
+    box-sizing: border-box;
+  }
+
+  .continuous-document .document-content {
+    width: 100%;
+    background: #fff;
+  }
+
+  .continuous-document .content-chunk {
+    margin-bottom: 8px;
+    background: #fff;
+  }
+
+  /* Keep chapter headers with following article */
+  .continuous-document .chunk-chapter {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  .continuous-document .keep-together {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  /* Article pairs should not break internally */
+  .continuous-document .article-pair {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* Print styles for continuous flow - critical for proper printing */
+  @media print {
+    /* Reset body and html for continuous mode */
+    body:has(.continuous-document) {
+      background: #fff !important;
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+
+    /* Make .doc container transparent for continuous mode */
+    .doc:has(.continuous-document) {
+      background: #fff !important;
+      box-shadow: none !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    .continuous-document {
+      box-shadow: none !important;
+      margin: 0 !important;
+      padding: 15mm ${pageMargin}mm !important;
+      background: #fff !important;
+      width: 100% !important;
+      max-width: 100% !important;
+    }
+
+    .continuous-document .document-content {
+      background: #fff !important;
+    }
+
+    .continuous-document .content-chunk {
+      background: #fff !important;
+    }
+
+    .continuous-document .chunk-chapter {
+      break-after: avoid !important;
+      page-break-after: avoid !important;
+    }
+
+    .continuous-document .keep-together {
+      break-after: avoid !important;
+      page-break-after: avoid !important;
+    }
+
+    .continuous-document .article-pair {
+      break-inside: avoid !important;
+      page-break-inside: avoid !important;
+      background: #fff !important;
+    }
+
+    .continuous-document .block {
+      background: #fff !important;
+    }
+
+    /* Keep signature block together */
+    .continuous-document .chunk-signature {
+      break-inside: avoid !important;
+      page-break-inside: avoid !important;
+    }
   }
   
   /* Title Styles */
@@ -331,13 +434,40 @@ export const generateMoaStyles = (settings?: FontSettings): string => {
     font-size: ${arabicPt}pt;
     line-height: ${arabicLineHeight};
   }
-  .block h3 { font-size: ${englishPt + 0.5}pt; font-weight: 700; margin-bottom: ${Math.max(4, basePt * 0.4)}px; }
-  .block.rtl h3 { font-size: ${arabicPt + 0.5}pt; }
+  .block h3 { 
+    font-size: ${englishPt + 0.5}pt; 
+    font-weight: 700; 
+    margin-bottom: ${Math.max(4, basePt * 0.4)}px;
+    background: #e5e7eb;
+    padding: 6px 10px;
+    margin: -${Math.max(6, basePt * 0.6)}px -${Math.max(8, basePt * 0.8)}px ${Math.max(6, basePt * 0.6)}px -${Math.max(8, basePt * 0.8)}px;
+    color: #1f2937;
+  }
+  .block.rtl h3 { 
+    font-size: ${arabicPt + 0.5}pt;
+  }
   .block p { margin-bottom: ${Math.max(4, basePt * 0.4)}px; word-wrap: break-word; }
   .block ol, .block ul { padding-left: 18px; margin: ${Math.max(4, basePt * 0.4)}px 0; list-style-type: disc; }
   .block.rtl ol, .block.rtl ul { padding-right: 18px; padding-left: 0; }
   .block li { margin-bottom: 2px; list-style-type: disc; }
   .block.rtl li { list-style-type: disc; }
+  
+  /* Compact Chapter Block - Reduced height */
+  .block.chapter {
+    padding: 2px ${Math.max(8, basePt * 0.8)}px;
+  }
+  .block.chapter h3 {
+    padding: 2px 10px;
+    margin-bottom: 0;
+    margin: -2px -${Math.max(8, basePt * 0.8)}px 2px -${Math.max(8, basePt * 0.8)}px;
+  }
+  .block.chapter h3:last-child {
+    margin-bottom: -2px;
+  }
+  .block.chapter h3.center:not(.underline) {
+    background: transparent;
+    padding-top: 0;
+  }
   
   /* Article Pair Grid - Dynamic column ratio */
   .article-pair {

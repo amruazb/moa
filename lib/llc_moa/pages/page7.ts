@@ -21,24 +21,24 @@ export function page7(ctx: LLCMOAContext, pageNum: number = 7): string {
 
       <div class="article-pair">
         <div class="block">
-          <h3 class="underline center">Article (10)</h3>
+          <h3 class="underline center">Article (10): Company Management</h3>
           <p>The Shareholders have agreed that the management of the Company shall be governed by the Managing director <strong class="edited">${manager.pronouns.title} ${manager.name}</strong> <span class="edited">${manager.nationality}</span> national, holding Passport No: <span class="edited">${manager.id}</span>, for an unlimited period. The Managing director shall has the widest powers and authorities to manage, represent the Company and to carry out all acts required by its objects, including but not limited to the following:</p>
         </div>
         <div class="block rtl">
-          <h3 class="underline center">المادة (10)</h3>
+          <h3 class="underline center">المادة (10): إدارة الشركة</h3>
           <p>اتفق الشركاء على أن يتولى إدارة الشركة المدير العامة <strong class="edited">${manager.pronouns.titleAr}/ ${manager.nameAr}</strong>، الجنسية <span class="edited">${manager.nationalityAr}</span> تحمل جواز السفر رقم: <span class="edited">${manager.id}</span>، لفترة غير محدودة. وتكون لها أوسع السلطات في إدارة وتمثيل الشركة والتوقيع باسمها والقيام بجميع الأعمال التي تتطلبها أغراضها ويشمل ذلك دون حصر:</p>
         </div>
       </div>
 
       <div class="article-pair">
         <div class="block">
-          <h3 class="underline center">Article (11)</h3>
+          <h3 class="underline center">Article (11): Powers of Managing Director</h3>
           <p>The Managing Director shall have all necessary powers to manage the company and sign on its behalf specifically and collectively as required by its objectives. Powers of the Managing Director include the following:</p>
           <p>1- Carrying out all administrative, technical and financial aspects without limitation to the powers entrusted in her, being without limitation.</p>
           <p>2- Carrying out the works required to achieve the company's goals and purpose.</p>
         </div>
         <div class="block rtl">
-          <h3 class="underline center">المادة (11)</h3>
+          <h3 class="underline center">المادة (11): صلاحيات المدير</h3>
           <p>تكون للمديرة التنفيذية كافة الصلاحيات الضرورية لإدارة الشركة والتوقيع نيابة عنه منفرداً وللقيام بجميع الأعمال التي تقتضيها أغراضها. تتضمن سلطات المديرة التنفيذية ما يلي:</p>
           <p>1- القيام بجميع الأعمال الإدارية الفنية والمالية وبدون الحد من شمولية البيانات والصلاحيات المعطاة لها بدون حصر.</p>
           <p>2- القيام بكافة الأعمال اللازمة لتحقيق أغراض الشركة وأهدافها.</p>

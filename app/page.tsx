@@ -95,6 +95,31 @@ export default function Home() {
               </svg>
             </div>
           </Link>
+
+          <Link
+            href="/llc-to-spc"
+            className="group relative rounded-xl border-2 border-gray-200 bg-white p-8 hover:border-teal-500 hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1"
+          >
+            <div className="flex items-start justify-between mb-4">
+              <div className="w-12 h-12 rounded-lg bg-teal-100 flex items-center justify-center group-hover:bg-teal-500 transition-colors">
+                <svg className="w-6 h-6 text-teal-600 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                </svg>
+              </div>
+            </div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-teal-600 transition-colors">
+              LLC to SPC
+            </h2>
+            <p className="text-gray-600 leading-relaxed">
+              Transfer shares from LLC partners to a single owner, converting to Sole Proprietorship LLC.
+            </p>
+            <div className="mt-4 flex items-center text-teal-600 font-medium group-hover:translate-x-2 transition-transform">
+              Open Workspace
+              <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+          </Link>
         </div>
       </div>
     </main>

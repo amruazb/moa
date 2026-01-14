@@ -49,13 +49,11 @@ export function page3(ctx: LLCMOAContext, pageNum: number = 3): string {
 
       <div class="article-pair">
         <div class="block">
-          <h3 class="underline center">Article (1)</h3>
-          <h3 class="underline center">NAME OF THE COMPANY:</h3>
+          <h3 class="underline center">Article (1): Name of the Company</h3>
           <p>The name of company will be: <strong class="underline edited">${company.name}</strong> a limited liability company. This name may be amended or changed if necessary.</p>
         </div>
         <div class="block rtl">
-          <h3 class="underline center">المادة (1)</h3>
-          <h3 class="underline center">اسم الشركة</h3>
+          <h3 class="underline center">المادة (1): اسم الشركة</h3>
           <p>يكون اسم الشركة: <strong class="underline edited">${company.nameAr}</strong> شركة ذات مسؤولية محدودة، ويجوز تعديل هذا الاسم أو تغييره إذا ما اقتضت الضرورة ذلك.</p>
         </div>
       </div>

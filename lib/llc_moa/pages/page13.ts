@@ -16,11 +16,11 @@ export function page13(ctx: LLCMOAContext, pageNum: number = 13): string {
 
       <div class="article-pair">
         <div class="block">
-          <h3 class="underline center">Article (24)</h3>
+          <h3 class="underline center">Article (24): Publication of Dissolution</h3>
           <p>The Managing Director shall make company dissolution public by register the same in the commercial register, and publish the same in two Arabic dailies. The provisions of the said law shall apply to company liquidation.</p>
         </div>
         <div class="block rtl">
-          <h3 class="underline center">المادة (24)</h3>
+          <h3 class="underline center">المادة (24): إشهار حل الشركة</h3>
           <p>على المدير المفوض إشهار حل الشراكة بقيده في السجل التجاري ونشره في صحيفتين يوميتين تصدران باللغة العربية وتطبق على حل الشركة وتصفيتها أحكام القانون المذكور.</p>
         </div>
       </div>
@@ -30,11 +30,11 @@ export function page13(ctx: LLCMOAContext, pageNum: number = 13): string {
 
       <div class="article-pair">
         <div class="block">
-          <h3 class="underline center">Article (25)</h3>
+          <h3 class="underline center">Article (25): Disputes</h3>
           <p>Any dispute arising during company duration or during liquidation thereof, between partners or between themselves and the Managing Director or between themselves and liquidators concerning any matters related to the Company or business thereof shall be subject to the jurisdiction of court where main centre is located (<span class="edited">${ctx.company.emirate}</span> courts).</p>
         </div>
         <div class="block rtl">
-          <h3 class="underline center">المادة (25)</h3>
+          <h3 class="underline center">المادة (25): المنازعات</h3>
           <p>كل نزاع يثار أثناء مدة الشركة أو أثناء تصفيتها بين الشركاء أوبينهم وبين المدير التنفيذي أوبينهم وبين المصفين حول أمور تتعلق بالشركة أو بأعمالها، يكون النظر فيه من اختصاص محاكم المركز الرئيس (محاكم <span class="edited">${ctx.company.emirateAr}</span>).</p>
         </div>
       </div>
@@ -44,11 +44,11 @@ export function page13(ctx: LLCMOAContext, pageNum: number = 13): string {
 
       <div class="article-pair">
         <div class="block">
-          <h3 class="underline center">Article (26)</h3>
+          <h3 class="underline center">Article (26): Applicable Law</h3>
           <p>The provisions of Federal Law No. (32) Of 2021 concerning Commercial Companies and its amendments and executive regulations shall apply to whatever not covered by a specific provision in this Memorandum.</p>
         </div>
         <div class="block rtl">
-          <h3 class="underline center">المادة (26)</h3>
+          <h3 class="underline center">المادة (26): القانون الواجب التطبيق</h3>
           <p>تسري أحكام القانون الاتحادي رقم (32) لسنة 2021 في شأن الشركات التجارية وتعديلاته ولوائحه التنفيذية في مالم يرد بشأنها نص خاص في هذا العقد.</p>
         </div>
       </div>

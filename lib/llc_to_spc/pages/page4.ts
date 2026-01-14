@@ -1,43 +1,36 @@
-import { MOAContext, pageFooter } from '../types'
+import { LLCToSPCContext, conversionPageFooter } from '../types'
 import { numberToWordsEn, numberToWordsAr } from '@/lib/utils/numberToWords'
 
-export function page4(ctx: MOAContext, pageNum: number = 4): string {
-  const { company, primary, capital, shareCount, shareValue } = ctx
+export function page4(ctx: LLCToSPCContext, pageNum: number = 4): string {
+  const { thirdParty, manager, capitalInfo } = ctx
+  const { capital, shareCount, shareValue } = capitalInfo
   const capitalWordsEn = numberToWordsEn(capital)
   const capitalWordsAr = numberToWordsAr(capital)
 
   return `
     <div class="page">
       <div class="page-content">
-      <div class="article-pair">
-        <div class="block">
-          <h3 class="underline center">Article (5): Head Office</h3>
-          <p>The head office of the Company shall be in <span class="edited">${company.emirate}</span>. The General Assembly of the partners may transfer the head office of the company to another location in the same Emirate or decide to establish branches in the United Arab Emirates. If the head office is transferred to another Emirate, this should be in accordance with a resolution of the General Assembly of the Partners.</p>
-        </div>
-        <div class="block rtl">
-          <h3 class="underline center">المادة (5): المركز الرئيسي</h3>
-          <p>يكون مركز الشركة الرئيسي في <span class="edited">${company.emirateAr}</span> ويجوز بقرار من الجمعية العمومية نقل المركز الرئيسي إلى أيه جهة أخرى في نفس الإمارة كما يجوز له أن يقرر إنشاء فروع للشركة في دولة الإمارات العربية المتحدة وإذا نقل المركز الرئيس إلى إمارة أخرى فيلزم أن يكون بناء على قرار من الجمعية العمومية للشركاء.</p>
-        </div>
-      </div>
 
+      <!-- Chapter II: Capital and Shares -->
       <div class="article-pair">
-        <div class="block">
+        <div class="block chapter">
           <h3 class="underline center">CHAPTER II</h3>
           <h3 class="center">Capital and Shares</h3>
         </div>
-        <div class="block rtl">
+        <div class="block rtl chapter">
           <h3 class="underline center">الباب الثاني</h3>
           <h3 class="center">رأس مال الشركة وحصص الشركاء</h3>
         </div>
       </div>
 
+      <!-- Article 6: Capital -->
       <div class="article-pair">
         <div class="block">
           <h3 class="underline center">Article (6): Capital</h3>
           <p>The capital of the Company is fixed at AED <span class="edited">${capital.toLocaleString()}</span> (<span class="edited">${capitalWordsEn}</span> Dirhams) divided into (<span class="edited">${shareCount}</span>) shares of a nominal value of AED <span class="edited">${shareValue.toLocaleString()}</span> each. Capital is fully subscribed and paid, and has been distributed among partners as follows:</p>
           <table>
             <tr><th>Partner</th><th>Shares</th><th>Value (AED)</th><th>%</th></tr>
-            <tr><td class="edited">${primary.name}</td><td class="edited">${shareCount}</td><td class="edited">${capital.toLocaleString()}</td><td>100%</td></tr>
+            <tr><td class="edited">${thirdParty.pronouns.title} ${thirdParty.name}</td><td class="edited">${shareCount}</td><td class="edited">${capital.toLocaleString()}</td><td>100%</td></tr>
             <tr><td><strong>Total</strong></td><td><strong class="edited">${shareCount}</strong></td><td><strong class="edited">${capital.toLocaleString()}</strong></td><td><strong>100%</strong></td></tr>
           </table>
         </div>
@@ -46,12 +39,13 @@ export function page4(ctx: MOAContext, pageNum: number = 4): string {
           <p>رأس مال الشركة <span class="edited">${capital.toLocaleString()}</span> درهم إماراتي (<span class="edited">${capitalWordsAr}</span> درهم) موزع على (<span class="edited">${shareCount}</span>) حصة قيمة كل حصة <span class="edited">${shareValue.toLocaleString()}</span> درهم إماراتي وجميعها حصص نقدية تم سدادها بالكامل وقد توزعت على الشريك كما يلي:</p>
           <table>
             <tr><th>الشريك</th><th>الحصص</th><th>القيمة (درهم)</th><th>%</th></tr>
-            <tr><td class="edited">${primary.nameAr || 'غير متوفر'}</td><td class="edited">${shareCount}</td><td class="edited">${capital.toLocaleString()}</td><td>100%</td></tr>
+            <tr><td class="edited">${thirdParty.pronouns.titleAr}/ ${thirdParty.nameAr}</td><td class="edited">${shareCount}</td><td class="edited">${capital.toLocaleString()}</td><td>100%</td></tr>
             <tr><td><strong>المجموع</strong></td><td><strong class="edited">${shareCount}</strong></td><td><strong class="edited">${capital.toLocaleString()}</strong></td><td><strong>100%</strong></td></tr>
           </table>
         </div>
       </div>
 
+      <!-- Article 7: Increase of Capital -->
       <div class="article-pair">
         <div class="block">
           <h3 class="underline center">Article (7): Increase of Capital</h3>
@@ -63,7 +57,21 @@ export function page4(ctx: MOAContext, pageNum: number = 4): string {
         </div>
       </div>
 
+      <!-- Article 8: Transfer of Shares -->
+      <div class="article-pair">
+        <div class="block">
+          <h3 class="underline center">Article (8): Transfer of Shares</h3>
+          <p>Shares are transferable among partners or between them and third party provided that such transfer or disposal shall be entered in the register prepared for such purpose.</p>
+          <p>Anyone, who intends to sell out their share to third party, shall notify the company management via duly registered letter and the management shall, in its turn, notify the partners within the subsequent seven days.</p>
+        </div>
+        <div class="block rtl">
+          <h3 class="underline center">المادة (8): انتقال الحصص</h3>
+          <p>الحصص قابلة للانتقال بين الشركاء أو بينهم وبين الغير. ويجب أن يثبت هذا الانتقال أو التصرف في الحصص في السجل المعد لذلك الغرض.</p>
+          <p>ويجب على كل من يعتزم بيع حصته للغير أن يقوم بإخطار إدارة الشركة بذلك بخطاب موصى عليه وتقوم الإدارة بدورها بإخطار الشركاء بذلك خلال السبعة أيام التالية.</p>
+        </div>
       </div>
-      ${pageFooter(pageNum)}
+
+      </div>
+      ${conversionPageFooter(pageNum)}
     </div>`
 }

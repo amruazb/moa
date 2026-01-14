@@ -30,11 +30,11 @@ export function page5(ctx: LLCMOAContext, pageNum: number = 5): string {
 
       <div class="article-pair">
         <div class="block">
-          <h3 class="underline center">Article (5)</h3>
+          <h3 class="underline center">Article (5): Head Office</h3>
           <p>The head office of the Company shall be in <span class="edited">${company.emirate}</span>. The General Assembly of the partners may transfer the head office of the company to another location in the same Emirate or decide to establish branches in the United Arab Emirates. If the head office is transferred to another Emirate, this should be in accordance with a resolution of the General Assembly of the Partners.</p>
         </div>
         <div class="block rtl">
-          <h3 class="underline center">المادة (5)</h3>
+          <h3 class="underline center">المادة (5): المركز الرئيسي</h3>
           <p>يكون مركز الشركة الرئيسي في <span class="edited">${company.emirateAr}</span>، ويجوز بقرار من الجمعية العمومية نقل المركز الرئيسي إلى أية جهة أخرى في نفس الإمارة كما يجوز له أن يقرر إنشاء فروع في دولة الإمارات العربية المتحدة، وإذا تقرر نقل المركز الرئيس إلى إمارة أخرى فيلزم أن يكون بناء على قرار من الجمعية العمومية للشركاء.</p>
         </div>
       </div>
@@ -44,11 +44,11 @@ export function page5(ctx: LLCMOAContext, pageNum: number = 5): string {
 
       <div class="article-pair">
         <div class="block">
-          <h3 class="underline center">Article (6)</h3>
+          <h3 class="underline center">Article (6): Capital</h3>
           <p>The Capital of the company is determined to be AED <span class="edited">${capital.toLocaleString()}</span> (<span class="edited">${capitalWordsEn}</span> Dirhams), distributed into one hundred (<span class="edited">${totalShares}</span>) equal shares. The value of each share is AED <span class="edited">${shareValue}</span> (Thousand And Five Hundred Dirhams). These shares are distributed among the partners as follows:</p>
         </div>
         <div class="block rtl">
-          <h3 class="underline center">المادة (6)</h3>
+          <h3 class="underline center">المادة (6): رأس المال</h3>
           <p>حدد رأس مال الشركة بمبلغ <span class="edited">${capital.toLocaleString()}</span> درهم (<span class="edited">${capitalWordsAr}</span> درهم) موزعة إلى مائة (<span class="edited">${totalShares}</span>) حصة متساوية قيمة كل حصة <span class="edited">${shareValue}</span> درهم (ألف وخمس مائة درهم) وهذه الحصص تقسم بين الشركاء على الوجه الآتي:</p>
         </div>
       </div>

@@ -28,11 +28,11 @@ export function page9(_ctx: LLCMOAContext, pageNum: number = 9): string {
 
       <div class="article-pair">
         <div class="block">
-          <h3 class="underline center">Article (12)</h3>
+          <h3 class="underline center">Article (12): Company Communications</h3>
           <p>The Company communications referred to in this Memorandum whether between the Parties or between the Parties and the Company shall take the form of registered letters.</p>
         </div>
         <div class="block rtl">
-          <h3 class="underline center">المادة (12)</h3>
+          <h3 class="underline center">المادة (12): تبليغات الشركة</h3>
           <p>تكون تبليغات الشركة المشار إليها في هذا العقد سواء كانت بين الشركاء أو بينهم وبين الشركة على هيئة خطابات مسجلة موصى عليها.</p>
         </div>
       </div>
