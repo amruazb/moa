@@ -11,11 +11,11 @@ export function page3(ctx: LLCToSPCContext, pageNum: number = 3): string {
       <div class="article-pair">
         <div class="block">
           <h3 class="underline center">Article (3): Conversion to Sole Proprietorship LLC</h3>
-          <p>Upon execution of this agreement, the company <strong class="edited">${license.companyName}</strong> shall be converted from a Limited Liability Company to a Sole Proprietorship LLC (LLC-SPC), with <strong class="edited">${thirdParty.pronouns.title} ${thirdParty.name}</strong> as the sole owner.</p>
+          <p>Upon execution of this agreement, the company <strong class="edited">${license.oldCompanyName}</strong> shall be converted from a Limited Liability Company to a Sole Proprietorship LLC (LLC-SPC) named <strong class="edited">${license.companyName}</strong>, with <strong class="edited">${thirdParty.pronouns.title} ${thirdParty.name}</strong> as the sole owner.</p>
         </div>
         <div class="block rtl">
           <h3 class="underline center">المادة (3): التحويل إلى شركة الشخص الواحد</h3>
-          <p>عند تنفيذ هذا الاتفاق، يتم تحويل الشركة <strong class="edited">${license.companyNameAr}</strong> من شركة ذات مسؤولية محدودة إلى شركة الشخص الواحد ذات مسؤولية محدودة (ذ.م.م - ش.ش.و)، مع <strong class="edited">${thirdParty.pronouns.titleAr}/ ${thirdParty.nameAr}</strong> كمالك وحيد.</p>
+          <p>عند تنفيذ هذا الاتفاق، يتم تحويل الشركة <strong class="edited">${license.oldCompanyNameAr}</strong> من شركة ذات مسؤولية محدودة إلى شركة الشخص الواحد ذات مسؤولية محدودة (ذ.م.م - ش.ش.و) باسم <strong class="edited">${license.companyNameAr}</strong>، مع <strong class="edited">${thirdParty.pronouns.titleAr}/ ${thirdParty.nameAr}</strong> كمالك وحيد.</p>
         </div>
       </div>
 
