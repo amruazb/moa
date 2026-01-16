@@ -3,13 +3,27 @@ import { LLCNewMOAContext, pageFooter } from '../types'
 export function page6(ctx: LLCNewMOAContext, pageNum: number = 6): string {
   const { company, activities } = ctx
 
-  // Generate activities list HTML
-  const activitiesListEn = activities.map(a => `<li>${a.nameEn}</li>`).join('\n          ')
-  const activitiesListAr = activities.map(a => `<li>${a.nameAr}</li>`).join('\n          ')
+  // Generate activities list HTML (Keeping first 4 for Page 6)
+  const activitiesListEn = activities.slice(0, 4).map(a => `<li>${a.nameEn}</li>`).join('\n          ')
+  const activitiesListAr = activities.slice(0, 4).map(a => `<li>${a.nameAr}</li>`).join('\n          ')
 
   return `
     <div class="page">
       <div class="page-content">
+      
+      <!-- Article 3 -->
+      <div class="article-pair">
+        <div class="block">
+          <h3 class="bold">ARTICLE 3</h3>
+          <h4 class="bold underline">FORM AND NATIONALITY OF THE COMPANY</h4>
+          <p>The Partners have agreed that the Company shall continue to be a limited liability company in the Emirate of <span class="edited">${company.emirate}</span>, and is governed by the provisions of this Memorandum and the provisions of the laws and regulations applicable in the UAE and the Emirate of Abu Dhabi, including Commercial Companies Law.</p>
+        </div>
+        <div class="block rtl">
+          <h3 class="bold">المادة 3</h3>
+          <h4 class="bold underline">الشكل القانوني وجنسية الشركة</h4>
+          <p>اتفق الشريكان على أن تستمر الشركة كشركة ذات مسؤولية محدودة في إمارة <span class="edited">${company.emirateAr}</span>، وتخضع لأحكام هذا العقد وأحكام القوانين واللوائح المعمول بها في الإمارات العربية المتحدة وإمارة أبوظبي، بما في ذلك قانون الشركات التجارية.</p>
+        </div>
+      </div>
       
       <!-- Article 4 -->
       <div class="article-pair">
@@ -46,19 +60,6 @@ export function page6(ctx: LLCNewMOAContext, pageNum: number = 6): string {
           <ul>
           ${activitiesListAr}
           </ul>
-        </div>
-      </div>
-      
-      <div class="article-pair">
-        <div class="block">
-          <p>5-2 The Company has the right in exercising its activities:</p>
-          <p>(a) to use Company's funds to invest in any economical activities and fields related to the Company's activities, and have the right to participate, form joint ventures and have an interest of whatsoever nature with any other Person inside or outside the UAE whether by way of joint venture or otherwise in any type of business and to participate in their capital, and to own trademarks, patents, copyrights, industrial designs, and any other intellectual property rights the Company deems necessary for its business;</p>
-          <p>(b) to acquire and/or possess and/or sell, and/or transfer and/or assign companies, sole establishments and other legal entities related to the Company's objectives and to create Subsidiaries and branches in and/or outside the UAE after having obtained the necessary authorizations from the competent authorities;</p>
-        </div>
-        <div class="block rtl">
-          <p>5-2 يحق للشركة في سبيل ممارسة أنشطتها:</p>
-          <p>(أ) استخدام أموال الشركة للاستثمار في أي أنشطة ومجالات اقتصادية تتعلق بأنشطة الشركة، ولها الحق في المشاركة وتأسيس مشاريع مشتركة والحصول على أي مصلحة من أي نوع مع أي شخص آخر داخل الإمارات أو خارجها سواء عن طريق مشروع مشترك أو غير ذلك في أي نوع من الأعمال والمشاركة في رأس مالها، وامتلاك العلامات التجارية وبراءات الاختراع وحقوق التأليف والنشر والتصاميم الصناعية وجميع حقوق الملكية الفكرية الأخرى التي تراها الشركة ضرورية لأعمالها؛</p>
-          <p>(ب) الاستحواذ و/أو امتلاك و/أو بيع و/أو نقل و/أو التنازل عن شركات ومنشآت فردية وكيانات قانونية أخرى تتعلق بأهداف الشركة وإنشاء شركات تابعة وفروع داخل و/أو خارج الإمارات بعد الحصول على التصاريح اللازمة من السلطات المختصة؛</p>
         </div>
       </div>
       

@@ -2,14 +2,20 @@
 
 import { useLLCNewMoaStore } from '@/store/llcNewMoaStore'
 import { generateLLCNewMOA } from '@/lib/llc_new_moa'
-import { useMemo } from 'react'
+import { useFormattingStore } from '@/store/formattingStore'
+import { useMemo, useEffect } from 'react'
 
 export function LLCNewMoaLivePreviewPane() {
     const data = useLLCNewMoaStore((state) => state.data)
+    const { settings, initializeFromCache } = useFormattingStore()
+
+    useEffect(() => {
+        initializeFromCache()
+    }, [initializeFromCache])
 
     const documentHtml = useMemo(() => {
-        return generateLLCNewMOA(data)
-    }, [data])
+        return generateLLCNewMOA(data, settings)
+    }, [data, settings])
 
     const handlePrint = () => {
         const printWindow = window.open('', '_blank')

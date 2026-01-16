@@ -1,51 +1,63 @@
 import { LLCNewMOAContext, pageFooter } from '../types'
 
-export function page22(ctx: LLCNewMOAContext, pageNum: number = 22): string {
+export function page21(ctx: LLCNewMOAContext, pageNum: number = 21): string {
     return `
     <div class="page">
       <div class="page-content">
       
-      <!-- Article 19 continued -->
+      <!-- Article 17 continued -->
       <div class="article-pair">
         <div class="block">
-          <p>19-2 The Managing Director shall register the dissolution of the Company in the Commercial Register and shall publish it in two local daily newspapers issued in the UAE, one of them issued in Arabic.</p>
+          <p>17-3 The net distributable profits may at the request of the Managing Director be distributed on quarterly or semi-annual basis subject to the issuance of quarterly and/or semi-annual audited financial statements at the sole discretion of the Managing Director.</p>
+          <p>17-4 The liability of each Partner for losses shall be limited to the value of its Shares and for the avoidance of any doubt, nothing in this Memorandum shall render a Partner liable for any amounts in excess of that Partner's share in the capital of the Company.</p>
+          <p>17-5 The net profits (or losses) of the Company for each financial year shall be determined by the Company's audited financial statements that are prepared in accordance with internationally accepted accounting standards.</p>
         </div>
         <div class="block rtl">
-          <p>19-2 يتعين على المدير العام تسجيل حل الشركة في السجل التجاري ونشره في صحيفتين يوميتين محليتين تصدران في الإمارات إحداهما تصدر باللغة العربية.</p>
+          <p>17-3 يجوز بناءً على طلب المدير العام توزيع صافي الأرباح القابلة للتوزيع على أساس ربع سنوي أو نصف سنوي رهناً بإصدار بيانات مالية مدققة ربع سنوية و/أو نصف سنوية وفقاً لتقدير المدير العام المنفرد.</p>
+          <p>17-4 تقتصر مسؤولية كل شريك عن الخسائر على قيمة حصصه ولتفادي أي شك، لا يوجد في هذا العقد ما يجعل الشريك مسؤولاً عن أي مبالغ تزيد عن حصة ذلك الشريك في رأس مال الشركة.</p>
+          <p>17-5 يتم تحديد صافي أرباح (أو خسائر) الشركة لكل سنة مالية بموجب البيانات المالية المدققة للشركة والمُعدة وفقاً للمعايير المحاسبية المقبولة دولياً.</p>
         </div>
       </div>
       
-      <!-- Article 20 -->
+      <!-- Article 18 -->
       <div class="article-pair">
         <div class="block">
-          <h3 class="bold">ARTICLE 20</h3>
-          <h4 class="bold underline">LIQUIDATION OF THE COMPANY</h4>
-          <p>20-1 One or more liquidators shall be appointed by way of a Special Resolution of the General Assembly in accordance with the provisions of Article 308 of the Commercial Companies Law.</p>
-          <p>20-2 If the liquidation is by decision of a court in Abu Dhabi, the court shall determine the manner of the liquidation and shall appoint a liquidator, and the powers of the Managing Director shall cease when such liquidator is appointed.</p>
-          <p>20-3 In case of liquidation, assets of the Company resulting from liquidation shall be distributed among the Partners after settlement of its debts. Upon distribution, each Partner shall receive an amount equal to its capital contribution and the balance of Company assets shall be divided among the Partners in accordance with their respective share of profits.</p>
+          <h3 class="bold">ARTICLE 18</h3>
+          <h4 class="bold underline">VARIATION OF THIS MEMORANDUM</h4>
+          <p>It shall only be permissible to amend this Memorandum by way of a Special Resolution.</p>
         </div>
         <div class="block rtl">
-          <h3 class="bold">المادة 20</h3>
-          <h4 class="bold underline">تصفية الشركة</h4>
-          <p>20-1 يتم تعيين مصفٍ أو أكثر بموجب قرار خاص صادر من الجمعية العمومية وفقاً لأحكام المادة 308 من قانون الشركات التجارية.</p>
-          <p>20-2 إذا كانت التصفية بموجب قرار صادر عن محكمة أبوظبي، تحدد المحكمة طريقة التصفية وتعين مصفياً، وتنتهي صلاحيات المدير العام عند تعيين هذا المصفي.</p>
-          <p>20-3 في حالة تصفية الشركة تقسم أصول الشركة الناتجة عن التصفية بين الشركاء بعد تسوية ديونها. وعند التوزيع، يحصل كل شريك على مبلغ يساوي مساهمته في رأس المال ويقسم رصيد أصول الشركة بين الشركاء وفقاً لنصيب كل منهم من الأرباح.</p>
+          <h3 class="bold">المادة 18</h3>
+          <h4 class="bold underline">تعديل هذا العقد التأسيسي</h4>
+          <p>لا يجوز تعديل هذا العقد إلا بموجب قرار خاص.</p>
         </div>
       </div>
       
-      <!-- Article 21 -->
+      <!-- Article 19 -->
       <div class="article-pair">
         <div class="block">
-          <h3 class="bold">ARTICLE 21</h3>
-          <h4 class="bold underline">NOTICES</h4>
-          <p>21-1 All notices, requests, consents and other communications hereunder to any Partner shall be deemed effective if contained in a written instrument delivered in person or by telex or sent by internationally recognized overnight courier addressed to such Partner at the address kept by the Company in the Register or at such other address as may hereafter be designated in writing by such Partner to the Company and the other Partner.</p>
-          <p>21-2 All such notices, requests, consents and other communications shall be deemed to have been delivered (i) in the case of personal delivery or delivery by fax, on the date of such delivery; and/or (ii) in the case of dispatch by internationally recognized overnight courier, on the third Business Day following such dispatch.</p>
+          <h3 class="bold">ARTICLE 19</h3>
+          <h4 class="bold underline">DISSOLUTION OF THE COMPANY</h4>
+          <p>19-1 The Company shall be dissolved for any of the following reasons:</p>
+          <p>(a) the expiry of the period specified in this Memorandum unless this period is renewed;</p>
+          <p>(b) the depletion of the objective for which the Company was established;</p>
+          <p>(c) amalgamation of the Company with another company;</p>
+          <p>(d) pursuant to a Special Resolution of the General Assembly;</p>
+          <p>(e) if the losses of the Company (whether accumulated or in respect of any financial year) reached or exceeded 50% (fifty percent) of the Company's paid up capital, provided the issuance of a Special Resolution of the General Assembly;</p>
+          <p>(f) the depletion of all or most of the assets of the Company making beneficial investment of the remainder of the assets, if any, impracticable; or</p>
+          <p>(g) upon the rendering of a decision from a competent court in the Emirate of Abu Dhabi to dissolve the Company.</p>
         </div>
         <div class="block rtl">
-          <h3 class="bold">المادة 21</h3>
-          <h4 class="bold underline">الإخطارات</h4>
-          <p>21-1 تُعتبر جميع الإخطارات والطلبات والموافقات والمراسلات الأخرى بموجب هذا العقد الموجهة لأي شريك سارية إذا كانت موجزة في مستند كتابي تم تسليمه شخصياً أو بالتلكس أو أُرسل عن طريق شركة بريد سريع معترف بها دولياً موجه إلى ذلك الشريك على العنوان المحفوظ لدى الشركة في السجل أو على أي عنوان آخر قد يحدده ذلك الشريك كتابياً فيما بعد للشركة والشريك الآخر.</p>
-          <p>21-2 تُعتبر جميع هذه الإخطارات والطلبات والموافقات والمراسلات الأخرى مُسلَّمة (1) في حالة التسليم الشخصي أو التسليم بالفاكس، في تاريخ هذا التسليم؛ و/أو (2) في حالة الإرسال عن طريق شركة بريد سريع معترف بها دولياً، في يوم العمل الثالث التالي لهذا الإرسال.</p>
+          <h3 class="bold">المادة 19</h3>
+          <h4 class="bold underline">حل الشركة</h4>
+          <p>19-1 تُحل الشركة لأي من الأسباب التالية:</p>
+          <p>(أ) انتهاء المدة المحددة للشركة في هذا العقد ما لم يتم تجديد هذه المدة؛</p>
+          <p>(ب) انقضاء الغرض الذي أُسست الشركة من أجله؛</p>
+          <p>(ج) اندماج الشركة مع أية شركة أخرى؛</p>
+          <p>(د) بموجب قرار خاص من الجمعية العمومية؛</p>
+          <p>(هـ) إذا وصلت خسائر الشركة (المتراكمة أو عن أي سنة مالية) أو زادت عن 50% (خمسين بالمائة) من رأس مال الشركة المدفوع، شريطة صدور قرار خاص من الجمعية العمومية؛</p>
+          <p>(و) هلاك جميع أو معظم أصول/موجودات الشركة بحيث يتعذر الاستثمار المفيد للباقي منها، إن وجد؛ أو</p>
+          <p>(ز) بناءً على صدور قرار من محكمة مختصة في إمارة أبوظبي بحل الشركة.</p>
         </div>
       </div>
       

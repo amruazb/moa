@@ -64,7 +64,7 @@ const defaultSettings: FontSettings = {
   arabicLineSpacing: 1.6,
   boldEditedFields: true,
   columnRatio: 0.5,
-  pageMargin: 10, // 10mm default left/right margin
+  pageMargin: 15, // 15mm default left/right margin
 }
 
 const loadFromCache = (): FontSettings => {

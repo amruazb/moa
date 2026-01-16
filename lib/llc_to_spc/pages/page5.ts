@@ -10,9 +10,11 @@ export function page5(ctx: LLCToSPCContext, pageNum: number = 5): string {
       <!-- Article 8: Transfer of Shares (continued) -->
       <div class="article-pair">
         <div class="block">
+          <p>Anyone, who intends to sell out their share to third party, shall notify the company management via duly registered letter and the management shall, in its turn, notify the partners within the subsequent seven days.</p>
           <p>Within Two months from first notification date, the partners may recover their shares upon same conditions, otherwise such right shall lapse. If the right of purchase is exercised by more than one partner, the shares being sold shall be distributed among them proportionately to their shares in the capital.</p>
         </div>
         <div class="block rtl">
+          <p>ويجب على كل من يعتزم بيع حصته للغير أن يقوم بإخطار إدارة الشركة بذلك بخطاب موصى عليه وتقوم الإدارة بدورها بإخطار الشركاء بذلك خلال السبعة أيام التالية.</p>
           <p>وللشركاء خلال شهرين من الإخطار الأول استرداد الحصة بالشروط نفسها وإلا سقط هذا الحق وإذا استعمل حق الشراء من قبل أكثر من شريك واحد يتم توزيع الحصص المباعة بينهم بشكل يتناسب مع حصة كل منهم في رأس المال.</p>
         </div>
       </div>

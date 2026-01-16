@@ -1,7 +1,7 @@
 import { LLCToSPCContext, conversionPageFooter } from '../types'
 
 export function page12(ctx: LLCToSPCContext, pageNum: number = 12): string {
-  const { thirdParty } = ctx
+  const { newOwner } = ctx
 
   return `
     <div class="page">
@@ -35,11 +35,11 @@ export function page12(ctx: LLCToSPCContext, pageNum: number = 12): string {
       <div class="article-pair">
         <div class="block">
           <h3 class="underline center">Article (26): Registration and Publication</h3>
-          <p>This contract shall be registered in the commercial register and published in accordance with the law. <strong>${thirdParty.pronouns.title} ${thirdParty.name}</strong> is solely authorized to carry out all necessary procedures in this regard. All costs, expenses, and other amounts incurred for establishing the company shall be deducted from the general expense account. As the sole owner, <strong>${thirdParty.pronouns.title} ${thirdParty.name}</strong> retains full rights and authority over the company at all times, including in the event of any absence or failure to renew the trade license.</p>
+          <p>This contract shall be registered in the commercial register and published in accordance with the law. <strong>${newOwner.pronouns.title} ${newOwner.name}</strong> is solely authorized to carry out all necessary procedures in this regard. All costs, expenses, and other amounts incurred for establishing the company shall be deducted from the general expense account. As the sole owner, <strong>${newOwner.pronouns.title} ${newOwner.name}</strong> retains full rights and authority over the company at all times, including in the event of any absence or failure to renew the trade license.</p>
         </div>
         <div class="block rtl">
           <h3 class="underline center">المادة (26): القيد والنشر</h3>
-          <p>يقيد هذا العقد في السجل التجاري وينشر طبقاً للقانون، وقد فوض <strong>${thirdParty.pronouns.titleAr}/ ${thirdParty.nameAr}</strong> في اتخاذ كافة الإجراءات اللازمة في هذا الشأن. وتخصم جميع المصروفات والنفقات والتكاليف التي تم إنفاقها في سبيل تأسيس الشركة من حساب المصروفات العامة. وبصفته المالك الوحيد، يحتفظ <strong>${thirdParty.pronouns.titleAr}/ ${thirdParty.nameAr}</strong> بكامل الحقوق والسلطات على الشركة في جميع الأوقات، بما في ذلك في حال الغياب أو عدم تجديد الرخصة التجارية.</p>
+          <p>يقيد هذا العقد في السجل التجاري وينشر طبقاً للقانون، وقد فوض <strong>${newOwner.pronouns.titleAr}/ ${newOwner.nameAr}</strong> في اتخاذ كافة الإجراءات اللازمة في هذا الشأن. وتخصم جميع المصروفات والنفقات والتكاليف التي تم إنفاقها في سبيل تأسيس الشركة من حساب المصروفات العامة. وبصفت${newOwner.pronouns.possessiveAr} المالك الوحيد، يحتفظ <strong>${newOwner.pronouns.titleAr}/ ${newOwner.nameAr}</strong> بكامل الحقوق والسلطات على الشركة في جميع الأوقات، بما في ذلك في حال الغياب أو عدم تجديد الرخصة التجارية.</p>
         </div>
       </div>
 

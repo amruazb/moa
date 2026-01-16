@@ -5,46 +5,15 @@ export function page17(ctx: LLCNewMOAContext, pageNum: number = 17): string {
     <div class="page">
       <div class="page-content">
       
-      <!-- Article 12 continued & Articles 13-14 -->
+      <!-- Article 12 continued - Manager Powers -->
       <div class="article-pair">
         <div class="block">
-          <p>by way of appeal, retrial, challenge for cassation, object, complain, waive judgments in whole or in part, and waive any means of challenge, to submit effective offer and accept the same, to withdraw executive copies of judgments and execute the same, to apply for precautionary and executive attachment and revoke the same, to revoke powers of attorney, to appoint lawyers and authorize them to sue and defend, to reconcile, declare, deny, discharge, abate, appoint experts and arbitrators, as well as to appeal and challenge for cassation, to object and settle, to execute verdicts, decisions, awards and orders issued in favour of the Company, to file for execution complaints, to levy attachments, to cancel circulars issued by any entity whatsoever, to appear on behalf of the Company before courts, arbitral and judicial tribunals, committees, and rent and commercial dispute committees;</p>
-          <p>(y) to change in the accounting policies, bankers, accounting reference date or bank mandates;</p>
-          <p>(z) to approve, modify or amend any operating plans of the Company and consideration and approval of any reports and draft financial statements prepared by the Auditor;</p>
+          <p>penalties, fees, wages, medical costs, pain and suffering, mental anguish, emotional distress, expenses (including attorneys' fees and costs actually incurred), and punitive damages, of any nature whatsoever which the Company has, or may have had, against a third party, whether or not apparent or yet to be discovered, or which may hereafter develop, for any acts or omissions related to or arising from a dispute, conflict, court case, lawsuit, arbitration, agreement, contract, letter, correspondence, email, document or by any other means;</p>
+          <p>(x) to refer to all courts of all kinds and degrees, including the Federal Supreme Court (Court of Cassation), arbitration tribunals of all kinds, security and police departments, public prosecution, and file on behalf of the Company complaints and follow-up thereon, waive the same and waive cases and lawsuits, to receive and deliver papers and formalities and sign thereon, to pay charges and clear all procedures pertaining thereto, to receive sums adjudged in favour of the Company, either in cash or by cheques, to cash cheques from drawer banks, to deliver and receive memoranda, documents, notices, warnings and judicial papers, to declare claimed rights and waive the same, to reconcile, agree to arbitration, deny, discharge, abate, strike off, abandon litigation and/or arbitration, request appointment of experts and arbitrators, to select the same and receive their reports, to administer oath, to accept and reject the same, to claim for forgery, to reject judges, experts and arbitrators, to abandon disputes while debt remain outstanding, to take precautionary measures, to file lawsuits and counter-actions and waive the same, to resort to all means of appeal and challenge judgments and verdicts</p>
         </div>
         <div class="block rtl">
-          <p>عن طريق الاستئناف وإعادة المحاكمة والطعن بالنقض والاعتراض والتظلم والتنازل عن الأحكام كلياً أو جزئياً، والتنازل عن أي وسيلة طعن، وتقديم عرض فعلي وقبوله، وسحب النسخ التنفيذية من الأحكام وتنفيذها، والتقدم بطلب الحجز الاحتياطي والتنفيذي وإلغائه، وإلغاء التوكيلات، وتعيين المحامين وتفويضهم للمقاضاة والدفاع، والمصالحة والإقرار والإنكار والإبراء والإسقاط وتعيين الخبراء والمحكمين، وكذلك الاستئناف والطعن بالنقض، والاعتراض والتسوية، وتنفيذ الأحكام والقرارات والفتاوى والأوامر الصادرة لصالح الشركة، ورفع شكاوى التنفيذ، وتوقيع الحجوزات، وإلغاء التعاميم الصادرة عن أي جهة كانت، والمثول نيابة عن الشركة أمام المحاكم والهيئات التحكيمية والقضائية واللجان ولجان الإيجارات والنزاعات التجارية؛</p>
-          <p>(غ) تغيير السياسات المحاسبية والبنوك وتاريخ المرجع المحاسبي أو التفويضات المصرفية؛</p>
-          <p>(ظ) الموافقة على أو تعديل أو تعديل أي خطط تشغيل للشركة ودراسة والموافقة على أي تقارير ومسودات البيانات المالية المعدة من قبل مدقق الحسابات؛</p>
-        </div>
-      </div>
-      
-      <div class="article-pair">
-        <div class="block">
-          <p>(aa) to always keep and maintain true and faithful accounts of all dealings and transactions in relation to the Company and its activities and incidental thereto; and/or</p>
-          <p>(bb) from time to time, as may be necessary or desirable for the proper conduct of the Company's affairs and business, to delegate by power of attorney or other appropriate written authorization all or any of the aforesaid powers to such Person(s), and on such terms as the Managing Director deems fit.</p>
-        </div>
-        <div class="block rtl">
-          <p>(أأ) الاحتفاظ بشكل دائم بحسابات صحيحة ودقيقة لجميع المعاملات والصفقات المتعلقة بالشركة وأنشطتها والمترتبة عليها؛ و/أو</p>
-          <p>(ب ب) من وقت لآخر، حسبما يكون ضرورياً أو مستحباً لحسن سير أعمال ونشاط الشركة، تفويض جميع أو أي من الصلاحيات المذكورة أعلاه بموجب توكيل أو أي تفويض كتابي آخر مناسب لأي شخص/أشخاص، وبالشروط التي يراها المدير العام مناسبة.</p>
-        </div>
-      </div>
-      
-      <!-- Article 13 -->
-      <div class="article-pair">
-        <div class="block">
-          <h3 class="bold">ARTICLE 13</h3>
-          <h4 class="bold underline">AUDITOR</h4>
-          <p>13-1 The Company shall have one or more Auditors registered in the Emirate of Abu Dhabi to be recommended by the Managing Director and appointed by the General Assembly. The Auditor shall be subject to the provisions of the Commercial Companies Law and the UAE applicable laws and regulations.</p>
-          <p>13-2 The General Assembly shall determine the Auditor's remuneration.</p>
-          <p>13-3 The Auditor shall audit the accounts of the Company, provide the Managing Director with all necessary information for the preparation of the balance sheet and the profit and loss account, ensure compliance with applicable laws and this Memorandum, and shall submit a report to the annual General Assembly.</p>
-        </div>
-        <div class="block rtl">
-          <h3 class="bold">المادة 13</h3>
-          <h4 class="bold underline">مدقق الحسابات</h4>
-          <p>13-1 يكون للشركة مدقق حسابات واحد أو أكثر مسجل في إمارة أبوظبي يوصي به المدير العام وتعينه الجمعية العمومية. ويخضع مدقق الحسابات لأحكام قانون الشركات التجارية والقوانين واللوائح المعمول بها في الإمارات.</p>
-          <p>13-2 تحدد الجمعية العمومية السنوية أتعاب مدقق الحسابات.</p>
-          <p>13-3 يقوم مدقق حسابات بتدقيق حسابات الشركة وتزويد المدير العام بجميع المعلومات اللازمة لإعداد الميزانية العمومية وحساب الأرباح والخسائر والتأكد من الامتثال للقوانين المعمول بها وهذا العقد، ويقدم تقريراً إلى الجمعية العمومية السنوية.</p>
+          <p>والغرامات والرسوم والأجور والتكاليف الطبية والألم والمعاناة والضيق النفسي والضيق العاطفي والمصروفات (بما في ذلك أتعاب المحاماة والتكاليف المتكبدة فعلياً)، والتعويضات العقابية، من أي طبيعة كانت والتي لدى الشركة أو قد يكون لديها ضد طرف ثالث، سواء كانت ظاهرة أو لم تُكتشف بعد، أو التي قد تتطور فيما بعد، عن أي أفعال أو إغفالات تتعلق بنزاع أو خلاف أو قضية محكمة أو دعوى قضائية أو تحكيم أو اتفاق أو عقد أو خطاب أو مراسلة أو بريد إلكتروني أو مستند أو بأي وسيلة أخرى أو تنشأ عنها؛</p>
+          <p>(ض) مراجعة جميع المحاكم من جميع الأنواع والدرجات، بما في ذلك المحكمة الاتحادية العليا (محكمة النقض)، وهيئات التحكيم من جميع الأنواع، ودوائر الأمن والشرطة، والنيابة العامة، ورفع الشكاوى نيابة عن الشركة ومتابعتها، والتنازل عنها والتنازل عن القضايا والدعاوى، واستلام وتسليم الأوراق والإجراءات الشكلية والتوقيع عليها، ودفع الرسوم وإنهاء جميع الإجراءات المتعلقة بها، واستلام المبالغ المحكوم بها لصالح الشركة نقداً أو بشيكات، وصرف الشيكات من البنوك الساحبة، وتسليم واستلام المذكرات والمستندات والإخطارات والتحذيرات والأوراق القضائية، والإقرار بالحقوق المطالب بها والتنازل عنها، والمصالحة والموافقة على التحكيم والإنكار والإبراء والإسقاط والشطب والتخلي عن التقاضي و/أو التحكيم، وطلب تعيين خبراء ومحكمين واختيارهم واستلام تقاريرهم، وتحليف اليمين، وقبولها ورفضها، والادعاء بالتزوير، ورد القضاة والخبراء والمحكمين، والتخلي عن النزاعات مع بقاء الدين قائماً، واتخاذ التدابير الاحترازية، ورفع الدعاوى والدعاوى المقابلة والتنازل عنها، واللجوء إلى جميع طرق الاستئناف والطعن في الأحكام والقرارات</p>
         </div>
       </div>
       

@@ -1,55 +1,51 @@
 import { LLCNewMOAContext, pageFooter } from '../types'
 
-export function page23(ctx: LLCNewMOAContext, pageNum: number = 23): string {
+export function page22(ctx: LLCNewMOAContext, pageNum: number = 22): string {
     return `
     <div class="page">
       <div class="page-content">
       
-      <!-- Article 22 -->
+      <!-- Article 19 continued -->
       <div class="article-pair">
         <div class="block">
-          <h3 class="bold">ARTICLE 22</h3>
-          <h4 class="bold underline">COPIES</h4>
-          <p>This Memorandum has been made and signed by the Partners, one copy given to each of the Partners, and the other copies shall be utilized for registration purposes as required under the Commercial Companies Law.</p>
+          <p>19-2 The Managing Director shall register the dissolution of the Company in the Commercial Register and shall publish it in two local daily newspapers issued in the UAE, one of them issued in Arabic.</p>
         </div>
         <div class="block rtl">
-          <h3 class="bold">المادة 22</h3>
-          <h4 class="bold underline">النسخ</h4>
-          <p>أُبرم هذا العقد ووُقِّع من الشركاء، وسُلِّمت نسخة لكل من الشركاء، وتُستخدم النسخ الأخرى لأغراض التسجيل حسبما يقتضيه قانون الشركات التجارية.</p>
+          <p>19-2 يتعين على المدير العام تسجيل حل الشركة في السجل التجاري ونشره في صحيفتين يوميتين محليتين تصدران في الإمارات إحداهما تصدر باللغة العربية.</p>
         </div>
       </div>
       
-      <!-- Article 23 -->
+      <!-- Article 20 -->
       <div class="article-pair">
         <div class="block">
-          <h3 class="bold">ARTICLE 23</h3>
-          <h4 class="bold underline">GOVERNING LAW AND DISPUTE RESOLUTION</h4>
-          <p>23-1 This Memorandum shall be governed by and construed in accordance with the laws of the Emirate of Abu Dhabi and the federal laws of the UAE.</p>
-          <p>23-2 The Partners agree to submit to the exclusive jurisdiction of Abu Dhabi courts with regard to any dispute arising out of or in connection with this Memorandum including any question regarding its existence, validity or termination.</p>
+          <h3 class="bold">ARTICLE 20</h3>
+          <h4 class="bold underline">LIQUIDATION OF THE COMPANY</h4>
+          <p>20-1 One or more liquidators shall be appointed by way of a Special Resolution of the General Assembly in accordance with the provisions of Article 308 of the Commercial Companies Law.</p>
+          <p>20-2 If the liquidation is by decision of a court in Abu Dhabi, the court shall determine the manner of the liquidation and shall appoint a liquidator, and the powers of the Managing Director shall cease when such liquidator is appointed.</p>
+          <p>20-3 In case of liquidation, assets of the Company resulting from liquidation shall be distributed among the Partners after settlement of its debts. Upon distribution, each Partner shall receive an amount equal to its capital contribution and the balance of Company assets shall be divided among the Partners in accordance with their respective share of profits.</p>
         </div>
         <div class="block rtl">
-          <h3 class="bold">المادة 23</h3>
-          <h4 class="bold underline">القانون الحاكم وتسوية المنازعات</h4>
-          <p>23-1 يخضع هذا العقد ويُفسَّر وفقاً لقوانين إمارة أبوظبي والقوانين الاتحادية للإمارات العربية المتحدة.</p>
-          <p>23-2 يتفق الشركاء على الخضوع للاختصاص الحصري لمحاكم أبوظبي فيما يتعلق بأي نزاع ينشأ عن أو فيما يتعلق بهذا العقد بما في ذلك أي مسألة تتعلق بوجوده أو صحته أو إنهائه.</p>
+          <h3 class="bold">المادة 20</h3>
+          <h4 class="bold underline">تصفية الشركة</h4>
+          <p>20-1 يتم تعيين مصفٍ أو أكثر بموجب قرار خاص صادر من الجمعية العمومية وفقاً لأحكام المادة 308 من قانون الشركات التجارية.</p>
+          <p>20-2 إذا كانت التصفية بموجب قرار صادر عن محكمة أبوظبي، تحدد المحكمة طريقة التصفية وتعين مصفياً، وتنتهي صلاحيات المدير العام عند تعيين هذا المصفي.</p>
+          <p>20-3 في حالة تصفية الشركة تقسم أصول الشركة الناتجة عن التصفية بين الشركاء بعد تسوية ديونها. وعند التوزيع، يحصل كل شريك على مبلغ يساوي مساهمته في رأس المال ويقسم رصيد أصول الشركة بين الشركاء وفقاً لنصيب كل منهم من الأرباح.</p>
         </div>
       </div>
       
-      <!-- Article 24 -->
+      <!-- Article 21 -->
       <div class="article-pair">
         <div class="block">
-          <h3 class="bold">ARTICLE 24</h3>
-          <h4 class="bold underline">MISCELLANEOUS</h4>
-          <p>24-1 The article headings in this Memorandum are for convenience only and shall not be used to interpret the meaning or construction of this Memorandum or any part thereof.</p>
-          <p>24-2 A holding by any court of competent jurisdiction or by an arbitrator or arbitration tribunal that any provision of this Memorandum is invalid, void or unenforceable shall apply only to that provision and shall not render this entire Memorandum or any other provision hereof invalid, void or unenforceable and all other provisions hereof shall remain in full force and effect. Under such circumstances, the Partners shall undertake good faith negotiations to seek to replace such invalid provisions with a new provision, the purpose of which would be to achieve the original desired result intended by such invalid.</p>
-          <p>24-3 Each Partner agrees to keep, and shall cause its affiliates to keep, all Confidential Information confidential, except Confidential Information that (i) is or becomes generally available to the public (other than as a result of disclosure by such Partner</p>
+          <h3 class="bold">ARTICLE 21</h3>
+          <h4 class="bold underline">NOTICES</h4>
+          <p>21-1 All notices, requests, consents and other communications hereunder to any Partner shall be deemed effective if contained in a written instrument delivered in person or by telex or sent by internationally recognized overnight courier addressed to such Partner at the address kept by the Company in the Register or at such other address as may hereafter be designated in writing by such Partner to the Company and the other Partner.</p>
+          <p>21-2 All such notices, requests, consents and other communications shall be deemed to have been delivered (i) in the case of personal delivery or delivery by fax, on the date of such delivery; and/or (ii) in the case of dispatch by internationally recognized overnight courier, on the third Business Day following such dispatch.</p>
         </div>
         <div class="block rtl">
-          <h3 class="bold">المادة 24</h3>
-          <h4 class="bold underline">أحكام عامة</h4>
-          <p>24-1 عناوين المواد في هذا العقد للتسهيل فقط ولا تُستخدم لتفسير معنى أو تركيب هذا العقد أو أي جزء منه.</p>
-          <p>24-2 أي حكم صادر من أي محكمة ذات اختصاص قضائي أو من محكم أو هيئة تحكيم بأن أي حكم من أحكام هذا العقد باطل أو لاغٍ أو غير قابل للتنفيذ ينطبق فقط على ذلك الحكم ولا يجعل هذا العقد بأكمله أو أي حكم آخر فيه باطلاً أو لاغياً أو غير قابل للتنفيذ وتظل جميع الأحكام الأخرى فيه سارية المفعول بالكامل. وفي مثل هذه الظروف، يتعهد الشركاء بإجراء مفاوضات بحسن نية للسعي لاستبدال هذه الأحكام الباطلة بحكم جديد، يكون الغرض منه تحقيق النتيجة المرجوة الأصلية المقصودة من ذلك الحكم الباطل.</p>
-          <p>24-3 يوافق كل شريك على الحفاظ على سرية جميع المعلومات السرية، وعلى أن يُلزم الشركات التابعة له بالحفاظ عليها، باستثناء المعلومات السرية التي (1) أصبحت أو ستصبح متاحة للجمهور بشكل عام (بخلاف نتيجة إفصاح من قبل ذلك الشريك</p>
+          <h3 class="bold">المادة 21</h3>
+          <h4 class="bold underline">الإخطارات</h4>
+          <p>21-1 تُعتبر جميع الإخطارات والطلبات والموافقات والمراسلات الأخرى بموجب هذا العقد الموجهة لأي شريك سارية إذا كانت موجزة في مستند كتابي تم تسليمه شخصياً أو بالتلكس أو أُرسل عن طريق شركة بريد سريع معترف بها دولياً موجه إلى ذلك الشريك على العنوان المحفوظ لدى الشركة في السجل أو على أي عنوان آخر قد يحدده ذلك الشريك كتابياً فيما بعد للشركة والشريك الآخر.</p>
+          <p>21-2 تُعتبر جميع هذه الإخطارات والطلبات والموافقات والمراسلات الأخرى مُسلَّمة (1) في حالة التسليم الشخصي أو التسليم بالفاكس، في تاريخ هذا التسليم؛ و/أو (2) في حالة الإرسال عن طريق شركة بريد سريع معترف بها دولياً، في يوم العمل الثالث التالي لهذا الإرسال.</p>
         </div>
       </div>
       

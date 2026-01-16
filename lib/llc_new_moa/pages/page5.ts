@@ -34,20 +34,6 @@ export function page5(ctx: LLCNewMOAContext, pageNum: number = 5): string {
         </div>
       </div>
       
-      <!-- Article 3 -->
-      <div class="article-pair">
-        <div class="block">
-          <h3 class="bold">ARTICLE 3</h3>
-          <h4 class="bold underline">FORM AND NATIONALITY OF THE COMPANY</h4>
-          <p>The Partners have agreed that the Company shall continue to be a limited liability company in the Emirate of <span class="edited">${company.emirate}</span>, and is governed by the provisions of this Memorandum and the provisions of the laws and regulations applicable in the UAE and the Emirate of Abu Dhabi, including Commercial Companies Law.</p>
-        </div>
-        <div class="block rtl">
-          <h3 class="bold">المادة 3</h3>
-          <h4 class="bold underline">الشكل القانوني وجنسية الشركة</h4>
-          <p>اتفق الشريكان على أن تستمر الشركة كشركة ذات مسؤولية محدودة في إمارة <span class="edited">${company.emirateAr}</span>، وتخضع لأحكام هذا العقد وأحكام القوانين واللوائح المعمول بها في الإمارات العربية المتحدة وإمارة أبوظبي، بما في ذلك قانون الشركات التجارية.</p>
-        </div>
-      </div>
-      
       </div>
       ${pageFooter(pageNum)}
     </div>`

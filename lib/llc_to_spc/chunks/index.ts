@@ -4,6 +4,7 @@
 import { ContentChunk } from '../pageBuilder'
 import { headerChunks } from './header'
 import { transferChunks } from './transfer'
+import { objectivesChunks } from './objectivesArticle'
 import { moaChunks } from './moaArticles'
 import { finalChunks } from './finalArticles'
 
@@ -14,6 +15,7 @@ import { finalChunks } from './finalArticles'
 export const allChunks: ContentChunk[] = [
     ...headerChunks,      // Document header, date, parties
     ...transferChunks,    // Preamble, Articles 1-5
+    ...objectivesChunks,  // Chapter I: General Provisions with Objectives/Activities
     ...moaChunks,         // Chapters II-IV, Articles 6-18
     ...finalChunks        // Chapters V-VIII, Articles 19-28, Signatures
 ]
@@ -21,5 +23,6 @@ export const allChunks: ContentChunk[] = [
 // Re-export individual chunk groups for flexibility
 export { headerChunks } from './header'
 export { transferChunks } from './transfer'
+export { objectivesChunks } from './objectivesArticle'
 export { moaChunks } from './moaArticles'
 export { finalChunks } from './finalArticles'

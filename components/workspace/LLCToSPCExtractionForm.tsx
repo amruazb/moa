@@ -1,6 +1,8 @@
 'use client'
 
+import { useState } from 'react'
 import { useLLCToSPCStore } from '@/store/llcToSpcStore'
+import { Activity } from '@/lib/llc_to_spc/types'
 
 export function LLCToSPCExtractionForm() {
     const {
@@ -8,15 +10,22 @@ export function LLCToSPCExtractionForm() {
         updateFirstParty,
         updateSecondParty,
         updateThirdParty,
+        updateNewOwner,
         updateManager,
         updateLicense,
         updateOriginalMOA,
         updateCapitalInfo,
         updateAgreementDate,
+        addActivity,
+        removeActivity,
+        updateActivity,
         resetToDefault
     } = useLLCToSPCStore()
 
-    const { agreementDate, firstParty, secondParty, thirdParty, license, originalMOA, capitalInfo } = conversionData
+    const { agreementDate, firstParty, secondParty, thirdParty, newOwner, license, originalMOA, capitalInfo, activities } = conversionData
+
+    // State for new activity form
+    const [newActivity, setNewActivity] = useState<Partial<Activity>>({ code: '', nameEn: '', nameAr: '' })
 
     return (
         <div className="space-y-6 max-h-[calc(100vh-200px)] overflow-y-auto pr-2">
@@ -234,11 +243,11 @@ export function LLCToSPCExtractionForm() {
                 </div>
             </div>
 
-            {/* Third Party (New Owner) */}
+            {/* Third Party (Third Selling Partner) */}
             <div className="space-y-3">
                 <h3 className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-                    <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-                    Third Party (New Sole Owner)
+                    <span className="w-2 h-2 bg-yellow-500 rounded-full"></span>
+                    Third Party (3rd Selling Partner)
                 </h3>
                 <div className="grid grid-cols-2 gap-3">
                     <div>
@@ -247,7 +256,7 @@ export function LLCToSPCExtractionForm() {
                             type="text"
                             value={thirdParty?.name || ''}
                             onChange={(e) => updateThirdParty({ name: e.target.value })}
-                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
+                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition"
                             placeholder="Full name in English"
                         />
                     </div>
@@ -258,7 +267,7 @@ export function LLCToSPCExtractionForm() {
                             dir="rtl"
                             value={thirdParty?.nameAr || ''}
                             onChange={(e) => updateThirdParty({ nameAr: e.target.value })}
-                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
+                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition"
                             placeholder="الاسم بالعربية"
                         />
                     </div>
@@ -269,7 +278,7 @@ export function LLCToSPCExtractionForm() {
                         <select
                             value={thirdParty?.salutation || 'mr'}
                             onChange={(e) => updateThirdParty({ salutation: e.target.value as 'mr' | 'ms' | 'mrs' })}
-                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
+                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition"
                         >
                             <option value="mr">Mr.</option>
                             <option value="ms">Ms.</option>
@@ -282,7 +291,7 @@ export function LLCToSPCExtractionForm() {
                             type="text"
                             value={thirdParty?.nationality || ''}
                             onChange={(e) => updateThirdParty({ nationality: e.target.value })}
-                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
+                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition"
                             placeholder="e.g. Indian"
                         />
                     </div>
@@ -293,7 +302,7 @@ export function LLCToSPCExtractionForm() {
                             dir="rtl"
                             value={thirdParty?.nationalityAr || ''}
                             onChange={(e) => updateThirdParty({ nationalityAr: e.target.value })}
-                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
+                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition"
                             placeholder="هندي"
                         />
                     </div>
@@ -305,7 +314,7 @@ export function LLCToSPCExtractionForm() {
                             type="text"
                             value={thirdParty?.eidOrPassport || ''}
                             onChange={(e) => updateThirdParty({ eidOrPassport: e.target.value })}
-                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
+                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition"
                             placeholder="784-XXXX-XXXXXXX-X"
                         />
                     </div>
@@ -315,6 +324,105 @@ export function LLCToSPCExtractionForm() {
                             type="text"
                             value={thirdParty?.dob || ''}
                             onChange={(e) => updateThirdParty({ dob: e.target.value })}
+                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition"
+                            placeholder="DD/MM/YYYY"
+                        />
+                    </div>
+                </div>
+                <div>
+                    <label className="block text-xs text-gray-500 mb-1">Shares %</label>
+                    <input
+                        type="number"
+                        min="0"
+                        max="100"
+                        value={thirdParty?.sharesPercent || 0}
+                        onChange={(e) => updateThirdParty({ sharesPercent: parseInt(e.target.value) || 0 })}
+                        className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition"
+                    />
+                </div>
+            </div>
+
+            {/* New Owner (Buyer) */}
+            <div className="space-y-3">
+                <h3 className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+                    <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+                    New Owner (Buyer - 100% Shares)
+                </h3>
+                <div className="grid grid-cols-2 gap-3">
+                    <div>
+                        <label className="block text-xs text-gray-500 mb-1">Name (English)</label>
+                        <input
+                            type="text"
+                            value={newOwner?.name || ''}
+                            onChange={(e) => updateNewOwner({ name: e.target.value })}
+                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
+                            placeholder="Full name in English"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-xs text-gray-500 mb-1">Name (Arabic)</label>
+                        <input
+                            type="text"
+                            dir="rtl"
+                            value={newOwner?.nameAr || ''}
+                            onChange={(e) => updateNewOwner({ nameAr: e.target.value })}
+                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
+                            placeholder="الاسم بالعربية"
+                        />
+                    </div>
+                </div>
+                <div className="grid grid-cols-3 gap-3">
+                    <div>
+                        <label className="block text-xs text-gray-500 mb-1">Salutation</label>
+                        <select
+                            value={newOwner?.salutation || 'ms'}
+                            onChange={(e) => updateNewOwner({ salutation: e.target.value as 'mr' | 'ms' | 'mrs' })}
+                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
+                        >
+                            <option value="mr">Mr.</option>
+                            <option value="ms">Ms.</option>
+                            <option value="mrs">Mrs.</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label className="block text-xs text-gray-500 mb-1">Nationality</label>
+                        <input
+                            type="text"
+                            value={newOwner?.nationality || ''}
+                            onChange={(e) => updateNewOwner({ nationality: e.target.value })}
+                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
+                            placeholder="e.g. Indian"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-xs text-gray-500 mb-1">Nationality (AR)</label>
+                        <input
+                            type="text"
+                            dir="rtl"
+                            value={newOwner?.nationalityAr || ''}
+                            onChange={(e) => updateNewOwner({ nationalityAr: e.target.value })}
+                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
+                            placeholder="هندي"
+                        />
+                    </div>
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                    <div>
+                        <label className="block text-xs text-gray-500 mb-1">EID / Passport</label>
+                        <input
+                            type="text"
+                            value={newOwner?.eidOrPassport || ''}
+                            onChange={(e) => updateNewOwner({ eidOrPassport: e.target.value })}
+                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
+                            placeholder="784-XXXX-XXXXXXX-X"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-xs text-gray-500 mb-1">Date of Birth</label>
+                        <input
+                            type="text"
+                            value={newOwner?.dob || ''}
+                            onChange={(e) => updateNewOwner({ dob: e.target.value })}
                             className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
                             placeholder="DD/MM/YYYY"
                         />
@@ -331,13 +439,13 @@ export function LLCToSPCExtractionForm() {
                 <div className="flex items-center gap-2 mb-2">
                     <input
                         type="checkbox"
-                        id="managerSameAsThirdParty"
+                        id="managerSameAsNewOwner"
                         checked={conversionData.manager?.isSameAsThirdParty !== false}
                         onChange={(e) => updateManager({ isSameAsThirdParty: e.target.checked })}
                         className="w-4 h-4 text-teal-500 border-gray-300 rounded focus:ring-teal-500"
                     />
-                    <label htmlFor="managerSameAsThirdParty" className="text-xs text-gray-600">
-                        Same as Third Party (New Owner)
+                    <label htmlFor="managerSameAsNewOwner" className="text-xs text-gray-600">
+                        Same as New Owner (Buyer)
                     </label>
                 </div>
                 {conversionData.manager?.isSameAsThirdParty === false && (
@@ -535,6 +643,100 @@ export function LLCToSPCExtractionForm() {
                             className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition"
                             placeholder="100"
                         />
+                    </div>
+                </div>
+            </div>
+
+            {/* Activities */}
+            <div className="space-y-3">
+                <h3 className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+                    <span className="w-2 h-2 bg-cyan-500 rounded-full"></span>
+                    Company Activities / Objectives
+                </h3>
+
+                {/* Current Activities List */}
+                <div className="space-y-2">
+                    {(activities || []).map((activity, index) => (
+                        <div key={index} className="bg-gray-50 rounded-lg p-3 border border-gray-200">
+                            <div className="flex items-start justify-between gap-2">
+                                <div className="flex-1 space-y-2">
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-xs text-gray-400 font-mono">{activity.code || 'N/A'}</span>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        value={activity.nameEn}
+                                        onChange={(e) => updateActivity(index, { nameEn: e.target.value })}
+                                        className="w-full px-2 py-1 text-xs border border-gray-200 rounded focus:ring-1 focus:ring-cyan-500 focus:border-transparent"
+                                        placeholder="Activity name (English)"
+                                    />
+                                    <input
+                                        type="text"
+                                        dir="rtl"
+                                        value={activity.nameAr}
+                                        onChange={(e) => updateActivity(index, { nameAr: e.target.value })}
+                                        className="w-full px-2 py-1 text-xs border border-gray-200 rounded focus:ring-1 focus:ring-cyan-500 focus:border-transparent"
+                                        placeholder="اسم النشاط (عربي)"
+                                    />
+                                </div>
+                                <button
+                                    onClick={() => removeActivity(index)}
+                                    className="text-red-400 hover:text-red-600 p-1"
+                                    title="Remove activity"
+                                >
+                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+                {/* Add New Activity */}
+                <div className="bg-cyan-50 rounded-lg p-3 border border-cyan-200">
+                    <p className="text-xs text-cyan-700 font-medium mb-2">Add New Activity</p>
+                    <div className="space-y-2">
+                        <input
+                            type="text"
+                            value={newActivity.code || ''}
+                            onChange={(e) => setNewActivity({ ...newActivity, code: e.target.value })}
+                            className="w-full px-2 py-1 text-xs border border-cyan-200 rounded focus:ring-1 focus:ring-cyan-500"
+                            placeholder="Activity code (optional)"
+                        />
+                        <input
+                            type="text"
+                            value={newActivity.nameEn || ''}
+                            onChange={(e) => setNewActivity({ ...newActivity, nameEn: e.target.value })}
+                            className="w-full px-2 py-1 text-xs border border-cyan-200 rounded focus:ring-1 focus:ring-cyan-500"
+                            placeholder="Activity name (English)"
+                        />
+                        <input
+                            type="text"
+                            dir="rtl"
+                            value={newActivity.nameAr || ''}
+                            onChange={(e) => setNewActivity({ ...newActivity, nameAr: e.target.value })}
+                            className="w-full px-2 py-1 text-xs border border-cyan-200 rounded focus:ring-1 focus:ring-cyan-500"
+                            placeholder="اسم النشاط (عربي)"
+                        />
+                        <button
+                            type="button"
+                            onClick={(e) => {
+                                e.preventDefault()
+                                if (newActivity.nameEn) {
+                                    addActivity({
+                                        code: newActivity.code || '',
+                                        nameEn: newActivity.nameEn,
+                                        nameAr: newActivity.nameAr || ''
+                                    })
+                                    setNewActivity({ code: '', nameEn: '', nameAr: '' })
+                                }
+                            }}
+                            disabled={!newActivity.nameEn}
+                            className="w-full px-2 py-1 text-xs text-white bg-cyan-500 rounded hover:bg-cyan-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition"
+                        >
+                            + Add Activity
+                        </button>
                     </div>
                 </div>
             </div>

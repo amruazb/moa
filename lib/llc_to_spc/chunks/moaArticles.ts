@@ -33,7 +33,7 @@ export const article6Chunk: ContentChunk = {
   type: 'article',
   estimatedHeight: 55,
   content: (ctx: LLCToSPCContext) => {
-    const { thirdParty, capitalInfo } = ctx
+    const { newOwner, capitalInfo } = ctx
     const { capital, shareCount, shareValue } = capitalInfo
     const capitalWordsEn = numberToWordsEn(capital)
     const capitalWordsAr = numberToWordsAr(capital)
@@ -45,7 +45,7 @@ export const article6Chunk: ContentChunk = {
           <p>The capital of the Company is fixed at AED <span class="edited">${capital.toLocaleString()}</span> (<span class="edited">${capitalWordsEn}</span> Dirhams) divided into (<span class="edited">${shareCount}</span>) shares of a nominal value of AED <span class="edited">${shareValue.toLocaleString()}</span> each. Capital is fully subscribed and paid, and has been distributed among partners as follows:</p>
           <table>
             <tr><th>Partner</th><th>Shares</th><th>Value (AED)</th><th>%</th></tr>
-            <tr><td class="edited">${thirdParty.pronouns.title} ${thirdParty.name}</td><td class="edited">${shareCount}</td><td class="edited">${capital.toLocaleString()}</td><td>100%</td></tr>
+            <tr><td class="edited">${newOwner.pronouns.title} ${newOwner.name}</td><td class="edited">${shareCount}</td><td class="edited">${capital.toLocaleString()}</td><td>100%</td></tr>
             <tr><td><strong>Total</strong></td><td><strong class="edited">${shareCount}</strong></td><td><strong class="edited">${capital.toLocaleString()}</strong></td><td><strong>100%</strong></td></tr>
           </table>
         </div>
@@ -54,7 +54,7 @@ export const article6Chunk: ContentChunk = {
           <p>رأس مال الشركة <span class="edited">${capital.toLocaleString()}</span> درهم إماراتي (<span class="edited">${capitalWordsAr}</span> درهم) موزع على (<span class="edited">${shareCount}</span>) حصة قيمة كل حصة <span class="edited">${shareValue.toLocaleString()}</span> درهم إماراتي وجميعها حصص نقدية تم سدادها بالكامل وقد توزعت على الشريك كما يلي:</p>
           <table>
             <tr><th>الشريك</th><th>الحصص</th><th>القيمة (درهم)</th><th>%</th></tr>
-            <tr><td class="edited">${thirdParty.pronouns.titleAr}/ ${thirdParty.nameAr}</td><td class="edited">${shareCount}</td><td class="edited">${capital.toLocaleString()}</td><td>100%</td></tr>
+            <tr><td class="edited">${newOwner.pronouns.titleAr}/ ${newOwner.nameAr}</td><td class="edited">${shareCount}</td><td class="edited">${capital.toLocaleString()}</td><td>100%</td></tr>
             <tr><td><strong>المجموع</strong></td><td><strong class="edited">${shareCount}</strong></td><td><strong class="edited">${capital.toLocaleString()}</strong></td><td><strong>100%</strong></td></tr>
           </table>
         </div>
@@ -295,13 +295,13 @@ export const article13Chunk: ContentChunk = {
   type: 'article',
   estimatedHeight: 45,
   content: (ctx: LLCToSPCContext) => {
-    const { thirdParty } = ctx
+    const { newOwner } = ctx
     return `
       <!-- Article 13: Attendance of General Assembly -->
       <div class="article-pair">
         <div class="block">
           <h3 class="underline center">Article (13): Attendance of General Assembly</h3>
-          <p>The sole owner shall have the right to attend the General Assembly, whether personally or by proxy to represent ${thirdParty.pronouns.object} in the General Assembly.</p>
+          <p>The sole owner shall have the right to attend the General Assembly, whether personally or by proxy to represent ${newOwner.pronouns.object} in the General Assembly.</p>
         </div>
         <div class="block rtl">
           <h3 class="underline center">المادة (13): حضور الجمعية العمومية</h3>
@@ -316,13 +316,13 @@ export const article14Chunk: ContentChunk = {
   type: 'article',
   estimatedHeight: 50,
   content: (ctx: LLCToSPCContext) => {
-    const { thirdParty } = ctx
+    const { newOwner } = ctx
     return `
       <!-- Article 14: Presiding General Assembly -->
       <div class="article-pair">
         <div class="block">
           <h3 class="underline center">Article (14): Presiding General Assembly</h3>
-          <p>The General Assembly shall be presided by the sole owner or ${thirdParty.pronouns.possessive} deputy. The chairman shall appoint one reporter and two reviewers for votes counting, upon approval of the General Assembly.</p>
+          <p>The General Assembly shall be presided by the sole owner or ${newOwner.pronouns.possessive} deputy. The chairman shall appoint one reporter and two reviewers for votes counting, upon approval of the General Assembly.</p>
         </div>
         <div class="block rtl">
           <h3 class="underline center">المادة (14): رئاسة الجمعية العمومية</h3>

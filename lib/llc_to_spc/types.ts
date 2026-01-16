@@ -3,6 +3,13 @@
 
 export type Salutation = 'mr' | 'ms' | 'mrs'
 
+// Activity entry with code (matching trade certificate structure)
+export interface Activity {
+    code: string
+    nameEn: string
+    nameAr: string
+}
+
 export interface Pronouns {
     title: string        // Mr. / Ms. / Mrs.
     titleAr: string      // السيد / السيدة
@@ -104,13 +111,15 @@ export interface ManagerInfo {
 // Main context for document generation
 export interface LLCToSPCContext {
     agreementDate: string
-    firstParty: TransferParty
-    secondParty: TransferParty
-    thirdParty: TransferParty  // New sole owner
-    manager: ManagerInfo       // Managing Director
+    firstParty: TransferParty    // First selling partner
+    secondParty: TransferParty   // Second selling partner
+    thirdParty: TransferParty    // Third selling partner
+    newOwner: TransferParty      // New sole owner (buyer)
+    manager: ManagerInfo         // Managing Director
     license: LicenseInfo
     originalMOA: OriginalMOA
-    capitalInfo: CapitalInfo   // Capital and shares
+    capitalInfo: CapitalInfo     // Capital and shares
+    activities: Activity[]       // Company activities/objectives
 }
 
 // Data stored in document store (partial/optional)
@@ -119,11 +128,19 @@ export interface LLCToSPCData {
     firstParty?: Partial<TransferParty>
     secondParty?: Partial<TransferParty>
     thirdParty?: Partial<TransferParty>
+    newOwner?: Partial<TransferParty>
     manager?: Partial<ManagerInfo>
     license?: Partial<LicenseInfo>
     originalMOA?: Partial<OriginalMOA>
     capitalInfo?: Partial<CapitalInfo>
+    activities?: Activity[]
 }
+
+// Default activities for LLC to SPC conversion
+export const defaultLLCToSPCActivities: Activity[] = [
+    { code: '8230001', nameEn: 'Event Organizing', nameAr: 'تنظيم الفعاليات' },
+    { code: '8230002', nameEn: 'Event Management Services', nameAr: 'خدمات إدارة الفعاليات' },
+]
 
 // Extract context from store data with defaults
 export function extractLLCToSPCContext(data: LLCToSPCData): LLCToSPCContext {
@@ -166,13 +183,30 @@ export function extractLLCToSPCContext(data: LLCToSPCData): LLCToSPCContext {
         nameAr: data.thirdParty?.nameAr || 'غير متوفر',
         salutation: thirdSalutation,
         pronouns: getPronouns(thirdSalutation),
-        nationality: data.thirdParty?.nationality || 'Indian',
-        nationalityAr: data.thirdParty?.nationalityAr || 'هندي',
+        nationality: data.thirdParty?.nationality || 'N/A',
+        nationalityAr: data.thirdParty?.nationalityAr || 'غير متوفر',
         eidOrPassport: data.thirdParty?.eidOrPassport || 'N/A',
         documentType: data.thirdParty?.documentType || 'eid',
         dob: data.thirdParty?.dob || '',
         address: data.thirdParty?.address || 'Abu Dhabi',
         addressAr: data.thirdParty?.addressAr || 'أبوظبي',
+        sharesPercent: data.thirdParty?.sharesPercent ?? 0
+    }
+
+    // New Owner (buyer) - the 4th party who buys all shares
+    const newOwnerSalutation = (data.newOwner?.salutation || 'ms') as Salutation
+    const newOwner: TransferParty = {
+        name: data.newOwner?.name || 'N/A',
+        nameAr: data.newOwner?.nameAr || 'غير متوفر',
+        salutation: newOwnerSalutation,
+        pronouns: getPronouns(newOwnerSalutation),
+        nationality: data.newOwner?.nationality || 'Indian',
+        nationalityAr: data.newOwner?.nationalityAr || 'هندي',
+        eidOrPassport: data.newOwner?.eidOrPassport || 'N/A',
+        documentType: data.newOwner?.documentType || 'eid',
+        dob: data.newOwner?.dob || '',
+        address: data.newOwner?.address || 'Abu Dhabi',
+        addressAr: data.newOwner?.addressAr || 'أبوظبي',
         sharesPercent: 100 // New owner gets 100%
     }
 
@@ -191,16 +225,16 @@ export function extractLLCToSPCContext(data: LLCToSPCData): LLCToSPCContext {
         moaDate: data.originalMOA?.moaDate || ''
     }
 
-    // Manager - defaults to Third Party if isSameAsThirdParty is true
-    const isSameAsThirdParty = data.manager?.isSameAsThirdParty !== false
-    const managerSalutation = isSameAsThirdParty ? thirdSalutation : (data.manager?.salutation || 'mr') as Salutation
+    // Manager - defaults to New Owner if isSameAsNewOwner is true
+    const isSameAsNewOwner = data.manager?.isSameAsThirdParty !== false // Using same flag name for backwards compatibility
+    const managerSalutation = isSameAsNewOwner ? newOwnerSalutation : (data.manager?.salutation || 'mr') as Salutation
     const manager: ManagerInfo = {
-        isSameAsThirdParty,
-        name: isSameAsThirdParty ? thirdParty.name : (data.manager?.name || 'N/A'),
-        nameAr: isSameAsThirdParty ? thirdParty.nameAr : (data.manager?.nameAr || 'غير متوفر'),
+        isSameAsThirdParty: isSameAsNewOwner,
+        name: isSameAsNewOwner ? newOwner.name : (data.manager?.name || 'N/A'),
+        nameAr: isSameAsNewOwner ? newOwner.nameAr : (data.manager?.nameAr || 'غير متوفر'),
         salutation: managerSalutation,
         pronouns: getPronouns(managerSalutation),
-        eidOrPassport: isSameAsThirdParty ? thirdParty.eidOrPassport : (data.manager?.eidOrPassport || 'N/A')
+        eidOrPassport: isSameAsNewOwner ? newOwner.eidOrPassport : (data.manager?.eidOrPassport || 'N/A')
     }
     const capitalInfo: CapitalInfo = {
         capital: data.capitalInfo?.capital || 10000,
@@ -208,15 +242,22 @@ export function extractLLCToSPCContext(data: LLCToSPCData): LLCToSPCContext {
         shareValue: data.capitalInfo?.shareValue || 100
     }
 
+    // Activities - use provided or default
+    const activities: Activity[] = data.activities?.length
+        ? data.activities
+        : defaultLLCToSPCActivities
+
     return {
         agreementDate: data.agreementDate || new Date().toISOString().split('T')[0],
         firstParty,
         secondParty,
         thirdParty,
+        newOwner,
         manager,
         license,
         originalMOA,
-        capitalInfo
+        capitalInfo,
+        activities
     }
 }
 

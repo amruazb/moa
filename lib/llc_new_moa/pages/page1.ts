@@ -1,13 +1,13 @@
 import { LLCNewMOAContext, pageFooter, getOrdinal, formatDateDMY, getPronouns } from '../types'
 
 export function page1(ctx: LLCNewMOAContext, pageNum: number = 1): string {
-    const { company, partners } = ctx
-    const partner1 = partners[0]
-    const rep1 = partner1.representative
-    const rep1Pronouns = getPronouns(rep1.salutation)
-    const formattedDob1 = formatDateDMY(rep1.dob)
+  const { company, partners } = ctx
+  const partner1 = partners[0]
+  const rep1 = partner1.representative
+  const rep1Pronouns = getPronouns(rep1.salutation)
+  const formattedDob1 = formatDateDMY(rep1.dob)
 
-    return `
+  return `
     <div class="page">
       <div class="page-content">
       <div class="bilingual-header">
@@ -32,7 +32,7 @@ export function page1(ctx: LLCNewMOAContext, pageNum: number = 1): string {
       <div class="article-pair">
         <div class="block">
           <h3 class="bold underline">${getOrdinal(0, 'en')} Party:</h3>
-          <p><strong><span class="edited">${partner1.name}</span>,</strong></p>
+          <p><span class="edited">${partner1.name}</span>,</p>
           <p><strong>Registration No.:</strong> <span class="edited">${partner1.licenseNo}</span>,</p>
           <p><strong>Address:</strong> <span class="edited">${partner1.address}</span>,</p>
           ${partner1.email ? `<p><strong>Email:</strong> <span class="edited">${partner1.email}</span>,</p>` : ''}
@@ -40,7 +40,7 @@ export function page1(ctx: LLCNewMOAContext, pageNum: number = 1): string {
         </div>
         <div class="block rtl">
           <h3 class="bold underline">الطرف ${getOrdinal(0, 'ar')}:</h3>
-          <p><strong><span class="edited">${partner1.nameAr}</span>،</strong></p>
+          <p><span class="edited">${partner1.nameAr}</span>،</p>
           <p><strong>رقم التسجيل:</strong> <span class="edited">${partner1.licenseNo}</span>،</p>
           <p><strong>العنوان:</strong> <span class="edited">${partner1.addressAr}</span>،</p>
           ${partner1.email ? `<p><strong>البريد الإلكتروني:</strong> <span class="edited">${partner1.email}</span>،</p>` : ''}

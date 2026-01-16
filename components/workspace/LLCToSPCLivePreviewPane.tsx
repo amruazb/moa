@@ -6,9 +6,14 @@ import { generateLLCToSPCHTML } from '@/lib/llc_to_spc'
 import { useRef } from 'react'
 
 export function LLCToSPCLivePreviewPane() {
-    const { conversionData, useDynamicPaging, toggleDynamicPaging } = useLLCToSPCStore()
-    const { settings } = useFormattingStore()
+    const conversionData = useLLCToSPCStore((state) => state.conversionData)
+    const useDynamicPaging = useLLCToSPCStore((state) => state.useDynamicPaging)
+    const toggleDynamicPaging = useLLCToSPCStore((state) => state.toggleDynamicPaging)
+    const settings = useFormattingStore((state) => state.settings)
     const previewRef = useRef<HTMLDivElement>(null)
+
+    // Debug: Log when conversionData changes
+    console.log('Preview re-rendering with data:', conversionData.firstParty?.name)
 
     // Generate LLC to SPC HTML on every update with formatting settings
     const htmlContent = generateLLCToSPCHTML(conversionData, settings, useDynamicPaging)

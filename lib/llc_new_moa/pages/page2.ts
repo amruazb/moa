@@ -1,13 +1,13 @@
 import { LLCNewMOAContext, pageFooter, getOrdinal, formatDateDMY, getPronouns } from '../types'
 
 export function page2(ctx: LLCNewMOAContext, pageNum: number = 2): string {
-    const { company, partners } = ctx
-    const partner2 = partners[1]
-    const rep2 = partner2.representative
-    const rep2Pronouns = getPronouns(rep2.salutation)
-    const formattedDob2 = formatDateDMY(rep2.dob)
+  const { company, partners } = ctx
+  const partner2 = partners[1]
+  const rep2 = partner2.representative
+  const rep2Pronouns = getPronouns(rep2.salutation)
+  const formattedDob2 = formatDateDMY(rep2.dob)
 
-    return `
+  return `
     <div class="page">
       <div class="page-content">
       
@@ -15,13 +15,13 @@ export function page2(ctx: LLCNewMOAContext, pageNum: number = 2): string {
       <div class="article-pair">
         <div class="block">
           <h3 class="bold underline">${getOrdinal(1, 'en')} Party:</h3>
-          <p><strong><span class="edited">${partner2.name}</span>,</strong></p>
+          <p><span class="edited">${partner2.name}</span>,</p>
           <p><strong>Address:</strong> <span class="edited">${partner2.address}</span>,</p>
           <p>duly represented by <strong>${rep2Pronouns.title}</strong> <span class="edited">${rep2.name}</span>, holder of Emirates ID No.: <span class="edited">${rep2.eid}</span>, born on <span class="edited">${formattedDob2}</span>, <span class="edited">${rep2.nationality}</span> National, who is authorized to sign on behalf of the Company.</p>
         </div>
         <div class="block rtl">
           <h3 class="bold underline">الطرف ${getOrdinal(1, 'ar')}:</h3>
-          <p><strong><span class="edited">${partner2.nameAr}</span>،</strong></p>
+          <p><span class="edited">${partner2.nameAr}</span>،</p>
           <p><strong>العنوان:</strong> <span class="edited">${partner2.addressAr}</span>،</p>
           <p>ويمثلها قانونًا <strong>${rep2Pronouns.titleAr}/</strong><span class="edited">${rep2.nameAr}</span>، حامل هوية إماراتية رقم: <span class="edited">${rep2.eid}</span>، من مواليد <span class="edited">${formattedDob2}</span>، ${rep2.nationalityAr} الجنسية، والمخوّل بالتوقيع نيابة عن الشركة.</p>
         </div>

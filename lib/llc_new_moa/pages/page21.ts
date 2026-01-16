@@ -1,63 +1,61 @@
 import { LLCNewMOAContext, pageFooter } from '../types'
 
-export function page21(ctx: LLCNewMOAContext, pageNum: number = 21): string {
+export function page20(ctx: LLCNewMOAContext, pageNum: number = 20): string {
+    const { partners } = ctx
+
     return `
     <div class="page">
       <div class="page-content">
       
-      <!-- Article 17 continued -->
+      <!-- Article 15 continued -->
       <div class="article-pair">
         <div class="block">
-          <p>17-3 The net distributable profits may at the request of the Managing Director be distributed on quarterly or semi-annual basis subject to the issuance of quarterly and/or semi-annual audited financial statements at the sole discretion of the Managing Director.</p>
-          <p>17-4 The liability of each Partner for losses shall be limited to the value of its Shares and for the avoidance of any doubt, nothing in this Memorandum shall render a Partner liable for any amounts in excess of that Partner's share in the capital of the Company.</p>
-          <p>17-5 The net profits (or losses) of the Company for each financial year shall be determined by the Company's audited financial statements that are prepared in accordance with internationally accepted accounting standards.</p>
+          <p>15-9 The Managing Director may not participate in voting on resolutions relating to the discharge of his responsibility for the management of the Company.</p>
+          <p>15-10 Minutes adequately summarising the discussions of the General Assembly shall be prepared. The minutes and the resolutions of the General Assembly shall be recorded in a special register kept at the Company's head office. Any of the Partners may review the register personally or through an attorney. They may review the Company's balance sheet, profit and loss account and annual report.</p>
+          <p>15-11 Written resolutions signed by all of the Partners or their duly authorized representatives in the General Assembly shall be as valid and effective as if the same had been passed at a General Assembly duly convened and held.</p>
         </div>
         <div class="block rtl">
-          <p>17-3 يجوز بناءً على طلب المدير العام توزيع صافي الأرباح القابلة للتوزيع على أساس ربع سنوي أو نصف سنوي رهناً بإصدار بيانات مالية مدققة ربع سنوية و/أو نصف سنوية وفقاً لتقدير المدير العام المنفرد.</p>
-          <p>17-4 تقتصر مسؤولية كل شريك عن الخسائر على قيمة حصصه ولتفادي أي شك، لا يوجد في هذا العقد ما يجعل الشريك مسؤولاً عن أي مبالغ تزيد عن حصة ذلك الشريك في رأس مال الشركة.</p>
-          <p>17-5 يتم تحديد صافي أرباح (أو خسائر) الشركة لكل سنة مالية بموجب البيانات المالية المدققة للشركة والمُعدة وفقاً للمعايير المحاسبية المقبولة دولياً.</p>
+          <p>15-9 لا يجوز للمدير العام المشاركة في التصويت على القرارات المتعلقة بإبراء ذمته عن مسؤولية إدارة الشركة.</p>
+          <p>15-10 يتم إعداد محاضر تلخص بشكل كافٍ مناقشات الجمعية العمومية. وتُسجَّل المحاضر وقرارات الجمعية العمومية في سجل خاص يُحفظ في المقر الرئيسي للشركة. ويجوز لأي من الشركاء الاطلاع على السجل شخصياً أو من خلال وكيل. كما يجوز لهم الاطلاع على الميزانية العمومية وحساب الأرباح والخسائر والتقرير السنوي للشركة.</p>
+          <p>15-11 تكون القرارات الكتابية الموقعة من جميع الشركاء أو ممثليهم المفوضين حسب الأصول في الجمعية العمومية صحيحة ونافذة كما لو كانت قد صدرت في جمعية عمومية منعقدة حسب الأصول.</p>
         </div>
       </div>
       
-      <!-- Article 18 -->
+      <!-- Article 16 -->
       <div class="article-pair">
         <div class="block">
-          <h3 class="bold">ARTICLE 18</h3>
-          <h4 class="bold underline">VARIATION OF THIS MEMORANDUM</h4>
-          <p>It shall only be permissible to amend this Memorandum by way of a Special Resolution.</p>
+          <h3 class="bold">ARTICLE 16</h3>
+          <h4 class="bold underline">THE FINANCIAL YEAR</h4>
+          <p>The financial year of the Company shall commence on January 1st and shall end on December 31st of each year.</p>
         </div>
         <div class="block rtl">
-          <h3 class="bold">المادة 18</h3>
-          <h4 class="bold underline">تعديل هذا العقد التأسيسي</h4>
-          <p>لا يجوز تعديل هذا العقد إلا بموجب قرار خاص.</p>
+          <h3 class="bold">المادة 16</h3>
+          <h4 class="bold underline">السنة المالية</h4>
+          <p>تبدأ السنة المالية للشركة في الأول من يناير وتنتهي في 31 ديسمبر من كل سنة.</p>
         </div>
       </div>
       
-      <!-- Article 19 -->
+      <!-- Article 17 -->
       <div class="article-pair">
         <div class="block">
-          <h3 class="bold">ARTICLE 19</h3>
-          <h4 class="bold underline">DISSOLUTION OF THE COMPANY</h4>
-          <p>19-1 The Company shall be dissolved for any of the following reasons:</p>
-          <p>(a) the expiry of the period specified in this Memorandum unless this period is renewed;</p>
-          <p>(b) the depletion of the objective for which the Company was established;</p>
-          <p>(c) amalgamation of the Company with another company;</p>
-          <p>(d) pursuant to a Special Resolution of the General Assembly;</p>
-          <p>(e) if the losses of the Company (whether accumulated or in respect of any financial year) reached or exceeded 50% (fifty percent) of the Company's paid up capital, provided the issuance of a Special Resolution of the General Assembly;</p>
-          <p>(f) the depletion of all or most of the assets of the Company making beneficial investment of the remainder of the assets, if any, impracticable; or</p>
-          <p>(g) upon the rendering of a decision from a competent court in the Emirate of Abu Dhabi to dissolve the Company.</p>
+          <h3 class="bold">ARTICLE 17</h3>
+          <h4 class="bold underline">PROFITS AND LOSSES</h4>
+          <p>17-1 The Company shall allocate a minimum of 10% (ten percent) of its net profits each year to create a statutory reserve. The Partners may resolve to allocate additional reserves as they deem fit. The Partners may resolve that the allocation of the net profits to the statutory reserve be discontinued when the reserve reaches half of the capital of the Company.</p>
+          <p>17-2 The net profits shall be distributed annually between the Partners in accordance with the following percentages immediately after the annual General Assembly:</p>
+          <ul>
+            <li>First Partner: <span class="edited">${partners[0].sharePercent}%</span> (<span class="edited">${partners[0].sharePercent === 99 ? 'ninety nine' : partners[0].sharePercent === 90 ? 'ninety' : partners[0].sharePercent}</span> percent)</li>
+            <li>Second Partner: <span class="edited">${partners[1].sharePercent}%</span> (<span class="edited">${partners[1].sharePercent === 1 ? 'one' : partners[1].sharePercent === 10 ? 'ten' : partners[1].sharePercent}</span> percent)</li>
+          </ul>
         </div>
         <div class="block rtl">
-          <h3 class="bold">المادة 19</h3>
-          <h4 class="bold underline">حل الشركة</h4>
-          <p>19-1 تُحل الشركة لأي من الأسباب التالية:</p>
-          <p>(أ) انتهاء المدة المحددة للشركة في هذا العقد ما لم يتم تجديد هذه المدة؛</p>
-          <p>(ب) انقضاء الغرض الذي أُسست الشركة من أجله؛</p>
-          <p>(ج) اندماج الشركة مع أية شركة أخرى؛</p>
-          <p>(د) بموجب قرار خاص من الجمعية العمومية؛</p>
-          <p>(هـ) إذا وصلت خسائر الشركة (المتراكمة أو عن أي سنة مالية) أو زادت عن 50% (خمسين بالمائة) من رأس مال الشركة المدفوع، شريطة صدور قرار خاص من الجمعية العمومية؛</p>
-          <p>(و) هلاك جميع أو معظم أصول/موجودات الشركة بحيث يتعذر الاستثمار المفيد للباقي منها، إن وجد؛ أو</p>
-          <p>(ز) بناءً على صدور قرار من محكمة مختصة في إمارة أبوظبي بحل الشركة.</p>
+          <h3 class="bold">المادة 17</h3>
+          <h4 class="bold underline">الأرباح والخسائر</h4>
+          <p>17-1 تخصص الشركة ما لا يقل عن 10% (عشرة بالمائة) من صافي أرباحها سنوياً لإنشاء احتياطي قانوني. ويجوز للشركاء أن يقرروا تخصيص احتياطيات إضافية حسبما يرونه مناسباً. ويجوز للشركاء أن يقرروا وقف تخصيص صافي الأرباح للاحتياطي القانوني عندما يبلغ الاحتياطي نصف رأس مال الشركة.</p>
+          <p>17-2 توزع صافي الأرباح سنوياً بين الشركاء وفقاً للنسب التالية فوراً بعد الجمعية العمومية السنوية:</p>
+          <ul>
+            <li>الشريك الأول: <span class="edited">%${partners[0].sharePercent}</span> (${partners[0].sharePercent === 99 ? 'تسعة وتسعون' : partners[0].sharePercent === 90 ? 'تسعون' : partners[0].sharePercent} بالمائة)</li>
+            <li>الشريك الثاني: <span class="edited">%${partners[1].sharePercent}</span> (${partners[1].sharePercent === 1 ? 'واحد' : partners[1].sharePercent === 10 ? 'عشرة' : partners[1].sharePercent} بالمائة)</li>
+          </ul>
         </div>
       </div>
       

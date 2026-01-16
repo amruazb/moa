@@ -231,17 +231,17 @@ export const article26Chunk: ContentChunk = {
   type: 'article',
   estimatedHeight: 70,
   content: (ctx: LLCToSPCContext) => {
-    const { thirdParty } = ctx
+    const { newOwner } = ctx
     return `
       <!-- Article 26: Registration and Publication -->
       <div class="article-pair">
         <div class="block">
           <h3 class="underline center">Article (26): Registration and Publication</h3>
-          <p>This contract shall be registered in the commercial register and published in accordance with the law. <strong>${thirdParty.pronouns.title} ${thirdParty.name}</strong> is solely authorized to carry out all necessary procedures in this regard. All costs, expenses, and other amounts incurred for establishing the company shall be deducted from the general expense account. As the sole owner, <strong>${thirdParty.pronouns.title} ${thirdParty.name}</strong> retains full rights and authority over the company at all times, including in the event of any absence or failure to renew the trade license.</p>
+          <p>This contract shall be registered in the commercial register and published in accordance with the law. <strong>${newOwner.pronouns.title} ${newOwner.name}</strong> is solely authorized to carry out all necessary procedures in this regard. All costs, expenses, and other amounts incurred for establishing the company shall be deducted from the general expense account. As the sole owner, <strong>${newOwner.pronouns.title} ${newOwner.name}</strong> retains full rights and authority over the company at all times, including in the event of any absence or failure to renew the trade license.</p>
         </div>
         <div class="block rtl">
           <h3 class="underline center">المادة (26): القيد والنشر</h3>
-          <p>يقيد هذا العقد في السجل التجاري وينشر طبقاً للقانون، وقد فوض <strong>${thirdParty.pronouns.titleAr}/ ${thirdParty.nameAr}</strong> في اتخاذ كافة الإجراءات اللازمة في هذا الشأن. وتخصم جميع المصروفات والنفقات والتكاليف التي تم إنفاقها في سبيل تأسيس الشركة من حساب المصروفات العامة. وبصفته المالك الوحيد، يحتفظ <strong>${thirdParty.pronouns.titleAr}/ ${thirdParty.nameAr}</strong> بكامل الحقوق والسلطات على الشركة في جميع الأوقات، بما في ذلك في حال الغياب أو عدم تجديد الرخصة التجارية.</p>
+          <p>يقيد هذا العقد في السجل التجاري وينشر طبقاً للقانون، وقد فوض <strong>${newOwner.pronouns.titleAr}/ ${newOwner.nameAr}</strong> في اتخاذ كافة الإجراءات اللازمة في هذا الشأن. وتخصم جميع المصروفات والنفقات والتكاليف التي تم إنفاقها في سبيل تأسيس الشركة من حساب المصروفات العامة. وبصفته المالك الوحيد، يحتفظ <strong>${newOwner.pronouns.titleAr}/ ${newOwner.nameAr}</strong> بكامل الحقوق والسلطات على الشركة في جميع الأوقات، بما في ذلك في حال الغياب أو عدم تجديد الرخصة التجارية.</p>
         </div>
       </div>`
   }
@@ -290,9 +290,9 @@ export const article28Chunk: ContentChunk = {
 export const signatureBlocksChunk: ContentChunk = {
   id: 'signatures',
   type: 'signature',
-  estimatedHeight: 150,
+  estimatedHeight: 200,
   content: (ctx: LLCToSPCContext) => {
-    const { firstParty, secondParty, thirdParty } = ctx
+    const { firstParty, secondParty, thirdParty, newOwner } = ctx
     return `
       <!-- Signature Blocks -->
       <div style="margin-top: 30px;">
@@ -300,29 +300,52 @@ export const signatureBlocksChunk: ContentChunk = {
         <h3 class="underline center" style="text-align: center; width: 100%; margin-bottom: 25px;">Signatures / التوقيعات</h3>
 
         <div class="article-pair" style="margin-top: 25px;">
-          <div class="block" style="text-align: center; padding: 15px;">
-            <p style="margin-bottom: 10px; font-weight: bold;">First Party / الطرف الأول</p>
-            <p class="edited" style="margin: 5px 0; font-size: 11pt;">${firstParty.pronouns.title} ${firstParty.name}</p>
-            <p class="edited" style="direction: rtl; margin: 5px 0; font-size: 11pt;">${firstParty.pronouns.titleAr}/ ${firstParty.nameAr}</p>
-            <div style="border-bottom: 1px solid #000; width: 220px; margin: 60px auto 8px;"></div>
-            <p style="font-size: 9pt; margin: 0;">Signature / التوقيع</p>
+          <div class="block" style="text-align: center; padding: 15px; min-height: 180px; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <p style="margin-bottom: 10px; font-weight: bold;">First Party / الطرف الأول</p>
+              <p class="edited" style="margin: 5px 0; font-size: 11pt;">${firstParty.pronouns.title} ${firstParty.name}</p>
+              <p class="edited" style="direction: rtl; margin: 5px 0; font-size: 11pt;">${firstParty.pronouns.titleAr}/ ${firstParty.nameAr}</p>
+            </div>
+            <div>
+              <div style="border-bottom: 1px solid #000; width: 220px; margin: 98px auto 8px;"></div>
+              <p style="font-size: 9pt; margin: 0;">Signature / التوقيع</p>
+            </div>
           </div>
-          <div class="block" style="text-align: center; padding: 15px;">
-            <p style="margin-bottom: 10px; font-weight: bold;">Second Party / الطرف الثاني</p>
-            <p class="edited" style="margin: 5px 0; font-size: 11pt;">${secondParty.pronouns.title} ${secondParty.name}</p>
-            <p class="edited" style="direction: rtl; margin: 5px 0; font-size: 11pt;">${secondParty.pronouns.titleAr}/ ${secondParty.nameAr}</p>
-            <div style="border-bottom: 1px solid #000; width: 220px; margin: 60px auto 8px;"></div>
-            <p style="font-size: 9pt; margin: 0;">Signature / التوقيع</p>
+          <div class="block" style="text-align: center; padding: 15px; min-height: 180px; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <p style="margin-bottom: 10px; font-weight: bold;">Second Party / الطرف الثاني</p>
+              <p class="edited" style="margin: 5px 0; font-size: 11pt;">${secondParty.pronouns.title} ${secondParty.name}</p>
+              <p class="edited" style="direction: rtl; margin: 5px 0; font-size: 11pt;">${secondParty.pronouns.titleAr}/ ${secondParty.nameAr}</p>
+            </div>
+            <div>
+              <div style="border-bottom: 1px solid #000; width: 220px; margin: 98px auto 8px;"></div>
+              <p style="font-size: 9pt; margin: 0;">Signature / التوقيع</p>
+            </div>
           </div>
         </div>
 
-        <div style="margin-top: 25px; text-align: center;">
-          <div style="display: inline-block; text-align: center; padding: 15px; min-width: 300px;">
-            <p style="margin-bottom: 10px; font-weight: bold;">Third Party (New Owner) / الطرف الثالث (المالك الجديد)</p>
-            <p class="edited" style="margin: 5px 0; font-size: 11pt;">${thirdParty.pronouns.title} ${thirdParty.name}</p>
-            <p class="edited" style="direction: rtl; margin: 5px 0; font-size: 11pt;">${thirdParty.pronouns.titleAr}/ ${thirdParty.nameAr}</p>
-            <div style="border-bottom: 1px solid #000; width: 220px; margin: 60px auto 8px;"></div>
-            <p style="font-size: 9pt; margin: 0;">Signature / التوقيع</p>
+        <div class="article-pair" style="margin-top: 25px;">
+          <div class="block" style="text-align: center; padding: 15px; min-height: 180px; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <p style="margin-bottom: 10px; font-weight: bold;">Third Party / الطرف الثالث</p>
+              <p class="edited" style="margin: 5px 0; font-size: 11pt;">${thirdParty.pronouns.title} ${thirdParty.name}</p>
+              <p class="edited" style="direction: rtl; margin: 5px 0; font-size: 11pt;">${thirdParty.pronouns.titleAr}/ ${thirdParty.nameAr}</p>
+            </div>
+            <div>
+              <div style="border-bottom: 1px solid #000; width: 220px; margin: 98px auto 8px;"></div>
+              <p style="font-size: 9pt; margin: 0;">Signature / التوقيع</p>
+            </div>
+          </div>
+          <div class="block" style="text-align: center; padding: 15px; min-height: 180px; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <p style="margin-bottom: 10px; font-weight: bold;">Fourth Party (New Owner) / الطرف الرابع (المالك الجديد)</p>
+              <p class="edited" style="margin: 5px 0; font-size: 11pt;">${newOwner.pronouns.title} ${newOwner.name}</p>
+              <p class="edited" style="direction: rtl; margin: 5px 0; font-size: 11pt;">${newOwner.pronouns.titleAr}/ ${newOwner.nameAr}</p>
+            </div>
+            <div>
+              <div style="border-bottom: 1px solid #000; width: 220px; margin: 98px auto 8px;"></div>
+              <p style="font-size: 9pt; margin: 0;">Signature / التوقيع</p>
+            </div>
           </div>
         </div>
       </div>`

@@ -60,16 +60,17 @@ export const firstPartyChunk: ContentChunk = {
   estimatedHeight: 28,
   content: (ctx: LLCToSPCContext) => {
     const { firstParty } = ctx
+    const isFemale = firstParty.salutation === 'ms' || firstParty.salutation === 'mrs'
     return `
       <!-- First Party -->
       <div class="article-pair">
         <div class="block">
           <h3 class="underline center">First Party</h3>
-          <p><strong class="edited">${firstParty.pronouns.title} ${firstParty.name}</strong>, <span class="edited">${firstParty.nationality}</span> national, holder of ${firstParty.documentType === 'eid' ? 'Emirates ID' : 'Passport'} No. <strong class="edited">${firstParty.eidOrPassport}</strong>, his date of birth: <span class="edited">${firstParty.dob}</span>, his address: <span class="edited">${firstParty.address}</span>.</p>
+          <p><strong class="edited">${firstParty.pronouns.title} ${firstParty.name}</strong>, <span class="edited">${firstParty.nationality}</span> national, holder of ${firstParty.documentType === 'eid' ? 'Emirates ID' : 'Passport'} No. <strong class="edited">${firstParty.eidOrPassport}</strong>, ${firstParty.pronouns.possessive} date of birth: <span class="edited">${firstParty.dob}</span>, ${firstParty.pronouns.possessive} address: <span class="edited">${firstParty.address}</span>.</p>
         </div>
         <div class="block rtl">
           <h3 class="underline center">الطرف الأول</h3>
-          <p><strong class="edited">${firstParty.pronouns.titleAr}/ ${firstParty.nameAr}</strong>، <span class="edited">${firstParty.nationalityAr}</span> الجنسية، يحمل ${firstParty.documentType === 'eid' ? 'بطاقة هوية' : 'جواز سفر'} رقم: <strong class="edited">${firstParty.eidOrPassport}</strong>، تاريخ ميلاده: <span class="edited">${firstParty.dob}</span>، عنوانه: <span class="edited">${firstParty.addressAr}</span>.</p>
+          <p><strong class="edited">${firstParty.pronouns.titleAr}/ ${firstParty.nameAr}</strong>، <span class="edited">${firstParty.nationalityAr}</span> الجنسية، ${isFemale ? 'تحمل' : 'يحمل'} ${firstParty.documentType === 'eid' ? 'بطاقة هوية' : 'جواز سفر'} رقم: <strong class="edited">${firstParty.eidOrPassport}</strong>، تاريخ ميلاد${firstParty.pronouns.possessiveAr}: <span class="edited">${firstParty.dob}</span>، عنوان${firstParty.pronouns.possessiveAr}: <span class="edited">${firstParty.addressAr}</span>.</p>
         </div>
       </div>`
   }
@@ -82,38 +83,63 @@ export const secondPartyChunk: ContentChunk = {
   estimatedHeight: 28,
   content: (ctx: LLCToSPCContext) => {
     const { secondParty } = ctx
+    const isFemale = secondParty.salutation === 'ms' || secondParty.salutation === 'mrs'
     return `
       <!-- Second Party -->
       <div class="article-pair">
         <div class="block">
           <h3 class="underline center">Second Party</h3>
-          <p><strong class="edited">${secondParty.pronouns.title} ${secondParty.name}</strong>, <span class="edited">${secondParty.nationality}</span> national, holder of ${secondParty.documentType === 'eid' ? 'Emirates ID' : 'Passport'} No. <strong class="edited">${secondParty.eidOrPassport}</strong>, his date of birth: <span class="edited">${secondParty.dob}</span>, his address: <span class="edited">${secondParty.address}</span>.</p>
+          <p><strong class="edited">${secondParty.pronouns.title} ${secondParty.name}</strong>, <span class="edited">${secondParty.nationality}</span> national, holder of ${secondParty.documentType === 'eid' ? 'Emirates ID' : 'Passport'} No. <strong class="edited">${secondParty.eidOrPassport}</strong>, ${secondParty.pronouns.possessive} date of birth: <span class="edited">${secondParty.dob}</span>, ${secondParty.pronouns.possessive} address: <span class="edited">${secondParty.address}</span>.</p>
         </div>
         <div class="block rtl">
           <h3 class="underline center">الطرف الثاني</h3>
-          <p><strong class="edited">${secondParty.pronouns.titleAr}/ ${secondParty.nameAr}</strong>، <span class="edited">${secondParty.nationalityAr}</span> الجنسية، يحمل ${secondParty.documentType === 'eid' ? 'بطاقة هوية' : 'جواز سفر'} رقم: <strong class="edited">${secondParty.eidOrPassport}</strong>، تاريخ ميلاده: <span class="edited">${secondParty.dob}</span>، عنوانه: <span class="edited">${secondParty.addressAr}</span>.</p>
+          <p><strong class="edited">${secondParty.pronouns.titleAr}/ ${secondParty.nameAr}</strong>، <span class="edited">${secondParty.nationalityAr}</span> الجنسية، ${isFemale ? 'تحمل' : 'يحمل'} ${secondParty.documentType === 'eid' ? 'بطاقة هوية' : 'جواز سفر'} رقم: <strong class="edited">${secondParty.eidOrPassport}</strong>، تاريخ ميلاد${secondParty.pronouns.possessiveAr}: <span class="edited">${secondParty.dob}</span>، عنوان${secondParty.pronouns.possessiveAr}: <span class="edited">${secondParty.addressAr}</span>.</p>
         </div>
       </div>`
   }
 }
 
-/** Third Party (New Owner) section */
+/** Third Party (Third Selling Partner) section */
 export const thirdPartyChunk: ContentChunk = {
   id: 'third-party',
   type: 'article',
   estimatedHeight: 28,
   content: (ctx: LLCToSPCContext) => {
     const { thirdParty } = ctx
+    const isFemale = thirdParty.salutation === 'ms' || thirdParty.salutation === 'mrs'
     return `
-      <!-- Third Party (New Owner) -->
+      <!-- Third Party (Third Selling Partner) -->
       <div class="article-pair">
         <div class="block">
-          <h3 class="underline center">Third Party (New Owner)</h3>
-          <p><strong class="edited">${thirdParty.pronouns.title} ${thirdParty.name}</strong>, <span class="edited">${thirdParty.nationality}</span> national, holder of ${thirdParty.documentType === 'eid' ? 'Emirates ID' : 'Passport'} No. <strong class="edited">${thirdParty.eidOrPassport}</strong>, his date of birth: <span class="edited">${thirdParty.dob}</span>, his address: <span class="edited">${thirdParty.address}</span>.</p>
+          <h3 class="underline center">Third Party</h3>
+          <p><strong class="edited">${thirdParty.pronouns.title} ${thirdParty.name}</strong>, <span class="edited">${thirdParty.nationality}</span> national, holder of ${thirdParty.documentType === 'eid' ? 'Emirates ID' : 'Passport'} No. <strong class="edited">${thirdParty.eidOrPassport}</strong>, ${thirdParty.pronouns.possessive} date of birth: <span class="edited">${thirdParty.dob}</span>, ${thirdParty.pronouns.possessive} address: <span class="edited">${thirdParty.address}</span>.</p>
         </div>
         <div class="block rtl">
-          <h3 class="underline center">الطرف الثالث (المالك الجديد)</h3>
-          <p><strong class="edited">${thirdParty.pronouns.titleAr}/ ${thirdParty.nameAr}</strong>، <span class="edited">${thirdParty.nationalityAr}</span> الجنسية، يحمل ${thirdParty.documentType === 'eid' ? 'بطاقة هوية' : 'جواز سفر'} رقم: <strong class="edited">${thirdParty.eidOrPassport}</strong>، تاريخ ميلاده: <span class="edited">${thirdParty.dob}</span>، عنوانه: <span class="edited">${thirdParty.addressAr}</span>.</p>
+          <h3 class="underline center">الطرف الثالث</h3>
+          <p><strong class="edited">${thirdParty.pronouns.titleAr}/ ${thirdParty.nameAr}</strong>، <span class="edited">${thirdParty.nationalityAr}</span> الجنسية، ${isFemale ? 'تحمل' : 'يحمل'} ${thirdParty.documentType === 'eid' ? 'بطاقة هوية' : 'جواز سفر'} رقم: <strong class="edited">${thirdParty.eidOrPassport}</strong>، تاريخ ميلاد${thirdParty.pronouns.possessiveAr}: <span class="edited">${thirdParty.dob}</span>، عنوان${thirdParty.pronouns.possessiveAr}: <span class="edited">${thirdParty.addressAr}</span>.</p>
+        </div>
+      </div>`
+  }
+}
+
+/** Fourth Party (New Owner / Buyer) section */
+export const newOwnerChunk: ContentChunk = {
+  id: 'new-owner',
+  type: 'article',
+  estimatedHeight: 28,
+  content: (ctx: LLCToSPCContext) => {
+    const { newOwner } = ctx
+    const isFemale = newOwner.salutation === 'ms' || newOwner.salutation === 'mrs'
+    return `
+      <!-- Fourth Party (New Owner / Buyer) -->
+      <div class="article-pair">
+        <div class="block">
+          <h3 class="underline center">Fourth Party (New Owner)</h3>
+          <p><strong class="edited">${newOwner.pronouns.title} ${newOwner.name}</strong>, <span class="edited">${newOwner.nationality}</span> national, holder of ${newOwner.documentType === 'eid' ? 'Emirates ID' : 'Passport'} No. <strong class="edited">${newOwner.eidOrPassport}</strong>, ${newOwner.pronouns.possessive} date of birth: <span class="edited">${newOwner.dob}</span>, ${newOwner.pronouns.possessive} address: <span class="edited">${newOwner.address}</span>.</p>
+        </div>
+        <div class="block rtl">
+          <h3 class="underline center">الطرف الرابع (المالك الجديد)</h3>
+          <p><strong class="edited">${newOwner.pronouns.titleAr}/ ${newOwner.nameAr}</strong>، <span class="edited">${newOwner.nationalityAr}</span> الجنسية، ${isFemale ? 'تحمل' : 'يحمل'} ${newOwner.documentType === 'eid' ? 'بطاقة هوية' : 'جواز سفر'} رقم: <strong class="edited">${newOwner.eidOrPassport}</strong>، تاريخ ميلاد${newOwner.pronouns.possessiveAr}: <span class="edited">${newOwner.dob}</span>، عنوان${newOwner.pronouns.possessiveAr}: <span class="edited">${newOwner.addressAr}</span>.</p>
         </div>
       </div>`
   }
@@ -125,5 +151,6 @@ export const headerChunks: ContentChunk[] = [
   agreementDateChunk,
   firstPartyChunk,
   secondPartyChunk,
-  thirdPartyChunk
+  thirdPartyChunk,
+  newOwnerChunk
 ]

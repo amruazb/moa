@@ -1,6 +1,6 @@
 import { LLCNewMOAContext, pageFooter } from '../types'
 
-export function page20(ctx: LLCNewMOAContext, pageNum: number = 20): string {
+export function page19(ctx: LLCNewMOAContext, pageNum: number = 19): string {
     const { partners } = ctx
 
     return `
@@ -10,52 +10,35 @@ export function page20(ctx: LLCNewMOAContext, pageNum: number = 20): string {
       <!-- Article 15 continued -->
       <div class="article-pair">
         <div class="block">
-          <p>15-9 The Managing Director may not participate in voting on resolutions relating to the discharge of his responsibility for the management of the Company.</p>
-          <p>15-10 Minutes adequately summarising the discussions of the General Assembly shall be prepared. The minutes and the resolutions of the General Assembly shall be recorded in a special register kept at the Company's head office. Any of the Partners may review the register personally or through an attorney. They may review the Company's balance sheet, profit and loss account and annual report.</p>
-          <p>15-11 Written resolutions signed by all of the Partners or their duly authorized representatives in the General Assembly shall be as valid and effective as if the same had been passed at a General Assembly duly convened and held.</p>
+          <p>15-5 The agenda for the annual General Assembly must include the following matters:</p>
+          <p>(a) to review and approve the Managing Director's report on the Company's activities and its financial position during the year and the Auditor's report;</p>
+          <p>(b) to discuss and approve the balance sheet and the profit and loss account of the Company for the preceding financial year;</p>
+          <p>(c) to determine the dividends to be distributed to the Partners;</p>
+          <p>(d) to discharge the Managing Director from their liability for the concerned financial year;</p>
+          <p>(e) to appoint the Auditors from time to time and determining their remuneration; and</p>
+          <p>(f) to discuss and consider any other matter within the competence of the Partners in accordance with the provisions of the Commercial Companies Law and this Memorandum.</p>
         </div>
         <div class="block rtl">
-          <p>15-9 لا يجوز للمدير العام المشاركة في التصويت على القرارات المتعلقة بإبراء ذمته عن مسؤولية إدارة الشركة.</p>
-          <p>15-10 يتم إعداد محاضر تلخص بشكل كافٍ مناقشات الجمعية العمومية. وتُسجَّل المحاضر وقرارات الجمعية العمومية في سجل خاص يُحفظ في المقر الرئيسي للشركة. ويجوز لأي من الشركاء الاطلاع على السجل شخصياً أو من خلال وكيل. كما يجوز لهم الاطلاع على الميزانية العمومية وحساب الأرباح والخسائر والتقرير السنوي للشركة.</p>
-          <p>15-11 تكون القرارات الكتابية الموقعة من جميع الشركاء أو ممثليهم المفوضين حسب الأصول في الجمعية العمومية صحيحة ونافذة كما لو كانت قد صدرت في جمعية عمومية منعقدة حسب الأصول.</p>
+          <p>15-5 يجب أن يتضمن جدول أعمال الجمعية العمومية السنوية المسائل التالية:</p>
+          <p>(أ) مراجعة واعتماد تقرير المدير العام عن أنشطة الشركة ووضعها المالي خلال السنة وتقرير مدقق الحسابات؛</p>
+          <p>(ب) مناقشة واعتماد الميزانية العمومية وحساب الأرباح والخسائر للشركة عن السنة المالية السابقة؛</p>
+          <p>(ج) تحديد الأرباح المقرر توزيعها على الشركاء؛</p>
+          <p>(د) إبراء ذمة المدير العام عن السنة المالية المعنية؛</p>
+          <p>(هـ) تعيين مدققي الحسابات من وقت لآخر وتحديد أتعابهم؛ و</p>
+          <p>(و) مناقشة والنظر في أي مسألة أخرى تدخل ضمن اختصاص الشركاء وفقاً لأحكام قانون الشركات التجارية وهذا العقد.</p>
         </div>
       </div>
       
-      <!-- Article 16 -->
       <div class="article-pair">
         <div class="block">
-          <h3 class="bold">ARTICLE 16</h3>
-          <h4 class="bold underline">THE FINANCIAL YEAR</h4>
-          <p>The financial year of the Company shall commence on January 1st and shall end on December 31st of each year.</p>
+          <p>15-6 The General Assembly may not deliberate matters not included in the agenda unless serious issues were disclosed at the meeting that require discussion. Should any one of the Partners request the inclusion of a specific matter on the agenda, the Managing Director must do so, otherwise the relevant Partner shall have the right to appeal to the General Assembly.</p>
+          <p>15-7 The quorum at the General Assembly shall not be valid unless Partners holding at least 75% (seventy five percent) of the Shares are present. In the event that the quorum is not met during the first meeting, a second meeting shall be convened within 14 (fourteen) days following the first meeting and at such time meeting shall be validly convened by having Partners holding at least 75% (seventy five percent) of the Shares. In the event that the quorum is not met in the second meeting, then a third meeting shall be convened after the expiration of 30 (thirty) days from the date of the second meeting and at such time the meeting shall be validly convened by having Partners holding at least 75% (seventy five percent) of the Shares.</p>
+          <p>15-8 A resolution of the General Assembly shall not be valid unless adopted by virtue of a Special Resolution.</p>
         </div>
         <div class="block rtl">
-          <h3 class="bold">المادة 16</h3>
-          <h4 class="bold underline">السنة المالية</h4>
-          <p>تبدأ السنة المالية للشركة في الأول من يناير وتنتهي في 31 ديسمبر من كل سنة.</p>
-        </div>
-      </div>
-      
-      <!-- Article 17 -->
-      <div class="article-pair">
-        <div class="block">
-          <h3 class="bold">ARTICLE 17</h3>
-          <h4 class="bold underline">PROFITS AND LOSSES</h4>
-          <p>17-1 The Company shall allocate a minimum of 10% (ten percent) of its net profits each year to create a statutory reserve. The Partners may resolve to allocate additional reserves as they deem fit. The Partners may resolve that the allocation of the net profits to the statutory reserve be discontinued when the reserve reaches half of the capital of the Company.</p>
-          <p>17-2 The net profits shall be distributed annually between the Partners in accordance with the following percentages immediately after the annual General Assembly:</p>
-          <ul>
-            <li>First Partner: <span class="edited">${partners[0].sharePercent}%</span> (<span class="edited">${partners[0].sharePercent === 99 ? 'ninety nine' : partners[0].sharePercent === 90 ? 'ninety' : partners[0].sharePercent}</span> percent)</li>
-            <li>Second Partner: <span class="edited">${partners[1].sharePercent}%</span> (<span class="edited">${partners[1].sharePercent === 1 ? 'one' : partners[1].sharePercent === 10 ? 'ten' : partners[1].sharePercent}</span> percent)</li>
-          </ul>
-        </div>
-        <div class="block rtl">
-          <h3 class="bold">المادة 17</h3>
-          <h4 class="bold underline">الأرباح والخسائر</h4>
-          <p>17-1 تخصص الشركة ما لا يقل عن 10% (عشرة بالمائة) من صافي أرباحها سنوياً لإنشاء احتياطي قانوني. ويجوز للشركاء أن يقرروا تخصيص احتياطيات إضافية حسبما يرونه مناسباً. ويجوز للشركاء أن يقرروا وقف تخصيص صافي الأرباح للاحتياطي القانوني عندما يبلغ الاحتياطي نصف رأس مال الشركة.</p>
-          <p>17-2 توزع صافي الأرباح سنوياً بين الشركاء وفقاً للنسب التالية فوراً بعد الجمعية العمومية السنوية:</p>
-          <ul>
-            <li>الشريك الأول: <span class="edited">%${partners[0].sharePercent}</span> (${partners[0].sharePercent === 99 ? 'تسعة وتسعون' : partners[0].sharePercent === 90 ? 'تسعون' : partners[0].sharePercent} بالمائة)</li>
-            <li>الشريك الثاني: <span class="edited">%${partners[1].sharePercent}</span> (${partners[1].sharePercent === 1 ? 'واحد' : partners[1].sharePercent === 10 ? 'عشرة' : partners[1].sharePercent} بالمائة)</li>
-          </ul>
+          <p>15-6 لا يجوز للجمعية العمومية التداول في مسائل غير واردة في جدول الأعمال إلا إذا كشف أثناء الاجتماع عن وقائع خطيرة تستوجب المناقشة. وإذا طلب أحد الشركاء إضافة مسألة معينة على جدول الأعمال، فيجب على المدير العام ذلك، وإلا كان من حق الشريك المعني الطعن أمام الجمعية العمومية.</p>
+          <p>15-7 لا يكون اجتماع الجمعية العمومية صحيحاً إلا بحضور شركاء يملكون 75% (خمسة وسبعون بالمائة) على الأقل من الحصص. وإذا لم يكتمل النصاب خلال الاجتماع الأول، يُعقد اجتماع ثانٍ خلال 14 (أربعة عشر) يوماً من الاجتماع الأول ويكون الاجتماع صحيحاً بحضور شركاء يملكون 75% (خمسة وسبعون بالمائة) على الأقل من الحصص. وإذا لم يكتمل النصاب في الاجتماع الثاني، يُعقد اجتماع ثالث بعد انقضاء 30 (ثلاثين) يوماً من تاريخ الاجتماع الثاني ويكون الاجتماع صحيحاً بحضور شركاء يملكون 75% (خمسة وسبعون بالمائة) على الأقل من الحصص.</p>
+          <p>15-8 لا يكون قرار الجمعية العمومية صحيحاً إلا إذا صدر بموجب قرار خاص.</p>
         </div>
       </div>
       

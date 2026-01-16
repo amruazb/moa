@@ -1,5 +1,6 @@
 import { LLCNewMOAContext, LLCNewMOAData, extractLLCNewMOAContext } from './types'
-import { generateMoaStyles } from './styles'
+import { generateMoaStyles, getBaseFontSize } from './styles'
+import { FontSettings } from '@/store/formattingStore'
 import * as pages from './pages'
 
 // Page generator type
@@ -34,7 +35,7 @@ const pageGenerators: PageGenerator[] = [
     pages.page25
 ]
 
-export function generateLLCNewMOA(data: LLCNewMOAData): string {
+export function generateLLCNewMOA(data: LLCNewMOAData, fontSettings?: FontSettings): string {
     const ctx = extractLLCNewMOAContext(data)
 
     // Generate all pages
@@ -42,7 +43,7 @@ export function generateLLCNewMOA(data: LLCNewMOAData): string {
         .map((generator, index) => generator(ctx, index + 1))
         .join('\n')
 
-    const styles = generateMoaStyles()
+    const styles = generateMoaStyles(fontSettings)
 
     return `
 <!DOCTYPE html>
@@ -94,7 +95,7 @@ export function generateLLCNewMOA(data: LLCNewMOAData): string {
             width: 100%;
             border-collapse: collapse;
             margin: 15px 0;
-            font-size: 11px;
+            font-size: ${getBaseFontSize(fontSettings?.baseFontSize || 'medium') + 1}pt;
         }
         
         .capital-table th,
@@ -122,5 +123,6 @@ export function generateLLCNewMOA(data: LLCNewMOAData): string {
 }
 
 // Export types and utilities
-export { LLCNewMOAContext, LLCNewMOAData, extractLLCNewMOAContext } from './types'
+export type { LLCNewMOAContext, LLCNewMOAData } from './types'
+export { extractLLCNewMOAContext } from './types'
 export { defaultActivities } from './types'

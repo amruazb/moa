@@ -1,44 +1,45 @@
 import { LLCNewMOAContext, pageFooter } from '../types'
 
-export function page19(ctx: LLCNewMOAContext, pageNum: number = 19): string {
+export function page18(ctx: LLCNewMOAContext, pageNum: number = 18): string {
     const { partners } = ctx
 
     return `
     <div class="page">
       <div class="page-content">
       
-      <!-- Article 15 continued -->
+      <!-- Article 14 -->
       <div class="article-pair">
         <div class="block">
-          <p>15-5 The agenda for the annual General Assembly must include the following matters:</p>
-          <p>(a) to review and approve the Managing Director's report on the Company's activities and its financial position during the year and the Auditor's report;</p>
-          <p>(b) to discuss and approve the balance sheet and the profit and loss account of the Company for the preceding financial year;</p>
-          <p>(c) to determine the dividends to be distributed to the Partners;</p>
-          <p>(d) to discharge the Managing Director from their liability for the concerned financial year;</p>
-          <p>(e) to appoint the Auditors from time to time and determining their remuneration; and</p>
-          <p>(f) to discuss and consider any other matter within the competence of the Partners in accordance with the provisions of the Commercial Companies Law and this Memorandum.</p>
+          <h3 class="bold">ARTICLE 14</h3>
+          <h4 class="bold underline">FINANCIAL MANAGEMENT</h4>
+          <p>14-1 The Managing Director shall prepare the Company's balance sheet and profit and loss account in addition to an annual report of the Company's activities, its financial position and the proposal for the distribution of profits. All the foregoing should be completed within 3 (three) months from the end of each financial year of the Company.</p>
+          <p>14-2 The balance sheet and the profit and loss account shall be submitted to the annual General Assembly for approval.</p>
         </div>
         <div class="block rtl">
-          <p>15-5 يجب أن يتضمن جدول أعمال الجمعية العمومية السنوية المسائل التالية:</p>
-          <p>(أ) مراجعة واعتماد تقرير المدير العام عن أنشطة الشركة ووضعها المالي خلال السنة وتقرير مدقق الحسابات؛</p>
-          <p>(ب) مناقشة واعتماد الميزانية العمومية وحساب الأرباح والخسائر للشركة عن السنة المالية السابقة؛</p>
-          <p>(ج) تحديد الأرباح المقرر توزيعها على الشركاء؛</p>
-          <p>(د) إبراء ذمة المدير العام عن السنة المالية المعنية؛</p>
-          <p>(هـ) تعيين مدققي الحسابات من وقت لآخر وتحديد أتعابهم؛ و</p>
-          <p>(و) مناقشة والنظر في أي مسألة أخرى تدخل ضمن اختصاص الشركاء وفقاً لأحكام قانون الشركات التجارية وهذا العقد.</p>
+          <h3 class="bold">المادة 14</h3>
+          <h4 class="bold underline">الإدارة المالية</h4>
+          <p>14-1 يقوم المدير العام بإعداد الميزانية العمومية للشركة وحساب الأرباح والخسائر بالإضافة إلى تقرير سنوي عن أنشطة الشركة ووضعها المالي ومقترح توزيع الأرباح. ويجب إتمام كل ما سبق خلال 3 (ثلاثة) أشهر من نهاية كل سنة مالية للشركة.</p>
+          <p>14-2 يجب تقديم الميزانية العمومية وحساب الأرباح والخسائر للجمعية العمومية السنوية للموافقة عليها.</p>
         </div>
       </div>
       
+      <!-- Article 15 -->
       <div class="article-pair">
         <div class="block">
-          <p>15-6 The General Assembly may not deliberate matters not included in the agenda unless serious issues were disclosed at the meeting that require discussion. Should any one of the Partners request the inclusion of a specific matter on the agenda, the Managing Director must do so, otherwise the relevant Partner shall have the right to appeal to the General Assembly.</p>
-          <p>15-7 The quorum at the General Assembly shall not be valid unless Partners holding at least 75% (seventy five percent) of the Shares are present. In the event that the quorum is not met during the first meeting, a second meeting shall be convened within 14 (fourteen) days following the first meeting and at such time meeting shall be validly convened by having Partners holding at least 75% (seventy five percent) of the Shares. In the event that the quorum is not met in the second meeting, then a third meeting shall be convened after the expiration of 30 (thirty) days from the date of the second meeting and at such time the meeting shall be validly convened by having Partners holding at least 75% (seventy five percent) of the Shares.</p>
-          <p>15-8 A resolution of the General Assembly shall not be valid unless adopted by virtue of a Special Resolution.</p>
+          <h3 class="bold">ARTICLE 15</h3>
+          <h4 class="bold underline">THE GENERAL ASSEMBLY</h4>
+          <p>15-1 The Company shall have a General Assembly composed of the Partners. The General Assembly shall be convened at the invitation of either of the Managing Director or if requested by one of the Partners.</p>
+          <p>15-2 An annual General Assembly shall be convened at least once a year on the date and at the place to be determined by the Managing Director during the 4 (four) months following the end of the Company's financial year.</p>
+          <p>15-3 Invitations to attend the General Assembly shall be sent by registered letter with acknowledgement of receipt addressed to each Partner at least 15 (fifteen) calendar days before the date of the meeting. The invitations must include the particulars of the agenda and the place, date and time of the meeting.</p>
+          <p>15-4 Every Partner shall have the right to attend a General Assembly irrespective of the number of Shares it holds. A Partner may, by proxy, delegate the other Partner to represent it at the General Assembly. Each Partner shall have a number of votes equal to the number of Shares it holds or represents.</p>
         </div>
         <div class="block rtl">
-          <p>15-6 لا يجوز للجمعية العمومية التداول في مسائل غير واردة في جدول الأعمال إلا إذا كشف أثناء الاجتماع عن وقائع خطيرة تستوجب المناقشة. وإذا طلب أحد الشركاء إضافة مسألة معينة على جدول الأعمال، فيجب على المدير العام ذلك، وإلا كان من حق الشريك المعني الطعن أمام الجمعية العمومية.</p>
-          <p>15-7 لا يكون اجتماع الجمعية العمومية صحيحاً إلا بحضور شركاء يملكون 75% (خمسة وسبعون بالمائة) على الأقل من الحصص. وإذا لم يكتمل النصاب خلال الاجتماع الأول، يُعقد اجتماع ثانٍ خلال 14 (أربعة عشر) يوماً من الاجتماع الأول ويكون الاجتماع صحيحاً بحضور شركاء يملكون 75% (خمسة وسبعون بالمائة) على الأقل من الحصص. وإذا لم يكتمل النصاب في الاجتماع الثاني، يُعقد اجتماع ثالث بعد انقضاء 30 (ثلاثين) يوماً من تاريخ الاجتماع الثاني ويكون الاجتماع صحيحاً بحضور شركاء يملكون 75% (خمسة وسبعون بالمائة) على الأقل من الحصص.</p>
-          <p>15-8 لا يكون قرار الجمعية العمومية صحيحاً إلا إذا صدر بموجب قرار خاص.</p>
+          <h3 class="bold">المادة 15</h3>
+          <h4 class="bold underline">الجمعية العمومية</h4>
+          <p>15-1 يكون للشركة جمعية عمومية تتكون من الشركاء. وتنعقد الجمعية العمومية بدعوة من المدير العام أو إذا طلب ذلك أحد الشركاء.</p>
+          <p>15-2 تنعقد الجمعية العمومية السنوية مرة واحدة على الأقل في السنة في التاريخ والمكان الذي يحدده المدير العام خلال 4 (أربعة) أشهر من نهاية السنة المالية للشركة.</p>
+          <p>15-3 ترسل الدعوات لحضور الجمعية العمومية بموجب خطاب مسجل مع إشعار بالاستلام موجه إلى كل شريك قبل 15 (خمسة عشر) يوماً تقويمياً على الأقل من تاريخ الاجتماع. ويجب أن تتضمن الدعوات تفاصيل جدول الأعمال ومكان وتاريخ ووقت الاجتماع.</p>
+          <p>15-4 يحق لكل شريك حضور الجمعية العمومية بصرف النظر عن عدد الحصص التي يملكها. ويجوز للشريك بموجب توكيل تفويض الشريك الآخر لتمثيله في الجمعية العمومية. ويكون لكل شريك عدد من الأصوات يساوي عدد الحصص التي يملكها أو يمثلها.</p>
         </div>
       </div>
       

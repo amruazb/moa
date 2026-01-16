@@ -1,7 +1,7 @@
 import { LLCToSPCContext, conversionPageFooter } from '../types'
 
 export function page8(ctx: LLCToSPCContext, pageNum: number = 8): string {
-  const { thirdParty } = ctx
+  const { newOwner } = ctx
 
   return `
     <div class="page">
@@ -47,7 +47,7 @@ export function page8(ctx: LLCToSPCContext, pageNum: number = 8): string {
       <div class="article-pair">
         <div class="block">
           <h3 class="underline center">Article (13): Attendance of General Assembly</h3>
-          <p>The sole owner shall have the right to attend the General Assembly, whether personally or by proxy to represent ${thirdParty.pronouns.object} in the General Assembly.</p>
+          <p>The sole owner shall have the right to attend the General Assembly, whether personally or by proxy to represent ${newOwner.pronouns.object} in the General Assembly.</p>
         </div>
         <div class="block rtl">
           <h3 class="underline center">المادة (13): حضور الجمعية العمومية</h3>
@@ -59,7 +59,7 @@ export function page8(ctx: LLCToSPCContext, pageNum: number = 8): string {
       <div class="article-pair">
         <div class="block">
           <h3 class="underline center">Article (14): Presiding General Assembly</h3>
-          <p>The General Assembly shall be presided by the sole owner or ${thirdParty.pronouns.possessive} deputy. The chairman shall appoint one reporter and two reviewers for votes counting, upon approval of the General Assembly.</p>
+          <p>The General Assembly shall be presided by the sole owner or ${newOwner.pronouns.possessive} deputy. The chairman shall appoint one reporter and two reviewers for votes counting, upon approval of the General Assembly.</p>
         </div>
         <div class="block rtl">
           <h3 class="underline center">المادة (14): رئاسة الجمعية العمومية</h3>
