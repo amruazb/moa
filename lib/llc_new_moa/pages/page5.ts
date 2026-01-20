@@ -6,34 +6,51 @@ export function page5(ctx: LLCNewMOAContext, pageNum: number = 5): string {
   return `
     <div class="page">
       <div class="page-content">
-      
-      <!-- Article 2 continued & Article 3 -->
+
+      <!-- Preface -->
       <div class="article-pair">
         <div class="block">
-          <p><strong>"Commercial Companies Law"</strong> means the Federal Law No. 2 of 2015 concerning Commercial Companies and any regulations or decrees to be enacted for its implementation or as amended, completed, substituted or re-enacted in full by subsequent laws to the extent (where the context permits) applicable to the provisions of this Memorandum.</p>
-          <p><strong>"Confidential Information"</strong> means all information relating to the Company in general, the Partners and their relations, and the trade secrets, price, customer and supplier lists, pricing and marketing plans, policies and strategies, details of client and consultant contracts, operations methods, business acquisition plans, new personnel acquisition plans and all other confidential information with respect to the businesses of either of the Partners or the Company.</p>
-          <p><strong>"General Assembly"</strong> means each meeting of the Partners of the Company (including the annual General Assembly) duly convened and held in accordance with this Memorandum.</p>
-          <p><strong>"Managing Director"</strong> means the managing director appointed pursuant to this Memorandum.</p>
+          <h3 class="bold underline">PREFACE:</h3>
+          <p>The preamble and definitions mentioned above shall constitute an integral part of memorandum and shall be read and interpreted therewith.</p>
         </div>
         <div class="block rtl">
-          <p><strong>"قانون الشركات التجارية"</strong> يعني القانون الاتحادي رقم 2 لسنة 2015 بشأن الشركات التجارية وأي لوائح أو مراسيم تصدر لتنفيذه أو كما تم تعديله أو استكماله أو استبداله أو إعادة سنه بالكامل بموجب قوانين لاحقة بالقدر (حيثما يسمح السياق) المنطبق على أحكام هذا العقد.</p>
-          <p><strong>"المعلومات السرية"</strong> تعني جميع المعلومات المتعلقة بالشركة بشكل عام والشركاء وعلاقاتهم والأسرار التجارية وقوائم الأسعار والعملاء والموردين وخطط وسياسات واستراتيجيات التسعير والتسويق وتفاصيل عقود العملاء والاستشاريين وأساليب العمليات وخطط الاستحواذ التجاري وخطط توظيف موظفين جدد وجميع المعلومات السرية الأخرى فيما يتعلق بأعمال أي من الشركاء أو الشركة.</p>
-          <p><strong>"الجمعية العمومية"</strong> تعني كل اجتماع للشركاء في الشركة (بما في ذلك الجمعية العمومية السنوية) المنعقد حسب الأصول وفقاً لهذا العقد.</p>
-          <p><strong>"المدير العام"</strong> يعني المدير العام المعين بموجب هذا العقد.</p>
+          <h3 class="bold underline">التمهيد:</h3>
+          <p>تعتبر المقدمة والتعريفات المذكورة اعلاه جزءا لايتجزأ من هذا العقد ويقرأ ويفسر معه.</p>
         </div>
       </div>
-      
+
+      <!-- Article 1: Name of the Company -->
       <div class="article-pair">
         <div class="block">
-          <p><strong>"Memorandum"</strong> means this restated memorandum of association.</p>
-          <p><strong>"Partner[s]"</strong> means the parties to this Memorandum and any Person, which becomes the holder of any Share in the capital of the Company in accordance with the terms and conditions of this Memorandum.</p>
+          <h3 class="bold">ARTICLE 1</h3>
+          <h4 class="bold">NAME OF THE COMPANY</h4>
+          <p><strong>1-1</strong> The name of the Company shall continue to be <span class="edited">${company.name}</span></p>
+          <p><strong>1-2</strong> The name of the Company may be amended, changed or substituted as per the terms of this Memorandum and after obtaining the approval of the competent authorities.</p>
+          <p><strong>1-3</strong> The Company shall mention its name, form, capital and the location of its head office in all its documents, agreements and correspondence.</p>
         </div>
         <div class="block rtl">
-          <p><strong>"العقد"</strong> يعني عقد التأسيس المعدل هذا.</p>
-          <p><strong>"الشريك/الشركاء"</strong> يعني أطراف هذا العقد وأي شخص يصبح مالكاً لأي حصة في رأس مال الشركة وفقاً لأحكام وشروط هذا العقد.</p>
+          <h3 class="bold">المادة 1</h3>
+          <h4 class="bold">اسم الشركة</h4>
+          <p><strong>1-1</strong> يستمر اسم الشركة كما هو <span class="edited">${company.nameAr}</span></p>
+          <p><strong>1-2</strong> يجوز تعديل اسم الشركة أو تغييره أو استبداله وفقاً لشروط هذا العقد وبعد الحصول على موافقة السلطات المختصة.</p>
+          <p><strong>1-3</strong> تذكر الشركة اسمها وشكلها ورأسمالها وموقع مقرها الرئيسي في جميع مستنداتها واتفاقياتها ومراسلاتها.</p>
         </div>
       </div>
-      
+
+      <!-- Article 2: Principal Place of Business -->
+      <div class="article-pair">
+        <div class="block">
+          <h3 class="bold">ARTICLE 2</h3>
+          <h4 class="bold">PRINCIPAL PLACE OF BUSINESS</h4>
+          <p>The head office of the Company shall continue to be in the Emirate of <span class="edited">${company.emirate}</span>. The Company may establish branch offices, Subsidiaries and/or agencies within and outside the UAE.</p>
+        </div>
+        <div class="block rtl">
+          <h3 class="bold">المادة 2</h3>
+          <h4 class="bold">المقر الرئيسي للأعمال</h4>
+          <p>يستمر المقر الرئيسي للشركة في إمارة <span class="edited">${company.emirateAr}</span>. ويجوز للشركة إنشاء مكاتب فرعية وشركات تابعة و/أو وكالات داخل وخارج دولة الإمارات العربية المتحدة.</p>
+        </div>
+      </div>
+
       </div>
       ${pageFooter(pageNum)}
     </div>`

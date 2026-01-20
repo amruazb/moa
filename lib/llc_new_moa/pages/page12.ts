@@ -1,37 +1,54 @@
 import { LLCNewMOAContext, pageFooter } from '../types'
 
 export function page12(ctx: LLCNewMOAContext, pageNum: number = 12): string {
+  const { company, manager } = ctx
+
   return `
     <div class="page">
       <div class="page-content">
-      
-      <!-- Article 12 continued - Manager Powers -->
+
+      <!-- Article 10: Register of Partners -->
       <div class="article-pair">
         <div class="block">
-          <p>12-3 The Managing Director shall be appointed for an indefinite period commencing from the date of his appointment, unless such Managing Director has been dismissed in the manner set out under Article 12-1 of this Memorandum.</p>
-          <p>12-4 The Managing Director shall have all the powers and authorities necessary for the management and operation of the Company and representing it and signing on its behalf, and carrying out all acts required by its objects in accordance with the provisions of this Memorandum and the resolutions of the Partners, including but not limited to the below:</p>
-          <p>(a) to represent, attend and vote in the name of the Company in the general assembly of any of the Subsidiaries with regard to any partners/shareholders matter of such Subsidiary and to pass a resolution in such capacity, and to authorize others to attend and vote in the general assembly meetings of the Subsidiaries, including the right to appoint and dismiss chairmen and members of the board of directors, managing directors, general managers, and senior executives and managers and to vest them with powers and authorities or revoke the same;</p>
-          <p>(b) to assign, sell, pledge and purchase bonds, stocks, shares and other forms of securities on behalf of the Company, including any bonds, stocks, shares and/or other forms of securities held in any Subsidiaries;</p>
+          <h3 class="bold">ARTICLE 10</h3>
+          <h4 class="bold">REGISTER OF PARTNERS</h4>
+          <p><strong>10-1</strong> The Company shall keep at its head office a special register for the Partners (the "Register") containing the following:</p>
+          <p>(a) full name of each Partner, their domicile, address, profession and nationalities;</p>
+          <p>(b) the number and value of the Shares held by each Partner; and</p>
+          <p>(c) details of all dealings carried out with regard to the Shares, together with the dates thereof.</p>
+          <p><strong>10-2</strong> The Managing Director shall be responsible for maintaining the said register and for the validity and accuracy of its contents.</p>
         </div>
         <div class="block rtl">
-          <p>12-3 يُعين المدير العام لفترة غير محددة تبدأ من تاريخ تعيينه، ما لم يتم عزل هذا المدير العام بالطريقة المنصوص عليها في المادة 12-1 من هذا العقد.</p>
-          <p>12-4 يتمتع المدير العام بجميع الصلاحيات والسلطات اللازمة لإدارة وتشغيل الشركة وتمثيلها والتوقيع نيابةً عنها، والقيام بجميع الأعمال التي تتطلبها أغراضها وفقاً لأحكام هذا العقد وقرارات الشركاء، بما في ذلك على سبيل المثال لا الحصر ما يلي:</p>
-          <p>(أ) تمثيل الشركة والحضور والتصويت باسمها في الجمعية العمومية لأي من الشركات التابعة فيما يتعلق بأي مسائل تخص الشركاء/المساهمين في تلك الشركة التابعة واتخاذ قرارات بهذه الصفة، وتفويض آخرين للحضور والتصويت في اجتماعات الجمعية العمومية للشركات التابعة، بما في ذلك الحق في تعيين وعزل رؤساء وأعضاء مجلس الإدارة والمدراء التنفيذيين والمدراء العامين وكبار المسؤولين التنفيذيين والمدراء ومنحهم صلاحيات وسلطات أو إلغاؤها؛</p>
-          <p>(ب) التنازل عن وبيع ورهن وشراء السندات والأسهم والحصص وغيرها من أشكال الأوراق المالية نيابة عن الشركة، بما في ذلك أي سندات أو أسهم أو حصص و/أو أشكال أخرى من الأوراق المالية المملوكة في أي شركات تابعة؛</p>
+          <h3 class="bold">المادة 10</h3>
+          <h4 class="bold">سجل الشركاء</h4>
+          <p><strong>10-1</strong> تحتفظ الشركة في مقرها الرئيسي بسجل خاص للشركاء ("السجل") يحتوي على ما يلي:</p>
+          <p>(أ) الاسم الكامل لكل شريك وموطنه وعنوانه ومهنته وجنسيته؛</p>
+          <p>(ب) عدد وقيمة الحصص التي يملكها كل شريك؛ و</p>
+          <p>(ج) تفاصيل جميع التعاملات المنفذة فيما يتعلق بالحصص مع تواريخها.</p>
+          <p><strong>10-2</strong> يكون المدير الإداري مسؤولاً عن الاحتفاظ بالسجل المذكور وعن صحة ودقة محتوياته.</p>
         </div>
       </div>
-      
+
+      <!-- Article 11: Management of the Company -->
       <div class="article-pair">
         <div class="block">
-          <p>(c) to create, acquire and/or dispose of any shares, securities or other interest in any company or business in the UAE or abroad, to incorporate or promote any company, to issue, allot any shares and/or securities, to grant and/or create any option and/or right to acquire any shares and/or securities in the name of the Company;</p>
-          <p>(d) to enter into partnerships and joint ventures with third parties, to establish companies and sign on the articles and memoranda of association and addenda and amendment agreements thereto, to obtain licenses for the said companies, to renew the same and modify their legal form and commercial name, or to correct the same, add or delete an activity, open other branches within or outside the UAE, to apply for dissolution or liquidation of</p>
+          <h3 class="bold">ARTICLE 11</h3>
+          <h4 class="bold">MANAGEMENT OF THE COMPANY</h4>
+          <p><strong>11-1</strong> The Company shall be managed by one Managing Director. The appointment, dismissal, and replacement of the Managing Director and determining his remuneration shall be the exclusive right of the First Partner, without any involvement in this respect from the Second Partner and without the need to amend this Memorandum to effect such appointment, dismissal and/or replacement.</p>
+          <p><strong>11-2</strong> Without prejudice to the provisions of Article 11-1 of this Memorandum, the Managing Director shall be:</p>
+          <p>${manager.name}, ${manager.nationality} national and holder of Emirates ID number ${manager.eid} whose address is at ${manager.address}.</p>
+          <p><strong>11-3</strong> The Managing Director shall be appointed for an indefinite period commencing from the date of his appointment, unless such Managing Director has been dismissed in the manner set out under Article 11-1 of this Memorandum.</p>
         </div>
         <div class="block rtl">
-          <p>(ج) إنشاء واستحواذ و/أو التصرف في أي أسهم أو أوراق مالية أو مصالح أخرى في أي شركة أو عمل تجاري في الإمارات أو الخارج، وتأسيس أو تعزيز أي شركة، وإصدار وتخصيص أي أسهم و/أو أوراق مالية، ومنح و/أو إنشاء أي خيار و/أو حق للحصول على أي أسهم و/أو أوراق مالية باسم الشركة؛</p>
-          <p>(د) الدخول في شراكات ومشاريع مشتركة مع أطراف ثالثة، وتأسيس شركات والتوقيع على عقود التأسيس والملاحق واتفاقيات التعديل الخاصة بها، والحصول على تراخيص للشركات المذكورة، وتجديدها وتعديل شكلها القانوني واسمها التجاري، أو تصحيحها، وإضافة أو حذف نشاط، وفتح فروع أخرى داخل أو خارج الإمارات، والتقدم بطلب حل أو تصفية</p>
+          <h3 class="bold">المادة 11</h3>
+          <h4 class="bold">إدارة الشركة</h4>
+          <p><strong>11-1</strong> تدار الشركة من قبل مدير إداري واحد. ويكون تعيين وعزل واستبدال المدير الإداري وتحديد مكافآته حقاً حصرياً للشريك الأول، دون أي تدخل في هذا الشأن من الشريك الثاني ودون الحاجة إلى تعديل هذا العقد لإجراء هذا التعيين أو العزل و/أو الاستبدال.</p>
+          <p><strong>11-2</strong> دون الإخلال بأحكام المادة 11-1 من هذا العقد، يكون المدير الإداري هو:</p>
+          <p>${manager.nameAr}، ${manager.nationalityAr} الجنسية وحامل بطاقة الهوية الإماراتية رقم ${manager.eid} وعنوانه ${manager.addressAr}.</p>
+          <p><strong>11-3</strong> يعين المدير الإداري لفترة غير محددة تبدأ من تاريخ تعيينه، ما لم يتم عزل المدير الإداري بالطريقة المنصوص عليها في المادة 11-1 من هذا العقد.</p>
         </div>
       </div>
-      
+
       </div>
       ${pageFooter(pageNum)}
     </div>`

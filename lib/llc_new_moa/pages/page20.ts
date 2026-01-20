@@ -1,47 +1,22 @@
 import { LLCNewMOAContext, pageFooter } from '../types'
 
-export function page19(ctx: LLCNewMOAContext, pageNum: number = 19): string {
-    const { partners } = ctx
-
-    return `
+export function page20(ctx: LLCNewMOAContext, pageNum: number = 20): string {
+  return `
     <div class="page">
       <div class="page-content">
-      
-      <!-- Article 15 continued -->
+
+      <!-- Article 11-4 continued -->
       <div class="article-pair">
         <div class="block">
-          <p>15-5 The agenda for the annual General Assembly must include the following matters:</p>
-          <p>(a) to review and approve the Managing Director's report on the Company's activities and its financial position during the year and the Auditor's report;</p>
-          <p>(b) to discuss and approve the balance sheet and the profit and loss account of the Company for the preceding financial year;</p>
-          <p>(c) to determine the dividends to be distributed to the Partners;</p>
-          <p>(d) to discharge the Managing Director from their liability for the concerned financial year;</p>
-          <p>(e) to appoint the Auditors from time to time and determining their remuneration; and</p>
-          <p>(f) to discuss and consider any other matter within the competence of the Partners in accordance with the provisions of the Commercial Companies Law and this Memorandum.</p>
+          <p>of any nature whatsoever which the Company has, or may have had, against a third party, whether or not apparent or yet to be discovered, or which may hereafter develop, for any acts or omissions related to or arising from a dispute, conflict, court case, lawsuit, arbitration, agreement, contract, letter, correspondence, email, document or by any other means;</p>
+          <p>(x) to refer to all courts of all kinds and degrees including the Federal Supreme Court (Court of Cassation), arbitration tribunals of all kinds, security and police departments, public prosecution, and file on behalf of the Company complaints and follow-up thereon and clear all procedures pertaining thereto, to waive the same and waive cases and lawsuits, to receive and deliver papers and formalities and sign thereon, to pay charges, receive sums adjudged in favour of the Company, either in cash or by cheques, to cash cheques from drawee banks, to deliver and receive memoranda, documents, notices, warnings and judicial papers, to declare claimed rights and waive the same, to reconcile, agree to arbitration, deny, discharge, abate, strike off, abandon litigation and/or arbitration, request appointment of experts and arbitrators, to select the same and receive their reports, to administer oath, to accept and reject the same, to claim for forgery, to reject judges, experts and arbitrators, to abandon deposits while debt remain outstanding, to take precautionary measures, to file lawsuits and counter-actions and waive the same, to resort to all means of appeal and challenge judgments and verdicts by way of appeal, retrial, challenge for cassation, object, complaint, waive judgments in whole or in part, and waive any means of challenge, to withdraw executive copies of the same,</p>
         </div>
         <div class="block rtl">
-          <p>15-5 يجب أن يتضمن جدول أعمال الجمعية العمومية السنوية المسائل التالية:</p>
-          <p>(أ) مراجعة واعتماد تقرير المدير العام عن أنشطة الشركة ووضعها المالي خلال السنة وتقرير مدقق الحسابات؛</p>
-          <p>(ب) مناقشة واعتماد الميزانية العمومية وحساب الأرباح والخسائر للشركة عن السنة المالية السابقة؛</p>
-          <p>(ج) تحديد الأرباح المقرر توزيعها على الشركاء؛</p>
-          <p>(د) إبراء ذمة المدير العام عن السنة المالية المعنية؛</p>
-          <p>(هـ) تعيين مدققي الحسابات من وقت لآخر وتحديد أتعابهم؛ و</p>
-          <p>(و) مناقشة والنظر في أي مسألة أخرى تدخل ضمن اختصاص الشركاء وفقاً لأحكام قانون الشركات التجارية وهذا العقد.</p>
+          <p>أياً كانت طبيعتها التي تكون لدى الشركة، أو قد تكون لديها، ضد الغير سواء كان ذلك معلوماً بواقع الحال أو لم يكتشف بعد أو التي قد تتطور فيما بعد بشأن أي أفعال أو مخالفات تتعلق أو تنشأ بسبب نزاع أو خلاف أو قضية أمام المحاكم أو دعوى قضائية أو تحكيم أو اتفاقية أو عقد أو خطاب أو مراسلة أو بريد إلكتروني أو مستند أو بأي وسيلة أخرى؛</p>
+          <p>(م) مراجعة كافة المحاكم بكافة أنواعها وتنوع درجاتها ويشمل ذلك محكمة التمييز الاتحادية (محكمة النقض) وهيئات التحكيم بجميع أنواعها ودوائر الأمن والشرطة والنيابات وحق فتح ومتابعة البلاغات والقضايا نيابة عن الشركة والتنازل عنها وعن القضايا والدعاوي القضائية واستلام وتسلم الأوراق والمعاملات والتوقيع عليها وسداد الرسوم وتخليص كافة الإجراءات الخاصة بذلك واستلام المبالغ المحكوم بها لصالح الشركة نقداً أو بشيكات وصرف الشيكات من البنوك المسحوب عليها، وتسليم وتسلم المذكرات والمستندات والإنذارات والإخطارات والإعلانات والأوراق القضائية والإقرار بالحق المدعى به والتنازل عنه والصلح والموافقة على التحكيم فيه والإنكار والإبراء والإسقاط والشطب والتنازل عن التقاضي و/أو التحكيم وفي طلب تعيين الخبراء والمحكمين واختيارهم واستلام تقاريرهم وطلب حلف اليمين وقبولها وردها والادعاء بالتزوير وفي رد القضاة والخبراء والمحكمين وفي ترك التأمينات المدفوعة/الودائع مع بقاء الديون المستحقة واتخاذ كافة الإجراءات الاحترازية وفي إقامة الدعوى والدعوى المقابلة والتنازل عنهما ومباشرة كافة الإجراءات والوسائل اللازمة للاستئناف والاعتراض والطعن على الأحكام والقرارات عن طريق الاستئناف والتماس إعادة النظر والطعن بالتمييز والمعارضة والتظلم والتنازل عن الأحكام كلياً أو جزئياً والتنازل عن أي طريق من طرق الطعن عليها وسحب الصيغ التنفيذية للأحكام</p>
         </div>
       </div>
-      
-      <div class="article-pair">
-        <div class="block">
-          <p>15-6 The General Assembly may not deliberate matters not included in the agenda unless serious issues were disclosed at the meeting that require discussion. Should any one of the Partners request the inclusion of a specific matter on the agenda, the Managing Director must do so, otherwise the relevant Partner shall have the right to appeal to the General Assembly.</p>
-          <p>15-7 The quorum at the General Assembly shall not be valid unless Partners holding at least 75% (seventy five percent) of the Shares are present. In the event that the quorum is not met during the first meeting, a second meeting shall be convened within 14 (fourteen) days following the first meeting and at such time meeting shall be validly convened by having Partners holding at least 75% (seventy five percent) of the Shares. In the event that the quorum is not met in the second meeting, then a third meeting shall be convened after the expiration of 30 (thirty) days from the date of the second meeting and at such time the meeting shall be validly convened by having Partners holding at least 75% (seventy five percent) of the Shares.</p>
-          <p>15-8 A resolution of the General Assembly shall not be valid unless adopted by virtue of a Special Resolution.</p>
-        </div>
-        <div class="block rtl">
-          <p>15-6 لا يجوز للجمعية العمومية التداول في مسائل غير واردة في جدول الأعمال إلا إذا كشف أثناء الاجتماع عن وقائع خطيرة تستوجب المناقشة. وإذا طلب أحد الشركاء إضافة مسألة معينة على جدول الأعمال، فيجب على المدير العام ذلك، وإلا كان من حق الشريك المعني الطعن أمام الجمعية العمومية.</p>
-          <p>15-7 لا يكون اجتماع الجمعية العمومية صحيحاً إلا بحضور شركاء يملكون 75% (خمسة وسبعون بالمائة) على الأقل من الحصص. وإذا لم يكتمل النصاب خلال الاجتماع الأول، يُعقد اجتماع ثانٍ خلال 14 (أربعة عشر) يوماً من الاجتماع الأول ويكون الاجتماع صحيحاً بحضور شركاء يملكون 75% (خمسة وسبعون بالمائة) على الأقل من الحصص. وإذا لم يكتمل النصاب في الاجتماع الثاني، يُعقد اجتماع ثالث بعد انقضاء 30 (ثلاثين) يوماً من تاريخ الاجتماع الثاني ويكون الاجتماع صحيحاً بحضور شركاء يملكون 75% (خمسة وسبعون بالمائة) على الأقل من الحصص.</p>
-          <p>15-8 لا يكون قرار الجمعية العمومية صحيحاً إلا إذا صدر بموجب قرار خاص.</p>
-        </div>
-      </div>
-      
+
       </div>
       ${pageFooter(pageNum)}
     </div>`

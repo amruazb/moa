@@ -1,68 +1,127 @@
-import { LLCNewMOAContext, pageFooter } from '../types'
+import { LLCNewMOAContext, pageFooter, getOrdinal } from '../types'
+import { numberToWordsEn, numberToWordsAr } from '@/lib/utils/numberToWords'
 
 export function page6(ctx: LLCNewMOAContext, pageNum: number = 6): string {
-  const { company, activities } = ctx
+  const { capital, totalShares, shareValue, partners } = ctx
 
-  // Generate activities list HTML (Keeping first 4 for Page 6)
-  const activitiesListEn = activities.slice(0, 4).map(a => `<li>${a.nameEn}</li>`).join('\n          ')
-  const activitiesListAr = activities.slice(0, 4).map(a => `<li>${a.nameAr}</li>`).join('\n          ')
+  // Generate partner rows for the capital table
+  const partnerRowsEn = partners.map((p, i) => `
+    <tr>
+      <td>${getOrdinal(i, 'en')} Partner</td>
+      <td>${p.country}</td>
+      <td>${numberToWordsEn(p.shareCount * shareValue)}</td>
+      <td>${p.shareCount}</td>
+      <td>${p.sharePercent}%</td>
+      <td>${p.shareCount}</td>
+      <td>${numberToWordsEn(p.shareCount * shareValue)}</td>
+    </tr>
+  `).join('')
+
+  const partnerRowsAr = partners.map((p, i) => `
+    <tr>
+      <td>الشريك ${getOrdinal(i, 'ar')}</td>
+      <td>${p.countryAr}</td>
+      <td>${numberToWordsAr(p.shareCount * shareValue)}</td>
+      <td>${p.shareCount}</td>
+      <td>%${p.sharePercent}</td>
+      <td>${p.shareCount}</td>
+      <td>${numberToWordsAr(p.shareCount * shareValue)}</td>
+    </tr>
+  `).join('')
 
   return `
     <div class="page">
       <div class="page-content">
-      
-      <!-- Article 3 -->
+
+      <!-- Chapter Header -->
       <div class="article-pair">
         <div class="block">
-          <h3 class="bold">ARTICLE 3</h3>
-          <h4 class="bold underline">FORM AND NATIONALITY OF THE COMPANY</h4>
-          <p>The Partners have agreed that the Company shall continue to be a limited liability company in the Emirate of <span class="edited">${company.emirate}</span>, and is governed by the provisions of this Memorandum and the provisions of the laws and regulations applicable in the UAE and the Emirate of Abu Dhabi, including Commercial Companies Law.</p>
+          <h3 class="bold center">CHAPTER</h3>
+          <h4 class="bold center">Shares and Capital</h4>
         </div>
         <div class="block rtl">
-          <h3 class="bold">المادة 3</h3>
-          <h4 class="bold underline">الشكل القانوني وجنسية الشركة</h4>
-          <p>اتفق الشريكان على أن تستمر الشركة كشركة ذات مسؤولية محدودة في إمارة <span class="edited">${company.emirateAr}</span>، وتخضع لأحكام هذا العقد وأحكام القوانين واللوائح المعمول بها في الإمارات العربية المتحدة وإمارة أبوظبي، بما في ذلك قانون الشركات التجارية.</p>
+          <h3 class="bold center">فصل</h3>
+          <h4 class="bold center">رأس المال – الحصص</h4>
         </div>
       </div>
-      
-      <!-- Article 4 -->
+
+      <!-- Article: Capital and Shares -->
       <div class="article-pair">
         <div class="block">
-          <h3 class="bold">ARTICLE 4</h3>
-          <h4 class="bold underline">NAME OF THE COMPANY</h4>
-          <p>4-1 The name of the Company shall continue to be <span class="edited">${company.name}</span>.</p>
-          <p>4-2 The name of the Company may be amended, changed or substituted as per the terms of this Memorandum and after obtaining the approval of the competent authorities.</p>
-          <p>4-3 The Company shall mention its name, form, capital and the location of its head office in all its documents, agreements and correspondence.</p>
+          <h3 class="bold">Article (3)</h3>
+          <p>The Capital of the company is determined to be AED <span class="edited">${capital.toLocaleString()}</span> (<span class="edited">${numberToWordsEn(capital)}</span> Dirhams), distributed into <span class="edited">${totalShares}</span> (<span class="edited">${numberToWordsEn(totalShares)}</span>) equal shares. The value of each share is AED <span class="edited">${shareValue.toLocaleString()}</span> (<span class="edited">${numberToWordsEn(shareValue)}</span> Dirhams) These shares are distributed among the partners as follows:</p>
         </div>
         <div class="block rtl">
-          <h3 class="bold">المادة 4</h3>
-          <h4 class="bold underline">اسم الشركة</h4>
-          <p>4-1 يظل اسم الشركة هو <span class="edited">${company.nameAr}</span>.</p>
-          <p>4-2 يجوز تعديل الاسم التجاري أو تغييره أو استبداله وفقاً لأحكام هذا العقد وبعد الحصول على موافقة السلطات المختصة.</p>
-          <p>4-3 يجب على الشركة أن تذكر في جميع مستنداتها ورسائل عقودها اسمها، وشكلها، ورأس مالها، وموقع مكتبها الرئيسي.</p>
+          <h3 class="bold">المادة (3)</h3>
+          <p>حدد رأس مال الشركة بمبلغ <span class="edited">${capital.toLocaleString()}</span> درهم (<span class="edited">${numberToWordsAr(capital)}</span> درهم) موزعة الى <span class="edited">${totalShares}</span> حصة (<span class="edited">${numberToWordsAr(totalShares)}</span>) متساوية قيمة كل حصة <span class="edited">${shareValue.toLocaleString()}</span> درهم (<span class="edited">${numberToWordsAr(shareValue)}</span> درهم) وهذه الحصص تقسم بين الشركاء على الوجه الآتي:</p>
         </div>
       </div>
-      
-      <!-- Article 5 -->
+
+      <!-- Capital Table - Vertical Layout: Arabic on TOP, English on BOTTOM -->
+      <div class="capital-tables-vertical">
+        <!-- Arabic Table First (TOP) -->
+        <table class="capital-table capital-table-full" dir="rtl">
+          <thead>
+            <tr>
+              <th>الطرف</th>
+              <th>الجنسية</th>
+              <th>القيمة بالدرهم الإماراتي</th>
+              <th>الحصص</th>
+              <th>نسبة المشاركة</th>
+              <th>الحصص</th>
+              <th>القيمة</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${partnerRowsAr}
+            <tr class="total-row">
+              <td colspan="2"><strong>الإجمالي</strong></td>
+              <td><strong>${numberToWordsAr(capital)}</strong></td>
+              <td><strong>${totalShares}</strong></td>
+              <td><strong>%100</strong></td>
+              <td><strong>${totalShares}</strong></td>
+              <td><strong>${numberToWordsAr(capital)}</strong></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- English Table Second (BOTTOM) -->
+        <table class="capital-table capital-table-full">
+          <thead>
+            <tr>
+              <th>Party</th>
+              <th>Nationality</th>
+              <th>Value in UAE Dirham</th>
+              <th>Shares</th>
+              <th>Partnership Percentage</th>
+              <th>Shares</th>
+              <th>Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${partnerRowsEn}
+            <tr class="total-row">
+              <td colspan="2"><strong>Total</strong></td>
+              <td><strong>${numberToWordsEn(capital)}</strong></td>
+              <td><strong>${totalShares}</strong></td>
+              <td><strong>100%</strong></td>
+              <td><strong>${totalShares}</strong></td>
+              <td><strong>${numberToWordsEn(capital)}</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Declaration of Paid-up Capital -->
       <div class="article-pair">
         <div class="block">
-          <h3 class="bold">ARTICLE 5</h3>
-          <h4 class="bold underline">OBJECTS OF THE COMPANY</h4>
-          <p>5-1 The principal objects of the Company shall be to carry out the activities of:</p>
-          <ul>
-          ${activitiesListEn}
-          </ul>
+          <p>The Partners of the Company Share Capital declare that the value of the cash shares has been paid in full and has been deposited in the company's bank account.</p>
         </div>
         <div class="block rtl">
-          <h3 class="bold">المادة 5</h3>
-          <h4 class="bold underline">أغراض الشركة</h4>
-          <p>5-1 الأغراض الرئيسية التي تسعى الشركة لتحقيقها هي القيام بأنشطة:</p>
-          <ul>
-          ${activitiesListAr}
-          </ul>
+          <p>ويقر الشركاء في رأس مال الشركة أن قيمة الحصص النقدية دفعت بالكامل واودعت في حساب البنك للشركة.</p>
         </div>
       </div>
-      
+
       </div>
       ${pageFooter(pageNum)}
     </div>`

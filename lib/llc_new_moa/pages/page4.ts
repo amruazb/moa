@@ -1,47 +1,54 @@
 import { LLCNewMOAContext, pageFooter } from '../types'
 
 export function page4(ctx: LLCNewMOAContext, pageNum: number = 4): string {
-    const { company } = ctx
+  const { company } = ctx
 
-    return `
+  return `
     <div class="page">
       <div class="page-content">
-      
-      <!-- Article 2 - Definitions -->
+
+      <!-- Definitions continued -->
       <div class="article-pair">
         <div class="block">
-          <h3 class="bold">ARTICLE 2</h3>
-          <h4 class="bold underline">DEFINITIONS</h4>
-          <p>In this Memorandum, the following words shall have the following meanings:</p>
-          <p><strong>"Affiliate"</strong> means in relation to a Partner, any Person controlling, controlled by, or under common control with, that Partner, whether directly or indirectly, where "control" means in relation to a body corporate, the power of a person to secure that the affairs of the body corporate are conducted in accordance with the wishes of that Person: (a) by means of holding stocks, shares and/or voting rights in or in relation to that or any other body corporate; or (b) as a result of any powers conferred by the articles of association or any other document regulating that or any other body corporate.</p>
-          <p><strong>"Annual Budget"</strong> means the budget approved and adopted annually by the Managing Director and its approved and adopted amendments in accordance with the provisions of this Memorandum.</p>
-          <p><strong>"Auditor"</strong> means the auditor of the Company appointed from time to time and shall have the powers and responsibilities stipulated under this Memorandum.</p>
+          <p><strong>"Managing Director"</strong> means the managing director appointed pursuant to this Memorandum.</p>
+
+          <p><strong>"Memorandum"</strong> means this memorandum of association.</p>
+
+          <p><strong>"Partner(s)"</strong> means the parties to this Memorandum and any Person, which becomes the holder of any Share in the capital of the Company in accordance with the terms and conditions of this Memorandum.</p>
+
+          <p><strong>"Person"</strong> means any individual, partnership, firm, limited liability company, joint stock company, corporation, organization, association, trust, fund, unincorporated entity or any other legal entity.</p>
+
+          <p><strong>"Register"</strong> shall have the meaning prescribed thereto in Article 11-1 of this Memorandum.</p>
+
+          <p><strong>"Related Party Transaction"</strong> means any transaction, arrangement or dealing by the Company with any Partner and/or any of their Affiliates except the Affiliates wholly owned by both Partners.</p>
+
+          <p><strong>"Share(s)"</strong> means the share(s) in the capital of the Company held from time to time by the Partners or either of them (as the context may require).</p>
+
+          <p><strong>"Special Resolution"</strong> means, with regard to the resolutions passed by the General Assembly, the resolution passed at a General Assembly of the Company by a Partner who singularly, or Partners who in the aggregate hold not less than 75% (seventy five percent) of the Shares.</p>
+
+          <p><strong>"Subsidiary/Subsidiaries"</strong> means any company or other legal entity in the UAE or abroad in which the Company (i) is a partner or a shareholder; (ii) owns shares, quotas, bonds or any other form of securities; and/or (iii) has the right of voting.</p>
         </div>
         <div class="block rtl">
-          <h3 class="bold">المادة 2</h3>
-          <h4 class="bold underline">التعريفات</h4>
-          <p>يكون للكلمات التالية في هذا العقد المعاني التالية:</p>
-          <p><strong>"الشركة التابعة"</strong> تعني فيما يتعلق بأي شخص يتحكم أو يكون تحت سيطرة مشتركة مع ذلك الشريك، سواء بشكل مباشر أو غير مباشر، حيث "السيطرة" تعني فيما يتعلق بالشركة، سلطة شخص ما لضمان إدارة شؤون الشركة وفقاً لرغبات ذلك الشخص: (أ) عن طريق امتلاك أسهم و/أو حقوق تصويت في تلك الشركة أو أي شركة أخرى؛ أو (ب) نتيجة أي صلاحيات ممنوحة بموجب النظام الأساسي أو أي وثيقة أخرى تنظم تلك الشركة أو أي شركة أخرى.</p>
-          <p><strong>"الميزانية السنوية"</strong> تعني الميزانية المعتمدة سنوياً من قبل المدير العام وتعديلاتها المعتمدة وفقاً لأحكام هذا العقد.</p>
-          <p><strong>"مدقق الحسابات"</strong> يعني مدقق حسابات الشركة المعين من وقت لآخر ويكون له كافة الصلاحيات والمسؤوليات المنصوص عليها في هذا العقد.</p>
+          <p><strong>"المدير العام"</strong> يعني المدير العام المعين وفقًا لهذا العقد.</p>
+
+          <p><strong>"العقد"</strong> يعني عقد التأسيس هذا.</p>
+
+          <p><strong>"الشريك (الشركاء)"</strong> يعني أطراف هذا العقد وأي شخص يصبح حاملاً لأي حصة في رأس مال الشركة وفقًا لأحكام وشروط هذا العقد.</p>
+
+          <p><strong>"الشخص"</strong> يعني أي فرد أو شراكة أو شركة أو شركة ذات مسؤولية محدودة أو شركة مساهمة أو مؤسسة أو منظمة أو جمعية أو ائتمان أو صندوق أو كيان غير مسجل أو أي كيان قانوني آخر.</p>
+
+          <p><strong>"السجل"</strong> يكون له المعنى المنصوص عليه في المادة 11-1 من هذا العقد.</p>
+
+          <p><strong>"معاملة الطرف ذي العلاقة"</strong> تعني أي معاملة أو ترتيب أو تعامل من قبل الشركة مع أي شريك و/أو أي من الشركات الحليفة له باستثناء الشركات الحليفة المملوكة بالكامل من قبل كلا الشريكين.</p>
+
+          <p><strong>"الحصة (الحصص)"</strong> تعني الحصة (الحصص) في رأس مال الشركة المحتفظ بها من وقت لآخر من قبل الشركاء أو أي منهم (حسبما يقتضي السياق).</p>
+
+          <p><strong>"القرار الخاص"</strong> يعني، فيما يتعلق بالقرارات الصادرة عن الجمعية العمومية، القرار الصادر في اجتماع الجمعية العمومية للشركة من قبل شريك منفرد، أو شركاء يمتلكون مجتمعين ما لا يقل عن 75٪ (خمسة وسبعون بالمائة) من الحصص.</p>
+
+          <p><strong>"الشركة التابعة / الشركات التابعة"</strong> تعني أي شركة أو كيان قانوني آخر في الإمارات العربية المتحدة أو في الخارج تكون فيه الشركة (1) شريكًا أو مساهمًا؛ (2) تمتلك أسهمًا أو حصصًا أو سندات أو أي شكل آخر من الأوراق المالية؛ و/أو (3) لها حق التصويت.</p>
         </div>
       </div>
-      
-      <div class="article-pair">
-        <div class="block">
-          <p><strong>"Business Day"</strong> means any day other than Fridays and Saturdays or public holidays on which commercial banks are closed in the Emirate of Abu Dhabi.</p>
-          <p><strong>"Business Plan"</strong> means the business plan for the Company, prepared annually by the Managing Director.</p>
-          <p><strong>"Company"</strong> means "<span class="edited">${company.name}</span>".</p>
-          <p><strong>"Commercial Register"</strong> means the commercial register held at the Department of Economic Development in the Emirate of Abu Dhabi.</p>
-        </div>
-        <div class="block rtl">
-          <p><strong>"يوم العمل"</strong> يعني أي يوم باستثناء أيام الجمعة والسبت أو العطلات الرسمية التي تغلق فيها البنوك التجارية في إمارة أبوظبي.</p>
-          <p><strong>"خطة العمل"</strong> تعني خطة عمل الشركة التي يعدها المدير العام سنوياً.</p>
-          <p><strong>"الشركة"</strong> تعني "<span class="edited">${company.nameAr}</span>".</p>
-          <p><strong>"السجل التجاري"</strong> يعني السجل التجاري المحفوظ لدى دائرة التنمية الاقتصادية في إمارة أبوظبي.</p>
-        </div>
-      </div>
-      
+
       </div>
       ${pageFooter(pageNum)}
     </div>`

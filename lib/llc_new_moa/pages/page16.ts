@@ -4,34 +4,23 @@ export function page16(ctx: LLCNewMOAContext, pageNum: number = 16): string {
   return `
     <div class="page">
       <div class="page-content">
-      
-      <!-- Article 12 continued - Manager Powers -->
+
+      <!-- Article 11-4 continued -->
       <div class="article-pair">
         <div class="block">
-          <p>amendments thereto, with governmental, public and/or private companies, establishments, entities and/or individuals;</p>
-          <p>(s) to carry on and sign before all banks and financial and credit institutions on all banking transactions, including without limitation opening, closing and canceling bank accounts, withdraw from and deposit into the Company's bank accounts, to sign, issue, pay, exchange, assign and receive cheques, bills, promissory notes, letters of guarantee, letters of credit, letters of exchange, bills of lading, guarantees, endorsements, undertakings and documentary credits and any other commercial note, and to apply for, renew, reschedule and settle all types of banking and credit loans and facilities and financial leasing against the security and guarantee of the Company's assets and property;</p>
-          <p>(t) to grant for unlimited period securities and/or guarantees required by the Company and to borrow and provide credit for the normal course of business, and to apply for loans and sign secured and unsecured bank facilities and pledge, mortgage or otherwise encumber or lien the assets, rights, benefits or entitlements of the Company for the purposes of raising and providing financial facilities for any term whether it is a short or a long term;</p>
+          <p>Lands & Real Estate Division, Supreme Petroleum Council and Telecommunications Regulatory Authority and Jebel Ali Free Zone Authority and Dubai International Financial Centre;</p>
+          <p>(j) to refer to the Ministry of Labor, Emirates Identity Authority, and General Directorate of Residency and Foreigners Affairs to obtain visas, residence permits, labor cards, ID cards, permits and health insurance cards for the Company's senior and executive managers, directors, officers, employees, staff, personnel and workers, along with the right to renew, cancel and publish circulars in their respect, to fix their wages, salaries, remunerations, benefits, end of service gratuity bonus and entitlements, to appoint and dismiss them, and the right to sign on behalf of the Company on their employment contracts, agreements, offers, settlement arrangements, warning and dismissal letters, and all necessary applications, forms, letters, contracts, agreements, settlements, delegations, undertakings, declarations and other ancillary documents before the competent labor offices;</p>
+          <p>(k) to apply for, renew, transfer, disconnect, or cancel mobiles, fax and telephone land lines, post office, e-mail and internet before all telecommunication companies including Emirates Telecommunications Corporation (Etisalat) and Emirates Integrated Telecommunications (Du);</p>
+          <p>(l) to declare, delegate, undertake and refer to the traffic and licensing departments whether inside or outside the UAE, to sell, purchase, deregister, renew, transfer and assign vehicles in addition to any procedure required by insurance companies concerning vehicle and car insurance;</p>
         </div>
         <div class="block rtl">
-          <p>تعديلاتها، مع الشركات والمنشآت والجهات والأفراد الحكومية و/أو العامة و/أو الخاصة؛</p>
-          <p>(ش) التوقيع أمام جميع البنوك والمؤسسات المالية والائتمانية على جميع المعاملات المصرفية، بما في ذلك على سبيل المثال لا الحصر فتح وإغلاق وإلغاء الحسابات المصرفية، والسحب من والإيداع في حسابات الشركة المصرفية، والتوقيع وإصدار ودفع وتبادل والتنازل عن واستلام الشيكات والكمبيالات والسندات الإذنية وخطابات الضمان والاعتمادات المستندية وخطابات التبادل وبوالص الشحن والضمانات والتظهيرات والتعهدات والاعتمادات المستندية وأي أوراق تجارية أخرى، والتقدم للحصول على وتجديد وإعادة جدولة وتسوية جميع أنواع القروض والتسهيلات المصرفية والائتمانية والتأجير التمويلي مقابل ضمان أصول وممتلكات الشركة؛</p>
-          <p>(ت) منح ضمانات و/أو كفالات غير محددة المدة مطلوبة من الشركة والاقتراض وتقديم الائتمان للسير العادي للأعمال، والتقدم بطلب للحصول على قروض والتوقيع على تسهيلات مصرفية مضمونة وغير مضمونة ورهن أو رهن عقاري أو تحميل أو رهن أصول وحقوق ومزايا واستحقاقات الشركة لأغراض الحصول على وتقديم تسهيلات مالية لأي مدة سواء كانت قصيرة أو طويلة الأجل؛</p>
+          <p>وقسم الأراضي والعقارات والمجلس الأعلى للبترول وهيئة تنظيم الاتصالات وسلطة منطقة جبل علي الحرة ومركز دبي المالي العالمي؛</p>
+          <p>(ر) المراجعة لدى وزارة العمل وهيئة الهوية الإماراتية والمديرية العامة للإقامة وشؤون الأجانب للحصول على تأشيرات وتصاريح إقامة وبطاقات عمل وبطاقات هوية وتصاريح وبطاقات تأمين صحي لكبار المديرين والمديرين التنفيذيين والمديرين والمسؤولين والموظفين والعاملين والأفراد والعمال بالشركة، بالإضافة إلى الحق في تجديدها وإلغائها ونشر التعاميم بشأنها، وتحديد أجورهم ورواتبهم ومكافآتهم ومزاياهم ومكافأة نهاية الخدمة واستحقاقاتهم، وتعيينهم وفصلهم، والحق في التوقيع نيابة عن الشركة على عقود عملهم واتفاقياتهم وعروضهم وترتيبات التسوية وخطابات التحذير والفصل، وجميع الطلبات والنماذج والخطابات والعقود والاتفاقيات والتسويات والتفويضات والتعهدات والإقرارات والمستندات الأخرى الملحقة أمام مكاتب العمل المختصة؛</p>
+          <p>(ز) التقدم بطلب للحصول على وتجديد ونقل وفصل أو إلغاء الهواتف المحمولة والفاكس وخطوط الهاتف الأرضية ومكتب البريد والبريد الإلكتروني والإنترنت لدى جميع شركات الاتصالات بما في ذلك مؤسسة الإمارات للاتصالات (اتصالات) والإمارات للاتصالات المتكاملة (دو)؛</p>
+          <p>(س) الإقرار والتفويض والتعهد والمراجعة لدى دوائر المرور والترخيص سواء داخل أو خارج الدولة، لبيع وشراء وشطب وتجديد ونقل وتخصيص المركبات بالإضافة إلى أي إجراء تطلبه شركات التأمين فيما يتعلق بتأمين المركبات والسيارات؛</p>
         </div>
       </div>
-      
-      <div class="article-pair">
-        <div class="block">
-          <p>(u) to obtain any loan, finance or finance arrangement on behalf of the Company for any term whether it is a short or a long term and to renew or extend any borrowing by the Company (including without limitation, letters of credit, guarantees and bill discounting facilities) and to sign all documents required from the Company in connection therewith;</p>
-          <p>(v) to participate in tenders, bids and auctions, and send proposals;</p>
-          <p>(w) to receive, call upon, recover, collect, settle and make payment of any and all debts, loans, taxes, duties, charges, fees, rent, cheques, bills, invoices, promissory notes, receivables, profits, dividends, interests and other obligations or liabilities due by or to the Company, whether by payment of cash, cheques, transfer, assignment and/or sale, and to enter into settlement agreements regarding all known and unknown charges, complaints, claims, grievances, liabilities, obligations, promises, offers, orders, contracts, agreements, controversies, damages, actions, causes of action, suits, rights, demands, costs, losses, debts,</p>
-        </div>
-        <div class="block rtl">
-          <p>(ث) الحصول على أي قرض أو تمويل أو ترتيب تمويلي نيابة عن الشركة لأي مدة سواء كانت قصيرة أو طويلة الأجل وتجديد أو تمديد أي اقتراض من الشركة (بما في ذلك دون حصر خطابات الاعتماد والضمانات وتسهيلات خصم الكمبيالات) والتوقيع على جميع المستندات المطلوبة من الشركة فيما يتعلق بذلك؛</p>
-          <p>(خ) المشاركة في المناقصات والعطاءات والمزادات، وتقديم العروض؛</p>
-          <p>(ذ) الاستلام والمطالبة والاسترداد والتحصيل والتسوية ودفع أي وجميع الديون والقروض والضرائب والرسوم والمصاريف والإيجارات والشيكات والكمبيالات والفواتير والسندات الإذنية والمستحقات والأرباح والأرباح الموزعة والفوائد وغيرها من الالتزامات المستحقة من أو للشركة، سواء بالدفع النقدي أو الشيكات أو التحويل أو التنازل و/أو البيع، والدخول في اتفاقيات تسوية بشأن جميع الرسوم والشكاوى والمطالبات والتظلمات والالتزامات والوعود والعروض والأوامر والعقود والاتفاقيات والخلافات والأضرار والدعاوى وأسباب الدعوى والحقوق والمطالبات والتكاليف والخسائر والديون المعروفة وغير المعروفة،</p>
-        </div>
-      </div>
-      
+
       </div>
       ${pageFooter(pageNum)}
     </div>`

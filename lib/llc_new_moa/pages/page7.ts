@@ -1,53 +1,60 @@
 import { LLCNewMOAContext, pageFooter } from '../types'
 
 export function page7(ctx: LLCNewMOAContext, pageNum: number = 7): string {
-  const { activities } = ctx
+  const { company, activities } = ctx
 
-  // Generate the remaining activities list (item 5 and 6)
-  const remainingActivitiesEn = activities.slice(4).map(a => `<li>${a.nameEn}</li>`).join('\n          ')
-  const remainingActivitiesAr = activities.slice(4).map(a => `<li>${a.nameAr}</li>`).join('\n          ')
+  // Generate activities list
+  const activitiesListEn = activities.map(a => `<p>➢ ${a.nameEn}</p>`).join('\n          ')
+  const activitiesListAr = activities.map(a => `<p>➢ ${a.nameAr}</p>`).join('\n          ')
 
   return `
     <div class="page">
       <div class="page-content">
-      
-      <!-- Article 5 continued - remaining activities -->
+
+      <!-- Article 4: Increase & Reduction in Share Capital -->
       <div class="article-pair">
         <div class="block">
-          <ul>
-          ${remainingActivitiesEn}
-          </ul>
+          <h3 class="bold">ARTICLE 4</h3>
+          <h4 class="bold">INCREASE & REDUCTION IN SHARE CAPITAL</h4>
+          <p><strong>4-1</strong> The Company may increase or reduce its capital pursuant to a Special Resolution of the General Assembly.</p>
+          <p><strong>4-2</strong> Subject to the approval of the relevant competent authorities, a reduction in the capital of the Company shall be effected in the manner deemed suitable and useful to the Company and in accordance with the provisions of this Memorandum and the Commercial Companies Law.</p>
         </div>
         <div class="block rtl">
-          <ul>
-          ${remainingActivitiesAr}
-          </ul>
+          <h3 class="bold">المادة 4</h3>
+          <h4 class="bold">زيادة وتخفيض رأس المال</h4>
+          <p><strong>4-1</strong> يجوز للشركة زيادة أو تخفيض رأسمالها بموجب قرار خاص من الجمعية العمومية.</p>
+          <p><strong>4-2</strong> رهناً بموافقة السلطات المختصة ذات الصلة، يتم تخفيض رأس مال الشركة بالطريقة التي تعتبر مناسبة ومفيدة للشركة ووفقاً لأحكام هذا العقد وقانون الشركات التجارية.</p>
         </div>
       </div>
-      
+
+      <!-- Article 5: Form and Nationality of the Company -->
       <div class="article-pair">
         <div class="block">
-          <p>5-2 The Company has the right in exercising its activities:</p>
-          <p>(a) to use Company's funds to invest in any economical activities and fields related to the Company's activities, and have the right to participate, form joint ventures and have an interest of whatsoever nature with any other Person inside or outside the UAE whether by way of joint venture or otherwise in any type of business and to participate in their capital, and to own trademarks, patents, copyrights, industrial designs, and any other intellectual property rights the Company deems necessary for its business;</p>
-          <p>(b) to acquire and/or possess and/or sell, and/or transfer and/or assign companies, sole establishments and other legal entities related to the Company's objectives and to create Subsidiaries and branches in and/or outside the UAE after having obtained the necessary authorizations from the competent authorities;</p>
+          <h3 class="bold">ARTICLE 5</h3>
+          <h4 class="bold">FORM AND NATIONALITY OF THE COMPANY</h4>
+          <p>The Partners have agreed that the Company shall continue to be a limited liability company in the Emirate of Abu Dhabi, and is governed by the provisions of this Memorandum and the provisions of the laws and regulations applicable in the UAE and the Emirate of Abu Dhabi, including Commercial Companies Law.</p>
         </div>
         <div class="block rtl">
-          <p>5-2 يحق للشركة في سبيل ممارسة أنشطتها:</p>
-          <p>(أ) استخدام أموال الشركة للاستثمار في أي أنشطة ومجالات اقتصادية تتعلق بأنشطة الشركة، ولها الحق في المشاركة وتأسيس مشاريع مشتركة والحصول على أي مصلحة من أي نوع مع أي شخص آخر داخل الإمارات أو خارجها سواء عن طريق مشروع مشترك أو غير ذلك في أي نوع من الأعمال والمشاركة في رأس مالها، وامتلاك العلامات التجارية وبراءات الاختراع وحقوق التأليف والنشر والتصاميم الصناعية وجميع حقوق الملكية الفكرية الأخرى التي تراها الشركة ضرورية لأعمالها؛</p>
-          <p>(ب) الاستحواذ و/أو امتلاك و/أو بيع و/أو نقل و/أو التنازل عن شركات ومنشآت فردية وكيانات قانونية أخرى تتعلق بأهداف الشركة وإنشاء شركات تابعة وفروع داخل و/أو خارج الإمارات بعد الحصول على التصاريح اللازمة من السلطات المختصة؛</p>
+          <h3 class="bold">المادة 5</h3>
+          <h4 class="bold">شكل الشركة وجنسيتها</h4>
+          <p>اتفق الشركاء على أن تستمر الشركة كشركة ذات مسؤولية محدودة في إمارة أبوظبي، وتخضع لأحكام هذا العقد وأحكام القوانين واللوائح المعمول بها في دولة الإمارات العربية المتحدة وإمارة أبوظبي، بما في ذلك قانون الشركات التجارية.</p>
         </div>
       </div>
-      
-      <!-- Article 5 continued - clause (c) only, (d) moves to next page -->
+
+      <!-- Article 6: Objective of the Company -->
       <div class="article-pair">
         <div class="block">
-          <p>(c) to act as an agent for the companies, establishments international organizations and other legal entities in relation to the Company's objectives and to represent the same in the UAE and abroad;</p>
+          <h3 class="bold">ARTICLE 6</h3>
+          <h4 class="bold">The objective of the company is:</h4>
+          ${activitiesListEn}
         </div>
         <div class="block rtl">
-          <p>(ج) العمل كوكيل للشركات والمنشآت والمنظمات الدولية والكيانات القانونية الأخرى فيما يتعلق بأهداف الشركة وتمثيلها في الإمارات والخارج؛</p>
+          <h3 class="bold">المادة 6</h3>
+          <h4 class="bold">الغرض من تأسيس الشركة هو:</h4>
+          ${activitiesListAr}
         </div>
       </div>
-      
+
       </div>
       ${pageFooter(pageNum)}
     </div>`
