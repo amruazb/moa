@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { LLCNewMOAData, Salutation, Activity, defaultActivities } from '@/lib/llc_new_moa/types'
+import { sampleLLCNewMOAData } from '@/lib/llc_new_moa/sampleData'
 
 const CACHE_KEY = 'llc-new-moa-data'
 
@@ -92,6 +93,7 @@ interface LLCNewMOAStore {
     initializeFromCache: () => void
     saveToCache: () => void
     resetData: () => void
+    loadSampleData: () => void
 }
 
 export const useLLCNewMoaStore = create<LLCNewMOAStore>((set, get) => ({
@@ -241,5 +243,12 @@ export const useLLCNewMoaStore = create<LLCNewMOAStore>((set, get) => ({
         if (typeof window !== 'undefined') {
             localStorage.removeItem(CACHE_KEY)
         }
+    },
+
+    loadSampleData: () => {
+        console.log('Loading sample data:', sampleLLCNewMOAData)
+        set({ data: sampleLLCNewMOAData })
+        get().saveToCache()
+        console.log('Sample data loaded successfully')
     }
 }))

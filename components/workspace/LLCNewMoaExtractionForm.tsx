@@ -4,7 +4,7 @@ import { useLLCNewMoaStore } from '@/store/llcNewMoaStore'
 import { Salutation } from '@/lib/llc_new_moa/types'
 
 export function LLCNewMoaExtractionForm() {
-    const { data, updateCompany, updatePartner, updatePartnerRepresentative, updateManager, updateCapital, resetData } = useLLCNewMoaStore()
+    const { data, updateCompany, updatePartner, updatePartnerRepresentative, updateManager, updateCapital, resetData, loadSampleData } = useLLCNewMoaStore()
 
     return (
         <div className="space-y-6">
@@ -221,8 +221,14 @@ export function LLCNewMoaExtractionForm() {
                 </div>
             </div>
 
-            {/* Reset Button */}
-            <div className="flex justify-end">
+            {/* Action Buttons */}
+            <div className="flex justify-between">
+                <button
+                    onClick={loadSampleData}
+                    className="px-4 py-2 text-sm text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors font-medium"
+                >
+                    Load Sample Data
+                </button>
                 <button
                     onClick={resetData}
                     className="px-4 py-2 text-sm text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors"

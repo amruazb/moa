@@ -13,18 +13,18 @@ export function page12(ctx: LLCNewMOAContext, pageNum: number = 12): string {
           <h3 class="bold">ARTICLE 10</h3>
           <h4 class="bold">REGISTER OF PARTNERS</h4>
           <p><strong>10-1</strong> The Company shall keep at its head office a special register for the Partners (the "Register") containing the following:</p>
-          <p>(a) full name of each Partner, their domicile, address, profession and nationalities;</p>
-          <p>(b) the number and value of the Shares held by each Partner; and</p>
-          <p>(c) details of all dealings carried out with regard to the Shares, together with the dates thereof.</p>
+          <p><strong>(a)</strong> full name of each Partner, their domicile, address, profession and nationalities;</p>
+          <p><strong>(b)</strong> the number and value of the Shares held by each Partner; and</p>
+          <p><strong>(c)</strong> details of all dealings carried out with regard to the Shares, together with the dates thereof.</p>
           <p><strong>10-2</strong> The Managing Director shall be responsible for maintaining the said register and for the validity and accuracy of its contents.</p>
         </div>
         <div class="block rtl">
           <h3 class="bold">المادة 10</h3>
           <h4 class="bold">سجل الشركاء</h4>
           <p><strong>10-1</strong> تحتفظ الشركة في مقرها الرئيسي بسجل خاص للشركاء ("السجل") يحتوي على ما يلي:</p>
-          <p>(أ) الاسم الكامل لكل شريك وموطنه وعنوانه ومهنته وجنسيته؛</p>
-          <p>(ب) عدد وقيمة الحصص التي يملكها كل شريك؛ و</p>
-          <p>(ج) تفاصيل جميع التعاملات المنفذة فيما يتعلق بالحصص مع تواريخها.</p>
+          <p><strong>(أ)</strong> الاسم الكامل لكل شريك وموطنه وعنوانه ومهنته وجنسيته؛</p>
+          <p><strong>(ب)</strong> عدد وقيمة الحصص التي يملكها كل شريك؛ و</p>
+          <p><strong>(ج)</strong> تفاصيل جميع التعاملات المنفذة فيما يتعلق بالحصص مع تواريخها.</p>
           <p><strong>10-2</strong> يكون المدير الإداري مسؤولاً عن الاحتفاظ بالسجل المذكور وعن صحة ودقة محتوياته.</p>
         </div>
       </div>

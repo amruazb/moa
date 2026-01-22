@@ -429,25 +429,51 @@ export const generateMoaStyles = (settings?: FontSettings): string => {
     font-size: ${englishPt}pt;
     line-height: ${englishLineHeight};
     min-width: 0;
+    text-align: justify;
   }
   .block.rtl {
     font-size: ${arabicPt}pt;
     line-height: ${arabicLineHeight};
+    text-align: justify;
   }
-  .block h3 { 
-    font-size: ${englishPt + 0.5}pt; 
-    font-weight: 700; 
+  .block h3 {
+    font-size: ${englishPt + 0.5}pt;
+    font-weight: 700;
     margin-bottom: ${Math.max(4, basePt * 0.4)}px;
     background: #e5e7eb;
     padding: 6px 10px;
     margin: -${Math.max(6, basePt * 0.6)}px -${Math.max(8, basePt * 0.8)}px ${Math.max(6, basePt * 0.6)}px -${Math.max(8, basePt * 0.8)}px;
     color: #1f2937;
+    text-align: left;
   }
-  .block.rtl h3 { 
+  .block.rtl h3 {
     font-size: ${arabicPt + 0.5}pt;
+    text-align: right;
   }
-  .block p { margin-bottom: ${Math.max(4, basePt * 0.4)}px; word-wrap: break-word; }
-  .block ol, .block ul { padding-left: 18px; margin: ${Math.max(4, basePt * 0.4)}px 0; list-style-type: disc; }
+  .block h4 {
+    font-size: ${englishPt}pt;
+    font-weight: 700;
+    margin-bottom: ${Math.max(3, basePt * 0.3)}px;
+    margin-top: ${Math.max(2, basePt * 0.2)}px;
+    text-align: left;
+  }
+  .block.rtl h4 {
+    font-size: ${arabicPt}pt;
+    text-align: right;
+  }
+  .block p {
+    margin-bottom: ${Math.max(3, basePt * 0.3)}px;
+    word-wrap: break-word;
+    text-align: justify;
+  }
+  .block p:last-child {
+    margin-bottom: 0;
+  }
+  .block p strong {
+    font-weight: 700;
+    color: #1f2937;
+  }
+  .block ol, .block ul { padding-left: 18px; margin: ${Math.max(3, basePt * 0.3)}px 0; list-style-type: disc; }
   .block.rtl ol, .block.rtl ul { padding-right: 18px; padding-left: 0; }
   .block li { margin-bottom: 2px; list-style-type: disc; }
   .block.rtl li { list-style-type: disc; }
@@ -473,7 +499,7 @@ export const generateMoaStyles = (settings?: FontSettings): string => {
   .article-pair {
     display: flex;
     gap: 10px;
-    margin-bottom: ${Math.max(6, basePt * 0.6)}px;
+    margin-bottom: ${Math.max(4, basePt * 0.4)}px;
     align-items: stretch;
     width: 100%;
   }
@@ -668,6 +694,104 @@ export const generateMoaStyles = (settings?: FontSettings): string => {
   .page-footer .page-num {
     font-size: ${basePt - 1}pt;
     color: #6b7280;
+  }
+
+  /* ===============================================
+   * ENHANCED NUMBERING & LIST STYLES
+   * =============================================== */
+
+  /* Article Numbers - Make them stand out */
+  .block p strong:first-child {
+    display: inline-block;
+    min-width: 35px;
+    color: #1e3a5f;
+    font-weight: 700;
+  }
+
+  /* Make ALL strong elements more prominent */
+  .block strong {
+    font-weight: 800;
+    color: #1e3a5f;
+  }
+
+  /* Reduce spacing between consecutive paragraphs with same numbering level */
+  .block p + p {
+    margin-top: 0;
+  }
+
+  /* Alphabetical list items (a), (b), (c) etc. - Make them BOLD */
+  .block p {
+    text-indent: 0;
+  }
+
+  /* Style paragraphs that start with (a), (b), (c), etc. */
+  .block p::first-line {
+    font-weight: inherit;
+  }
+
+  /* Better spacing for sub-numbered items like 11-1, 11-2 */
+  .block p:first-of-type {
+    margin-top: 0;
+  }
+
+  /* Compact spacing for definition lists and continuous text */
+  .block p + p:not(:has(strong)) {
+    margin-top: -${Math.max(1, basePt * 0.1)}px;
+  }
+
+  /* Center-aligned headers should not be justified */
+  .block h3.center,
+  .block h4.center,
+  .block p.center {
+    text-align: center !important;
+  }
+
+  /* Underlined headers */
+  .block h3.underline,
+  .block h4.underline {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* Better visual hierarchy for article titles */
+  .block h3.bold {
+    letter-spacing: 0.3px;
+  }
+
+  .block h4.bold {
+    letter-spacing: 0.2px;
+    text-transform: uppercase;
+  }
+
+  /* Reduce excessive whitespace in bilingual headers */
+  .bilingual-header h1,
+  .bilingual-header h2,
+  .bilingual-header h3 {
+    margin-bottom: 4px;
+  }
+
+  .bilingual-header h3 {
+    margin-top: 2px;
+  }
+
+  /* Compact law reference */
+  .law-reference {
+    margin-bottom: 12px;
+    padding: 6px 15px;
+  }
+
+  /* Better spacing for bilingual content blocks */
+  .bilingual-content {
+    margin-bottom: 8px;
+  }
+
+  .bilingual-content p {
+    margin-bottom: ${Math.max(3, basePt * 0.3)}px;
+  }
+
+  /* Tighter spacing for chapter blocks */
+  .block.chapter {
+    margin-bottom: ${Math.max(3, basePt * 0.3)}px;
   }
 `
 }

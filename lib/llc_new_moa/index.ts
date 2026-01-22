@@ -32,7 +32,12 @@ const pageGenerators: PageGenerator[] = [
     pages.page22,
     pages.page23,
     pages.page24,
-    pages.page25
+    pages.page25,
+    pages.page26,
+    pages.page27,
+    pages.page28,
+    pages.page29,
+    pages.page30
 ]
 
 export function generateLLCNewMOA(data: LLCNewMOAData, fontSettings?: FontSettings): string {
