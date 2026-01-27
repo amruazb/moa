@@ -212,6 +212,107 @@ export function FormattingToolbar() {
         </div>
       </div>
 
+      {/* Header Font Sizes Section */}
+      <div className="mt-6 pt-4 border-t border-gray-200">
+        <h4 className="text-xs font-semibold text-gray-700 mb-3">Header Font Sizes (LLC Amendment MOA)</h4>
+
+        {/* English Header Sizes */}
+        <div className="space-y-3">
+          <div>
+            <label className="block text-xs font-medium text-gray-600 mb-1">
+              English Title: {settings.headerEnTitle || 16}pt
+            </label>
+            <input
+              type="range"
+              min="10"
+              max="24"
+              step="1"
+              value={settings.headerEnTitle || 16}
+              onChange={(e) => setSettings({ headerEnTitle: parseInt(e.target.value) })}
+              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
+            />
+          </div>
+
+          <div>
+            <label className="block text-xs font-medium text-gray-600 mb-1">
+              English Subtitle: {settings.headerEnSubtitle || 14}pt
+            </label>
+            <input
+              type="range"
+              min="10"
+              max="20"
+              step="1"
+              value={settings.headerEnSubtitle || 14}
+              onChange={(e) => setSettings({ headerEnSubtitle: parseInt(e.target.value) })}
+              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
+            />
+          </div>
+
+          <div>
+            <label className="block text-xs font-medium text-gray-600 mb-1">
+              English Company: {settings.headerEnCompany || 13}pt
+            </label>
+            <input
+              type="range"
+              min="10"
+              max="18"
+              step="1"
+              value={settings.headerEnCompany || 13}
+              onChange={(e) => setSettings({ headerEnCompany: parseInt(e.target.value) })}
+              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
+            />
+          </div>
+        </div>
+
+        {/* Arabic Header Sizes */}
+        <div className="space-y-3 mt-4">
+          <div>
+            <label className="block text-xs font-medium text-gray-600 mb-1" dir="rtl">
+              Arabic Title: {settings.headerArTitle || 18}pt / عنوان عربي
+            </label>
+            <input
+              type="range"
+              min="12"
+              max="26"
+              step="1"
+              value={settings.headerArTitle || 18}
+              onChange={(e) => setSettings({ headerArTitle: parseInt(e.target.value) })}
+              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-green-600"
+            />
+          </div>
+
+          <div>
+            <label className="block text-xs font-medium text-gray-600 mb-1" dir="rtl">
+              Arabic Subtitle: {settings.headerArSubtitle || 16}pt / عنوان فرعي
+            </label>
+            <input
+              type="range"
+              min="12"
+              max="22"
+              step="1"
+              value={settings.headerArSubtitle || 16}
+              onChange={(e) => setSettings({ headerArSubtitle: parseInt(e.target.value) })}
+              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-green-600"
+            />
+          </div>
+
+          <div>
+            <label className="block text-xs font-medium text-gray-600 mb-1" dir="rtl">
+              Arabic Company: {settings.headerArCompany || 14}pt / اسم الشركة
+            </label>
+            <input
+              type="range"
+              min="12"
+              max="20"
+              step="1"
+              value={settings.headerArCompany || 14}
+              onChange={(e) => setSettings({ headerArCompany: parseInt(e.target.value) })}
+              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-green-600"
+            />
+          </div>
+        </div>
+      </div>
+
       {/* Preview */}
       <div className="mt-4 p-3 bg-gray-50 rounded-lg border border-gray-200">
         <p className="text-xs text-gray-500 mb-2">Preview:</p>

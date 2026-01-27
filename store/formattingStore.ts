@@ -11,6 +11,13 @@ export interface FontSettings {
   boldEditedFields: boolean
   columnRatio: number // 0.5 = equal, < 0.5 = more space for Arabic
   pageMargin: number // left/right margin in mm (5-25mm)
+  // Header font sizes (in pt) - for LLC Amendment MOA
+  headerEnTitle?: number
+  headerEnSubtitle?: number
+  headerEnCompany?: number
+  headerArTitle?: number
+  headerArSubtitle?: number
+  headerArCompany?: number
 }
 
 export const LINE_SPACINGS = [
@@ -65,6 +72,13 @@ const defaultSettings: FontSettings = {
   boldEditedFields: true,
   columnRatio: 0.5,
   pageMargin: 15, // 15mm default left/right margin
+  // Header font sizes (matching defaultHeaderSizes from page1.ts)
+  headerEnTitle: 16,
+  headerEnSubtitle: 14,
+  headerEnCompany: 13,
+  headerArTitle: 18,
+  headerArSubtitle: 16,
+  headerArCompany: 14,
 }
 
 const loadFromCache = (): FontSettings => {

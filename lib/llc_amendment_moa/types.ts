@@ -79,6 +79,7 @@ export interface CompanyPartner {
     email?: string            // Email address
     shareCount: number
     sharePercent: number
+    hasRepresentative: boolean // Whether this partner has an authorized representative
     representative: AuthorizedRepresentative
 }
 
@@ -139,14 +140,43 @@ export function getOrdinal(index: number, lang: 'en' | 'ar'): string {
     return arr[index] || `${index + 1}`
 }
 
-// Page footer function
+// Page footer function with signature boxes
 export function pageFooter(pageNum: number, isLastPage: boolean = false): string {
-    return `
-        <div class="page-footer">
-            <div class="page-number">Page ${pageNum}</div>
-            ${isLastPage ? '<div class="end-mark">*** END OF DOCUMENT ***</div>' : ''}
+    if (isLastPage) {
+        // Last page only has translator seal in center
+        return `
+    <div class="page-footer">
+      <div class="footer-section footer-left"></div>
+      <div class="footer-section footer-center">
+        <div class="signature-box">
+          <span class="signature-line"></span>
+          <span class="footer-label">ختم المترجم والتوقيع / Translator Seal & Sign</span>
         </div>
-    `
+      </div>
+      <div class="footer-section footer-right">
+        <span class="page-num">${pageNum}</span>
+      </div>
+    </div>`
+    }
+
+    return `
+    <div class="page-footer">
+      <div class="footer-section footer-left">
+        <div class="signature-box">
+          <span class="signature-line"></span>
+          <span class="footer-label">Partners Signature / توقيع الشركاء</span>
+        </div>
+      </div>
+      <div class="footer-section footer-center">
+        <div class="signature-box">
+          <span class="signature-line"></span>
+          <span class="footer-label">ختم المترجم والتوقيع / Translator Seal & Sign</span>
+        </div>
+      </div>
+      <div class="footer-section footer-right">
+        <span class="page-num">${pageNum}</span>
+      </div>
+    </div>`
 }
 
 // Store data structure for LLC Amendment MOA
@@ -171,6 +201,7 @@ export interface LLCAmendmentMOAData {
         addressAr: string
         email?: string
         shareCount: number
+        hasRepresentative: boolean
         representative: {
             salutation: Salutation
             name: string
@@ -226,7 +257,7 @@ export function transformToContext(data: LLCAmendmentMOAData): LLCAmendmentMOACo
     const shareValue = data.capital.shareValue
 
     // Transform partners with pronouns
-    const partners: CompanyPartner[] = partnersData.map((p, index) => {
+    const partners: CompanyPartner[] = partnersData.map((p) => {
         const pronouns = pronounMap[p.representative.salutation]
         const sharePercent = totalShares > 0 ? Math.round((p.shareCount / totalShares) * 100) : 0
 
@@ -241,6 +272,7 @@ export function transformToContext(data: LLCAmendmentMOAData): LLCAmendmentMOACo
             email: p.email || '',
             shareCount: p.shareCount,
             sharePercent,
+            hasRepresentative: p.hasRepresentative,
             representative: {
                 salutation: p.representative.salutation,
                 name: p.representative.name || 'N/A',

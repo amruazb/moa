@@ -50,6 +50,24 @@ export function getPronouns(salutation: Salutation = 'ms'): Pronouns {
     }
 }
 
+// Representative (Person signing on behalf of principal)
+export interface POARepresentative {
+    name: string
+    nameAr: string
+    salutation: Salutation
+    pronouns: Pronouns
+    nationality: string
+    nationalityAr: string
+    dateOfBirth: string
+    eidOrPassport: string
+    documentType: 'eid' | 'passport'
+    poaNumber: string
+    poaDate: string
+    poaLocation: string
+    address: string
+    addressAr: string
+}
+
 // Principal (Power Giver) - Company owner or partner
 export interface POAPrincipal {
     name: string
@@ -62,6 +80,8 @@ export interface POAPrincipal {
     documentType: 'eid' | 'passport'
     address: string
     addressAr: string
+    isRepresented?: boolean  // Whether this principal is signing through a representative
+    representative?: POARepresentative  // Representative details if applicable
 }
 
 // Attorney (Power Receiver)
@@ -98,6 +118,12 @@ export interface POASections {
     receivables: boolean          // Section 6: Collect cash/cheques
     motorVehicles: boolean        // Section 7: Register, buy, sell vehicles
     approachCourts: boolean       // Section 8: Lawsuits, complaints, settlements
+    // Restrictions
+    noSaleVehiclesAssets: boolean // Restriction: No right to sale vehicles/assets
+    noLoansFacilities: boolean   // Restriction: No loans/facilities from banks
+    noChequeBooks: boolean        // Restriction: No right to cheque books
+    noSignCheques: boolean        // Restriction: No right to sign cheques
+    noTransferShares: boolean     // Restriction: No right to transfer shares/ownership
 }
 
 // Validity period
@@ -108,7 +134,7 @@ export interface POAValidity {
 
 // Main POA Context for document generation
 export interface POAContext {
-    principal: POAPrincipal
+    principals: POAPrincipal[]
     attorney: POAAttorney
     license: POALicense
     sections: POASections
@@ -117,7 +143,7 @@ export interface POAContext {
 
 // POA Data stored in document store
 export interface POAData {
-    principal?: Partial<POAPrincipal>
+    principals?: Partial<POAPrincipal>[]
     attorney?: Partial<POAAttorney>
     license?: Partial<POALicense>
     sections?: Partial<POASections>
@@ -126,22 +152,42 @@ export interface POAData {
 
 // Extract POA context from store data
 export function extractPOAContext(data: POAData): POAContext {
-    const principalSalutation = (data.principal?.salutation || 'mrs') as Salutation
-    const attorneySalutation = (data.attorney?.salutation || 'mr') as Salutation
+    const principals: POAPrincipal[] = (data.principals || []).map((p) => {
+        const salutation = (p.salutation || 'mr') as Salutation;
+        const representative = p.representative ? {
+            name: p.representative.name || 'N/A',
+            nameAr: p.representative.nameAr || 'غير متوفر',
+            salutation: (p.representative.salutation || 'mr') as Salutation,
+            pronouns: getPronouns((p.representative.salutation || 'mr') as Salutation),
+            nationality: p.representative.nationality || 'N/A',
+            nationalityAr: p.representative.nationalityAr || 'غير متوفر',
+            dateOfBirth: p.representative.dateOfBirth || '',
+            eidOrPassport: p.representative.eidOrPassport || 'N/A',
+            documentType: p.representative.documentType || 'eid',
+            poaNumber: p.representative.poaNumber || '',
+            poaDate: p.representative.poaDate || '',
+            poaLocation: p.representative.poaLocation || '',
+            address: p.representative.address || '',
+            addressAr: p.representative.addressAr || ''
+        } : undefined;
 
-    const principal: POAPrincipal = {
-        name: data.principal?.name || 'N/A',
-        nameAr: data.principal?.nameAr || 'غير متوفر',
-        salutation: principalSalutation,
-        pronouns: getPronouns(principalSalutation),
-        nationality: data.principal?.nationality || 'UAE',
-        nationalityAr: data.principal?.nationalityAr || 'إماراتية',
-        eidOrPassport: data.principal?.eidOrPassport || 'N/A',
-        documentType: data.principal?.documentType || 'eid',
-        address: data.principal?.address || '',
-        addressAr: data.principal?.addressAr || ''
-    }
+        return {
+            name: p.name || 'N/A',
+            nameAr: p.nameAr || 'غير متوفر',
+            salutation,
+            pronouns: getPronouns(salutation),
+            nationality: p.nationality || 'N/A',
+            nationalityAr: p.nationalityAr || 'غير متوفر',
+            eidOrPassport: p.eidOrPassport || 'N/A',
+            documentType: p.documentType || 'eid',
+            address: p.address || '',
+            addressAr: p.addressAr || '',
+            isRepresented: p.isRepresented || false,
+            representative
+        };
+    });
 
+    const attorneySalutation = (data.attorney?.salutation || 'mr') as Salutation;
     const attorney: POAAttorney = {
         name: data.attorney?.name || 'N/A',
         nameAr: data.attorney?.nameAr || 'غير متوفر',
@@ -172,7 +218,13 @@ export function extractPOAContext(data: POAData): POAContext {
         contracts: data.sections?.contracts ?? true,
         receivables: data.sections?.receivables ?? true,
         motorVehicles: data.sections?.motorVehicles ?? true,
-        approachCourts: data.sections?.approachCourts ?? true
+        approachCourts: data.sections?.approachCourts ?? true,
+        // Restrictions - default to false (not restricted)
+        noSaleVehiclesAssets: data.sections?.noSaleVehiclesAssets ?? false,
+        noLoansFacilities: data.sections?.noLoansFacilities ?? false,
+        noChequeBooks: data.sections?.noChequeBooks ?? false,
+        noSignCheques: data.sections?.noSignCheques ?? false,
+        noTransferShares: data.sections?.noTransferShares ?? false
     }
 
     const validity: POAValidity = {
@@ -181,7 +233,7 @@ export function extractPOAContext(data: POAData): POAContext {
     }
 
     return {
-        principal,
+        principals,
         attorney,
         license,
         sections,

@@ -2,32 +2,61 @@
 import { POAData } from './types'
 
 export const samplePOAFilled: POAData = {
-    principal: {
-        name: 'DALAL SAEED MUHAIR SAEED ALQUBAISI',
-        nameAr: 'دلال سعيد مهير سعيد القبيسي',
-        salutation: 'mrs',
-        nationality: 'UAE',
-        nationalityAr: 'إماراتية',
-        eidOrPassport: '784-1986-9498796-1',
-        documentType: 'eid',
-        address: 'Abu Dhabi, UAE',
-        addressAr: 'أبوظبي، الإمارات'
-    },
+    principals: [
+        {
+            name: 'ADEL SAIF AMER HASAN ALJABERI',
+            nameAr: 'عادل سيف عامر حسن الجابري',
+            salutation: 'mr',
+            nationality: 'UAE',
+            nationalityAr: 'إماراتي',
+            eidOrPassport: '784197984097051',
+            documentType: 'eid',
+            address: 'Abu Dhabi, UAE',
+            addressAr: 'أبوظبي، الإمارات',
+            isRepresented: true,
+            representative: {
+                name: 'MOHAMED SHAMNAS CHAKEERI MOHAMED HASSAN CHAKEERI',
+                nameAr: 'محمد شامناس تشاكيري محمد حسن تشاكيري',
+                salutation: 'mr',
+                nationality: 'Indian',
+                nationalityAr: 'هندي',
+                dateOfBirth: '30/05/1986',
+                eidOrPassport: '784198697519274',
+                documentType: 'eid',
+                poaNumber: '2599023557',
+                poaDate: '14/04/2025',
+                poaLocation: 'Abu Dhabi',
+                address: 'Abu Dhabi, UAE',
+                addressAr: 'أبوظبي، الإمارات'
+            }
+        },
+        {
+            name: 'MOHAMED SHAMNAS CHAKEERI MOHAMED HASSAN CHAKEERI',
+            nameAr: 'محمد شامناس تشاكيري محمد حسن تشاكيري',
+            salutation: 'mr',
+            nationality: 'Indian',
+            nationalityAr: 'هندي',
+            eidOrPassport: '784-1986-9751927-4',
+            documentType: 'eid',
+            address: 'Abu Dhabi, UAE',
+            addressAr: 'أبوظبي، الإمارات'
+        }
+    ],
     attorney: {
-        name: 'MIHIR BHARAT MEHTA',
-        nameAr: 'ميهير بهارات ميهتا',
+        name: 'AMIR AROLI VEETTIL',
+        nameAr: 'امیر ارولی فیتیل',
         salutation: 'mr',
         nationality: 'Indian',
         nationalityAr: 'هندي',
-        eidOrPassport: '784-1977-9506471-2',
+        eidOrPassport: '784197659368092',
         documentType: 'eid',
         address: 'Abu Dhabi, UAE',
         addressAr: 'أبوظبي، الإمارات'
     },
     license: {
-        licenseNumber: 'CN-2062218',
-        companyName: 'SHREE OILFIELD SUPPLY - L.L.C',
-        companyNameAr: '"شيري لتوريد معدات حقول النفط ذ.م.م"',
+        licenseNumber: 'CN-2415224',
+        companyName: 'NAS OIL FIELD SERVICE - L.L.C',
+        companyNameAr: 'ناس لخدمات حقول النفط ذ.م.م',
         issuingAuthority: 'Department of Economic Development – Abu Dhabi',
         issuingAuthorityAr: 'دائرة التنمية الاقتصادية – أبوظبي'
     },
@@ -40,7 +69,12 @@ export const samplePOAFilled: POAData = {
         contracts: true,
         receivables: true,
         motorVehicles: true,
-        approachCourts: true
+        approachCourts: true,
+        noSaleVehiclesAssets: false,
+        noLoansFacilities: false,
+        noChequeBooks: false,
+        noSignCheques: false,
+        noTransferShares: false
     },
     validity: {
         years: 3,
@@ -49,17 +83,30 @@ export const samplePOAFilled: POAData = {
 }
 
 export const blankPOASample: POAData = {
-    principal: {
-        name: '',
-        nameAr: '',
-        salutation: 'mr',
-        nationality: '',
-        nationalityAr: '',
-        eidOrPassport: '',
-        documentType: 'eid',
-        address: '',
-        addressAr: ''
-    },
+    principals: [
+        {
+            name: '',
+            nameAr: '',
+            salutation: 'mr',
+            nationality: '',
+            nationalityAr: '',
+            eidOrPassport: '',
+            documentType: 'eid',
+            address: '',
+            addressAr: ''
+        },
+        {
+            name: '',
+            nameAr: '',
+            salutation: 'mr',
+            nationality: '',
+            nationalityAr: '',
+            eidOrPassport: '',
+            documentType: 'eid',
+            address: '',
+            addressAr: ''
+        }
+    ],
     attorney: {
         name: '',
         nameAr: '',
@@ -87,7 +134,12 @@ export const blankPOASample: POAData = {
         contracts: true,
         receivables: true,
         motorVehicles: true,
-        approachCourts: true
+        approachCourts: true,
+        noSaleVehiclesAssets: false,
+        noLoansFacilities: false,
+        noChequeBooks: false,
+        noSignCheques: false,
+        noTransferShares: false
     },
     validity: {
         years: 3,

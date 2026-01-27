@@ -27,6 +27,7 @@ const getDefaultData = (): LLCAmendmentMOAData => ({
             addressAr: '',
             email: '',
             shareCount: 90,
+            hasRepresentative: false,
             representative: {
                 salutation: 'mr' as Salutation,
                 name: '',
@@ -47,6 +48,7 @@ const getDefaultData = (): LLCAmendmentMOAData => ({
             addressAr: '',
             email: '',
             shareCount: 10,
+            hasRepresentative: false,
             representative: {
                 salutation: 'mr' as Salutation,
                 name: '',
@@ -82,6 +84,7 @@ interface LLCAmendmentMOAStore {
     updateCompany: (field: keyof LLCAmendmentMOAData['company'], value: string) => void
     updatePartner: (index: number, field: string, value: any) => void
     updatePartnerRepresentative: (index: number, field: string, value: any) => void
+    togglePartnerRepresentative: (index: number) => void
     updateManager: (field: string, value: any) => void
     updateCapital: (field: keyof LLCAmendmentMOAData['capital'], value: number) => void
     updateActivities: (activities: Activity[]) => void
@@ -133,6 +136,23 @@ export const useLLCAmendmentMoaStore = create<LLCAmendmentMOAStore>((set, get) =
                     ...newPartners[index].representative,
                     [field]: value
                 }
+            }
+            return {
+                data: {
+                    ...state.data,
+                    partners: newPartners
+                }
+            }
+        })
+        get().saveToCache()
+    },
+
+    togglePartnerRepresentative: (index) => {
+        set((state) => {
+            const newPartners = [...state.data.partners]
+            newPartners[index] = {
+                ...newPartners[index],
+                hasRepresentative: !newPartners[index].hasRepresentative
             }
             return {
                 data: {

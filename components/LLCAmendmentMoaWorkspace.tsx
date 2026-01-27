@@ -5,14 +5,17 @@ import { LLCAmendmentMoaLivePreviewPane } from './workspace/LLCAmendmentMoaLiveP
 import { FormattingToolbar } from './workspace/FormattingToolbar'
 import { useEffect } from 'react'
 import { useLLCAmendmentMoaStore } from '@/store/llcAmendmentMoaStore'
+import { useFormattingStore } from '@/store/formattingStore'
 
 export function LLCAmendmentMoaWorkspace() {
     const initializeFromCache = useLLCAmendmentMoaStore((state) => state.initializeFromCache)
+    const initializeFormattingFromCache = useFormattingStore((state) => state.initializeFromCache)
 
     useEffect(() => {
         // Initialize from cache when component mounts
         initializeFromCache()
-    }, [initializeFromCache])
+        initializeFormattingFromCache()
+    }, [initializeFromCache, initializeFormattingFromCache])
 
     return (
         <div className="flex gap-6 items-start">

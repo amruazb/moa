@@ -16,6 +16,7 @@ export function generatePOAHTML(data: POAData, fontSettings?: FontSettings): str
     pages.page2,
     pages.page3,
     pages.page4,
+    pages.page5,
   ]
 
   // Generate pages with dynamic page numbers (1-indexed)

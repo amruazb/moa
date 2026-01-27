@@ -1,48 +1,43 @@
 import { LLCAmendmentMOAData, transformToContext } from './types'
-import { styles } from './styles'
+import { generateLLCAmendmentMoaStyles } from './styles'
+import { FontSettings } from '@/store/formattingStore'
 import { page1 } from './pages/page1'
 import { page2 } from './pages/page2'
-// Import additional pages as they are created
-// import { page3 } from './pages/page3'
-// import { page4 } from './pages/page4'
-// ... etc
-
-export interface FormattingSettings {
-    fontSize: number
-    lineHeight: number
-    marginTop: number
-    marginBottom: number
-    marginLeft: number
-    marginRight: number
-}
+import { page3 } from './pages/page3'
+import { page4 } from './pages/page4'
+import { page6 } from './pages/page6'
+import { page7 } from './pages/page7'
+import { page8 } from './pages/page8'
 
 export function generateLLCAmendmentMOA(
-    data: LLCAmendmentMOAData, 
-    settings: FormattingSettings
+    data: LLCAmendmentMOAData,
+    settings?: FontSettings
 ): string {
     const ctx = transformToContext(data)
-    
+
+    // Extract header font sizes from settings
+    const headerSizes = settings ? {
+        enTitle: settings.headerEnTitle,
+        enSubtitle: settings.headerEnSubtitle,
+        enCompany: settings.headerEnCompany,
+        arTitle: settings.headerArTitle,
+        arSubtitle: settings.headerArSubtitle,
+        arCompany: settings.headerArCompany,
+    } : undefined
+
     // Generate all pages
     const pages = [
-        page1(ctx, 1),
+        page1(ctx, 1, headerSizes),
         page2(ctx, 2),
-        // Add more pages as they are created
-        // page3(ctx, 3),
-        // page4(ctx, 4),
-        // ... etc
+        page3(ctx, 3),
+        page4(ctx, 4),
+        page6(ctx, 5),  // Renumbered from 6 to 5
+        page7(ctx, 6),  // Renumbered from 7 to 6
+        page8(ctx, 7),  // Signature page (last page)
     ]
 
-    // Apply formatting settings to styles
-    const customStyles = styles.replace(
-        'font-size: 12pt;',
-        `font-size: ${settings.fontSize}pt;`
-    ).replace(
-        'line-height: 1.4;',
-        `line-height: ${settings.lineHeight};`
-    ).replace(
-        'margin: 1in;',
-        `margin: ${settings.marginTop}in ${settings.marginRight}in ${settings.marginBottom}in ${settings.marginLeft}in;`
-    )
+    // Generate styles with formatting settings
+    const customStyles = generateLLCAmendmentMoaStyles(settings)
 
     return `
 <!DOCTYPE html>
@@ -51,7 +46,9 @@ export function generateLLCAmendmentMOA(
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LLC Amendment MOA - ${ctx.company.name}</title>
-    ${customStyles}
+    <style>
+        ${customStyles}
+    </style>
 </head>
 <body>
     ${pages.join('\n')}
@@ -64,10 +61,11 @@ export function generateLLCAmendmentMOA(
 export {
     page1,
     page2,
-    // Export additional pages as they are created
-    // page3,
-    // page4,
-    // ... etc
+    page3,
+    page4,
+    page6,
+    page7,
+    page8,
 }
 
 // Export types for external use

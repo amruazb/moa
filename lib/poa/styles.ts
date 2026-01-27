@@ -416,7 +416,7 @@ export function generatePOAStyles(settings?: FontSettings): string {
   .signature-block {
     display: flex;
     gap: 10px;
-    margin-top: 30px;
+    margin-bottom: 30px;
     width: 100%;
     align-items: stretch;
   }

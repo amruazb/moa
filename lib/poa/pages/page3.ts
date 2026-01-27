@@ -7,23 +7,47 @@ export function page3(ctx: POAContext, pageNum: number = 3): string {
   // Conditional loan text based on banksWithLoan toggle
   const bankLoanTextEn = sections.banksWithLoan
     ? 'and avail vehicle loan facilities, with cash loan from any banks operating in the country'
-    : 'and avail vehicle loan facilities, without cash loan from any banks operating in the country'
+    : 'without any loan or credit facilities from any bank in UAE'
 
   const bankLoanTextAr = sections.banksWithLoan
     ? 'بالحصـــول على تسهيلات قروض السيارات وبقروض نقدية من البنـــوك العاملة في الدولة'
-    : 'بالحصـــول على تسهيلات قروض السيارات وبدون قروض نقدية من البنـــوك العاملة في الدولة'
+    : 'بدون أي قروض أو تسهيلات ائتمانية من أي بنك في دولة الإمارات العربية المتحدة'
 
   return `
     <div class="page">
       <div class="page-content">
 
-      <!-- Continuation of Section 4: Banks -->
-      <div class="article-pair">
+      <!-- Section 3: Utilities (Content) -->
+      <div class="numbered-section">
         <div class="block">
-          <p>cash, and request for cheques books, sign the cheques, and avail all types of banks guarantees and facilities on behalf of the license and cash them, electronic banking, fixing and using of electronic cash machines, close and end all kind of transactions and formalities with bank related to the license, ${bankLoanTextEn}.</p>
+          <p><strong>3</strong>&nbsp;&nbsp;&nbsp;<span class="section-title">Utilities:</span></p>
+          <p>To apply for telephone, fax, internet, water, electricity, (TAQA Distribution company) and other utilities/services; to sign application forms and pay charges, fines and utility bills with the right to have those utilities disconnected and cancelled temporarily or permanently or have them re-connected, and to pay security deposits for the same and receive the same in cash or by cheques, and cash the cheques.</p>
         </div>
         <div class="block rtl">
-          <p>فهيا وطلب دفتر الشيكات ووتسلمها و التوقيع على الشيـــكات واستــلامها وصرفها وطلب ضمـــانات و تسهيلات البنكية بجميع أنواعها نيابة عن الرخصـــة وصرفهـــا، والإجراءات البنك الالكتروني وتركيـــب واستخدام المـاكينات البنك الالكتروني وإنهاء وإغلـق جميـــع المعـاملات والإجـراءات البنـــكية المتعلقة بالرخصـة ${bankLoanTextAr}.</p>
+          <p><strong>3</strong>&nbsp;&nbsp;&nbsp;<span class="section-title">الخدمات:</span></p>
+          <p>تقــديم وإدخـــال خـــدمات الهـــاتف والفـــاكس والإنترنت والكهرباء والميـاه (شركة طاقة للتوزيع) وغيرهـــا مـــن الخـــدمات والوسائل ؛ على نماذج وطلبات التقديم ودفع الرسوم على فواتير الخـــدمات ولهـم الحق في قطـع وإلغاء تلك الخدمات نهائيا امؤقـــتا واعادتهـــا مـــرة أخـــرى ولتقـــديم الضـــمانات والكفـــالات المتعلقـــة بتلـــك الخـــدمات واستلامها ســواء نقدا أو بشيكات وصرفها.</p>
+        </div>
+      </div>
+
+      <!-- Section 4: Banks -->
+      <div class="numbered-section">
+        <div class="block">
+          <p><strong>4</strong>&nbsp;&nbsp;&nbsp;<span class="section-title">Banks:</span></p>
+          <p>To open, operate, manage and close company accounts at banks, and withdraw and deposit cash${(() => {
+            const parts: string[] = []
+            if (!sections.noChequeBooks) parts.push('request for cheques books')
+            if (!sections.noSignCheques) parts.push('sign the cheques')
+            return parts.length > 0 ? `, and ${parts.join(', ')}` : ''
+          })()}${sections.noLoansFacilities ? '' : ' and avail all types of banks guarantees and facilities on behalf of the license and cash them'}, electronic banking, fixing and using of electronic cash machines, close and end all kind of transactions and formalities with bank related to the license, ${bankLoanTextEn}.</p>
+        </div>
+        <div class="block rtl">
+          <p><strong>4</strong>&nbsp;&nbsp;&nbsp;<span class="section-title">البنوك:</span></p>
+          <p>فتح وأدل عل وإدارة الحسابات الموجودة والجديدة والغائها والإيداع فهيا${(() => {
+            const parts: string[] = []
+            if (!sections.noChequeBooks) parts.push('طلب دفتر الشيكات ووتسلمها')
+            if (!sections.noSignCheques) parts.push('التوقيع على الشيـــكات واستــلامها وصرفها')
+            return parts.length > 0 ? ` و${parts.join(' و')}` : ''
+          })()}${sections.noLoansFacilities ? '' : ' وطلب ضمـــانات و تسهيلات البنكية بجميع أنواعها نيابة عن الرخصـــة وصرفهـــا'}، والإجراءات البنك الالكتروني وتركيـــب واستخدام المـاكينات البنك الالكتروني وإنهاء وإغلـق جميـــع المعـاملات والإجـراءات البنـــكية المتعلقة بالرخصـة، ${bankLoanTextAr}.</p>
         </div>
       </div>
 
@@ -48,18 +72,6 @@ export function page3(ctx: POAContext, pageNum: number = 3): string {
         <div class="block rtl">
           <p><strong>6</strong>&nbsp;&nbsp;&nbsp;<span class="section-title">استلام المبالغ:</span></p>
           <p>استلام كافة المستحقات والمبالغ لكل الرخصة المذكورة اعلاه سواء نقدا أو بشيكات والتوقيع على إيصلات الاستلام وصرف الشيكات من البنوك المسحوب عليها واستلام الضمانات والكفالات وصرفها.</p>
-        </div>
-      </div>
-
-      <!-- Section 7: Motor Vehicles -->
-      <div class="numbered-section">
-        <div class="block">
-          <p><strong>7</strong>&nbsp;&nbsp;&nbsp;<span class="section-title">Motor Vehicles:</span></p>
-          <p>To register, renew, buy, sell or assign hire out, all new and registered vehicles owned by the license, to drive and pay fines and offences incurred by vehicles, and to sign all contracts related to the vehicles of the license.</p>
-        </div>
-        <div class="block rtl">
-          <p><strong>7</strong>&nbsp;&nbsp;&nbsp;<span class="section-title">السيارات :</span></p>
-          <p>تسجيل وتجديد وبيع أو تنازل إؤتأجير جميع الســـيارات الجديدة والمرقمة للرخصـــة وقيادة السيارات ولهم الحق في دفع الرسـوم والمخالفات المترتبة على السـيارات والتوقيع على كافة العقود المتعلقة بسيارات الرخصة المذكورة اعلاه.</p>
         </div>
       </div>
 

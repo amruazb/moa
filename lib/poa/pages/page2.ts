@@ -17,6 +17,18 @@ export function page2(ctx: POAContext, pageNum: number = 2): string {
     <div class="page">
       <div class="page-content">
 
+      <!-- Section 1: Execute Transactions (Content) -->
+      <div class="numbered-section">
+        <div class="block">
+          <p><strong>1</strong>&nbsp;&nbsp;&nbsp;<span class="section-title">To Execute Transactions:</span></p>
+          <p>To contact all the relevant government and non-government departments, Ministries, local authorities, embassies, committees, councils, semi-government departments, consulates, notary public, Ministry of Human Resources and Emiratization, Department of Economic Development (to open branches, issue all licenses required, change activities and Trade Name), Chamber of Commerce and Industry, Abu Dhabi Tourism and Cultural Authority,</p>
+        </div>
+        <div class="block rtl">
+          <p><strong>1</strong>&nbsp;&nbsp;&nbsp;<span class="section-title">إنهاء المعاملات:</span></p>
+          <p>مراجعة كافة الدوائر وكافة الجهات الحكومية حكومية والوزارات والهيئات المحلية والسفــارات واللجان والمجالس والدوائر حكومية والقنصليـــات والكتاب العدل ووزارة الموارد البشـــرية والتوطين ودائرة التنميـــة الاقتصادية لفتح فروعها واصـــدار كل الرخص المطلوبة وتعديل نشـــاطات والاســـم التجاري، وغرفة التجارة والصناعة وهيئة أبوظبي للسياحة والثقافية</p>
+        </div>
+      </div>
+
       <!-- Continuation of Section 1 -->
       <div class="article-pair">
         <div class="block">
@@ -36,30 +48,6 @@ export function page2(ctx: POAContext, pageNum: number = 2): string {
         <div class="block rtl">
           <p><strong>2</strong>&nbsp;&nbsp;&nbsp;<span class="section-title">الموظفين :</span></p>
           <p>تعيين الموظفين والعمال وإنهاء خدماتهم والتوقيع على عقودهم ودفع رواتبهم وطلب التأشيرات والبطاقات والأقامات وتجديدها واستلامها والغاءها والتعميم على العمال وفك التعميم وتسفيرهم.</p>
-        </div>
-      </div>
-
-      <!-- Section 3: Utilities -->
-      <div class="numbered-section">
-        <div class="block">
-          <p><strong>3</strong>&nbsp;&nbsp;&nbsp;<span class="section-title">Utilities:</span></p>
-          <p>To apply for telephone, fax, internet, water, electricity, (TAQA Distribution company) and other utilities/services; to sign application forms and pay charges, fines and utility bills with the right to have those utilities disconnected and cancelled temporarily or permanently or have them re-connected, and to pay security deposits for the same and receive the same in cash or by cheques, and cash the cheques.</p>
-        </div>
-        <div class="block rtl">
-          <p><strong>3</strong>&nbsp;&nbsp;&nbsp;<span class="section-title">الخدمات:</span></p>
-          <p>تقــديم وإدخـــال خـــدمات الهـــاتف والفـــاكس والإنترنت والكهرباء والميـاه (شركة طاقة للتوزيع) وغيرهـــا مـــن الخـــدمات والوسائل ؛ على نماذج وطلبات التقديم ودفع الرسوم على فواتير الخـــدمات ولهـم الحق في قطـع وإلغاء تلك الخدمات نهائيا امؤقـــتا واعادتهـــا مـــرة أخـــرى ولتقـــديم الضـــمانات والكفـــالات المتعلقـــة بتلـــك الخـــدمات واستلامها ســواء نقدا أو بشيكات وصرفها.</p>
-        </div>
-      </div>
-
-      <!-- Section 4: Banks -->
-      <div class="numbered-section">
-        <div class="block">
-          <p><strong>4</strong>&nbsp;&nbsp;&nbsp;<span class="section-title">Banks:</span></p>
-          <p>To open, operate, manage and close company accounts at banks, and withdraw and deposit</p>
-        </div>
-        <div class="block rtl">
-          <p><strong>4</strong>&nbsp;&nbsp;&nbsp;<span class="section-title">البنوك:</span></p>
-          <p>فتح وأدل عل وإدارة الحسابات الموجودة والجديدة والغائها والإيداع</p>
         </div>
       </div>
 

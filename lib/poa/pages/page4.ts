@@ -2,12 +2,24 @@
 import { POAContext, poaPageFooter, yearsToWords } from '../types'
 
 export function page4(ctx: POAContext, pageNum: number = 4): string {
-  const { principal, validity } = ctx
+  const { validity, sections } = ctx
   const yearsWord = yearsToWords(validity.years)
 
   return `
     <div class="page">
       <div class="page-content">
+
+      <!-- Section 7: Motor Vehicles -->
+      <div class="numbered-section">
+        <div class="block">
+          <p><strong>7</strong>&nbsp;&nbsp;&nbsp;<span class="section-title">Motor Vehicles:</span></p>
+          <p>To register, renew, buy${sections.noSaleVehiclesAssets ? ', without any right to sale' : ', sell'} or assign hire out, all new and registered vehicles owned by the license, to drive and pay fines and offences incurred by vehicles, and to sign all contracts related to the vehicles of the license.</p>
+        </div>
+        <div class="block rtl">
+          <p><strong>7</strong>&nbsp;&nbsp;&nbsp;<span class="section-title">السيارات :</span></p>
+          <p>تسجيل وتجديد${sections.noSaleVehiclesAssets ? '، بدون أي حق في البيع' : ' وبيع'} أو تنازل إؤتأجير جميع الســـيارات الجديدة والمرقمة للرخصـــة وقيادة السيارات ولهم الحق في دفع الرسـوم والمخالفات المترتبة على السـيارات والتوقيع على كافة العقود المتعلقة بسيارات الرخصة المذكورة اعلاه.</p>
+        </div>
+      </div>
 
       <!-- Section 8: Approach Courts -->
       <div class="numbered-section">
@@ -31,27 +43,7 @@ export function page4(ctx: POAContext, pageNum: number = 4): string {
         </div>
       </div>
 
-      <!-- Signature Block -->
-      <div class="signature-block" style="margin-top: 40px;">
-        <div class="signature-area">
-          <div class="signature-content">
-            <p><strong>The Principal:</strong></p>
-            <p><span class="edited">${principal.pronouns.title} ${principal.name}</span>,</p>
-            <p><strong>Signature:</strong></p>
-          </div>
-          <div class="signature-line-block"></div>
-        </div>
-        <div class="signature-area rtl">
-          <div class="signature-content">
-            <p><strong>الموكل:</strong></p>
-            <p><span class="edited">${principal.pronouns.titleAr} / ${principal.nameAr}</span></p>
-            <p><strong>التوقيع:</strong></p>
-          </div>
-          <div class="signature-line-block"></div>
-        </div>
       </div>
-
-      </div>
-      ${poaPageFooter(pageNum, true)}
+      ${poaPageFooter(pageNum)}
     </div>`
 }

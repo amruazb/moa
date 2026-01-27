@@ -5,7 +5,10 @@ import { usePOAStore } from '@/store/poaStore'
 export function POAExtractionForm() {
     const {
         poaData,
-        updatePrincipal,
+        updatePrincipal1,
+        updatePrincipal2,
+        updatePrincipal1Representative,
+        updatePrincipal2Representative,
         updateAttorney,
         updateLicense,
         updateSections,
@@ -13,23 +16,23 @@ export function POAExtractionForm() {
         resetToDefault
     } = usePOAStore()
 
-    const { principal, attorney, license, sections, validity } = poaData
+    const { principals, attorney, license, sections, validity } = poaData
 
     return (
         <div className="space-y-6 max-h-[calc(100vh-200px)] overflow-y-auto pr-2">
-            {/* Principal Information */}
+            {/* Principal 1 Information */}
             <div className="space-y-3">
                 <h3 className="text-sm font-semibold text-gray-700 flex items-center gap-2">
                     <span className="w-2 h-2 bg-purple-500 rounded-full"></span>
-                    Principal (Power Giver)
+                    Principal 1 (Power Giver)
                 </h3>
                 <div className="grid grid-cols-2 gap-3">
                     <div>
                         <label className="block text-xs text-gray-500 mb-1">Name (English)</label>
                         <input
                             type="text"
-                            value={principal?.name || ''}
-                            onChange={(e) => updatePrincipal({ name: e.target.value })}
+                            value={principals?.[0]?.name || ''}
+                            onChange={(e) => updatePrincipal1({ name: e.target.value })}
                             className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
                             placeholder="Full name in English"
                         />
@@ -39,8 +42,8 @@ export function POAExtractionForm() {
                         <input
                             type="text"
                             dir="rtl"
-                            value={principal?.nameAr || ''}
-                            onChange={(e) => updatePrincipal({ nameAr: e.target.value })}
+                            value={principals?.[0]?.nameAr || ''}
+                            onChange={(e) => updatePrincipal1({ nameAr: e.target.value })}
                             className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
                             placeholder="الاسم بالعربية"
                         />
@@ -50,8 +53,8 @@ export function POAExtractionForm() {
                     <div>
                         <label className="block text-xs text-gray-500 mb-1">Salutation</label>
                         <select
-                            value={principal?.salutation || 'mr'}
-                            onChange={(e) => updatePrincipal({ salutation: e.target.value as 'mr' | 'ms' | 'mrs' })}
+                            value={principals?.[0]?.salutation || 'mr'}
+                            onChange={(e) => updatePrincipal1({ salutation: e.target.value as 'mr' | 'ms' | 'mrs' })}
                             className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
                         >
                             <option value="mr">Mr.</option>
@@ -63,8 +66,8 @@ export function POAExtractionForm() {
                         <label className="block text-xs text-gray-500 mb-1">Nationality</label>
                         <input
                             type="text"
-                            value={principal?.nationality || ''}
-                            onChange={(e) => updatePrincipal({ nationality: e.target.value })}
+                            value={principals?.[0]?.nationality || ''}
+                            onChange={(e) => updatePrincipal1({ nationality: e.target.value })}
                             className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
                             placeholder="e.g. UAE"
                         />
@@ -74,8 +77,8 @@ export function POAExtractionForm() {
                         <input
                             type="text"
                             dir="rtl"
-                            value={principal?.nationalityAr || ''}
-                            onChange={(e) => updatePrincipal({ nationalityAr: e.target.value })}
+                            value={principals?.[0]?.nationalityAr || ''}
+                            onChange={(e) => updatePrincipal1({ nationalityAr: e.target.value })}
                             className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
                             placeholder="إماراتية"
                         />
@@ -85,13 +88,379 @@ export function POAExtractionForm() {
                     <label className="block text-xs text-gray-500 mb-1">EID / Passport Number</label>
                     <input
                         type="text"
-                        value={principal?.eidOrPassport || ''}
-                        onChange={(e) => updatePrincipal({ eidOrPassport: e.target.value })}
+                        value={principals?.[0]?.eidOrPassport || ''}
+                        onChange={(e) => updatePrincipal1({ eidOrPassport: e.target.value })}
                         className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
                         placeholder="784-XXXX-XXXXXXX-X"
                     />
                 </div>
+                <div className="flex items-center gap-2 pt-2">
+                    <input
+                        type="checkbox"
+                        id="principal1-represented"
+                        checked={principals?.[0]?.isRepresented || false}
+                        onChange={(e) => updatePrincipal1({ isRepresented: e.target.checked })}
+                        className="w-4 h-4 text-purple-600 bg-gray-100 border-gray-300 rounded focus:ring-purple-500 focus:ring-2"
+                    />
+                    <label htmlFor="principal1-represented" className="text-sm text-gray-700">
+                        This principal is signing through a representative
+                    </label>
+                </div>
             </div>
+
+            {/* Principal 1 Representative Information */}
+            {principals?.[0]?.isRepresented && (
+                <div className="space-y-3 ml-4 border-l-2 border-purple-200 pl-4">
+                    <h4 className="text-sm font-semibold text-gray-600 flex items-center gap-2">
+                        <span className="w-2 h-2 bg-orange-500 rounded-full"></span>
+                        Representative for Principal 1
+                    </h4>
+                    <div className="grid grid-cols-2 gap-3">
+                        <div>
+                            <label className="block text-xs text-gray-500 mb-1">Name (English)</label>
+                            <input
+                                type="text"
+                                value={principals?.[0]?.representative?.name || ''}
+                                onChange={(e) => updatePrincipal1Representative({ name: e.target.value })}
+                                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition"
+                                placeholder="Representative's full name"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-xs text-gray-500 mb-1">Name (Arabic)</label>
+                            <input
+                                type="text"
+                                dir="rtl"
+                                value={principals?.[0]?.representative?.nameAr || ''}
+                                onChange={(e) => updatePrincipal1Representative({ nameAr: e.target.value })}
+                                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition"
+                                placeholder="اسم المندوب"
+                            />
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-3 gap-3">
+                        <div>
+                            <label className="block text-xs text-gray-500 mb-1">Salutation</label>
+                            <select
+                                value={principals?.[0]?.representative?.salutation || 'mr'}
+                                onChange={(e) => updatePrincipal1Representative({ salutation: e.target.value as 'mr' | 'ms' | 'mrs' })}
+                                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition"
+                            >
+                                <option value="mr">Mr.</option>
+                                <option value="ms">Ms.</option>
+                                <option value="mrs">Mrs.</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label className="block text-xs text-gray-500 mb-1">Nationality</label>
+                            <input
+                                type="text"
+                                value={principals?.[0]?.representative?.nationality || ''}
+                                onChange={(e) => updatePrincipal1Representative({ nationality: e.target.value })}
+                                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition"
+                                placeholder="e.g. Indian"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-xs text-gray-500 mb-1">Date of Birth</label>
+                            <input
+                                type="text"
+                                value={principals?.[0]?.representative?.dateOfBirth || ''}
+                                onChange={(e) => updatePrincipal1Representative({ dateOfBirth: e.target.value })}
+                                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition"
+                                placeholder="DD/MM/YYYY"
+                            />
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-3">
+                        <div>
+                            <label className="block text-xs text-gray-500 mb-1">EID / Passport Number</label>
+                            <input
+                                type="text"
+                                value={principals?.[0]?.representative?.eidOrPassport || ''}
+                                onChange={(e) => updatePrincipal1Representative({ eidOrPassport: e.target.value })}
+                                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition"
+                                placeholder="784-XXXX-XXXXXXX-X"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-xs text-gray-500 mb-1">POA Number</label>
+                            <input
+                                type="text"
+                                value={principals?.[0]?.representative?.poaNumber || ''}
+                                onChange={(e) => updatePrincipal1Representative({ poaNumber: e.target.value })}
+                                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition"
+                                placeholder="POA attestation number"
+                            />
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-3 gap-3">
+                        <div>
+                            <label className="block text-xs text-gray-500 mb-1">POA Date</label>
+                            <input
+                                type="text"
+                                value={principals?.[0]?.representative?.poaDate || ''}
+                                onChange={(e) => updatePrincipal1Representative({ poaDate: e.target.value })}
+                                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition"
+                                placeholder="DD/MM/YYYY"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-xs text-gray-500 mb-1">POA Location</label>
+                            <input
+                                type="text"
+                                value={principals?.[0]?.representative?.poaLocation || ''}
+                                onChange={(e) => updatePrincipal1Representative({ poaLocation: e.target.value })}
+                                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition"
+                                placeholder="e.g. Abu Dhabi"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-xs text-gray-500 mb-1">Address</label>
+                            <input
+                                type="text"
+                                value={principals?.[0]?.representative?.address || ''}
+                                onChange={(e) => updatePrincipal1Representative({ address: e.target.value })}
+                                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition"
+                                placeholder="Representative's address"
+                            />
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Principal 2 Information */}
+            <div className="space-y-3">
+                <h3 className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+                    <span className="w-2 h-2 bg-purple-500 rounded-full"></span>
+                    Principal 2 (Power Giver)
+                </h3>
+                <div className="grid grid-cols-2 gap-3">
+                    <div>
+                        <label className="block text-xs text-gray-500 mb-1">Name (English)</label>
+                        <input
+                            type="text"
+                            value={principals?.[1]?.name || ''}
+                            onChange={(e) => updatePrincipal2({ name: e.target.value })}
+                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                            placeholder="Full name in English"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-xs text-gray-500 mb-1">Name (Arabic)</label>
+                        <input
+                            type="text"
+                            dir="rtl"
+                            value={principals?.[1]?.nameAr || ''}
+                            onChange={(e) => updatePrincipal2({ nameAr: e.target.value })}
+                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                            placeholder="الاسم بالعربية"
+                        />
+                    </div>
+                </div>
+                <div className="grid grid-cols-3 gap-3">
+                    <div>
+                        <label className="block text-xs text-gray-500 mb-1">Salutation</label>
+                        <select
+                            value={principals?.[1]?.salutation || 'mr'}
+                            onChange={(e) => updatePrincipal2({ salutation: e.target.value as 'mr' | 'ms' | 'mrs' })}
+                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                        >
+                            <option value="mr">Mr.</option>
+                            <option value="ms">Ms.</option>
+                            <option value="mrs">Mrs.</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label className="block text-xs text-gray-500 mb-1">Nationality</label>
+                        <input
+                            type="text"
+                            value={principals?.[1]?.nationality || ''}
+                            onChange={(e) => updatePrincipal2({ nationality: e.target.value })}
+                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                            placeholder="e.g. Indian"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-xs text-gray-500 mb-1">Nationality (AR)</label>
+                        <input
+                            type="text"
+                            dir="rtl"
+                            value={principals?.[1]?.nationalityAr || ''}
+                            onChange={(e) => updatePrincipal2({ nationalityAr: e.target.value })}
+                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                            placeholder="هندي"
+                        />
+                    </div>
+                </div>
+                <div>
+                    <label className="block text-xs text-gray-500 mb-1">EID / Passport Number</label>
+                    <input
+                        type="text"
+                        value={principals?.[1]?.eidOrPassport || ''}
+                        onChange={(e) => updatePrincipal2({ eidOrPassport: e.target.value })}
+                        className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                        placeholder="784-XXXX-XXXXXXX-X"
+                    />
+                </div>
+                <div className="flex items-center gap-2 pt-2">
+                    <input
+                        type="checkbox"
+                        id="principal2-represented"
+                        checked={principals?.[1]?.isRepresented || false}
+                        onChange={(e) => updatePrincipal2({ isRepresented: e.target.checked })}
+                        className="w-4 h-4 text-purple-600 bg-gray-100 border-gray-300 rounded focus:ring-purple-500 focus:ring-2"
+                    />
+                    <label htmlFor="principal2-represented" className="text-sm text-gray-700">
+                        This principal is signing through a representative
+                    </label>
+                </div>
+            </div>
+
+            {/* Principal 2 Representative Information */}
+            {principals?.[1]?.isRepresented && (
+                <div className="space-y-3 ml-4 border-l-2 border-purple-200 pl-4">
+                    <h4 className="text-sm font-semibold text-gray-600 flex items-center gap-2">
+                        <span className="w-2 h-2 bg-orange-500 rounded-full"></span>
+                        Representative for Principal 2
+                    </h4>
+                    <div className="grid grid-cols-2 gap-3">
+                        <div>
+                            <label className="block text-xs text-gray-500 mb-1">Name (English)</label>
+                            <input
+                                type="text"
+                                value={principals?.[1]?.representative?.name || ''}
+                                onChange={(e) => updatePrincipal2Representative({ name: e.target.value })}
+                                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition"
+                                placeholder="Representative's full name"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-xs text-gray-500 mb-1">Name (Arabic)</label>
+                            <input
+                                type="text"
+                                dir="rtl"
+                                value={principals?.[1]?.representative?.nameAr || ''}
+                                onChange={(e) => updatePrincipal2Representative({ nameAr: e.target.value })}
+                                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition"
+                                placeholder="اسم المندوب"
+                            />
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-3 gap-3">
+                        <div>
+                            <label className="block text-xs text-gray-500 mb-1">Salutation</label>
+                            <select
+                                value={principals?.[1]?.representative?.salutation || 'mr'}
+                                onChange={(e) => updatePrincipal2Representative({ salutation: e.target.value as 'mr' | 'ms' | 'mrs' })}
+                                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition"
+                            >
+                                <option value="mr">Mr.</option>
+                                <option value="ms">Ms.</option>
+                                <option value="mrs">Mrs.</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label className="block text-xs text-gray-500 mb-1">Nationality</label>
+                            <input
+                                type="text"
+                                value={principals?.[1]?.representative?.nationality || ''}
+                                onChange={(e) => updatePrincipal2Representative({ nationality: e.target.value })}
+                                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition"
+                                placeholder="e.g. Indian"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-xs text-gray-500 mb-1">Date of Birth</label>
+                            <input
+                                type="text"
+                                value={principals?.[1]?.representative?.dateOfBirth || ''}
+                                onChange={(e) => updatePrincipal2Representative({ dateOfBirth: e.target.value })}
+                                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition"
+                                placeholder="DD/MM/YYYY"
+                            />
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-3">
+                        <div>
+                            <label className="block text-xs text-gray-500 mb-1">EID / Passport Number</label>
+                            <input
+                                type="text"
+                                value={principals?.[1]?.representative?.eidOrPassport || ''}
+                                onChange={(e) => updatePrincipal2Representative({ eidOrPassport: e.target.value })}
+                                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition"
+                                placeholder="784-XXXX-XXXXXXX-X"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-xs text-gray-500 mb-1">POA Number</label>
+                            <input
+                                type="text"
+                                value={principals?.[1]?.representative?.poaNumber || ''}
+                                onChange={(e) => updatePrincipal2Representative({ poaNumber: e.target.value })}
+                                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition"
+                                placeholder="POA attestation number"
+                            />
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-3 gap-3">
+                        <div>
+                            <label className="block text-xs text-gray-500 mb-1">POA Date</label>
+                            <input
+                                type="text"
+                                value={principals?.[1]?.representative?.poaDate || ''}
+                                onChange={(e) => updatePrincipal2Representative({ poaDate: e.target.value })}
+                                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition"
+                                placeholder="DD/MM/YYYY"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-xs text-gray-500 mb-1">POA Location</label>
+                            <input
+                                type="text"
+                                value={principals?.[1]?.representative?.poaLocation || ''}
+                                onChange={(e) => updatePrincipal2Representative({ poaLocation: e.target.value })}
+                                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition"
+                                placeholder="e.g. Abu Dhabi"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-xs text-gray-500 mb-1">Address</label>
+                            <input
+                                type="text"
+                                value={principals?.[1]?.representative?.address || ''}
+                                onChange={(e) => updatePrincipal2Representative({ address: e.target.value })}
+                                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition"
+                                placeholder="Representative's address"
+                            />
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-3">
+                        <div>
+                            <label className="block text-xs text-gray-500 mb-1">Nationality (AR)</label>
+                            <input
+                                type="text"
+                                dir="rtl"
+                                value={principals?.[1]?.representative?.nationalityAr || ''}
+                                onChange={(e) => updatePrincipal2Representative({ nationalityAr: e.target.value })}
+                                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition"
+                                placeholder="هندي"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-xs text-gray-500 mb-1">Address (AR)</label>
+                            <input
+                                type="text"
+                                dir="rtl"
+                                value={principals?.[1]?.representative?.addressAr || ''}
+                                onChange={(e) => updatePrincipal2Representative({ addressAr: e.target.value })}
+                                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition"
+                                placeholder="عنوان المندوب"
+                            />
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {/* Attorney Information */}
             <div className="space-y-3">
@@ -322,6 +691,64 @@ export function POAExtractionForm() {
                         </p>
                     </div>
                 )}
+            </div>
+
+            {/* Restrictions / Points to Note */}
+            <div className="space-y-3">
+                <h3 className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+                    <span className="w-2 h-2 bg-red-500 rounded-full"></span>
+                    Restrictions / Points to Note
+                </h3>
+                <div className="p-4 bg-red-50 rounded-lg border border-red-200">
+                    <p className="text-xs text-red-700 mb-3 font-medium">Enable restrictions to add "Points to note" section in the document:</p>
+                    <div className="space-y-2">
+                        <label className="flex items-center gap-2 text-sm text-gray-700">
+                            <input
+                                type="checkbox"
+                                checked={sections?.noSaleVehiclesAssets ?? false}
+                                onChange={(e) => updateSections({ noSaleVehiclesAssets: e.target.checked })}
+                                className="w-4 h-4 text-red-600 border-gray-300 rounded focus:ring-red-500"
+                            />
+                            No right to sale any of vehicles /assets
+                        </label>
+                        <label className="flex items-center gap-2 text-sm text-gray-700">
+                            <input
+                                type="checkbox"
+                                checked={sections?.noLoansFacilities ?? false}
+                                onChange={(e) => updateSections({ noLoansFacilities: e.target.checked })}
+                                className="w-4 h-4 text-red-600 border-gray-300 rounded focus:ring-red-500"
+                            />
+                            No any type of loans /facilities from any bank
+                        </label>
+                        <label className="flex items-center gap-2 text-sm text-gray-700">
+                            <input
+                                type="checkbox"
+                                checked={sections?.noChequeBooks ?? false}
+                                onChange={(e) => updateSections({ noChequeBooks: e.target.checked })}
+                                className="w-4 h-4 text-red-600 border-gray-300 rounded focus:ring-red-500"
+                            />
+                            No any right to cheque books
+                        </label>
+                        <label className="flex items-center gap-2 text-sm text-gray-700">
+                            <input
+                                type="checkbox"
+                                checked={sections?.noSignCheques ?? false}
+                                onChange={(e) => updateSections({ noSignCheques: e.target.checked })}
+                                className="w-4 h-4 text-red-600 border-gray-300 rounded focus:ring-red-500"
+                            />
+                            No any right to sign the cheques
+                        </label>
+                        <label className="flex items-center gap-2 text-sm text-gray-700">
+                            <input
+                                type="checkbox"
+                                checked={sections?.noTransferShares ?? false}
+                                onChange={(e) => updateSections({ noTransferShares: e.target.checked })}
+                                className="w-4 h-4 text-red-600 border-gray-300 rounded focus:ring-red-500"
+                            />
+                            No any right to transfer shares or ownership
+                        </label>
+                    </div>
+                </div>
             </div>
 
             {/* Validity Period */}

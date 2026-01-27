@@ -6,7 +6,10 @@ import { samplePOAFilled } from '@/lib/poa/sampleData'
 interface POAStore {
     poaData: POAData
     setPOAData: (data: Partial<POAData>) => void
-    updatePrincipal: (data: Partial<POAData['principal']>) => void
+    updatePrincipal1: (data: Partial<POAPrincipal>) => void
+    updatePrincipal2: (data: Partial<POAPrincipal>) => void
+    updatePrincipal1Representative: (data: Partial<POARepresentative>) => void
+    updatePrincipal2Representative: (data: Partial<POARepresentative>) => void
     updateAttorney: (data: Partial<POAData['attorney']>) => void
     updateLicense: (data: Partial<POAData['license']>) => void
     updateSections: (data: Partial<POAData['sections']>) => void
@@ -56,9 +59,42 @@ export const usePOAStore = create<POAStore>((set, get) => ({
         saveToCache(newState)
     },
 
-    updatePrincipal: (data) => {
-        const newPrincipal = { ...get().poaData.principal, ...data }
-        const newState = { ...get().poaData, principal: newPrincipal }
+    updatePrincipal1: (data) => {
+        const newPrincipals = [...get().poaData.principals!]
+        newPrincipals[0] = { ...newPrincipals[0], ...data }
+        const newState = { ...get().poaData, principals: newPrincipals }
+        set({ poaData: newState })
+        saveToCache(newState)
+    },
+
+    updatePrincipal2: (data) => {
+        const newPrincipals = [...get().poaData.principals!]
+        newPrincipals[1] = { ...newPrincipals[1], ...data }
+        const newState = { ...get().poaData, principals: newPrincipals }
+        set({ poaData: newState })
+        saveToCache(newState)
+    },
+
+    updatePrincipal1Representative: (data) => {
+        const newPrincipals = [...get().poaData.principals!]
+        const currentRep = newPrincipals[0].representative || {}
+        newPrincipals[0] = { 
+            ...newPrincipals[0], 
+            representative: { ...currentRep, ...data } 
+        }
+        const newState = { ...get().poaData, principals: newPrincipals }
+        set({ poaData: newState })
+        saveToCache(newState)
+    },
+
+    updatePrincipal2Representative: (data) => {
+        const newPrincipals = [...get().poaData.principals!]
+        const currentRep = newPrincipals[1].representative || {}
+        newPrincipals[1] = { 
+            ...newPrincipals[1], 
+            representative: { ...currentRep, ...data } 
+        }
+        const newState = { ...get().poaData, principals: newPrincipals }
         set({ poaData: newState })
         saveToCache(newState)
     },

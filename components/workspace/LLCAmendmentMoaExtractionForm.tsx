@@ -4,7 +4,7 @@ import { useLLCAmendmentMoaStore } from '@/store/llcAmendmentMoaStore'
 import { Salutation } from '@/lib/llc_amendment_moa/types'
 
 export function LLCAmendmentMoaExtractionForm() {
-    const { data, updateCompany, updatePartner, updatePartnerRepresentative, updateManager, updateCapital, resetData, loadSampleData } = useLLCAmendmentMoaStore()
+    const { data, updateCompany, updatePartner, updatePartnerRepresentative, togglePartnerRepresentative, updateManager, updateCapital, resetData, loadSampleData } = useLLCAmendmentMoaStore()
 
     return (
         <div className="space-y-6">
@@ -111,6 +111,7 @@ export function LLCAmendmentMoaExtractionForm() {
                 partner={data.partners[0]}
                 updatePartner={updatePartner}
                 updatePartnerRepresentative={updatePartnerRepresentative}
+                togglePartnerRepresentative={togglePartnerRepresentative}
             />
 
             {/* Partner 2 Section */}
@@ -120,6 +121,7 @@ export function LLCAmendmentMoaExtractionForm() {
                 partner={data.partners[1]}
                 updatePartner={updatePartner}
                 updatePartnerRepresentative={updatePartnerRepresentative}
+                togglePartnerRepresentative={togglePartnerRepresentative}
             />
 
             {/* Manager Section */}
@@ -138,12 +140,13 @@ export function LLCAmendmentMoaExtractionForm() {
 }
 
 // Partner Section Component
-function PartnerSection({ title, partnerIndex, partner, updatePartner, updatePartnerRepresentative }: {
+function PartnerSection({ title, partnerIndex, partner, updatePartner, updatePartnerRepresentative, togglePartnerRepresentative }: {
     title: string
     partnerIndex: number
     partner: any
     updatePartner: (index: number, field: string, value: any) => void
     updatePartnerRepresentative: (index: number, field: string, value: any) => void
+    togglePartnerRepresentative: (index: number) => void
 }) {
     return (
         <div className="space-y-3">
@@ -218,7 +221,19 @@ function PartnerSection({ title, partnerIndex, partner, updatePartner, updatePar
 
             {/* Representative Section */}
             <div className="mt-4 pt-3 border-t border-gray-100">
-                <h4 className="text-xs font-semibold text-gray-700 mb-2">Authorized Representative</h4>
+                <div className="flex items-center justify-between mb-2">
+                    <h4 className="text-xs font-semibold text-gray-700">Authorized Representative</h4>
+                    <label className="flex items-center gap-2">
+                        <input
+                            type="checkbox"
+                            checked={partner.hasRepresentative}
+                            onChange={() => togglePartnerRepresentative(partnerIndex)}
+                            className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                        />
+                        <span className="text-xs text-gray-600">Enable Representative</span>
+                    </label>
+                </div>
+                {partner.hasRepresentative && (
                 <div className="grid grid-cols-2 gap-3">
                     <div>
                         <label className="block text-xs font-medium text-gray-600 mb-1">Salutation</label>
@@ -289,6 +304,7 @@ function PartnerSection({ title, partnerIndex, partner, updatePartner, updatePar
                         />
                     </div>
                 </div>
+                )}
             </div>
         </div>
     )

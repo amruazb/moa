@@ -3,6 +3,7 @@
 import { POAExtractionForm } from './workspace/POAExtractionForm'
 import { POALivePreviewPane } from './workspace/POALivePreviewPane'
 import { FormattingToolbar } from './workspace/FormattingToolbar'
+import { TemplateManager } from './templates/TemplateManager'
 import { useEffect } from 'react'
 import { usePOAStore } from '@/store/poaStore'
 import { useFormattingStore } from '@/store/formattingStore'
@@ -10,6 +11,8 @@ import { useFormattingStore } from '@/store/formattingStore'
 export function POAWorkspace() {
     const initializeFromCache = usePOAStore((state) => state.initializeFromCache)
     const initializeFormattingFromCache = useFormattingStore((state) => state.initializeFromCache)
+    const setPOAData = usePOAStore((state) => state.setPOAData)
+    const poaData = usePOAStore((state) => state.poaData)
 
     useEffect(() => {
         // Initialize from cache when component mounts
@@ -17,12 +20,25 @@ export function POAWorkspace() {
         initializeFormattingFromCache()
     }, [initializeFromCache, initializeFormattingFromCache])
 
+    const handleLoadTemplate = (data: any) => {
+        setPOAData(data)
+    }
+
     return (
         <div className="flex gap-6 items-start">
             {/* Left side - Edit Form */}
             <div className="w-[480px] flex-shrink-0">
                 {/* Formatting Toolbar */}
                 <FormattingToolbar />
+
+                {/* Template Manager */}
+                <div className="mb-4 bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+                    <TemplateManager
+                        documentType="poa"
+                        currentData={poaData}
+                        onLoadTemplate={handleLoadTemplate}
+                    />
+                </div>
 
                 <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
                     <div className="flex items-center gap-2 mb-4">
