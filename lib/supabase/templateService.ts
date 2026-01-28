@@ -13,6 +13,10 @@ export async function saveTemplate(
   description?: string
 ): Promise<{ success: boolean; error?: string; templateId?: string }> {
   try {
+    if (!supabase) {
+      return { success: false, error: 'Supabase is not configured. Please check your environment variables.' }
+    }
+
     // Create template object
     const template: Template = {
       name,
@@ -63,6 +67,10 @@ export async function listTemplates(
   documentType: DocumentType
 ): Promise<{ success: boolean; templates?: TemplateMetadata[]; error?: string }> {
   try {
+    if (!supabase) {
+      return { success: false, error: 'Supabase is not configured. Please check your environment variables.' }
+    }
+
     const { data, error } = await supabase.storage
       .from(BUCKET_NAME)
       .list(documentType, {
@@ -118,6 +126,10 @@ export async function loadTemplate(
   templateId: string
 ): Promise<{ success: boolean; template?: Template; error?: string }> {
   try {
+    if (!supabase) {
+      return { success: false, error: 'Supabase is not configured. Please check your environment variables.' }
+    }
+
     const { data, error } = await supabase.storage
       .from(BUCKET_NAME)
       .download(templateId)
@@ -147,6 +159,10 @@ export async function deleteTemplate(
   templateId: string
 ): Promise<{ success: boolean; error?: string }> {
   try {
+    if (!supabase) {
+      return { success: false, error: 'Supabase is not configured. Please check your environment variables.' }
+    }
+
     const { error } = await supabase.storage
       .from(BUCKET_NAME)
       .remove([templateId])
