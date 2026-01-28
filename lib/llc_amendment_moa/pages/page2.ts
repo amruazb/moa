@@ -51,6 +51,24 @@ export function page2(ctx: LLCAmendmentMOAContext, pageNum: number = 2): string 
     <div class="page">
       <div class="page-content">
         
+        <!-- Legal Framework (Continuation) -->
+        <div class="article-pair">
+          <div class="block">
+            <ul style="margin-top: 0; padding-left: 20px;">
+              <li>The original Memorandum of Association of the Company</li>
+              <li>The Articles of Association of the Company</li>
+              <li>All applicable UAE laws and regulations</li>
+            </ul>
+          </div>
+          <div class="block rtl">
+            <ul style="margin-top: 0; padding-right: 20px; direction: rtl; text-align: right;">
+              <li>عقد التأسيس الأصلي للشركة</li>
+              <li>النظام الأساسي للشركة</li>
+              <li>جميع القوانين واللوائح الإماراتية المعمول بها</li>
+            </ul>
+          </div>
+        </div>
+
         <!-- Parties Section -->
         <div class="article-pair">
           <div class="block">

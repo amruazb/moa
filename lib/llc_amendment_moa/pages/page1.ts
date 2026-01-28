@@ -89,9 +89,6 @@ export function page1(ctx: LLCAmendmentMOAContext, pageNum: number = 1, headerSi
             <p>This addendum is executed in accordance with:</p>
             <ul>
               <li>UAE Federal Law No. 32 of 2021 concerning Commercial Companies</li>
-              <li>The original Memorandum of Association of the Company</li>
-              <li>The Articles of Association of the Company</li>
-              <li>All applicable UAE laws and regulations</li>
             </ul>
           </div>
           <div class="block rtl">
@@ -99,9 +96,6 @@ export function page1(ctx: LLCAmendmentMOAContext, pageNum: number = 1, headerSi
             <p>يتم تنفيذ هذا الملحق وفقاً لـ:</p>
             <ul>
               <li>القانون الاتحادي الإماراتي رقم 32 لسنة 2021 بشأن الشركات التجارية</li>
-              <li>عقد التأسيس الأصلي للشركة</li>
-              <li>النظام الأساسي للشركة</li>
-              <li>جميع القوانين واللوائح الإماراتية المعمول بها</li>
             </ul>
           </div>
         </div>

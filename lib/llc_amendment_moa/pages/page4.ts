@@ -1,7 +1,7 @@
 import { LLCAmendmentMOAContext, pageFooter } from '../types'
 
 export function page4(ctx: LLCAmendmentMOAContext, pageNum: number = 4): string {
-  const { partners, capital, totalShares, shareValue } = ctx
+  const { partners, capital, capitalWordsEn, capitalWordsAr, totalShares, shareValue } = ctx
 
   // Generate partner rows for share distribution table
   const partnerRowsEn = partners.map((partner, index) => {
@@ -40,11 +40,11 @@ export function page4(ctx: LLCAmendmentMOAContext, pageNum: number = 4): string 
         <div class="article-pair">
           <div class="block">
             <h3 class="bold underline">ARTICLE 1: SHARE DISTRIBUTION</h3>
-            <p>Following the assignment of shares as described in the preamble, the capital of the Company amounting to <span class="edited">${capital.toLocaleString()}</span> AED shall be divided among the partners as follows:</p>
+            <p>Following the assignment of shares as described in the preamble, the capital of the Company amounting to <span class="edited">${capital.toLocaleString()}</span> AED (<span class="edited">${capitalWordsEn}</span> Dirhams) shall be divided among the partners as follows:</p>
           </div>
           <div class="block rtl">
             <h3 class="bold underline">المادة 1: توزيع الحصص</h3>
-            <p>بعد التنازل عن الأسهم كما هو موضح في التمهيد، يتم تقسيم رأس مال الشركة البالغ <span class="edited">${capital.toLocaleString()}</span> درهم بين الشركاء على النحو التالي:</p>
+            <p>بعد التنازل عن الأسهم كما هو موضح في التمهيد، يتم تقسيم رأس مال الشركة البالغ <span class="edited">${capital.toLocaleString()}</span> درهم (<span class="edited">${capitalWordsAr}</span> درهم) بين الشركاء على النحو التالي:</p>
           </div>
         </div>
 
@@ -96,12 +96,12 @@ export function page4(ctx: LLCAmendmentMOAContext, pageNum: number = 4): string 
         <div class="article-pair">
           <div class="block">
             <h3 class="bold underline">ARTICLE 2: CAPITAL</h3>
-            <p>The capital of the Company remains at <span class="edited">${capital.toLocaleString()}</span> AED, divided into <span class="edited">${totalShares}</span> shares, with a value of <span class="edited">${shareValue.toLocaleString()}</span> AED per share.</p>
+            <p>The capital of the Company remains at <span class="edited">${capital.toLocaleString()}</span> AED (<span class="edited">${capitalWordsEn}</span> Dirhams), divided into <span class="edited">${totalShares}</span> shares, with a value of <span class="edited">${shareValue.toLocaleString()}</span> AED per share.</p>
             <p>Each partner's contribution to the capital is as specified in the share distribution table above.</p>
           </div>
           <div class="block rtl">
             <h3 class="bold underline">المادة 2: رأس المال</h3>
-            <p>يبقى رأس مال الشركة عند <span class="edited">${capital.toLocaleString()}</span> درهم، مقسم إلى <span class="edited">${totalShares}</span> سهم، بقيمة <span class="edited">${shareValue.toLocaleString()}</span> درهم للسهم الواحد.</p>
+            <p>يبقى رأس مال الشركة عند <span class="edited">${capital.toLocaleString()}</span> درهم (<span class="edited">${capitalWordsAr}</span> درهم)، مقسم إلى <span class="edited">${totalShares}</span> سهم، بقيمة <span class="edited">${shareValue.toLocaleString()}</span> درهم للسهم الواحد.</p>
             <p>مساهمة كل شريك في رأس المال كما هو محدد في جدول توزيع الأسهم أعلاه.</p>
           </div>
         </div>

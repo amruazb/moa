@@ -218,6 +218,27 @@ function PartnerSection({ title, partnerIndex, partner, updatePartner, updatePar
                     className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-indigo-500"
                 />
             </div>
+            <div>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Address (EN)</label>
+                <textarea
+                    value={partner.address || ''}
+                    onChange={(e) => updatePartner(partnerIndex, 'address', e.target.value)}
+                    className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                    rows={2}
+                    placeholder="Company address"
+                />
+            </div>
+            <div>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Address (AR)</label>
+                <textarea
+                    value={partner.addressAr || ''}
+                    onChange={(e) => updatePartner(partnerIndex, 'addressAr', e.target.value)}
+                    className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                    rows={2}
+                    placeholder="عنوان الشركة"
+                    dir="rtl"
+                />
+            </div>
 
             {/* Representative Section */}
             <div className="mt-4 pt-3 border-t border-gray-100">
