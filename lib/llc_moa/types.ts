@@ -231,18 +231,30 @@ export function extractLLCContext(data: DocumentData): LLCMOAContext {
         })
     }
 
-    // Manager info - defaults to first partner if not specified
-    const managerSalutation = (managerData.managerDocType === 'eid' ? 'mr' : 'ms') as Salutation
+    // Manager info - find which partner is the manager
+    // Match by name or ID to determine which partner is the manager
+    let managerPartner = partners[0] // Default to first partner
+
+    if (managerData.managerName || managerData.managerIdNumber) {
+        const matchedPartner = partners.find(p =>
+            (managerData.managerName && p.name === managerData.managerName) ||
+            (managerData.managerIdNumber && p.eidOrPassport.replace(/-/g, '') === managerData.managerIdNumber.replace(/-/g, ''))
+        )
+        if (matchedPartner) {
+            managerPartner = matchedPartner
+        }
+    }
+
     const manager: ManagerInfo = {
-        name: managerData.managerName || partners[0].name,
-        nameAr: managerData.managerNameAr || partners[0].nameAr,
-        id: (managerData.managerIdNumber || partners[0].eidOrPassport).replace(/-/g, ''),
-        salutation: partners[0].salutation,
-        pronouns: partners[0].pronouns,
-        nationality: managerData.managerNationality || partners[0].nationality,
-        nationalityAr: managerData.managerNationalityAr || partners[0].nationalityAr,
-        address: managerData.managerAddress || partners[0].address,
-        addressAr: managerData.managerAddressAr || partners[0].addressAr
+        name: managerData.managerName || managerPartner.name,
+        nameAr: managerData.managerNameAr || managerPartner.nameAr,
+        id: (managerData.managerIdNumber || managerPartner.eidOrPassport).replace(/-/g, ''),
+        salutation: managerPartner.salutation,
+        pronouns: managerPartner.pronouns,
+        nationality: managerData.managerNationality || managerPartner.nationality,
+        nationalityAr: managerData.managerNationalityAr || managerPartner.nationalityAr,
+        address: managerData.managerAddress || managerPartner.address,
+        addressAr: managerData.managerAddressAr || managerPartner.addressAr
     }
 
     // Parse activities

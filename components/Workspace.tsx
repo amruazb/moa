@@ -3,24 +3,40 @@
 import { ExtractionForm } from './workspace/ExtractionForm'
 import { LivePreviewPane } from './workspace/LivePreviewPane'
 import { FormattingToolbar } from './workspace/FormattingToolbar'
+import { TemplateManager } from './templates/TemplateManager'
 import { useState, useEffect } from 'react'
 import { useDocumentStore } from '@/store/documentStore'
 
 export function Workspace() {
   const initializeFromCache = useDocumentStore((state) => state.initializeFromCache)
-  
+  const setDocumentData = useDocumentStore((state) => state.setDocumentData)
+  const extractedData = useDocumentStore((state) => state.extractedData)
+
   useEffect(() => {
     // Initialize from cache when component mounts
     initializeFromCache()
   }, [initializeFromCache])
-  
+
+  const handleLoadTemplate = (data: any) => {
+    setDocumentData(data)
+  }
+
   return (
     <div className="flex gap-6 items-start">
       {/* Left side - Edit Form */}
       <div className="w-[480px] flex-shrink-0">
         {/* Formatting Toolbar */}
         <FormattingToolbar />
-        
+
+        {/* Template Manager */}
+        <div className="mb-4 bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+          <TemplateManager
+            documentType="spc-moa"
+            currentData={extractedData}
+            onLoadTemplate={handleLoadTemplate}
+          />
+        </div>
+
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
           <div className="flex items-center gap-2 mb-4">
             <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -31,7 +47,7 @@ export function Workspace() {
           <ExtractionForm />
         </div>
       </div>
-      
+
       {/* Right side - Live Preview */}
       <div className="flex-1 min-w-0">
         <div className="sticky top-4">

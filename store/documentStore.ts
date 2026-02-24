@@ -78,6 +78,7 @@ interface DocumentStore {
   extractedData: DocumentData
   isProcessing: boolean
   setExtractedData: (data: Partial<DocumentData>) => void
+  setDocumentData: (data: DocumentData) => void
   setProcessing: (v: boolean) => void
   initializeFromCache: () => void
   clearCache: () => void
@@ -128,6 +129,11 @@ export const useDocumentStore = create<DocumentStore>((set, get) => ({
     set({ extractedData: newState })
     // Save to cache after updating state
     saveToCache(newState)
+  },
+  setDocumentData: (data) => {
+    set({ extractedData: data })
+    // Save to cache after updating state
+    saveToCache(data)
   },
   setProcessing: (v) => set({ isProcessing: v }),
   initializeFromCache: () => {

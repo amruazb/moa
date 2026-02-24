@@ -1,6 +1,6 @@
 // LLC to SPC Conversion Document Store
 import { create } from 'zustand'
-import { LLCToSPCData, Activity } from '@/lib/llc_to_spc/types'
+import { LLCToSPCData, Activity, TransferParty } from '@/lib/llc_to_spc/types'
 import { sampleLLCToSPCData } from '@/lib/llc_to_spc/sampleData'
 
 interface LLCToSPCStore {
@@ -9,9 +9,8 @@ interface LLCToSPCStore {
     setConversionData: (data: Partial<LLCToSPCData>) => void
     setUseDynamicPaging: (value: boolean) => void
     toggleDynamicPaging: () => void
-    updateFirstParty: (data: Partial<LLCToSPCData['firstParty']>) => void
-    updateSecondParty: (data: Partial<LLCToSPCData['secondParty']>) => void
-    updateThirdParty: (data: Partial<LLCToSPCData['thirdParty']>) => void
+    updateFirstParty: (data: Partial<TransferParty>) => void
+    updateSecondParty: (data: Partial<TransferParty>) => void
     updateNewOwner: (data: Partial<LLCToSPCData['newOwner']>) => void
     updateManager: (data: Partial<LLCToSPCData['manager']>) => void
     updateLicense: (data: Partial<LLCToSPCData['license']>) => void
@@ -100,16 +99,6 @@ export const useLLCToSPCStore = create<LLCToSPCStore>((set, get) => ({
             conversionData: {
                 ...state.conversionData,
                 secondParty: { ...state.conversionData.secondParty, ...data }
-            }
-        }))
-        saveToCache(get().conversionData)
-    },
-
-    updateThirdParty: (data) => {
-        set((state) => ({
-            conversionData: {
-                ...state.conversionData,
-                thirdParty: { ...state.conversionData.thirdParty, ...data }
             }
         }))
         saveToCache(get().conversionData)

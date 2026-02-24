@@ -46,6 +46,7 @@ export function generatePOAStyles(settings?: FontSettings): string {
     padding: 20px;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
+    text-align: justify;
   }
 
   /* Edited/Dynamic content styling */
@@ -58,6 +59,7 @@ export function generatePOAStyles(settings?: FontSettings): string {
     margin: 0 auto;
     background: #fff;
     box-shadow: 0 18px 42px rgba(0,0,0,0.08);
+    text-align: justify;
   }
 
   /* Each page is exactly A4 height */
@@ -102,6 +104,7 @@ export function generatePOAStyles(settings?: FontSettings): string {
     padding: 15mm ${pageMargin}mm 5mm ${pageMargin}mm;
     box-sizing: border-box;
     overflow: visible;
+    text-align: justify;
   }
 
   /* Page footer - fixed 46mm at bottom */
@@ -169,6 +172,28 @@ export function generatePOAStyles(settings?: FontSettings): string {
     color: #6b7280;
   }
 
+  /* Page 2: footer 1cm smaller for more content space */
+  .page-2 .page-content {
+    height: calc(297mm - 36mm - 15mm);
+    max-height: calc(297mm - 36mm - 15mm);
+  }
+  .page-2 .page-footer {
+    height: 36mm;
+    min-height: 36mm;
+    max-height: 36mm;
+  }
+
+  /* Page 4 (last page): footer 1cm smaller so content does not overlap */
+  .page-4 .page-content {
+    height: calc(297mm - 30mm - 15mm);
+    max-height: calc(297mm - 30mm - 15mm);
+  }
+  .page-4 .page-footer {
+    height: 30mm;
+    min-height: 30mm;
+    max-height: 30mm;
+  }
+
   /* Print Styles */
   @media print {
     html, body {
@@ -216,6 +241,9 @@ export function generatePOAStyles(settings?: FontSettings): string {
       overflow: hidden !important;
       box-sizing: border-box !important;
     }
+    .page-1 .page-content {
+      padding-top: 20mm !important;
+    }
 
     .page-footer {
       flex-shrink: 0 !important;
@@ -225,6 +253,26 @@ export function generatePOAStyles(settings?: FontSettings): string {
       padding: 5mm ${pageMargin}mm !important;
       display: flex !important;
       box-sizing: border-box !important;
+    }
+
+    .page-2 .page-content {
+      height: calc(297mm - 36mm - 15mm) !important;
+      max-height: calc(297mm - 36mm - 15mm) !important;
+    }
+    .page-2 .page-footer {
+      height: 36mm !important;
+      min-height: 36mm !important;
+      max-height: 36mm !important;
+    }
+
+    .page-4 .page-content {
+      height: calc(297mm - 30mm - 15mm) !important;
+      max-height: calc(297mm - 30mm - 15mm) !important;
+    }
+    .page-4 .page-footer {
+      height: 30mm !important;
+      min-height: 30mm !important;
+      max-height: 30mm !important;
     }
 
     .article-pair, .numbered-section {
@@ -256,53 +304,74 @@ export function generatePOAStyles(settings?: FontSettings): string {
     height: 46mm !important;
     min-height: 46mm !important;
   }
+  .pdf-mode .page-2 .page-content {
+    height: calc(297mm - 36mm - 15mm) !important;
+    max-height: calc(297mm - 36mm - 15mm) !important;
+  }
+  .pdf-mode .page-2 .page-footer {
+    height: 36mm !important;
+    min-height: 36mm !important;
+  }
+  .pdf-mode .page-4 .page-content {
+    height: calc(297mm - 30mm - 15mm) !important;
+    max-height: calc(297mm - 30mm - 15mm) !important;
+  }
+  .pdf-mode .page-4 .page-footer {
+    height: 30mm !important;
+    min-height: 30mm !important;
+  }
 
-  /* Title Styles */
+  /* Title Styles - clean two-column alignment */
   .title-pair {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
-    padding: 15px 20px;
+    align-items: center;
+    margin-bottom: 18px;
+    padding: 12px 16px;
     background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-    border: 2px solid #1e3a5f;
-    border-radius: 6px;
-    position: relative;
+    border: 1px solid #94a3b8;
+    border-radius: 4px;
     width: 100%;
   }
-  .title-pair::before {
-    content: '';
-    position: absolute;
-    top: 4px;
-    left: 4px;
-    right: 4px;
-    bottom: 4px;
-    border: 1px solid #cbd5e1;
-    border-radius: 3px;
-    pointer-events: none;
+
+  /* First page: bigger header with more space/margins */
+  .page-1 .page-content {
+    padding-top: 20mm;
+  }
+  .page-1 .title-pair {
+    padding: 20px 24px;
+    margin-bottom: 28px;
+    margin-top: 4px;
+  }
+  .page-1 .title-en {
+    font-size: ${basePt + 5}pt;
+  }
+  .page-1 .title-ar {
+    font-size: ${basePt + 5}pt;
   }
 
   .title-en {
-    flex: 0 0 calc(${englishPercent}% - 20px);
-    width: calc(${englishPercent}% - 20px);
-    font-size: ${basePt + 4}pt;
-    font-weight: bold;
+    flex: 0 0 calc(${englishPercent}% - 12px);
+    width: calc(${englishPercent}% - 12px);
+    font-size: ${basePt + 3}pt;
+    font-weight: 700;
     text-decoration: underline;
     text-align: center;
     font-family: '${englishFont}', sans-serif;
     color: #1e3a5f;
-    padding-right: 15px;
+    padding-right: 10px;
   }
 
   .title-ar {
-    flex: 0 0 calc(${arabicPercent}% - 20px);
-    width: calc(${arabicPercent}% - 20px);
-    font-size: ${basePt + 4}pt;
-    font-weight: bold;
+    flex: 0 0 calc(${arabicPercent}% - 12px);
+    width: calc(${arabicPercent}% - 12px);
+    font-size: ${basePt + 3}pt;
+    font-weight: 700;
     text-decoration: underline;
     text-align: center;
     font-family: '${arabicFont}', sans-serif;
     color: #1e3a5f;
-    padding-left: 15px;
+    padding-left: 10px;
   }
 
   /* Text Utilities */
@@ -316,72 +385,104 @@ export function generatePOAStyles(settings?: FontSettings): string {
 
   /* Block Styles - with borders */
   .block {
-    border: 1px solid #d0d0d0;
-    padding: ${Math.max(6, basePt * 0.6)}px ${Math.max(8, basePt * 0.8)}px;
-    border-radius: 3px;
-    background: #fff;
+    border: 1px solid #cbd5e1;
+    padding: ${Math.max(10, basePt * 0.8)}px ${Math.max(12, basePt * 1)}px;
+    border-radius: 4px;
+    background: #ffffff;
     font-size: ${englishPt}pt;
     line-height: ${englishLineHeight};
     min-width: 0;
     text-align: justify;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   }
   .block.rtl {
     font-size: ${arabicPt}pt;
     line-height: ${arabicLineHeight};
     direction: rtl;
     text-align: justify;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
   }
   .block h3 { font-size: ${englishPt + 0.5}pt; font-weight: 700; margin-bottom: ${Math.max(4, basePt * 0.4)}px; }
   .block.rtl h3 { font-size: ${arabicPt + 0.5}pt; }
   .block p { margin-bottom: ${Math.max(4, basePt * 0.4)}px; word-wrap: break-word; }
 
-  /* Article Pair Grid - Dynamic column ratio */
+  /* Intro sections (page 1) - enhanced borders and alignment */
+  .article-pair.intro-section {
+    margin-bottom: ${Math.max(12, basePt * 0.8)}px;
+  }
+  .article-pair.intro-section > .block {
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    background: #ffffff;
+    padding: ${Math.max(10, basePt * 0.8)}px ${Math.max(12, basePt * 1)}px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+  .article-pair.intro-section > .block.rtl {
+    padding: ${Math.max(10, basePt * 0.8)}px ${Math.max(12, basePt * 1)}px;
+  }
+
+  /* Keep IDs and key phrases from breaking awkwardly */
+  .no-break { white-space: nowrap; }
+  .phrase-keep { white-space: nowrap; }
+
+  /* Article Pair Grid - equal-height columns, aligned EN/AR */
   .article-pair {
-    display: flex;
-    gap: 10px;
-    margin-bottom: ${Math.max(6, basePt * 0.6)}px;
-    align-items: stretch;
+    display: grid;
+    grid-template-columns: calc(${englishPercent}% - 7px) calc(${arabicPercent}% - 7px);
+    grid-template-rows: 1fr;
+    gap: 14px;
+    margin-bottom: ${Math.max(10, basePt * 0.7)}px;
     width: 100%;
+    align-items: stretch;
   }
   .article-pair > .ltr,
   .article-pair > .block:not(.rtl) { 
-    flex: 0 0 calc(${englishPercent}% - 5px);
-    width: calc(${englishPercent}% - 5px);
-    font-family: '${englishFont}', sans-serif;
     min-width: 0;
+    font-family: '${englishFont}', sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
   }
   .article-pair > .rtl,
   .article-pair > .block.rtl { 
-    flex: 0 0 calc(${arabicPercent}% - 5px);
-    width: calc(${arabicPercent}% - 5px);
-    font-family: '${arabicFont}', sans-serif;
     min-width: 0;
-  }
-  .article-pair > div { min-height: 100%; }
-
-  /* Numbered sections */
-  .numbered-section {
+    font-family: '${arabicFont}', sans-serif;
     display: flex;
-    gap: 10px;
-    margin-bottom: ${Math.max(6, basePt * 0.6)}px;
-    align-items: stretch;
+    flex-direction: column;
+    min-height: 0;
+  }
+  .article-pair > .block p:first-child { margin-top: 0; }
+  .article-pair > .block.rtl p:first-child { margin-top: 0; }
+
+  /* Numbered sections - equal-height columns, aligned EN/AR */
+  .numbered-section {
+    display: grid;
+    grid-template-columns: calc(${englishPercent}% - 7px) calc(${arabicPercent}% - 7px);
+    grid-template-rows: 1fr;
+    gap: 14px;
+    margin-bottom: ${Math.max(10, basePt * 0.7)}px;
     width: 100%;
+    align-items: stretch;
   }
   .numbered-section > .ltr,
   .numbered-section > .block:not(.rtl) { 
-    flex: 0 0 calc(${englishPercent}% - 5px);
-    width: calc(${englishPercent}% - 5px);
-    font-family: '${englishFont}', sans-serif;
     min-width: 0;
+    font-family: '${englishFont}', sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
   }
   .numbered-section > .rtl,
   .numbered-section > .block.rtl { 
-    flex: 0 0 calc(${arabicPercent}% - 5px);
-    width: calc(${arabicPercent}% - 5px);
-    font-family: '${arabicFont}', sans-serif;
     min-width: 0;
+    font-family: '${arabicFont}', sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
   }
-  .numbered-section > div { min-height: 100%; }
+  .numbered-section > .block p:first-child { margin-top: 0; }
+  .numbered-section > .block.rtl p:first-child { margin-top: 0; }
 
   .section-title {
     font-weight: bold;
@@ -457,8 +558,50 @@ export function generatePOAStyles(settings?: FontSettings): string {
     margin-top: auto;
   }
 
+  /* Single centered signature block - one place to sign */
+  .signature-block-single-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  .signature-block-single {
+    max-width: 420px;
+    width: 100%;
+    margin: 0 auto 24px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    padding: 20px 24px;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    text-align: center;
+  }
+  .signature-block-single-content {
+    font-size: ${englishPt}pt;
+    line-height: ${englishLineHeight};
+  }
+  .signature-block-single-content p {
+    margin-bottom: 6px;
+  }
+  .signature-block-single-title {
+    margin-bottom: 4px !important;
+  }
+  .signature-block-single-sep {
+    color: #64748b;
+    margin: 0 6px;
+    font-weight: 400;
+  }
+  .signature-line-single {
+    margin-top: 3cm;
+    border-top: 1px solid #000;
+    min-width: 200px;
+    height: 50px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   /* Avoid page breaks inside elements */
-  .article-pair, .numbered-section, .block, .signature-block { page-break-inside: avoid; }
+  .article-pair, .numbered-section, .block, .signature-block, .signature-block-single { page-break-inside: avoid; }
 `
 }
 

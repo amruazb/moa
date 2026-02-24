@@ -2,24 +2,12 @@
 import { POAContext, poaPageFooter, yearsToWords } from '../types'
 
 export function page4(ctx: POAContext, pageNum: number = 4): string {
-  const { validity, sections } = ctx
+  const { principals, validity } = ctx
   const yearsWord = yearsToWords(validity.years)
 
   return `
     <div class="page">
       <div class="page-content">
-
-      <!-- Section 7: Motor Vehicles -->
-      <div class="numbered-section">
-        <div class="block">
-          <p><strong>7</strong>&nbsp;&nbsp;&nbsp;<span class="section-title">Motor Vehicles:</span></p>
-          <p>To register, renew, buy${sections.noSaleVehiclesAssets ? ', without any right to sale' : ', sell'} or assign hire out, all new and registered vehicles owned by the license, to drive and pay fines and offences incurred by vehicles, and to sign all contracts related to the vehicles of the license.</p>
-        </div>
-        <div class="block rtl">
-          <p><strong>7</strong>&nbsp;&nbsp;&nbsp;<span class="section-title">السيارات :</span></p>
-          <p>تسجيل وتجديد${sections.noSaleVehiclesAssets ? '، بدون أي حق في البيع' : ' وبيع'} أو تنازل إؤتأجير جميع الســـيارات الجديدة والمرقمة للرخصـــة وقيادة السيارات ولهم الحق في دفع الرسـوم والمخالفات المترتبة على السـيارات والتوقيع على كافة العقود المتعلقة بسيارات الرخصة المذكورة اعلاه.</p>
-        </div>
-      </div>
 
       <!-- Section 8: Approach Courts -->
       <div class="numbered-section">
@@ -43,7 +31,49 @@ export function page4(ctx: POAContext, pageNum: number = 4): string {
         </div>
       </div>
 
+      <!-- Signature Block -->
+      <div style="margin-top: 40px;">
+        ${principals.map((principal, index) => `
+        <div class="signature-block">
+          <div class="signature-area">
+            <div class="signature-content">
+              <p><strong>The Principal:</strong></p>
+              <p><span class="edited">${principal.pronouns.title} ${principal.name}</span>,</p>
+              ${principal.isRepresented && principal.representative ? `
+              <p><strong>Represented by:</strong></p>
+              <p><span class="edited">${principal.representative.pronouns.title} ${principal.representative.name}</span>, ${principal.representative.nationality} National,</p>
+              <p>Date of Birth: <span class="edited">${principal.representative.dateOfBirth}</span></p>
+              <p>Holder of Emirates ID No.: <span class="edited">${principal.representative.eidOrPassport}</span></p>
+              <p>By virtue of Power of Attorney attested by Notary Public, ${principal.representative.poaLocation}, under No.: <span class="edited">${principal.representative.poaNumber}</span></p>
+              <p>dated <span class="edited">${principal.representative.poaDate}</span>,</p>
+              <p>residing at <span class="edited">${principal.representative.address}</span>.</p>
+              ` : ''}
+              <p><strong>Signature:</strong></p>
+            </div>
+            <div class="signature-line-block"></div>
+          </div>
+          <div class="signature-area rtl">
+            <div class="signature-content">
+              <p><strong>الموكل:</strong></p>
+              <p><span class="edited">${principal.pronouns.titleAr} / ${principal.nameAr}</span></p>
+              ${principal.isRepresented && principal.representative ? `
+              <p><strong>ممثل بـ:</strong></p>
+              <p><span class="edited">${principal.representative.pronouns.titleAr} / ${principal.representative.nameAr}</span>، ${principal.representative.nationalityAr} الجنسية،</p>
+              <p>تاريخ الميلاد: <span class="edited">${principal.representative.dateOfBirth}</span></p>
+              <p>حامل بطاقة الهوية الإماراتية رقم: <span class="edited">${principal.representative.eidOrPassport}</span></p>
+              <p>بموجب التوكيل المصدق من كاتب العدل، ${principal.representative.poaLocation}، تحت رقم: <span class="edited">${principal.representative.poaNumber}</span></p>
+              <p>بتاريخ <span class="edited">${principal.representative.poaDate}</span>،</p>
+              <p>مقيم في <span class="edited">${principal.representative.addressAr}</span>.</p>
+              ` : ''}
+              <p><strong>التوقيع:</strong></p>
+            </div>
+            <div class="signature-line-block"></div>
+          </div>
+        </div>
+        `).join('')}
       </div>
-      ${poaPageFooter(pageNum)}
+
+      </div>
+      ${poaPageFooter(pageNum, true)}
     </div>`
 }

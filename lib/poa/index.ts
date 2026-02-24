@@ -10,13 +10,12 @@ export function generatePOAHTML(data: POAData, fontSettings?: FontSettings): str
   const ctx = extractPOAContext(data)
   const styles = generatePOAStyles(fontSettings)
 
-  // Build pages array
+  // Build pages array (page 4 is the final page with signature block)
   const pageGenerators = [
     pages.page1,
     pages.page2,
     pages.page3,
     pages.page4,
-    pages.page5,
   ]
 
   // Generate pages with dynamic page numbers (1-indexed)

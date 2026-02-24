@@ -1,7 +1,7 @@
 import { LLCToSPCContext, conversionPageFooter } from '../types'
 
 export function page13(ctx: LLCToSPCContext, pageNum: number = 13): string {
-  const { firstParty, secondParty, thirdParty, newOwner } = ctx
+  const { firstParty, secondParty, newOwner } = ctx
 
   return `
     <div class="page">
@@ -49,21 +49,11 @@ export function page13(ctx: LLCToSPCContext, pageNum: number = 13): string {
           </div>
         </div>
 
-        <div class="article-pair" style="margin-top: 25px;">
-          <div class="block" style="text-align: center; padding: 15px; min-height: 180px; display: flex; flex-direction: column; justify-content: space-between;">
+
+        <div style="margin-top: 25px; display: flex; justify-content: center;">
+          <div style="text-align: center; padding: 15px; min-height: 180px; width: 50%; display: flex; flex-direction: column; justify-content: space-between;">
             <div>
-              <p style="margin-bottom: 10px; font-weight: bold;">Third Party / الطرف الثالث</p>
-              <p class="edited" style="margin: 5px 0; font-size: 11pt;">${thirdParty.pronouns.title} ${thirdParty.name}</p>
-              <p class="edited" style="direction: rtl; margin: 5px 0; font-size: 11pt;">${thirdParty.pronouns.titleAr}/ ${thirdParty.nameAr}</p>
-            </div>
-            <div>
-              <div style="border-bottom: 1px solid #000; width: 220px; margin: 98px auto 8px;"></div>
-              <p style="font-size: 9pt; margin: 0;">Signature / التوقيع</p>
-            </div>
-          </div>
-          <div class="block" style="text-align: center; padding: 15px; min-height: 180px; display: flex; flex-direction: column; justify-content: space-between;">
-            <div>
-              <p style="margin-bottom: 10px; font-weight: bold;">Fourth Party (New Owner) / الطرف الرابع (المالك الجديد)</p>
+              <p style="margin-bottom: 10px; font-weight: bold;">Third Party (New Owner) / الطرف الثالث (المالك الجديد)</p>
               <p class="edited" style="margin: 5px 0; font-size: 11pt;">${newOwner.pronouns.title} ${newOwner.name}</p>
               <p class="edited" style="direction: rtl; margin: 5px 0; font-size: 11pt;">${newOwner.pronouns.titleAr}/ ${newOwner.nameAr}</p>
             </div>

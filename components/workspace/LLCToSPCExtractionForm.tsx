@@ -7,9 +7,9 @@ import { Activity } from '@/lib/llc_to_spc/types'
 export function LLCToSPCExtractionForm() {
     const {
         conversionData,
-        updateFirstParty,
-        updateSecondParty,
-        updateThirdParty,
+        updateSeller,
+        addSeller,
+        removeSeller,
         updateNewOwner,
         updateManager,
         updateLicense,
@@ -22,10 +22,13 @@ export function LLCToSPCExtractionForm() {
         resetToDefault
     } = useLLCToSPCStore()
 
-    const { agreementDate, firstParty, secondParty, thirdParty, newOwner, license, originalMOA, capitalInfo, activities } = conversionData
+    const { agreementDate, sellers = [], newOwner, license, originalMOA, capitalInfo, activities } = conversionData
 
     // State for new activity form
     const [newActivity, setNewActivity] = useState<Partial<Activity>>({ code: '', nameEn: '', nameAr: '' })
+
+    // Color palette for sellers
+    const sellerColors = ['purple', 'blue', 'yellow', 'pink', 'indigo', 'red', 'orange', 'teal', 'cyan', 'lime']
 
     return (
         <div className="space-y-6 max-h-[calc(100vh-200px)] overflow-y-auto pr-2">
@@ -45,301 +48,178 @@ export function LLCToSPCExtractionForm() {
                 </div>
             </div>
 
-            {/* First Party */}
+            {/* Sellers (Dynamic) */}
             <div className="space-y-3">
-                <h3 className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-                    <span className="w-2 h-2 bg-purple-500 rounded-full"></span>
-                    First Party (Transferor 1)
-                </h3>
-                <div className="grid grid-cols-2 gap-3">
-                    <div>
-                        <label className="block text-xs text-gray-500 mb-1">Name (English)</label>
-                        <input
-                            type="text"
-                            value={firstParty?.name || ''}
-                            onChange={(e) => updateFirstParty({ name: e.target.value })}
-                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
-                            placeholder="Full name in English"
-                        />
-                    </div>
-                    <div>
-                        <label className="block text-xs text-gray-500 mb-1">Name (Arabic)</label>
-                        <input
-                            type="text"
-                            dir="rtl"
-                            value={firstParty?.nameAr || ''}
-                            onChange={(e) => updateFirstParty({ nameAr: e.target.value })}
-                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
-                            placeholder="الاسم بالعربية"
-                        />
-                    </div>
+                <div className="flex items-center justify-between">
+                    <h3 className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+                        <span className="w-2 h-2 bg-purple-500 rounded-full"></span>
+                        Sellers (Transferors)
+                    </h3>
+                    <button
+                        onClick={() => addSeller()}
+                        className="px-3 py-1 text-xs text-white bg-purple-500 rounded-lg hover:bg-purple-600 transition flex items-center gap-1"
+                    >
+                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                        </svg>
+                        Add Seller
+                    </button>
                 </div>
-                <div className="grid grid-cols-3 gap-3">
-                    <div>
-                        <label className="block text-xs text-gray-500 mb-1">Salutation</label>
-                        <select
-                            value={firstParty?.salutation || 'mr'}
-                            onChange={(e) => updateFirstParty({ salutation: e.target.value as 'mr' | 'ms' | 'mrs' })}
-                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
-                        >
-                            <option value="mr">Mr.</option>
-                            <option value="ms">Ms.</option>
-                            <option value="mrs">Mrs.</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label className="block text-xs text-gray-500 mb-1">Nationality</label>
-                        <input
-                            type="text"
-                            value={firstParty?.nationality || ''}
-                            onChange={(e) => updateFirstParty({ nationality: e.target.value })}
-                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
-                            placeholder="e.g. Indian"
-                        />
-                    </div>
-                    <div>
-                        <label className="block text-xs text-gray-500 mb-1">Nationality (AR)</label>
-                        <input
-                            type="text"
-                            dir="rtl"
-                            value={firstParty?.nationalityAr || ''}
-                            onChange={(e) => updateFirstParty({ nationalityAr: e.target.value })}
-                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
-                            placeholder="هندي"
-                        />
-                    </div>
-                </div>
-                <div className="grid grid-cols-2 gap-3">
-                    <div>
-                        <label className="block text-xs text-gray-500 mb-1">EID / Passport</label>
-                        <input
-                            type="text"
-                            value={firstParty?.eidOrPassport || ''}
-                            onChange={(e) => updateFirstParty({ eidOrPassport: e.target.value })}
-                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
-                            placeholder="784-XXXX-XXXXXXX-X"
-                        />
-                    </div>
-                    <div>
-                        <label className="block text-xs text-gray-500 mb-1">Date of Birth</label>
-                        <input
-                            type="text"
-                            value={firstParty?.dob || ''}
-                            onChange={(e) => updateFirstParty({ dob: e.target.value })}
-                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
-                            placeholder="DD/MM/YYYY"
-                        />
-                    </div>
-                </div>
-                <div>
-                    <label className="block text-xs text-gray-500 mb-1">Shares %</label>
-                    <input
-                        type="number"
-                        min="0"
-                        max="100"
-                        value={firstParty?.sharesPercent || 50}
-                        onChange={(e) => updateFirstParty({ sharesPercent: parseInt(e.target.value) || 0 })}
-                        className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
-                    />
-                </div>
-            </div>
 
-            {/* Second Party */}
-            <div className="space-y-3">
-                <h3 className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-                    <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
-                    Second Party (Transferor 2)
-                </h3>
-                <div className="grid grid-cols-2 gap-3">
-                    <div>
-                        <label className="block text-xs text-gray-500 mb-1">Name (English)</label>
-                        <input
-                            type="text"
-                            value={secondParty?.name || ''}
-                            onChange={(e) => updateSecondParty({ name: e.target.value })}
-                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-                            placeholder="Full name in English"
-                        />
-                    </div>
-                    <div>
-                        <label className="block text-xs text-gray-500 mb-1">Name (Arabic)</label>
-                        <input
-                            type="text"
-                            dir="rtl"
-                            value={secondParty?.nameAr || ''}
-                            onChange={(e) => updateSecondParty({ nameAr: e.target.value })}
-                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-                            placeholder="الاسم بالعربية"
-                        />
-                    </div>
-                </div>
-                <div className="grid grid-cols-3 gap-3">
-                    <div>
-                        <label className="block text-xs text-gray-500 mb-1">Salutation</label>
-                        <select
-                            value={secondParty?.salutation || 'mr'}
-                            onChange={(e) => updateSecondParty({ salutation: e.target.value as 'mr' | 'ms' | 'mrs' })}
-                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-                        >
-                            <option value="mr">Mr.</option>
-                            <option value="ms">Ms.</option>
-                            <option value="mrs">Mrs.</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label className="block text-xs text-gray-500 mb-1">Nationality</label>
-                        <input
-                            type="text"
-                            value={secondParty?.nationality || ''}
-                            onChange={(e) => updateSecondParty({ nationality: e.target.value })}
-                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-                            placeholder="e.g. Indian"
-                        />
-                    </div>
-                    <div>
-                        <label className="block text-xs text-gray-500 mb-1">Nationality (AR)</label>
-                        <input
-                            type="text"
-                            dir="rtl"
-                            value={secondParty?.nationalityAr || ''}
-                            onChange={(e) => updateSecondParty({ nationalityAr: e.target.value })}
-                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-                            placeholder="هندي"
-                        />
-                    </div>
-                </div>
-                <div className="grid grid-cols-2 gap-3">
-                    <div>
-                        <label className="block text-xs text-gray-500 mb-1">EID / Passport</label>
-                        <input
-                            type="text"
-                            value={secondParty?.eidOrPassport || ''}
-                            onChange={(e) => updateSecondParty({ eidOrPassport: e.target.value })}
-                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-                            placeholder="784-XXXX-XXXXXXX-X"
-                        />
-                    </div>
-                    <div>
-                        <label className="block text-xs text-gray-500 mb-1">Date of Birth</label>
-                        <input
-                            type="text"
-                            value={secondParty?.dob || ''}
-                            onChange={(e) => updateSecondParty({ dob: e.target.value })}
-                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-                            placeholder="DD/MM/YYYY"
-                        />
-                    </div>
-                </div>
-                <div>
-                    <label className="block text-xs text-gray-500 mb-1">Shares %</label>
-                    <input
-                        type="number"
-                        min="0"
-                        max="100"
-                        value={secondParty?.sharesPercent || 50}
-                        onChange={(e) => updateSecondParty({ sharesPercent: parseInt(e.target.value) || 0 })}
-                        className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-                    />
-                </div>
-            </div>
+                {sellers.map((seller, index) => {
+                    const color = sellerColors[index % sellerColors.length]
+                    return (
+                        <div key={index} className={`border-2 border-${color}-200 bg-${color}-50 rounded-lg p-4 space-y-3`}>
+                            <div className="flex items-center justify-between mb-2">
+                                <h4 className={`text-sm font-semibold text-${color}-700`}>
+                                    Seller {index + 1}
+                                </h4>
+                                {sellers.length > 1 && (
+                                    <button
+                                        onClick={() => removeSeller(index)}
+                                        className="text-red-500 hover:text-red-700 p-1"
+                                        title="Remove seller"
+                                    >
+                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                )}
+                            </div>
 
-            {/* Third Party (Third Selling Partner) */}
-            <div className="space-y-3">
-                <h3 className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-                    <span className="w-2 h-2 bg-yellow-500 rounded-full"></span>
-                    Third Party (3rd Selling Partner)
-                </h3>
-                <div className="grid grid-cols-2 gap-3">
-                    <div>
-                        <label className="block text-xs text-gray-500 mb-1">Name (English)</label>
-                        <input
-                            type="text"
-                            value={thirdParty?.name || ''}
-                            onChange={(e) => updateThirdParty({ name: e.target.value })}
-                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition"
-                            placeholder="Full name in English"
-                        />
-                    </div>
-                    <div>
-                        <label className="block text-xs text-gray-500 mb-1">Name (Arabic)</label>
-                        <input
-                            type="text"
-                            dir="rtl"
-                            value={thirdParty?.nameAr || ''}
-                            onChange={(e) => updateThirdParty({ nameAr: e.target.value })}
-                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition"
-                            placeholder="الاسم بالعربية"
-                        />
-                    </div>
-                </div>
-                <div className="grid grid-cols-3 gap-3">
-                    <div>
-                        <label className="block text-xs text-gray-500 mb-1">Salutation</label>
-                        <select
-                            value={thirdParty?.salutation || 'mr'}
-                            onChange={(e) => updateThirdParty({ salutation: e.target.value as 'mr' | 'ms' | 'mrs' })}
-                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition"
-                        >
-                            <option value="mr">Mr.</option>
-                            <option value="ms">Ms.</option>
-                            <option value="mrs">Mrs.</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label className="block text-xs text-gray-500 mb-1">Nationality</label>
-                        <input
-                            type="text"
-                            value={thirdParty?.nationality || ''}
-                            onChange={(e) => updateThirdParty({ nationality: e.target.value })}
-                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition"
-                            placeholder="e.g. Indian"
-                        />
-                    </div>
-                    <div>
-                        <label className="block text-xs text-gray-500 mb-1">Nationality (AR)</label>
-                        <input
-                            type="text"
-                            dir="rtl"
-                            value={thirdParty?.nationalityAr || ''}
-                            onChange={(e) => updateThirdParty({ nationalityAr: e.target.value })}
-                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition"
-                            placeholder="هندي"
-                        />
-                    </div>
-                </div>
-                <div className="grid grid-cols-2 gap-3">
-                    <div>
-                        <label className="block text-xs text-gray-500 mb-1">EID / Passport</label>
-                        <input
-                            type="text"
-                            value={thirdParty?.eidOrPassport || ''}
-                            onChange={(e) => updateThirdParty({ eidOrPassport: e.target.value })}
-                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition"
-                            placeholder="784-XXXX-XXXXXXX-X"
-                        />
-                    </div>
-                    <div>
-                        <label className="block text-xs text-gray-500 mb-1">Date of Birth</label>
-                        <input
-                            type="text"
-                            value={thirdParty?.dob || ''}
-                            onChange={(e) => updateThirdParty({ dob: e.target.value })}
-                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition"
-                            placeholder="DD/MM/YYYY"
-                        />
-                    </div>
-                </div>
-                <div>
-                    <label className="block text-xs text-gray-500 mb-1">Shares %</label>
-                    <input
-                        type="number"
-                        min="0"
-                        max="100"
-                        value={thirdParty?.sharesPercent || 0}
-                        onChange={(e) => updateThirdParty({ sharesPercent: parseInt(e.target.value) || 0 })}
-                        className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition"
-                    />
-                </div>
+                            <div className="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label className="block text-xs text-gray-500 mb-1">Name (English)</label>
+                                    <input
+                                        type="text"
+                                        value={seller?.name || ''}
+                                        onChange={(e) => updateSeller(index, { name: e.target.value })}
+                                        className={`w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-${color}-500 focus:border-transparent transition`}
+                                        placeholder="Full name in English"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-xs text-gray-500 mb-1">Name (Arabic)</label>
+                                    <input
+                                        type="text"
+                                        dir="rtl"
+                                        value={seller?.nameAr || ''}
+                                        onChange={(e) => updateSeller(index, { nameAr: e.target.value })}
+                                        className={`w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-${color}-500 focus:border-transparent transition`}
+                                        placeholder="الاسم بالعربية"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-3 gap-3">
+                                <div>
+                                    <label className="block text-xs text-gray-500 mb-1">Salutation</label>
+                                    <select
+                                        value={seller?.salutation || 'mr'}
+                                        onChange={(e) => updateSeller(index, { salutation: e.target.value as 'mr' | 'ms' | 'mrs' })}
+                                        className={`w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-${color}-500 focus:border-transparent transition`}
+                                    >
+                                        <option value="mr">Mr.</option>
+                                        <option value="ms">Ms.</option>
+                                        <option value="mrs">Mrs.</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label className="block text-xs text-gray-500 mb-1">Nationality</label>
+                                    <input
+                                        type="text"
+                                        value={seller?.nationality || ''}
+                                        onChange={(e) => updateSeller(index, { nationality: e.target.value })}
+                                        className={`w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-${color}-500 focus:border-transparent transition`}
+                                        placeholder="e.g. Indian"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-xs text-gray-500 mb-1">Nationality (AR)</label>
+                                    <input
+                                        type="text"
+                                        dir="rtl"
+                                        value={seller?.nationalityAr || ''}
+                                        onChange={(e) => updateSeller(index, { nationalityAr: e.target.value })}
+                                        className={`w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-${color}-500 focus:border-transparent transition`}
+                                        placeholder="هندي"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label className="block text-xs text-gray-500 mb-1">Document Type</label>
+                                    <select
+                                        value={seller?.documentType || 'eid'}
+                                        onChange={(e) => updateSeller(index, { documentType: e.target.value as 'eid' | 'passport' })}
+                                        className={`w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-${color}-500 focus:border-transparent transition`}
+                                    >
+                                        <option value="eid">Emirates ID</option>
+                                        <option value="passport">Passport</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label className="block text-xs text-gray-500 mb-1">EID / Passport</label>
+                                    <input
+                                        type="text"
+                                        value={seller?.eidOrPassport || ''}
+                                        onChange={(e) => updateSeller(index, { eidOrPassport: e.target.value })}
+                                        className={`w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-${color}-500 focus:border-transparent transition`}
+                                        placeholder="784-XXXX-XXXXXXX-X"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-3 gap-3">
+                                <div>
+                                    <label className="block text-xs text-gray-500 mb-1">Date of Birth</label>
+                                    <input
+                                        type="text"
+                                        value={seller?.dob || ''}
+                                        onChange={(e) => updateSeller(index, { dob: e.target.value })}
+                                        className={`w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-${color}-500 focus:border-transparent transition`}
+                                        placeholder="DD/MM/YYYY"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-xs text-gray-500 mb-1">Address</label>
+                                    <input
+                                        type="text"
+                                        value={seller?.address || ''}
+                                        onChange={(e) => updateSeller(index, { address: e.target.value })}
+                                        className={`w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-${color}-500 focus:border-transparent transition`}
+                                        placeholder="Abu Dhabi"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-xs text-gray-500 mb-1">Address (AR)</label>
+                                    <input
+                                        type="text"
+                                        dir="rtl"
+                                        value={seller?.addressAr || ''}
+                                        onChange={(e) => updateSeller(index, { addressAr: e.target.value })}
+                                        className={`w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-${color}-500 focus:border-transparent transition`}
+                                        placeholder="أبوظبي"
+                                    />
+                                </div>
+                            </div>
+
+                            <div>
+                                <label className="block text-xs text-gray-500 mb-1">Shares %</label>
+                                <input
+                                    type="number"
+                                    min="0"
+                                    max="100"
+                                    step="0.01"
+                                    value={seller?.sharesPercent || 0}
+                                    onChange={(e) => updateSeller(index, { sharesPercent: parseFloat(e.target.value) || 0 })}
+                                    className={`w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-${color}-500 focus:border-transparent transition`}
+                                />
+                            </div>
+                        </div>
+                    )
+                })}
             </div>
 
             {/* New Owner (Buyer) */}
@@ -408,6 +288,17 @@ export function LLCToSPCExtractionForm() {
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                     <div>
+                        <label className="block text-xs text-gray-500 mb-1">Document Type</label>
+                        <select
+                            value={newOwner?.documentType || 'eid'}
+                            onChange={(e) => updateNewOwner({ documentType: e.target.value as 'eid' | 'passport' })}
+                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
+                        >
+                            <option value="eid">Emirates ID</option>
+                            <option value="passport">Passport</option>
+                        </select>
+                    </div>
+                    <div>
                         <label className="block text-xs text-gray-500 mb-1">EID / Passport</label>
                         <input
                             type="text"
@@ -417,6 +308,8 @@ export function LLCToSPCExtractionForm() {
                             placeholder="784-XXXX-XXXXXXX-X"
                         />
                     </div>
+                </div>
+                <div className="grid grid-cols-3 gap-3">
                     <div>
                         <label className="block text-xs text-gray-500 mb-1">Date of Birth</label>
                         <input
@@ -425,6 +318,27 @@ export function LLCToSPCExtractionForm() {
                             onChange={(e) => updateNewOwner({ dob: e.target.value })}
                             className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
                             placeholder="DD/MM/YYYY"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-xs text-gray-500 mb-1">Address</label>
+                        <input
+                            type="text"
+                            value={newOwner?.address || ''}
+                            onChange={(e) => updateNewOwner({ address: e.target.value })}
+                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
+                            placeholder="Abu Dhabi"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-xs text-gray-500 mb-1">Address (AR)</label>
+                        <input
+                            type="text"
+                            dir="rtl"
+                            value={newOwner?.addressAr || ''}
+                            onChange={(e) => updateNewOwner({ addressAr: e.target.value })}
+                            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
+                            placeholder="أبوظبي"
                         />
                     </div>
                 </div>

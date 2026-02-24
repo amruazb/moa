@@ -1,7 +1,7 @@
 import { LLCToSPCContext, conversionPageFooter } from '../types'
 
 export function page3(ctx: LLCToSPCContext, pageNum: number = 3): string {
-  const { firstParty, secondParty, thirdParty, newOwner, manager, license, activities } = ctx
+  const { firstParty, secondParty, newOwner, manager, license, activities } = ctx
 
   // Generate activities list HTML
   const activitiesListEn = activities.map(a => `<li class="edited">${a.nameEn}</li>`).join('\n          ')
@@ -28,14 +28,14 @@ export function page3(ctx: LLCToSPCContext, pageNum: number = 3): string {
         <div class="block">
           <h3 class="underline center">Article (4): Release of Responsibilities</h3>
           <p>Upon execution of this agreement and registration with the competent authorities:</p>
-          <p>1. The First Party, Second Party, and Third Party shall be released from all responsibilities, liabilities, and obligations related to the company.</p>
-          <p>2. The Fourth Party (New Owner) shall assume all responsibilities, liabilities, and obligations of the company as of the date of registration.</p>
+          <p>1. The First Party and Second Party shall be released from all responsibilities, liabilities, and obligations related to the company.</p>
+          <p>2. The Third Party (New Owner) shall assume all responsibilities, liabilities, and obligations of the company as of the date of registration.</p>
         </div>
         <div class="block rtl">
           <h3 class="underline center">المادة (4): إخلاء المسؤوليات</h3>
           <p>عند تنفيذ هذا الاتفاق والتسجيل لدى الجهات المختصة:</p>
-          <p>1. يتم إخلاء مسؤولية الطرف الأول والطرف الثاني والطرف الثالث من جميع المسؤوليات والالتزامات المتعلقة بالشركة.</p>
-          <p>2. يتحمل الطرف الرابع (المالك الجديد) جميع مسؤوليات والتزامات الشركة اعتباراً من تاريخ التسجيل.</p>
+          <p>1. يتم إخلاء مسؤولية الطرف الأول والطرف الثاني من جميع المسؤوليات والالتزامات المتعلقة بالشركة.</p>
+          <p>2. يتحمل الطرف الثالث (المالك الجديد) جميع مسؤوليات والتزامات الشركة اعتباراً من تاريخ التسجيل.</p>
         </div>
       </div>
 

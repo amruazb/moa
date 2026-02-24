@@ -71,9 +71,9 @@ export const blankSpcSample: DocumentData = {
 
 export const sampleSpcFilled: DocumentData = {
   company: {
-    name: 'HORIZON COFFEE - L.L.C - S.P.C',
+    name: '(PICK N PACK BAQALA - L.L.C - S.P.C)',
     nameAr: 'هورايزون كوفي - ذ.م.م - ش.ت.ق',
-    newName: 'HORIZON COFFEE - L.L.C - S.P.C',
+    newName: '(PICK N PACK BAQALA - L.L.C - S.P.C)',
     newNameAr: 'هورايزون كوفي - ذ.م.م - ش.ت.ق',
     licenseNumber: '',
     moaDate: '2025-06-24',
@@ -143,47 +143,31 @@ export const sampleLlcFilled: DocumentData = {
   },
   sourceParties: [
     {
-      name: 'IBRAHIM SHAFEEQ CHALILAKATH MOHMOOD CHALILAKATH',
-      nameAr: 'ابراهيم شفيق شاليلاكاث محمود شاليلاكاث',
-      salutation: 'mr',
-      nationality: 'India',
-      nationalityAr: 'الهند',
-      eidNumber: '784-1234-5678901-2',
-      passportNumber: '',
-      dob: '1985-05-15',
-      address: 'Abu Dhabi, U.A.E',
-      addressAr: 'أبوظبي، الإمارات',
-      capacity: 'Partner',
-      capacityAr: 'شريك',
-      documentType: 'eid',
-      expiryDate: ''
-    },
-    {
       name: 'PANDARAPETTY ABDUL LATHEEF KUNHI MOITHEEN KUTTY',
       nameAr: 'باندارابيتي عبداللطيف كونهي مويثين كوتي',
       salutation: 'mr',
       nationality: 'India',
       nationalityAr: 'الهند',
-      eidNumber: '784-9876-5432109-8',
+      eidNumber: '784-1981-4167558-1',
       passportNumber: '',
-      dob: '1980-08-20',
+      dob: '1981-05-11',
       address: 'Abu Dhabi, U.A.E',
       addressAr: 'أبوظبي، الإمارات',
-      capacity: 'Partner',
-      capacityAr: 'شريك',
+      capacity: 'Owner',
+      capacityAr: 'مالك',
       documentType: 'eid',
       expiryDate: ''
     }
   ],
   destinationParties: [],
-  shares: { source: [50, 50], destination: [] },
+  shares: { source: [100], destination: [] },
   oldMoa: { notarizationNumber: '', notarizationDate: '', originalShares: [] },
   managerArticle: {
-    managerName: 'IBRAHIM SHAFEEQ CHALILAKATH MOHMOOD CHALILAKATH',
-    managerNameAr: 'ابراهيم شفيق شاليلاكاث محمود شاليلاكاث',
+    managerName: 'PANDARAPETTY ABDUL LATHEEF KUNHI MOITHEEN KUTTY',
+    managerNameAr: 'باندارابيتي عبداللطيف كونهي مويثين كوتي',
     managerNationality: 'India',
     managerNationalityAr: 'الهند',
-    managerIdNumber: '784-1234-5678901-2',
+    managerIdNumber: '784-1981-4167558-1',
     managerDocType: 'eid'
   },
   capital: {

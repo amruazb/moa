@@ -1,4 +1,4 @@
-// POA Page 2: Continuation of Section 1, Sections 2-4
+// POA Page 2: Continuation of Section 1, Sections 2–3
 import { POAContext, poaPageFooter } from '../types'
 
 export function page2(ctx: POAContext, pageNum: number = 2): string {
@@ -14,7 +14,7 @@ export function page2(ctx: POAContext, pageNum: number = 2): string {
     : 'بالحصـــول على تسهيلات قروض السيارات وبدون قروض نقدية من البنـــوك العاملة في الدولة'
 
   return `
-    <div class="page">
+    <div class="page page-2">
       <div class="page-content">
 
       <!-- Section 1: Execute Transactions (Content) -->
@@ -48,6 +48,18 @@ export function page2(ctx: POAContext, pageNum: number = 2): string {
         <div class="block rtl">
           <p><strong>2</strong>&nbsp;&nbsp;&nbsp;<span class="section-title">الموظفين :</span></p>
           <p>تعيين الموظفين والعمال وإنهاء خدماتهم والتوقيع على عقودهم ودفع رواتبهم وطلب التأشيرات والبطاقات والأقامات وتجديدها واستلامها والغاءها والتعميم على العمال وفك التعميم وتسفيرهم.</p>
+        </div>
+      </div>
+
+      <!-- Section 3: Purchase, Sale, Assign Materials and Vehicles -->
+      <div class="numbered-section">
+        <div class="block">
+          <p><strong>3</strong>&nbsp;&nbsp;&nbsp;<span class="section-title">To Purchase:</span></p>
+          <p>To purchase, sale, assign all materials, goods, equipment required for the license; to purchase, transfer, register and renew registration of vehicles and equipment; and sign all relevant documents before Traffic and Licensing Department and other concerned authorities.</p>
+        </div>
+        <div class="block rtl">
+          <p><strong>3</strong>&nbsp;&nbsp;&nbsp;<span class="section-title">الشراء:</span></p>
+          <p>تسجيل وتجديد وبيع أو تنازل أو التأجير جميع السيارات الجديدة والمرقمة للرخصة وقيادة السيارات واستلام المبالغ والمبالغ المستحقة وله الحق في دفع الرسوم والمخالفات المترتبة على السيارات والتوقيع على كافة العقود المتعلقة بسيارات الرخصة المذكورة أعلاه.</p>
         </div>
       </div>
 

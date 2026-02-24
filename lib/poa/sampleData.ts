@@ -69,12 +69,7 @@ export const samplePOAFilled: POAData = {
         contracts: true,
         receivables: true,
         motorVehicles: true,
-        approachCourts: true,
-        noSaleVehiclesAssets: false,
-        noLoansFacilities: false,
-        noChequeBooks: false,
-        noSignCheques: false,
-        noTransferShares: false
+        approachCourts: true
     },
     validity: {
         years: 3,
@@ -134,12 +129,7 @@ export const blankPOASample: POAData = {
         contracts: true,
         receivables: true,
         motorVehicles: true,
-        approachCourts: true,
-        noSaleVehiclesAssets: false,
-        noLoansFacilities: false,
-        noChequeBooks: false,
-        noSignCheques: false,
-        noTransferShares: false
+        approachCourts: true
     },
     validity: {
         years: 3,

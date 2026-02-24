@@ -3,16 +3,23 @@
 import { LLCExtractionForm } from './workspace/LLCExtractionForm'
 import { LLCLivePreviewPane } from './workspace/LLCLivePreviewPane'
 import { FormattingToolbar } from './workspace/FormattingToolbar'
+import { TemplateManager } from './templates/TemplateManager'
 import { useEffect } from 'react'
 import { useDocumentStore } from '@/store/documentStore'
 
 export function LLCWorkspace() {
     const initializeFromCache = useDocumentStore((state) => state.initializeFromCache)
+    const setDocumentData = useDocumentStore((state) => state.setDocumentData)
+    const extractedData = useDocumentStore((state) => state.extractedData)
 
     useEffect(() => {
         // Initialize from cache when component mounts
         initializeFromCache()
     }, [initializeFromCache])
+
+    const handleLoadTemplate = (data: any) => {
+        setDocumentData(data)
+    }
 
     return (
         <div className="flex gap-6 items-start">
@@ -20,6 +27,15 @@ export function LLCWorkspace() {
             <div className="w-[480px] flex-shrink-0">
                 {/* Formatting Toolbar */}
                 <FormattingToolbar />
+
+                {/* Template Manager */}
+                <div className="mb-4 bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+                    <TemplateManager
+                        documentType="llc-moa"
+                        currentData={extractedData}
+                        onLoadTemplate={handleLoadTemplate}
+                    />
+                </div>
 
                 <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
                     <div className="flex items-center gap-2 mb-4">

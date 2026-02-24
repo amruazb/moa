@@ -118,12 +118,6 @@ export interface POASections {
     receivables: boolean          // Section 6: Collect cash/cheques
     motorVehicles: boolean        // Section 7: Register, buy, sell vehicles
     approachCourts: boolean       // Section 8: Lawsuits, complaints, settlements
-    // Restrictions
-    noSaleVehiclesAssets: boolean // Restriction: No right to sale vehicles/assets
-    noLoansFacilities: boolean   // Restriction: No loans/facilities from banks
-    noChequeBooks: boolean        // Restriction: No right to cheque books
-    noSignCheques: boolean        // Restriction: No right to sign cheques
-    noTransferShares: boolean     // Restriction: No right to transfer shares/ownership
 }
 
 // Validity period
@@ -218,13 +212,7 @@ export function extractPOAContext(data: POAData): POAContext {
         contracts: data.sections?.contracts ?? true,
         receivables: data.sections?.receivables ?? true,
         motorVehicles: data.sections?.motorVehicles ?? true,
-        approachCourts: data.sections?.approachCourts ?? true,
-        // Restrictions - default to false (not restricted)
-        noSaleVehiclesAssets: data.sections?.noSaleVehiclesAssets ?? false,
-        noLoansFacilities: data.sections?.noLoansFacilities ?? false,
-        noChequeBooks: data.sections?.noChequeBooks ?? false,
-        noSignCheques: data.sections?.noSignCheques ?? false,
-        noTransferShares: data.sections?.noTransferShares ?? false
+        approachCourts: data.sections?.approachCourts ?? true
     }
 
     const validity: POAValidity = {

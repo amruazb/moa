@@ -27,7 +27,7 @@ if (!supabaseUrl || !supabaseAnonKey) {
 } else {
   console.log('Supabase client initialized:', supabaseUrl)
   console.log('Using key format:', supabaseAnonKey.startsWith('sb_') ? 'New (publishable/secret)' : 'Legacy (JWT)')
-  
+
   // Test DNS resolution (client-side check)
   if (typeof window !== 'undefined') {
     const testUrl = new URL(supabaseUrl)
@@ -44,15 +44,15 @@ const dummyKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsI
 
 export const supabase = supabaseUrl && supabaseAnonKey && isValidUrl
   ? createClient(supabaseUrl, supabaseAnonKey, {
-      auth: {
-        persistSession: false,
-        autoRefreshToken: false,
-      },
-    })
+    auth: {
+      persistSession: false,
+      autoRefreshToken: false,
+    },
+  })
   : createClient(dummyUrl, dummyKey) // Dummy client - operations will fail gracefully
 
 // Document types
-export type DocumentType = 'poa' | 'llc-moa' | 'llc-amendment-moa' | 'llc-new-moa' | 'llc-to-spc'
+export type DocumentType = 'poa' | 'llc-moa' | 'llc-amendment-moa' | 'llc-new-moa' | 'llc-to-spc' | 'spc-moa'
 
 // Template metadata
 export interface TemplateMetadata {

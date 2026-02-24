@@ -113,7 +113,6 @@ export interface LLCToSPCContext {
     agreementDate: string
     firstParty: TransferParty    // First selling partner
     secondParty: TransferParty   // Second selling partner
-    thirdParty: TransferParty    // Third selling partner
     newOwner: TransferParty      // New sole owner (buyer)
     manager: ManagerInfo         // Managing Director
     license: LicenseInfo
@@ -127,7 +126,6 @@ export interface LLCToSPCData {
     agreementDate?: string
     firstParty?: Partial<TransferParty>
     secondParty?: Partial<TransferParty>
-    thirdParty?: Partial<TransferParty>
     newOwner?: Partial<TransferParty>
     manager?: Partial<ManagerInfo>
     license?: Partial<LicenseInfo>
@@ -142,11 +140,11 @@ export const defaultLLCToSPCActivities: Activity[] = [
     { code: '8230002', nameEn: 'Event Management Services', nameAr: 'خدمات إدارة الفعاليات' },
 ]
 
+
 // Extract context from store data with defaults
 export function extractLLCToSPCContext(data: LLCToSPCData): LLCToSPCContext {
     const firstSalutation = (data.firstParty?.salutation || 'mr') as Salutation
     const secondSalutation = (data.secondParty?.salutation || 'mr') as Salutation
-    const thirdSalutation = (data.thirdParty?.salutation || 'mr') as Salutation
 
     const firstParty: TransferParty = {
         name: data.firstParty?.name || 'N/A',
@@ -176,21 +174,6 @@ export function extractLLCToSPCContext(data: LLCToSPCData): LLCToSPCContext {
         address: data.secondParty?.address || 'Abu Dhabi',
         addressAr: data.secondParty?.addressAr || 'أبوظبي',
         sharesPercent: data.secondParty?.sharesPercent ?? 50
-    }
-
-    const thirdParty: TransferParty = {
-        name: data.thirdParty?.name || 'N/A',
-        nameAr: data.thirdParty?.nameAr || 'غير متوفر',
-        salutation: thirdSalutation,
-        pronouns: getPronouns(thirdSalutation),
-        nationality: data.thirdParty?.nationality || 'N/A',
-        nationalityAr: data.thirdParty?.nationalityAr || 'غير متوفر',
-        eidOrPassport: data.thirdParty?.eidOrPassport || 'N/A',
-        documentType: data.thirdParty?.documentType || 'eid',
-        dob: data.thirdParty?.dob || '',
-        address: data.thirdParty?.address || 'Abu Dhabi',
-        addressAr: data.thirdParty?.addressAr || 'أبوظبي',
-        sharesPercent: data.thirdParty?.sharesPercent ?? 0
     }
 
     // New Owner (buyer) - the 4th party who buys all shares
@@ -251,7 +234,6 @@ export function extractLLCToSPCContext(data: LLCToSPCData): LLCToSPCContext {
         agreementDate: data.agreementDate || new Date().toISOString().split('T')[0],
         firstParty,
         secondParty,
-        thirdParty,
         newOwner,
         manager,
         license,

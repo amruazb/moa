@@ -3,19 +3,19 @@ import { LLCToSPCData } from './types'
 
 export const sampleLLCToSPCData: LLCToSPCData = {
     agreementDate: '2024-09-03', // This will be overridden with current date by the store
-    // OLD LLC Partners (3 selling partners)
+    // Sellers (2 selling partners)
     firstParty: {
-        name: 'Santhosh Kumar Maniyan Nair',
-        nameAr: 'سانتوش كومار مانيان ناير',
+        name: 'Ganesh Kumar Janardhananpillai',
+        nameAr: 'جانيش كومار جاناردهانان بيلاي',
         salutation: 'mr',
         nationality: 'Indian',
         nationalityAr: 'هندي',
-        eidOrPassport: '784197575143686',
+        eidOrPassport: '784197585926419',
         documentType: 'eid',
-        dob: '20/05/1975',
+        dob: '05/04/1975',
         address: 'Abu Dhabi',
         addressAr: 'أبوظبي',
-        sharesPercent: 33
+        sharesPercent: 50
     },
     secondParty: {
         name: 'Damodaran Pillai Leela Santhosh Kumar',
@@ -28,20 +28,7 @@ export const sampleLLCToSPCData: LLCToSPCData = {
         dob: '28/05/1974',
         address: 'Abu Dhabi',
         addressAr: 'أبوظبي',
-        sharesPercent: 33
-    },
-    thirdParty: {
-        name: 'Ganesh Kumar Janardhananpillai',
-        nameAr: 'جانيش كومار جاناردهانان بيلاي',
-        salutation: 'mr',
-        nationality: 'Indian',
-        nationalityAr: 'هندي',
-        eidOrPassport: '784197585926419',
-        documentType: 'eid',
-        dob: '05/04/1975',
-        address: 'Abu Dhabi',
-        addressAr: 'أبوظبي',
-        sharesPercent: 34
+        sharesPercent: 50
     },
     // NEW OWNER (buyer - Prardhana)
     newOwner: {
@@ -67,26 +54,24 @@ export const sampleLLCToSPCData: LLCToSPCData = {
     },
     license: {
         licenseNumber: 'CN-5444488',
-        oldCompanyName: 'CAPSS SAMARPPANAM DANCE EVENTS - L.L.C',
-        oldCompanyNameAr: 'كابس سمربنم للرقص و الفعاليات - ذ.م.م',
-        companyName: 'SAMATVA SAMARPANAM YOGA CLUB - L.L.C - S.P.C',
-        companyNameAr: 'نادي سمطوى سمربنم لليوجا - ذ.م.م - ش.ش.و',
+        oldCompanyName: 'SAMARPPANAM YOGA CLUB - L.L.C',
+        oldCompanyNameAr: 'نادي سمربنم لليوجا - ذ.م.م',
+        companyName: 'SAMARPPANAM YOGA CLUB - L.L.C - S.P.C',
+        companyNameAr: 'نادي سمربنم لليوجا - ذ.م.م - ش.ش.و',
         issuingAuthority: 'Department of Economic Development Abu Dhabi',
         issuingAuthorityAr: 'دائرة التنمية الاقتصادية بأبوظبي'
     },
     originalMOA: {
-        moaNumber: '2405034475',
-        moaDate: '03/09/2024'
+        moaNumber: '2405037410',
+        moaDate: '17/09/2024'
     },
     capitalInfo: {
-        capital: 50000,
-        shareCount: 500,
+        capital: 80000,
+        shareCount: 800,
         shareValue: 100
     },
     activities: [
-        { code: '9000102', nameEn: 'Parties and Events organizing', nameAr: 'تنظيم الحفلات والمناسبات' },
-        { code: '9312020', nameEn: 'Yoga Club', nameAr: 'نادي یوجا' },
-        { code: '8542002', nameEn: 'Music Training', nameAr: 'التدريب على الموسيقى' },
-        { code: '8542001', nameEn: 'Dance Training', nameAr: 'تعليم الرقص' }
+        { code: '9312020', nameEn: 'Yoga Club', nameAr: 'نادي يوجا' },
+        { code: '9312030', nameEn: 'Self-Defense Arts Training Club', nameAr: 'نادي للتدريب على فنون الدفاع عن النفس' }
     ]
 }
