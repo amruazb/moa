@@ -71,9 +71,9 @@ export const blankSpcSample: DocumentData = {
 
 export const sampleSpcFilled: DocumentData = {
   company: {
-    name: '(PICK N PACK BAQALA - L.L.C - S.P.C)',
+    name: 'HORIZON COFFEE - L.L.C - S.P.C',
     nameAr: 'هورايزون كوفي - ذ.م.م - ش.ت.ق',
-    newName: '(PICK N PACK BAQALA - L.L.C - S.P.C)',
+    newName: 'HORIZON COFFEE - L.L.C - S.P.C',
     newNameAr: 'هورايزون كوفي - ذ.م.م - ش.ت.ق',
     licenseNumber: '',
     moaDate: '2025-06-24',
@@ -143,31 +143,47 @@ export const sampleLlcFilled: DocumentData = {
   },
   sourceParties: [
     {
+      name: 'IBRAHIM SHAFEEQ CHALILAKATH MOHMOOD CHALILAKATH',
+      nameAr: 'ابراهيم شفيق شاليلاكاث محمود شاليلاكاث',
+      salutation: 'mr',
+      nationality: 'India',
+      nationalityAr: 'الهند',
+      eidNumber: '784-1234-5678901-2',
+      passportNumber: '',
+      dob: '1985-05-15',
+      address: 'Abu Dhabi, U.A.E',
+      addressAr: 'أبوظبي، الإمارات',
+      capacity: 'Partner',
+      capacityAr: 'شريك',
+      documentType: 'eid',
+      expiryDate: ''
+    },
+    {
       name: 'PANDARAPETTY ABDUL LATHEEF KUNHI MOITHEEN KUTTY',
       nameAr: 'باندارابيتي عبداللطيف كونهي مويثين كوتي',
       salutation: 'mr',
       nationality: 'India',
       nationalityAr: 'الهند',
-      eidNumber: '784-1981-4167558-1',
+      eidNumber: '784-9876-5432109-8',
       passportNumber: '',
-      dob: '1981-05-11',
+      dob: '1980-08-20',
       address: 'Abu Dhabi, U.A.E',
       addressAr: 'أبوظبي، الإمارات',
-      capacity: 'Owner',
-      capacityAr: 'مالك',
+      capacity: 'Partner',
+      capacityAr: 'شريك',
       documentType: 'eid',
       expiryDate: ''
     }
   ],
   destinationParties: [],
-  shares: { source: [100], destination: [] },
+  shares: { source: [50, 50], destination: [] },
   oldMoa: { notarizationNumber: '', notarizationDate: '', originalShares: [] },
   managerArticle: {
-    managerName: 'PANDARAPETTY ABDUL LATHEEF KUNHI MOITHEEN KUTTY',
-    managerNameAr: 'باندارابيتي عبداللطيف كونهي مويثين كوتي',
+    managerName: 'IBRAHIM SHAFEEQ CHALILAKATH MOHMOOD CHALILAKATH',
+    managerNameAr: 'ابراهيم شفيق شاليلاكاث محمود شاليلاكاث',
     managerNationality: 'India',
     managerNationalityAr: 'الهند',
-    managerIdNumber: '784-1981-4167558-1',
+    managerIdNumber: '784-1234-5678901-2',
     managerDocType: 'eid'
   },
   capital: {

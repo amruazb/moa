@@ -97,6 +97,34 @@ export default function Home() {
           </Link>
 
           <Link
+            href="/poa-vehicle"
+            className="group relative rounded-xl border-2 border-gray-200 bg-white p-8 hover:border-orange-500 hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1"
+          >
+            <div className="flex items-start justify-between mb-4">
+              <div className="w-12 h-12 rounded-lg bg-orange-100 flex items-center justify-center group-hover:bg-orange-500 transition-colors">
+                <svg className="w-6 h-6 text-orange-600 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2" />
+                </svg>
+              </div>
+              <span className="px-2 py-1 text-xs font-semibold text-orange-700 bg-orange-50 rounded-full border border-orange-200">
+                Vehicle
+              </span>
+            </div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-orange-600 transition-colors">
+              POA Vehicle
+            </h2>
+            <p className="text-gray-600 leading-relaxed">
+              Power of Attorney for selling mortgaged vehicles. Authorize banks to sell/retrieve vehicles with full details.
+            </p>
+            <div className="mt-4 flex items-center text-orange-600 font-medium group-hover:translate-x-2 transition-transform">
+              Open Workspace
+              <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+          </Link>
+
+          <Link
             href="/llc-to-spc"
             className="group relative rounded-xl border-2 border-gray-200 bg-white p-8 hover:border-teal-500 hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1"
           >
@@ -198,6 +226,90 @@ export default function Home() {
               Addendum to Partnership Agreement - Assignment of shares of company name with proper legal documentation.
             </p>
             <div className="mt-4 flex items-center text-indigo-600 font-medium group-hover:translate-x-2 transition-transform">
+              Open Workspace
+              <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+          </Link>
+
+          <Link
+            href="/auth-letter"
+            className="group relative rounded-xl border-2 border-gray-200 bg-white p-8 hover:border-blue-500 hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1"
+          >
+            <div className="flex items-start justify-between mb-4">
+              <div className="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center group-hover:bg-blue-500 transition-colors">
+                <svg className="w-6 h-6 text-blue-600 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+              </div>
+              <span className="px-2 py-1 text-xs font-semibold text-blue-700 bg-blue-50 rounded-full border border-blue-200">
+                Letter
+              </span>
+            </div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
+              Authorization Letter
+            </h2>
+            <p className="text-gray-600 leading-relaxed">
+              Bilingual authorization letter for company vehicles. Authorize employees to use company-registered vehicles.
+            </p>
+            <div className="mt-4 flex items-center text-blue-600 font-medium group-hover:translate-x-2 transition-transform">
+              Open Workspace
+              <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+          </Link>
+
+          <Link
+            href="/focus-erp-permission"
+            className="group relative rounded-xl border-2 border-gray-200 bg-white p-8 hover:border-red-500 hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1"
+          >
+            <div className="flex items-start justify-between mb-4">
+              <div className="w-12 h-12 rounded-lg bg-red-100 flex items-center justify-center group-hover:bg-red-500 transition-colors">
+                <svg className="w-6 h-6 text-red-600 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+              </div>
+              <span className="px-2 py-1 text-xs font-semibold text-red-700 bg-red-50 rounded-full border border-red-200">
+                IT Form
+              </span>
+            </div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-red-600 transition-colors">
+              Focus ERP Permission
+            </h2>
+            <p className="text-gray-600 leading-relaxed">
+              Internal IT form to request and document permission changes in Focus ERP with multi-level approval.
+            </p>
+            <div className="mt-4 flex items-center text-red-600 font-medium group-hover:translate-x-2 transition-transform">
+              Open Workspace
+              <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+          </Link>
+
+          <Link
+            href="/termination-letter"
+            className="group relative rounded-xl border-2 border-gray-200 bg-white p-8 hover:border-rose-500 hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1"
+          >
+            <div className="flex items-start justify-between mb-4">
+              <div className="w-12 h-12 rounded-lg bg-rose-100 flex items-center justify-center group-hover:bg-rose-500 transition-colors">
+                <svg className="w-6 h-6 text-rose-600 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+                </svg>
+              </div>
+              <span className="px-2 py-1 text-xs font-semibold text-rose-700 bg-rose-50 rounded-full border border-rose-200">
+                HR Letter
+              </span>
+            </div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-rose-600 transition-colors">
+              Termination Letter
+            </h2>
+            <p className="text-gray-600 leading-relaxed">
+              UAE Labour Law-compliant termination letter with one-month notice period and employee clearance instructions.
+            </p>
+            <div className="mt-4 flex items-center text-rose-600 font-medium group-hover:translate-x-2 transition-transform">
               Open Workspace
               <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
