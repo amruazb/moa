@@ -1,9 +1,9 @@
 // POA Page 1: Header, Principal Info, Attorney Info, Section 1
-import { POAContext, poaPageFooter } from '../types'
+import { POAContext, poaPageFooter, POAAttorney } from '../types'
 
 export function page1(ctx: POAContext, pageNum: number = 1): string {
-  const { principals, attorneys, license } = ctx
-  const attorneysList = attorneys && attorneys.length > 0 ? attorneys : [ctx.attorney]
+  const { principals, license } = ctx
+  const attorneysList: POAAttorney[] = ctx.attorneys && ctx.attorneys.length > 0 ? ctx.attorneys : [ctx.attorney]
 
   return `
     <div class="page page-1">
@@ -46,34 +46,71 @@ export function page1(ctx: POAContext, pageNum: number = 1): string {
       <!-- License Info -->
       <div class="article-pair intro-section">
         <div class="block">
-          <p>In ${principals.length > 1 ? 'Our' : 'My'} capacit${principals.length > 1 ? 'ies' : 'y'} as ${principals.length > 1 ? 'partners' : 'owner'} of the following License No. <span class="edited no-break">${license.licenseNumber}</span>, named: "<span class="edited">${license.companyName}</span>", issued from the <span class="edited">${license.issuingAuthority}</span>, do hereby authorize:</p>
+          <p>In ${principals.length > 1 ? 'Our' : 'My'} capacit${principals.length > 1 ? 'ies' : 'y'} as ${(() => {
+      if (principals.length > 1) return 'partners'
+      const p = principals[0]
+      if (!p) return 'owner'
+      const role = p.role || 'owner'
+      if (role === 'partner') return 'partner'
+      if (role === 'manager') {
+        const moaSuffixEn = license.moaNumber && license.moaDate ? ` by virtue of the Memorandum of Association No. <span class="edited no-break">${license.moaNumber}</span> dated <span class="edited">${license.moaDate}</span>` : ''
+        return `manager${moaSuffixEn}`
+      }
+      return 'owner'
+    })()} of the following License No. <span class="edited no-break">${license.licenseNumber}</span>, named: "<span class="edited">${license.companyName}</span>", issued from the <span class="edited">${license.issuingAuthority}</span>, do hereby authorize:</p>
         </div>
         <div class="block rtl">
-          <p>بصفت${principals.length > 1 ? 'نا' : 'ي'} ${principals.length > 1 ? 'شركاء' : (principals[0].salutation === 'mr' ? 'مالك' : 'مالكة')} في الرخصة رقم: <span class="edited no-break">${license.licenseNumber}</span>، المسماة: "<span class="edited">${license.companyNameAr}</span>"، الصادرة من <span class="edited">${license.issuingAuthorityAr}</span>، ${principals.length > 1 ? 'نوكل' : 'أوكل'}:</p>
+          <p>بصفت${principals.length > 1 ? 'نا' : 'ي'} ${(() => {
+      if (principals.length > 1) return 'شركاء'
+      const p = principals[0]
+      if (!p) return 'مالك'
+      const role = p.role || 'owner'
+      if (role === 'manager') {
+        const moaSuffixAr = license.moaNumber && license.moaDate ? ` بموجب عقد التأسيس رقم <span class="edited no-break">${license.moaNumber}</span> بتاريخ <span class="edited">${license.moaDate}</span>` : ''
+        const title = p.salutation === 'mr' ? 'مدير' : 'مديرة'
+        return `${title}${moaSuffixAr}`
+      }
+      if (role === 'partner') {
+        return p.salutation === 'mr' ? 'شريك' : 'شريكة'
+      }
+      return p.salutation === 'mr' ? 'مالك' : 'مالكة'
+    })()} في الرخصة رقم: <span class="edited no-break">${license.licenseNumber}</span>، المسماة: "<span class="edited">${license.companyNameAr}</span>"، الصادرة من <span class="edited">${license.issuingAuthorityAr}</span>، ${principals.length > 1 ? 'نوكل' : 'أوكل'}:</p>
         </div>
       </div>
 
       <!-- Attorney Info with Authorization (multiple attorneys) -->
       <div class="article-pair intro-section">
         <div class="block">
-          <p>${attorneysList.map((attorney, index) => {
-    const idPart = `holder of resident Emirates ID No. <span class="edited no-break">${attorney.eidOrPassport}</span>`
-    const namePart = `<span class="edited">${attorney.pronouns.title} ${attorney.name}</span>, <span class="edited">${attorney.nationality}</span> national, ${idPart}`
-    if (index === 0) return namePart
-    if (index === attorneysList.length - 1) return `<br/><br/>, and ${namePart}`
-    return `<br/><br/>, ${namePart}`
-  }).join('')},<br/>
+          <p>${attorneysList.map((attorney: POAAttorney, index: number) => {
+      const idPart = `holder of resident Emirates ID No. <span class="edited no-break">${attorney.eidOrPassport}</span>`
+      const namePart = `<span class="edited">${attorney.pronouns.title} ${attorney.name}</span>, <span class="edited">${attorney.nationality}</span> national, ${idPart}`
+      if (index === 0) return namePart
+      if (index === attorneysList.length - 1) return `<br/><br/>, and ${namePart}`
+      return `<br/><br/>, ${namePart}`
+    }).join('')},<br/>
           to act on ${principals.length > 1 ? 'our' : 'my'} behalf, represent the company, and sign documents individually or jointly within the scope of the following powers:</p>
         </div>
         <div class="block rtl">
-          <p>${attorneysList.map((attorney, index) => {
-    const idPart = `حامل بطاقة هوية مقيم رقم: <span class="edited no-break">${attorney.eidOrPassport}</span>`
-    const namePart = `<span class="edited">${attorney.pronouns.titleAr} / ${attorney.nameAr}</span>، <span class="edited">${attorney.nationalityAr}</span> الجنسية، ${idPart}`
-    if (index === 0) return namePart
-    if (index === attorneysList.length - 1) return `<br/><br/>، و${namePart}`
-    return `<br/><br/>، ${namePart}`
-  }).join('')}،<br/>
+          <p>${attorneysList.map((attorney: POAAttorney, index: number) => {
+      const idPart = `حامل بطاقة هوية مقيم رقم: <span class="edited no-break">${attorney.eidOrPassport}</span>`
+      const namePart = `<span class="edited">${attorney.pronouns.titleAr} / ${attorney.nameAr}</span>، <span class="edited">${attorney.nationalityAr}</span> الجنسية، ${idPart}`
+      if (index === 0) return namePart
+      if (index === attorneysList.length - 1) return `<br/><br/>، و${namePart}`
+      return `<br/><br/>، ${namePart}`
+    }).join('')}،<br/>
           ل${principals.length > 1 ? 'نوب عنا' : 'نوب عني'}، ومثل الشركة، والتوقيع على المستندات بوكيل فرد أو مشترك في نطاق الصلاحيات التالية:</p>
+        </div>
+      </div>
+
+      <!-- Section 1: Execute Transactions (header + first paragraph) -->
+      <div class="numbered-section">
+        <div class="block">
+          <p><strong>1</strong>&nbsp;&nbsp;&nbsp;<span class="section-title">To Execute Transactions:</span></p>
+          <p>To contact all the relevant government and non-government departments, Ministries, local authorities, embassies, committees, councils, semi-government departments, consulates, notary public, Ministry of Human Resources and Emiratization, Department of Economic Development (to open branches, issue all licenses required, change activities and Trade Name), Chamber of Commerce and Industry, Abu Dhabi Tourism and Cultural Authority,</p>
+        </div>
+        <div class="block rtl">
+          <p><strong>1</strong>&nbsp;&nbsp;&nbsp;<span class="section-title">إنهاء المعاملات:</span></p>
+          <p>مراجعة كافة الدوائر وكافة الجهات الحكومية حكومية والوزارات والهيئات المحلية والسفــارات واللجان والمجالس والدوائر حكومية والقنصليـــات والكتاب العدل ووزارة الموارد البشـــرية والتوطين ودائرة التنميـــة الاقتصادية لفتح فروعها واصـــدار كل الرخص المطلوبة وتعديل نشـــاطات والاســـم التجاري، وغرفة التجارة والصناعة وهيئة أبوظبي للسياحة والثقافية</p>
         </div>
       </div>
 

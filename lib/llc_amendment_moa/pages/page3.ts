@@ -18,11 +18,10 @@ export function page3(ctx: LLCAmendmentMOAContext, pageNum: number = 3): string 
                 <!-- Main Preamble Content -->
                 <div class="article-pair">
                     <div class="block">
-                        <p>Whereas the First party and Second party, owns the company namely (${ctx.company.name}) under the Commercial License No ${ctx.company.licenseNo} issued by Department of Economic Development Abu Dhabi, whereas the First Party owns <span class="edited">51%</span> of its capital, the Second party owns <span class="edited">49%</span> of its capital as per the Articles of Association of the company attested by the Notary Public in Abu Dhabi under No: <span class="edited">1809007999</span> dated: <span class="edited">2018/07/3</span>, The Second party wishes to assign a portion of his share of <span class="edited">10%</span> from the capital of said company to the Third Party who has accepted it.</p>
+                        <p>Whereas the First Party, Second Party, and Third Party own the company namely (${ctx.company.name}) under the Commercial License No ${ctx.company.licenseNo} issued by Department of Economic Development Abu Dhabi, whereas the First Party owns <span class="edited">51%</span> of its capital, the Second Party owns <span class="edited">25%</span> of its capital, and the Third Party owns <span class="edited">24%</span> of its capital as per the Articles of Association of the company attested by the Notary Public in Abu Dhabi under No: <span class="edited">2105029059</span> dated: <span class="edited">27/09/2021</span>. The Third Party wishes to assign all of his shares amounting to <span class="edited">24%</span> from the capital of said company to the Second Party, and the First Party wishes to assign <span class="edited">1%</span> of his shares to the Second Party, who has accepted both transfers.</p>
                     </div>
                     <div class="block rtl">
-                        <p>حيث أن الطرف الأول والطرف الثاني يملكان الشركة المسماة (${ctx.company.nameAr}) بموجب الرخصة التجارية رقم: ${ctx.company.licenseNo} الصادرة عن دائرة التنمية الاقتصادية – أبوظبي، بحيث يملك الطرف الأول نسبة <span class="edited">51%</span> من رأس مالها، ويملك الطرف الثاني نسبة <span class="edited">49%</span> من رأس المال، وذلك طبقاً لعقد تأسيس الشركة المصدق لدى كاتب العدل في أبوظبي برقم: <span class="edited">1809007999</span> بتاريخ: <span class="edited">2018/07/3</span>، إنه في يوم الاثنين الموافق 2018/07/3
-                        وحيث إن الطرف الثاني يرغب في التنازل عن جزء من حصته البالغ <span class="edited">10%</span> من رأس مال الشركة المذكورة لصالح الطرف الثالث، والذي قبل بذلك؛</p>
+                        <p>حيث أن الطرف الأول والطرف الثاني والطرف الثالث يملكون الشركة المسماة (${ctx.company.nameAr}) بموجب الرخصة التجارية رقم: ${ctx.company.licenseNo} الصادرة عن دائرة التنمية الاقتصادية – أبوظبي، بحيث يملك الطرف الأول نسبة <span class="edited">51%</span> من رأس مالها، ويملك الطرف الثاني نسبة <span class="edited">25%</span> من رأس المال، ويملك الطرف الثالث نسبة <span class="edited">24%</span> من رأس المال، وذلك طبقاً لعقد تأسيس الشركة المصدق لدى كاتب العدل في أبوظبي برقم: <span class="edited">2105029059</span> بتاريخ: <span class="edited">27/09/2021</span>. وحيث إن الطرف الثالث يرغب في التنازل عن جميع حصصه البالغة <span class="edited">24%</span> من رأس مال الشركة المذكورة لصالح الطرف الثاني، وأن الطرف الأول يرغب في التنازل عن <span class="edited">1%</span> من حصصه لصالح الطرف الثاني، والذي قبل بكلا التنازلين؛</p>
                     </div>
                 </div>
 
@@ -49,10 +48,10 @@ export function page3(ctx: LLCAmendmentMOAContext, pageNum: number = 3): string 
                 <!-- Bullet Point 2 -->
                 <div class="article-pair">
                     <div class="block">
-                        <p>• The Second Party assigned a portion of his shares, amounting to <span class="edited">10%</span> (equivalent to <span class="edited">10</span> shares) of the capital of the said company, without payment, to the Third Party, who accepted it.</p>
+                        <p>• The Third Party assigned all of his shares, amounting to <span class="edited">24%</span> (equivalent to <span class="edited">24</span> shares) of the capital of the said company to the Second Party, and the First Party assigned <span class="edited">1%</span> (equivalent to <span class="edited">1</span> share) of his shares to the Second Party, who accepted both transfers.</p>
                     </div>
                     <div class="block rtl">
-                        <p>• تنازل الطرف الثاني عن جزء من حصته البالغة <span class="edited">10%</span> (ما يعادل <span class="edited">10</span> حصة) من رأس مال الشركة المذكورة بدون مقابل للطرف الثالث، وقد قبل بذلك.</p>
+                        <p>• تنازل الطرف الثالث عن جميع حصصه البالغة <span class="edited">24%</span> (ما يعادل <span class="edited">24</span> حصة) من رأس مال الشركة المذكورة لصالح الطرف الثاني، وتنازل الطرف الأول عن <span class="edited">1%</span> (ما يعادل <span class="edited">1</span> حصة) من حصصه لصالح الطرف الثاني، وقد قبل بكلا التنازلين.</p>
                     </div>
                 </div>
 
@@ -69,10 +68,10 @@ export function page3(ctx: LLCAmendmentMOAContext, pageNum: number = 3): string 
                 <!-- Final Statement -->
                 <div class="article-pair">
                     <div class="block">
-                        <p>With this assignment the First, Second and Third Parties shall become the sole owners of company and the shares of the company shall be divided among the partners as following: First Party <span class="edited">51%</span>, Second Party <span class="edited">39%</span>, and Third Party <span class="edited">10%</span>.</p>
+                        <p>With these assignments, the Third Party exits the company and the First Party and Second Party shall become the sole owners of the company in equal partnership, and the shares of the company shall be divided among the partners as following: First Party <span class="edited">50%</span> and Second Party <span class="edited">50%</span>.</p>
                     </div>
                     <div class="block rtl">
-                        <p>بهذا التنازل يكون الطرف الأول والطرف الثاني والطرف الثالث المالكون الوحيدون للشركة وحصص الشركة موزعة بين الشركاء على الوجه التالي: الطرف الأول <span class="edited">51%</span>، الطرف الثاني <span class="edited">39%</span>، والطرف الثالث <span class="edited">10%</span>.</p>
+                        <p>بهذه التنازلات، يخرج الطرف الثالث من الشركة ويكون الطرف الأول والطرف الثاني المالكان الوحيدان للشركة بشراكة متساوية، وحصص الشركة موزعة بين الشركاء على الوجه التالي: الطرف الأول <span class="edited">50%</span> والطرف الثاني <span class="edited">50%</span>.</p>
                     </div>
                 </div>
 

@@ -3,95 +3,95 @@ import { LLCAmendmentMOAData, defaultActivities } from './types'
 
 export const sampleLLCAmendmentMOAData: LLCAmendmentMOAData = {
     company: {
-        name: 'ARCAID EQUIPMENTS L.L.C.',
-        nameAr: 'اركيد للمعدات ذ.م.م',
+        name: 'KHALID ALI RASHED ALI CAFETERIA L.L.C.',
+        nameAr: 'كافتيريا خالد علي راشد علي ذ.م.م',
         emirate: 'Abu Dhabi',
         emirateAr: 'أبوظبي',
         address: 'Abu Dhabi, U.A.E',
         addressAr: 'أبوظبي، الإمارات',
         amendmentDate: new Date().toISOString().split('T')[0], // Current date
-        licenseNo: 'CN-1666905'
+        licenseNo: 'CN-1017639'
     },
     partners: [
         {
-            name: 'Mrs. DALAL SAEED MUHAIR SAEED ALQUBAISI',
-            nameAr: 'السيدة/ دلال سعيد مهير سعيد القبيسى',
+            name: 'Mr. Khalid Ali Rashed Ali Almarri',
+            nameAr: 'السيد/ خالد على راشد على المري',
             country: 'United Arab Emirates',
             countryAr: 'دولة الإمارات العربية المتحدة',
-            licenseNo: '784198694987961',
+            licenseNo: '784198020646414',
             address: 'Abu Dhabi, United Arab Emirates',
             addressAr: 'أبوظبي، دولة الإمارات العربية المتحدة',
             email: '',
-            shareCount: 51,
-            hasRepresentative: false,
-            representative: {
-                salutation: 'mrs',
-                name: 'DALAL SAEED MUHAIR SAEED ALQUBAISI',
-                nameAr: 'دلال سعيد مهير سعيد القبيسى',
-                eid: '784198694987961',
-                dob: '12/10/1986',
-                nationality: 'U.A.E',
-                nationalityAr: 'إماراتي'
-            }
-        },
-        {
-            name: 'Mr. Valiyapeediakkal Abu',
-            nameAr: 'السيد/ واليابيد كيل ابو',
-            country: 'India',
-            countryAr: 'الهند',
-            licenseNo: '784195363258211',
-            address: 'Abu Dhabi, United Arab Emirates',
-            addressAr: 'أبوظبي، دولة الإمارات العربية المتحدة',
-            email: '',
-            shareCount: 39,
+            shareCount: 50,
             hasRepresentative: false,
             representative: {
                 salutation: 'mr',
-                name: 'Valiyapeediakkal Abu',
-                nameAr: 'واليابيد كيل ابو',
-                eid: '784195363258211',
-                dob: '1953-01-01',
-                nationality: 'India',
-                nationalityAr: 'الهند'
+                name: 'Khalid Ali Rashed Ali Almarri',
+                nameAr: 'خالد على راشد على المري',
+                eid: '784198020646414',
+                dob: '03/07/1980',
+                nationality: 'United Arab Emirates',
+                nationalityAr: 'دولة الإمارات العربية المتحدة'
             }
         },
         {
-            name: 'Mr. Hashim Abu Valiyapeediakkal Abu',
-            nameAr: 'السيد/ هاشم ابو فاليابيدياكال ابو',
+            name: 'Mr. Sarfudheen Palengal Veeran Palengal',
+            nameAr: 'السيد/ سرف الدين بالبنجال فيران بالينجال',
             country: 'India',
-            countryAr: 'الهند',
-            licenseNo: '784198106085370',
+            countryAr: 'جمهورية الهند',
+            licenseNo: '784198065136875',
             address: 'Abu Dhabi, United Arab Emirates',
             addressAr: 'أبوظبي، دولة الإمارات العربية المتحدة',
             email: '',
-            shareCount: 10,
+            shareCount: 50,
             hasRepresentative: false,
             representative: {
                 salutation: 'mr',
-                name: 'Hashim Abu Valiyapeediakkal Abu',
-                nameAr: 'هاشم ابو فاليابيدياكال ابو',
-                eid: '784198106085370',
-                dob: '01/06/1981',
+                name: 'Sarfudheen Palengal Veeran Palengal',
+                nameAr: 'سرف الدين بالبنجال فيران بالينجال',
+                eid: '784198065136875',
+                dob: '25/01/1980',
                 nationality: 'India',
-                nationalityAr: 'الهند'
+                nationalityAr: 'جمهورية الهند'
+            }
+        },
+        {
+            name: 'Mr. Saleemudeen Thowfeek',
+            nameAr: 'السيد/ سليم الدين توفيق',
+            country: 'India',
+            countryAr: 'جمهورية الهند',
+            licenseNo: '784198146872688',
+            address: 'Abu Dhabi, United Arab Emirates',
+            addressAr: 'أبوظبي، دولة الإمارات العربية المتحدة',
+            email: '',
+            shareCount: 0,
+            hasRepresentative: false,
+            representative: {
+                salutation: 'mr',
+                name: 'Saleemudeen Thowfeek',
+                nameAr: 'سليم الدين توفيق',
+                eid: '784198146872688',
+                dob: '30/03/1981',
+                nationality: 'India',
+                nationalityAr: 'جمهورية الهند'
             }
         }
     ],
     manager: {
         salutation: 'mr',
-        name: 'Hashim Abu Valiyapeediakkal Abu',
-        nameAr: 'هاشم ابو فاليابيدياكال ابو',
-        eid: '784198106085370',
-        dob: '01/06/1981',
+        name: 'Sarfudheen Palengal Veeran Palengal',
+        nameAr: 'سرف الدين بالبنجال فيران بالينجال',
+        eid: '784198065136875',
+        dob: '25/01/1980',
         nationality: 'India',
-        nationalityAr: 'الهند',
+        nationalityAr: 'جمهورية الهند',
         address: 'Abu Dhabi, United Arab Emirates',
         addressAr: 'أبوظبي، دولة الإمارات العربية المتحدة'
     },
     capital: {
-        totalCapital: 200000,
+        totalCapital: 150000,
         shareCount: 100,
-        shareValue: 2000
+        shareValue: 1500
     },
     activities: [
         ...defaultActivities,

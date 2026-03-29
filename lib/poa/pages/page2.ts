@@ -1,35 +1,20 @@
-// POA Page 2: Continuation of Section 1, Sections 2–3
+// POA Page 2: Continuation of Section 1, Sections 2–4 (Employees, Purchase, Motor Vehicles)
 import { POAContext, poaPageFooter } from '../types'
 
 export function page2(ctx: POAContext, pageNum: number = 2): string {
   const { sections } = ctx
 
-  // Conditional loan text based on banksWithLoan toggle
-  const bankLoanTextEn = sections.banksWithLoan
-    ? 'and avail vehicle loan facilities, with cash loan from any banks operating in the country'
-    : 'and avail vehicle loan facilities, without cash loan from any banks operating in the country'
-
-  const bankLoanTextAr = sections.banksWithLoan
-    ? 'بالحصـــول على تسهيلات قروض السيارات وبقروض نقدية من البنـــوك العاملة في الدولة'
-    : 'بالحصـــول على تسهيلات قروض السيارات وبدون قروض نقدية من البنـــوك العاملة في الدولة'
+  // Dynamic section numbering
+  let sectionNum = 2
+  const empNum = sections.employees ? sectionNum++ : null
+  const purchaseNum = sections.purchase ? sectionNum++ : null
+  const motorNum = sections.motorVehicles ? sectionNum++ : null
 
   return `
     <div class="page page-2">
       <div class="page-content">
 
-      <!-- Section 1: Execute Transactions (Content) -->
-      <div class="numbered-section">
-        <div class="block">
-          <p><strong>1</strong>&nbsp;&nbsp;&nbsp;<span class="section-title">To Execute Transactions:</span></p>
-          <p>To contact all the relevant government and non-government departments, Ministries, local authorities, embassies, committees, councils, semi-government departments, consulates, notary public, Ministry of Human Resources and Emiratization, Department of Economic Development (to open branches, issue all licenses required, change activities and Trade Name), Chamber of Commerce and Industry, Abu Dhabi Tourism and Cultural Authority,</p>
-        </div>
-        <div class="block rtl">
-          <p><strong>1</strong>&nbsp;&nbsp;&nbsp;<span class="section-title">إنهاء المعاملات:</span></p>
-          <p>مراجعة كافة الدوائر وكافة الجهات الحكومية حكومية والوزارات والهيئات المحلية والسفــارات واللجان والمجالس والدوائر حكومية والقنصليـــات والكتاب العدل ووزارة الموارد البشـــرية والتوطين ودائرة التنميـــة الاقتصادية لفتح فروعها واصـــدار كل الرخص المطلوبة وتعديل نشـــاطات والاســـم التجاري، وغرفة التجارة والصناعة وهيئة أبوظبي للسياحة والثقافية</p>
-        </div>
-      </div>
-
-      <!-- Continuation of Section 1 -->
+      <!-- Section 1 (cont.): Execute Transactions -->
       <div class="article-pair">
         <div class="block">
           <p>Municipality, Courts, Police Stations, General Directorate for Residence and Expatriates Affairs, Federal Authority for Identity and Citizenship, Waste Management, Health Insurance Authority, Procurement Dept, Department of Transport, Traffic and License Department, Seaports, Customs, Posts, Etisalat, Du, Daman, Civil Defense, National Guard Protection Department (NGPD), Water and Electricity Authority, Federal Tax Authority, Airports, Banks, Private and Public Companies, Establishments, Individuals, receive deliver and submit all applications, documents, and transactions, and to sign the same.</p>
@@ -39,31 +24,61 @@ export function page2(ctx: POAContext, pageNum: number = 2): string {
         </div>
       </div>
 
-      <!-- Section 2: Employees -->
+      ${empNum !== null ? `
+      <!-- Section ${empNum}: Employees -->
       <div class="numbered-section">
         <div class="block">
-          <p><strong>2</strong>&nbsp;&nbsp;&nbsp;<span class="section-title">Employees:</span></p>
+          <p><strong>${empNum}</strong>&nbsp;&nbsp;&nbsp;<span class="section-title">Employees:</span></p>
           <p>To appoint employees and workers, terminate their services, sign their contracts, and pay their salaries; to obtain, renew, receive and cancel residence visas, work permits, and labor cards; to apply for issuance of absconding notices against workers, cancel the same and to deport employees.</p>
         </div>
         <div class="block rtl">
-          <p><strong>2</strong>&nbsp;&nbsp;&nbsp;<span class="section-title">الموظفين :</span></p>
+          <p><strong>${empNum}</strong>&nbsp;&nbsp;&nbsp;<span class="section-title">الموظفين :</span></p>
           <p>تعيين الموظفين والعمال وإنهاء خدماتهم والتوقيع على عقودهم ودفع رواتبهم وطلب التأشيرات والبطاقات والأقامات وتجديدها واستلامها والغاءها والتعميم على العمال وفك التعميم وتسفيرهم.</p>
         </div>
       </div>
+      ` : ''}
 
-      <!-- Section 3: Purchase, Sale, Assign Materials and Vehicles -->
+      ${purchaseNum !== null ? `
+      <!-- Section ${purchaseNum}: Purchase Materials & Goods -->
       <div class="numbered-section">
         <div class="block">
-          <p><strong>3</strong>&nbsp;&nbsp;&nbsp;<span class="section-title">To Purchase:</span></p>
-          <p>To purchase, sale, assign all materials, goods, equipment required for the license; to purchase, transfer, register and renew registration of vehicles and equipment; and sign all relevant documents before Traffic and Licensing Department and other concerned authorities.</p>
+          <p><strong>${purchaseNum}</strong>&nbsp;&nbsp;&nbsp;<span class="section-title">To Purchase:</span></p>
+          <p>To purchase, sell, and assign all materials, goods, and equipment required for the license; to enter into purchase agreements and sign all related documents on behalf of the license before all concerned authorities and parties.</p>
         </div>
         <div class="block rtl">
-          <p><strong>3</strong>&nbsp;&nbsp;&nbsp;<span class="section-title">الشراء:</span></p>
+          <p><strong>${purchaseNum}</strong>&nbsp;&nbsp;&nbsp;<span class="section-title">الشراء:</span></p>
+          <p>شراء وبيع والتنازل عن جميع المواد والبضائع والمعدات اللازمة للرخصة، وإبرام عقود الشراء والتوقيع على جميع الوثائق ذات الصلة نيابة عن الرخصة أمام جميع الجهات والأطراف المعنية.</p>
+        </div>
+      </div>
+      ` : ''}
+
+      ${motorNum !== null ? `
+      <!-- Section ${motorNum}: Motor Vehicles -->
+      <div class="numbered-section">
+        <div class="block">
+          <p><strong>${motorNum}</strong>&nbsp;&nbsp;&nbsp;<span class="section-title">Motor Vehicles:</span></p>
+          <p>To purchase, transfer, register and renew registration of motor vehicles and equipment; to sell or assign licensed vehicles; to pay fines, fees and charges related to vehicles; and to sign all relevant documents before the Traffic and Licensing Department and other concerned authorities.</p>
+        </div>
+        <div class="block rtl">
+          <p><strong>${motorNum}</strong>&nbsp;&nbsp;&nbsp;<span class="section-title">السيارات:</span></p>
           <p>تسجيل وتجديد وبيع أو تنازل أو التأجير جميع السيارات الجديدة والمرقمة للرخصة وقيادة السيارات واستلام المبالغ والمبالغ المستحقة وله الحق في دفع الرسوم والمخالفات المترتبة على السيارات والتوقيع على كافة العقود المتعلقة بسيارات الرخصة المذكورة أعلاه.</p>
         </div>
       </div>
+      ` : ''}
 
       </div>
       ${poaPageFooter(pageNum)}
     </div>`
+}
+
+/**
+ * Returns the next available section number after page2's sections.
+ * Used by page3 to continue numbering seamlessly.
+ */
+export function page2NextSectionNum(sections: { employees: boolean; purchase: boolean; motorVehicles: boolean }): number {
+  let n = 2
+  if (sections.employees) n++
+  if (sections.purchase) n++
+  if (sections.motorVehicles) n++
+  return n
 }

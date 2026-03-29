@@ -10,7 +10,7 @@ export const samplePOAVehicleFilled: POAVehicleData = {
         dateOfBirth: '30/05/1986',
         eidOrPassport: '784198697519274',
         documentType: 'eid',
-        companyName: 'NAS OIL FIELD SERVICE - L.L.C',
+        companyName: 'NAS OIL FIELD SERVICE - L.L.C - L.L.C',
         companyNameAr: 'ناس لخدمات الحقول النفط - ذ.م.م',
         licenseNumber: 'CN-2415224',
         issuingAuthority: 'Abu Dhabi Department of Economic Development',

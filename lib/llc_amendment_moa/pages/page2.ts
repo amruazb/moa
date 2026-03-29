@@ -15,7 +15,7 @@ export function page2(ctx: LLCAmendmentMOAContext, pageNum: number = 2): string 
           <h4 class="bold">${ordinalEn} Party (Assignor/Assignee):</h4>
           <p><strong>Company Name:</strong> <span class="edited">${partner.name}</span></p>
           <p><strong>Country of Incorporation:</strong> <span class="edited">${partner.country}</span></p>
-          <p><strong>License/Registration No:</strong> <span class="edited">${partner.licenseNo}</span></p>
+          <p><strong>Emirates ID No:</strong> <span class="edited">${partner.licenseNo}</span></p>
           <p><strong>Address:</strong> <span class="edited">${partner.address}</span></p>
           ${hasEmail ? `<p><strong>Email:</strong> <span class="edited">${partner.email}</span></p>` : ''}
 
@@ -31,7 +31,7 @@ export function page2(ctx: LLCAmendmentMOAContext, pageNum: number = 2): string 
           <h4 class="bold">الطرف ${ordinalAr} (المتنازل/المتنازل إليه):</h4>
           <p><strong>اسم الشركة:</strong> <span class="edited">${partner.nameAr}</span></p>
           <p><strong>بلد التأسيس:</strong> <span class="edited">${partner.countryAr}</span></p>
-          <p><strong>رقم الرخصة/التسجيل:</strong> <span class="edited">${partner.licenseNo}</span></p>
+          <p><strong>رقم الهوية:</strong> <span class="edited">${partner.licenseNo}</span></p>
           <p><strong>العنوان:</strong> <span class="edited">${partner.addressAr}</span></p>
           ${hasEmail ? `<p><strong>البريد الإلكتروني:</strong> <span class="edited">${partner.email}</span></p>` : ''}
 

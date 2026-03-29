@@ -328,7 +328,7 @@ function PartnerSection({ title, partnerIndex, partner, updatePartner, updatePar
                     />
                 </div>
                 <div>
-                    <label className="block text-xs font-medium text-gray-600 mb-1">License/Registration No.</label>
+                    <label className="block text-xs font-medium text-gray-600 mb-1">Emirates ID No.</label>
                     <input
                         type="text"
                         value={partner.licenseNo}

@@ -7,65 +7,65 @@ export function page6(ctx: LLCAmendmentMOAContext, pageNum: number = 6): string 
     <div class="page">
       <div class="page-content">
         
-        <!-- Article 9 Amendment: Managing Director -->
+        <!-- Article 8 Amendment: Management of the Company -->
         <div class="article-pair">
           <div class="block">
-            <h3 class="bold underline">ARTICLE 3: AMENDMENT TO ARTICLE 9 - MANAGING DIRECTOR</h3>
-            <p>The article 9 shall be amended as follows:</p>
+            <h3 class="bold underline">ARTICLE 3: AMENDMENT TO ARTICLE 8 - MANAGEMENT OF THE COMPANY</h3>
+            <p>The Partners have agreed to amend Article 8 of the Memorandum of Association. The article 8 shall be amended as follows:</p>
           </div>
           <div class="block rtl">
-            <h3 class="bold underline">المادة 3: تعديل المادة 9 - المدير العام</h3>
-            <p>تعديل المادة 9 كما يلي:</p>
+            <h3 class="bold underline">المادة 3: تعديل المادة 8 - إدارة الشركة</h3>
+            <p>اتفق الشركاء على تعديل المادة 8 من عقد التأسيس. تُعدل المادة 8 على النحو التالي:</p>
           </div>
         </div>
 
-        <!-- Managing Director Appointment -->
+        <!-- Article 8 -->
         <div class="article-pair">
           <div class="block">
-            <p>The Partners have agreed <span class="edited">${manager.pronouns.title} ${manager.name}</span>, <span class="edited">${manager.nationality}</span> National, holder of ID Card No: <span class="edited">${manager.eid}</span>, shall be the Managing Director of the Company in all respects, including all managerial, Financial and commercial matters.</p>
+            <p style="margin-left: 20px;">
+              <strong>8-1</strong> The Partners have agreed that the management of the Company shall be entrusted to <span class="edited">${manager.pronouns.title} ${manager.name}</span>, <span class="edited">${manager.nationality}</span> national, holder of ID Card No: <span class="edited">${manager.eid}</span>, in his capacity as the Managing Director.
+            </p>
+            <p style="margin-left: 20px;">
+              <strong>8-2</strong> The Managing Director shall be subject to removal in accordance with the Commercial Companies Law or by virtue of a resolution issued from the General Assembly.
+            </p>
           </div>
           <div class="block rtl">
-            <p>اتفق الشركاء على أن يكون <span class="edited">${manager.pronouns.titleAr}/ ${manager.nameAr}</span>، <span class="edited">${manager.nationalityAr}</span> الجنسية، يحمل بطاقة هوية رقم: <span class="edited">${manager.eid}</span> المدير العام للشركة في جميع المجالات شاملة كافة المسائل الإدارية والمالية والتجارية.</p>
-          </div>
-        </div>
-
-        <!-- Term of Appointment -->
-        <div class="article-pair">
-          <div class="block">
-            <p>The Managing Director shall be appointed for unlimited period, unless otherwise is decided vide resolution passed by the General Assembly of the Company.</p>
-          </div>
-          <div class="block rtl">
-            <p>يكون تعيين المدير العام لمدة غير محدودة، مالم يقرر خلاف ذلك عن طريق قرار صادر من الجمعية العمومية للشركة.</p>
-          </div>
-        </div>
-
-        <!-- General Powers -->
-        <div class="article-pair">
-          <div class="block">
-            <p>The Managing Director shall have all powers necessary for the management of the company, signing on its behalf and carrying out all acts required by its objectives.</p>
-          </div>
-          <div class="block rtl">
-            <p>يكون للمدير العام كافة الصلاحيات الضرورية لإدارة الشركة والتوقيع نيابة عنها والقيام بجميع الاعمال التي تقتضيها أغراضها.</p>
+            <p style="margin-right: 20px;">
+              <strong>8-1</strong> اتفق الشركاء على أن تُعهد إدارة الشركة إلى <span class="edited">${manager.pronouns.titleAr}/ ${manager.nameAr}</span>، <span class="edited">${manager.nationalityAr}</span> الجنسية، يحمل بطاقة هوية رقم: <span class="edited">${manager.eid}</span>، بصفته المدير العام.
+            </p>
+            <p style="margin-right: 20px;">
+              <strong>8-2</strong> يخضع المدير العام للعزل وفقاً لقانون الشركات التجارية أو بموجب قرار صادر عن الجمعية العامة.
+            </p>
           </div>
         </div>
 
         <!-- Management Assumption -->
         <div class="article-pair">
           <div class="block">
-            <p><span class="edited">${manager.pronouns.title} ${manager.name}</span>, <span class="edited">${manager.nationality}</span> National, holder of ID Card No: <span class="edited">${manager.eid}</span>, resident of the Emirate of <span class="edited">${manager.address}</span> shall assume the company's management in their capacity as Managing Director for an unlimited period approved by general assembly.</p>
+            <p><span class="edited">${manager.pronouns.title} ${manager.name}</span>, <span class="edited">${manager.nationality}</span> National, holder of ID Card No: <span class="edited">${manager.eid}</span>, resident of <span class="edited">${manager.address}</span>, shall assume the company's management in his capacity as Managing Director for an unlimited period as approved by the Partners.</p>
           </div>
           <div class="block rtl">
-            <p>يتولى إدارة الشركة <span class="edited">${manager.pronouns.titleAr}/ ${manager.nameAr}</span>، <span class="edited">${manager.nationalityAr}</span> الجنسية، يحمل بطاقة هوية رقم: <span class="edited">${manager.eid}</span> المقيم بإمارة <span class="edited">${manager.addressAr}</span>، بصفته المدير العام للشركة ويباشره الإدارة لمدة غير محدودة تقررها الجمعية العمومية.</p>
+            <p>يتولى إدارة الشركة <span class="edited">${manager.pronouns.titleAr}/ ${manager.nameAr}</span>، <span class="edited">${manager.nationalityAr}</span> الجنسية، يحمل بطاقة هوية رقم: <span class="edited">${manager.eid}</span> المقيم في <span class="edited">${manager.addressAr}</span>، بصفته المدير العام للشركة ويباشر الإدارة لمدة غير محدودة كما وافق الشركاء.</p>
           </div>
         </div>
 
         <!-- Powers of Managing Director -->
         <div class="article-pair">
           <div class="block">
-            <p>The Managing Director shall have all necessary powers to manage the company and sign on its behalf (Individually or jointly) and carry out all acts required by its objectives. Power of the Managing Director include the following:</p>
+            <p><strong>8-3</strong> The Powers of the Managing Directors include the following:</p>
           </div>
           <div class="block rtl">
-            <p>يكون للمديرين كافة الصلاحيات الضرورية لادارة الشركة والتوقيع نيابة عنها (منفردين أو مجتمعين) والقيام بجميع الأعمال التي تقتضيها أغراضها. تتضمن سلطات المديرين ما يلي:</p>
+            <p><strong>8-3</strong> تشمل صلاحيات المديرين ما يلي:</p>
+          </div>
+        </div>
+
+        <!-- Power 0: Existing Powers Continue -->
+        <div class="article-pair">
+          <div class="block">
+            <p><strong>•</strong> All rights, authorities, and powers granted to the Managing Director under the previous Memorandum of Association shall remain in full force and effect and shall be deemed an integral part of this amended Memorandum. Nothing in this amendment shall be construed as limiting or revoking any of the Managing Director's existing powers.</p>
+          </div>
+          <div class="block rtl">
+            <p><strong>•</strong> تظل جميع الحقوق والصلاحيات والسلطات الممنوحة للمدير العام بموجب عقد التأسيس السابق سارية ونافذة بالكامل، وتعد جزءا لا يتجزأ من عقد التأسيس المعدل. ولا يجوز تفسير أي حكم في هذا التعديل على أنه يحد من أي من صلاحيات المدير العام القائمة أو يلغيها.</p>
           </div>
         </div>
 
@@ -82,10 +82,10 @@ export function page6(ctx: LLCAmendmentMOAContext, pageNum: number = 6): string 
         <!-- Power 2: Company Goals -->
         <div class="article-pair">
           <div class="block">
-            <p><strong>•</strong> Carrying out the works required to achieve the company's goals and objectives.</p>
+            <p><strong>1.</strong> Carrying out the works required to achieve the Company's goals and purpose.</p>
           </div>
           <div class="block rtl">
-            <p><strong>•</strong> القيام بكافة الأعمال اللازمة لتحقيق أغراض الشركة وأهدافها.</p>
+            <p><strong>1.</strong> القيام بكافة الأعمال اللازمة لتحقيق أغراض الشركة وأهدافها.</p>
           </div>
         </div>
 

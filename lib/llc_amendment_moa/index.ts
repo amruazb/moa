@@ -8,6 +8,7 @@ import { page4 } from './pages/page4'
 import { page6 } from './pages/page6'
 import { page7 } from './pages/page7'
 import { page8 } from './pages/page8'
+import { page9 } from './pages/page9'
 
 export function generateLLCAmendmentMOA(
     data: LLCAmendmentMOAData,
@@ -33,7 +34,8 @@ export function generateLLCAmendmentMOA(
         page4(ctx, 4),
         page6(ctx, 5),  // Renumbered from 6 to 5
         page7(ctx, 6),  // Renumbered from 7 to 6
-        page8(ctx, 7),  // Signature page (last page)
+        page8(ctx, 7),
+        page9(ctx, 8),  // Signature page (last page)
     ]
 
     // Generate styles with formatting settings
@@ -66,6 +68,7 @@ export {
     page6,
     page7,
     page8,
+    page9,
 }
 
 // Export types for external use

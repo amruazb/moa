@@ -7,6 +7,7 @@ import { TemplateManager } from './templates/TemplateManager'
 import { useEffect } from 'react'
 import { usePOAStore } from '@/store/poaStore'
 import { useFormattingStore } from '@/store/formattingStore'
+import { POA_SAMPLES } from '@/lib/poa/sampleData'
 
 export function POAWorkspace() {
     const initializeFromCache = usePOAStore((state) => state.initializeFromCache)
@@ -24,6 +25,13 @@ export function POAWorkspace() {
         setPOAData(data)
     }
 
+    const handleLoadSample = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const idx = parseInt(e.target.value)
+        if (isNaN(idx)) return
+        setPOAData(POA_SAMPLES[idx].data)
+        e.target.value = ''
+    }
+
     return (
         <div className="flex gap-6 items-start">
             {/* Left side - Edit Form */}
@@ -33,6 +41,20 @@ export function POAWorkspace() {
 
                 {/* Template Manager */}
                 <div className="mb-4 bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+                    {/* Sample Selector */}
+                    <div className="mb-3 flex items-center gap-2">
+                        <span className="text-xs font-medium text-gray-500 whitespace-nowrap">Load Sample:</span>
+                        <select
+                            onChange={handleLoadSample}
+                            defaultValue=""
+                            className="flex-1 text-sm border border-gray-300 rounded-lg px-2 py-1.5 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        >
+                            <option value="" disabled>— select a sample —</option>
+                            {POA_SAMPLES.map((s, i) => (
+                                <option key={i} value={i}>{s.label}</option>
+                            ))}
+                        </select>
+                    </div>
                     <TemplateManager
                         documentType="poa"
                         currentData={poaData}

@@ -3,8 +3,10 @@ import { LLCAmendmentMOAContext, pageFooter } from '../types'
 export function page4(ctx: LLCAmendmentMOAContext, pageNum: number = 4): string {
   const { partners, capital, capitalWordsEn, capitalWordsAr, totalShares, shareValue } = ctx
 
-  // Generate partner rows for share distribution table
-  const partnerRowsEn = partners.map((partner, index) => {
+  // Generate partner rows for share distribution table (filter out partners with 0 shares)
+  const activePartners = partners.filter(p => p.shareCount > 0)
+
+  const partnerRowsEn = activePartners.map((partner, index) => {
     const ordinal = index === 0 ? 'First' : index === 1 ? 'Second' : `${index + 1}th`
     return `
       <tr>
@@ -16,7 +18,7 @@ export function page4(ctx: LLCAmendmentMOAContext, pageNum: number = 4): string 
     `
   }).join('')
 
-  const partnerRowsAr = partners.map((partner, index) => {
+  const partnerRowsAr = activePartners.map((partner, index) => {
     let ordinal = '';
     if (index === 0) ordinal = 'الأول';
     else if (index === 1) ordinal = 'الثاني';
