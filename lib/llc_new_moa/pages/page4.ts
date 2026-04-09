@@ -20,7 +20,7 @@ export function page4(ctx: LLCNewMOAContext, pageNum: number = 4): string {
 
           <p><strong>"Register"</strong> shall have the meaning prescribed thereto in Article 11-1 of this Memorandum.</p>
 
-          <p><strong>"Related Party Transaction"</strong> means any transaction, arrangement or dealing by the Company with any Partner and/or any of their Affiliates except the Affiliates wholly owned by both Partners.</p>
+          <p><strong>"Related Party Transaction"</strong> means any transaction, arrangement or dealing by the Company with any Partner and/or any of their Affiliates except including the Affiliates wholly owned by both Partners, provided such partner has a controlling share in Affiliates as well as the company.</p>
 
           <p><strong>"Share(s)"</strong> means the share(s) in the capital of the Company held from time to time by the Partners or either of them (as the context may require).</p>
 
@@ -39,7 +39,7 @@ export function page4(ctx: LLCNewMOAContext, pageNum: number = 4): string {
 
           <p><strong>"السجل"</strong> يكون له المعنى المنصوص عليه في المادة 11-1 من هذا العقد.</p>
 
-          <p><strong>"معاملة الطرف ذي العلاقة"</strong> تعني أي معاملة أو ترتيب أو تعامل من قبل الشركة مع أي شريك و/أو أي من الشركات الحليفة له باستثناء الشركات الحليفة المملوكة بالكامل من قبل كلا الشريكين.</p>
+          <p><strong>"معاملة الطرف ذي العلاقة"</strong> تعني أي معاملة أو ترتيب أو تعامل من قبل الشركة مع أي شريك و/أو أي من الشركات الحليفة له باستثناء الشركات الحليفة المملوكة بالكامل من قبل كلا الشريكين، بشرط أن يكون لهذا الشريك حصة مسيطرة في الشركات الحليفة وكذلك في الشركة.</p>
 
           <p><strong>"الحصة (الحصص)"</strong> تعني الحصة (الحصص) في رأس مال الشركة المحتفظ بها من وقت لآخر من قبل الشركاء أو أي منهم (حسبما يقتضي السياق).</p>
 

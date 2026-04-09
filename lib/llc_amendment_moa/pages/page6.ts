@@ -69,26 +69,6 @@ export function page6(ctx: LLCAmendmentMOAContext, pageNum: number = 6): string 
           </div>
         </div>
 
-        <!-- Power 1: Administrative Powers -->
-        <div class="article-pair">
-          <div class="block">
-            <p><strong>•</strong> Carrying out all administrative, technical and financial aspects without limitation to the powers entrusted in them, including but not limited to.</p>
-          </div>
-          <div class="block rtl">
-            <p><strong>•</strong> القيام بجميع الأعمال الإدارية والفنية والمالية وبدون الحد من شمولية والصلاحيات المعطاة لهم على سبيل المثال لا الحصر.</p>
-          </div>
-        </div>
-
-        <!-- Power 2: Company Goals -->
-        <div class="article-pair">
-          <div class="block">
-            <p><strong>1.</strong> Carrying out the works required to achieve the Company's goals and purpose.</p>
-          </div>
-          <div class="block rtl">
-            <p><strong>1.</strong> القيام بكافة الأعمال اللازمة لتحقيق أغراض الشركة وأهدافها.</p>
-          </div>
-        </div>
-
       </div>
       ${pageFooter(pageNum)}
     </div>`

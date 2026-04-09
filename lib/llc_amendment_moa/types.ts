@@ -1,4 +1,31 @@
 import { numberToWordsEn, numberToWordsAr, calculateShareValue } from '@/lib/utils/numberToWords'
+import type { POASections } from '@/lib/poa/types'
+
+export type { POASections }
+
+/** Defaults for managing-director powers checklist (aligned with POA “Powers Granted”). */
+export function defaultManagingDirectorPowers(): POASections {
+    return {
+        executeTransactions: true,
+        employees: true,
+        utilities: true,
+        banks: true,
+        banksWithLoan: false,
+        contracts: true,
+        receivables: true,
+        motorVehicles: true,
+        approachCourts: true,
+        purchase: true,
+        licenseTransfer: true,
+        noChequeBooks: false,
+        noSignCheques: false,
+        noLoansFacilities: false
+    }
+}
+
+export function mergeManagingDirectorPowers(partial?: Partial<POASections>): POASections {
+    return { ...defaultManagingDirectorPowers(), ...partial }
+}
 
 export type Salutation = 'mr' | 'ms' | 'mrs'
 
@@ -129,6 +156,8 @@ export interface LLCAmendmentMOAContext {
     capitalWordsAr: string
     totalShares: number
     shareValue: number
+    /** Optional powers for Article 8 clauses; same fields as POA for a shared checklist UX. */
+    powers: POASections
 }
 
 // Ordinal labels for parties
@@ -229,6 +258,8 @@ export interface LLCAmendmentMOAData {
         shareValue: number
     }
     activities: Activity[]
+    /** Partial overrides; merged with defaults like POA sections. */
+    managingDirectorPowers?: Partial<POASections>
 }
 
 // Store interface
@@ -240,6 +271,7 @@ export interface LLCAmendmentMOAStore {
     updateManager: (field: string, value: any) => void
     updateCapital: (field: keyof LLCAmendmentMOAData['capital'], value: number) => void
     updateActivities: (activities: Activity[]) => void
+    updateManagingDirectorPowers: (partial: Partial<POASections>) => void
     resetData: () => void
     loadSampleData: () => void
     saveToCache: () => void
@@ -320,7 +352,8 @@ export function transformToContext(data: LLCAmendmentMOAData): LLCAmendmentMOACo
         capitalWordsEn: numberToWordsEn(capital),
         capitalWordsAr: numberToWordsAr(capital),
         totalShares,
-        shareValue
+        shareValue,
+        powers: mergeManagingDirectorPowers(data.managingDirectorPowers)
     }
 }
 

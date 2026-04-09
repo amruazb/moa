@@ -1,7 +1,7 @@
 'use client'
 
 import { usePOAStore } from '@/store/poaStore'
-import { POAPrincipal } from '@/lib/poa/types'
+import { POAPrincipal, POAPrincipalRole } from '@/lib/poa/types'
 
 interface PrincipalSectionProps {
     principal: Partial<POAPrincipal>
@@ -92,6 +92,18 @@ export function PrincipalSection({ principal, index, canRemove, onRemove }: Prin
                             placeholder="إماراتية"
                         />
                     </div>
+                </div>
+                <div>
+                    <label className="block text-xs text-gray-500 mb-1">Capacity (company)</label>
+                    <select
+                        value={principal?.role || 'owner'}
+                        onChange={(e) => updatePrincipal(index, { role: e.target.value as POAPrincipalRole })}
+                        className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                    >
+                        <option value="owner">Owner</option>
+                        <option value="partner">Partner</option>
+                        <option value="manager">Manager</option>
+                    </select>
                 </div>
                 <div>
                     <label className="block text-xs text-gray-500 mb-1">EID / Passport Number</label>

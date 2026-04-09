@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { LLCAmendmentMOAData, Salutation, Activity, defaultActivities } from '@/lib/llc_amendment_moa/types'
+import type { POASections } from '@/lib/poa/types'
 import { sampleLLCAmendmentMOAData } from '@/lib/llc_amendment_moa/sampleData'
 
 const CACHE_KEY = 'llc-amendment-moa-data'
@@ -88,6 +89,7 @@ interface LLCAmendmentMOAStore {
     updateManager: (field: string, value: any) => void
     updateCapital: (field: keyof LLCAmendmentMOAData['capital'], value: number) => void
     updateActivities: (activities: Activity[]) => void
+    updateManagingDirectorPowers: (partial: Partial<POASections>) => void
     resetData: () => void
     loadSampleData: () => void
     saveToCache: () => void
@@ -195,6 +197,19 @@ export const useLLCAmendmentMoaStore = create<LLCAmendmentMOAStore>((set, get) =
             data: {
                 ...state.data,
                 activities
+            }
+        }))
+        get().saveToCache()
+    },
+
+    updateManagingDirectorPowers: (partial) => {
+        set((state) => ({
+            data: {
+                ...state.data,
+                managingDirectorPowers: {
+                    ...state.data.managingDirectorPowers,
+                    ...partial
+                }
             }
         }))
         get().saveToCache()

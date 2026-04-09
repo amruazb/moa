@@ -65,13 +65,13 @@ export function page3(ctx: LLCAmendmentMOAContext, pageNum: number = 3): string 
                     </div>
                 </div>
 
-                <!-- Final Statement -->
+                <!-- Preamble: other articles unchanged -->
                 <div class="article-pair">
                     <div class="block">
-                        <p>With these assignments, the Third Party exits the company and the First Party and Second Party shall become the sole owners of the company in equal partnership, and the shares of the company shall be divided among the partners as following: First Party <span class="edited">50%</span> and Second Party <span class="edited">50%</span>.</p>
+                        <p>• All other articles of the Partnership Agreement of the company shall remain as they are without any change.</p>
                     </div>
                     <div class="block rtl">
-                        <p>بهذه التنازلات، يخرج الطرف الثالث من الشركة ويكون الطرف الأول والطرف الثاني المالكان الوحيدان للشركة بشراكة متساوية، وحصص الشركة موزعة بين الشركاء على الوجه التالي: الطرف الأول <span class="edited">50%</span> والطرف الثاني <span class="edited">50%</span>.</p>
+                        <p>• تبقى جميع المواد الأخرى من اتفاقية الشراكة الخاصة بالشركة كما هي دون أي تغيير.</p>
                     </div>
                 </div>
 

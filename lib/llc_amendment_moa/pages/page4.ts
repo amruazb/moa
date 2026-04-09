@@ -34,10 +34,34 @@ export function page4(ctx: LLCAmendmentMOAContext, pageNum: number = 4): string 
     `
   }).join('')
 
+  const partiesConsentAddendum = `
+        <!-- Preamble (continued): parties' consent to addendum -->
+        <div class="article-pair">
+          <div class="block">
+            <p>• The above said parties have agreed to the foregoing addendum with full consent.</p>
+          </div>
+          <div class="block rtl">
+            <p>• يقر الأطراف المذكورون أعلاه بموافقتهم الكاملة على الملحق سالف الذكر.</p>
+          </div>
+        </div>
+`
+
   return `
     <div class="page">
       <div class="page-content">
         
+        ${partiesConsentAddendum}
+        
+        <!-- Post-assignment ownership (from preamble conclusions) -->
+        <div class="article-pair">
+          <div class="block">
+            <p>With these assignments, the Third Party exits the company and the First Party and Second Party shall become the sole owners of the company in equal partnership, and the shares of the company shall be divided among the partners as following: First Party <span class="edited">50%</span> and Second Party <span class="edited">50%</span>.</p>
+          </div>
+          <div class="block rtl">
+            <p>بهذه التنازلات، يخرج الطرف الثالث من الشركة ويكون الطرف الأول والطرف الثاني المالكان الوحيدان للشركة بشراكة متساوية، وحصص الشركة موزعة بين الشركاء على الوجه التالي: الطرف الأول <span class="edited">50%</span> والطرف الثاني <span class="edited">50%</span>.</p>
+          </div>
+        </div>
+
         <!-- Share Distribution Section -->
         <div class="article-pair">
           <div class="block">

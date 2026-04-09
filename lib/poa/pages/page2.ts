@@ -43,11 +43,11 @@ export function page2(ctx: POAContext, pageNum: number = 2): string {
       <div class="numbered-section">
         <div class="block">
           <p><strong>${purchaseNum}</strong>&nbsp;&nbsp;&nbsp;<span class="section-title">To Purchase:</span></p>
-          <p>To purchase, sell, and assign all materials, goods, and equipment required for the license; to enter into purchase agreements and sign all related documents on behalf of the license before all concerned authorities and parties.</p>
+          <p>To purchase, and assign all materials, goods, and equipment required for the license; to enter into purchase agreements and sign all related documents on behalf of the license before all concerned authorities and parties.</p>
         </div>
         <div class="block rtl">
           <p><strong>${purchaseNum}</strong>&nbsp;&nbsp;&nbsp;<span class="section-title">الشراء:</span></p>
-          <p>شراء وبيع والتنازل عن جميع المواد والبضائع والمعدات اللازمة للرخصة، وإبرام عقود الشراء والتوقيع على جميع الوثائق ذات الصلة نيابة عن الرخصة أمام جميع الجهات والأطراف المعنية.</p>
+          <p>شراء والتنازل عن جميع المواد والبضائع والمعدات اللازمة للرخصة، وإبرام عقود الشراء والتوقيع على جميع الوثائق ذات الصلة نيابة عن الرخصة أمام جميع الجهات والأطراف المعنية.</p>
         </div>
       </div>
       ` : ''}
@@ -57,11 +57,11 @@ export function page2(ctx: POAContext, pageNum: number = 2): string {
       <div class="numbered-section">
         <div class="block">
           <p><strong>${motorNum}</strong>&nbsp;&nbsp;&nbsp;<span class="section-title">Motor Vehicles:</span></p>
-          <p>To purchase, transfer, register and renew registration of motor vehicles and equipment; to sell or assign licensed vehicles; to pay fines, fees and charges related to vehicles; and to sign all relevant documents before the Traffic and Licensing Department and other concerned authorities.</p>
+          <p>To purchase, register and renew all types of vehicles with the Traffic Department and to receive all vehicle-related documents and registration cards from the Traffic Department.</p>
         </div>
         <div class="block rtl">
           <p><strong>${motorNum}</strong>&nbsp;&nbsp;&nbsp;<span class="section-title">السيارات:</span></p>
-          <p>تسجيل وتجديد وبيع أو تنازل أو التأجير جميع السيارات الجديدة والمرقمة للرخصة وقيادة السيارات واستلام المبالغ والمبالغ المستحقة وله الحق في دفع الرسوم والمخالفات المترتبة على السيارات والتوقيع على كافة العقود المتعلقة بسيارات الرخصة المذكورة أعلاه.</p>
+          <p>شراء وتسجيل وتجديد جميع أنواع المركبات لدى إدارة المرور، واستلام جميع المستندات المتعلقة بالمركبات وبطاقات التسجيل من إدارة المرور.</p>
         </div>
       </div>
       ` : ''}

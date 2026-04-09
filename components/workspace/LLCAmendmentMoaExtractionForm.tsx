@@ -1,10 +1,11 @@
 'use client'
 
 import { useLLCAmendmentMoaStore } from '@/store/llcAmendmentMoaStore'
-import { Salutation } from '@/lib/llc_amendment_moa/types'
+import { Salutation, mergeManagingDirectorPowers } from '@/lib/llc_amendment_moa/types'
 
 export function LLCAmendmentMoaExtractionForm() {
-    const { data, updateCompany, updatePartner, updatePartnerRepresentative, togglePartnerRepresentative, updateManager, updateCapital, resetData, loadSampleData } = useLLCAmendmentMoaStore()
+    const { data, updateCompany, updatePartner, updatePartnerRepresentative, togglePartnerRepresentative, updateManager, updateCapital, updateManagingDirectorPowers, resetData, loadSampleData } = useLLCAmendmentMoaStore()
+    const powers = mergeManagingDirectorPowers(data.managingDirectorPowers)
 
     return (
         <div className="space-y-6">
@@ -129,6 +130,106 @@ export function LLCAmendmentMoaExtractionForm() {
                 manager={data.manager}
                 updateManager={updateManager}
             />
+
+            {/* Article 8 powers — same checklist fields as POA “Powers Granted” */}
+            <div className="space-y-3">
+                <h3 className="text-sm font-semibold text-gray-800 border-b border-gray-200 pb-1 flex items-center gap-2">
+                    <span className="w-2 h-2 bg-indigo-500 rounded-full" />
+                    Managing Director Powers (Article 8)
+                </h3>
+                <div className="grid grid-cols-2 gap-2">
+                    <label className="flex items-center gap-2 text-sm text-gray-700">
+                        <input
+                            type="checkbox"
+                            checked={powers.executeTransactions}
+                            onChange={(e) => updateManagingDirectorPowers({ executeTransactions: e.target.checked })}
+                            className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                        />
+                        Execute Transactions
+                    </label>
+                    <label className="flex items-center gap-2 text-sm text-gray-700">
+                        <input
+                            type="checkbox"
+                            checked={powers.employees}
+                            onChange={(e) => updateManagingDirectorPowers({ employees: e.target.checked })}
+                            className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                        />
+                        Employees
+                    </label>
+                    <label className="flex items-center gap-2 text-sm text-gray-700">
+                        <input
+                            type="checkbox"
+                            checked={powers.utilities}
+                            onChange={(e) => updateManagingDirectorPowers({ utilities: e.target.checked })}
+                            className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                        />
+                        Utilities
+                    </label>
+                    <label className="flex items-center gap-2 text-sm text-gray-700">
+                        <input
+                            type="checkbox"
+                            checked={powers.banks}
+                            onChange={(e) => updateManagingDirectorPowers({ banks: e.target.checked })}
+                            className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                        />
+                        Banks
+                    </label>
+                    <label className="flex items-center gap-2 text-sm text-gray-700">
+                        <input
+                            type="checkbox"
+                            checked={powers.contracts}
+                            onChange={(e) => updateManagingDirectorPowers({ contracts: e.target.checked })}
+                            className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                        />
+                        Contracts
+                    </label>
+                    <label className="flex items-center gap-2 text-sm text-gray-700">
+                        <input
+                            type="checkbox"
+                            checked={powers.receivables}
+                            onChange={(e) => updateManagingDirectorPowers({ receivables: e.target.checked })}
+                            className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                        />
+                        Receivables
+                    </label>
+                    <label className="flex items-center gap-2 text-sm text-gray-700">
+                        <input
+                            type="checkbox"
+                            checked={powers.motorVehicles}
+                            onChange={(e) => updateManagingDirectorPowers({ motorVehicles: e.target.checked })}
+                            className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                        />
+                        Motor Vehicles
+                    </label>
+                    <label className="flex items-center gap-2 text-sm text-gray-700">
+                        <input
+                            type="checkbox"
+                            checked={powers.approachCourts}
+                            onChange={(e) => updateManagingDirectorPowers({ approachCourts: e.target.checked })}
+                            className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                        />
+                        Approach Courts
+                    </label>
+                    <label className="flex items-center gap-2 text-sm text-gray-700">
+                        <input
+                            type="checkbox"
+                            checked={powers.purchase}
+                            onChange={(e) => updateManagingDirectorPowers({ purchase: e.target.checked })}
+                            className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                        />
+                        To Purchase
+                    </label>
+                    <label className="flex items-center gap-2 text-sm text-gray-700">
+                        <input
+                            type="checkbox"
+                            checked={powers.licenseTransfer}
+                            onChange={(e) => updateManagingDirectorPowers({ licenseTransfer: e.target.checked })}
+                            className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                        />
+                        License Transfer
+                    </label>
+                </div>
+            </div>
 
             {/* Capital Section */}
             <CapitalSection

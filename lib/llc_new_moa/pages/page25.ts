@@ -8,10 +8,10 @@ export function page25(ctx: LLCNewMOAContext, pageNum: number = 25): string {
       <!-- Article 14 continued -->
       <div class="article-pair">
         <div class="block">
-          <p>14-11 Written resolutions signed by all of the Partners or their duly authorized representatives in the General Assembly shall be as valid and effective as if the same had been passed at a General Assembly duly convened and held.</p>
+          <p>14-10 Written resolutions signed by all of the Partners or their duly authorized representatives in the General Assembly shall be as valid and effective as if the same had been passed at a General Assembly duly convened and held.</p>
         </div>
         <div class="block rtl">
-          <p>11-14 تكون القرارات الخطية الموقعة من الشريكين أو ممن يمثلهما في الجمعية العمومية صحيحة ونافذة وكأنها صدرت بقرار في جمعية عمومية دعي إليها وانعقدت أصولاً.</p>
+          <p>10-14 تكون القرارات الخطية الموقعة من الشريكين أو ممن يمثلهما في الجمعية العمومية صحيحة ونافذة وكأنها صدرت بقرار في جمعية عمومية دعي إليها وانعقدت أصولاً.</p>
         </div>
       </div>
 
@@ -51,7 +51,7 @@ export function page25(ctx: LLCNewMOAContext, pageNum: number = 25): string {
       <div class="article-pair">
         <div class="block">
           <p>16-1 The Company shall allocate a minimum of 10% (ten percent) of its net profits each year to create a statutory reserve. The Partners may resolve to allocate additional reserves as they deem fit. The Partners may resolve that the allocation of the net profits to the statutory reserve be discontinued when the reserve reaches half of the capital of the Company.</p>
-          <p>16-2 The net profits shall be distributed annually between the Partners in accordance with the following percentages immediately after the annual General Assembly:</p>
+          <p>16-2 The net profits may be distributed at discretion of Managing Director, annually between the Partners in accordance with the following percentages immediately after the annual General Assembly:</p>
           <p>First Partner: 99% (ninety nine percent)</p>
           <p>Second Partner: 1% (one percent)</p>
           <p>16-3 The net distributable profits may at the request of the Managing Director be distributed on quarterly or semi-annual basis subject to the issuance of quarterly and/or semi-annual audited financial statements.</p>
@@ -59,7 +59,7 @@ export function page25(ctx: LLCNewMOAContext, pageNum: number = 25): string {
         </div>
         <div class="block rtl">
           <p>1-16 تخصص الشركة ما لا يقل عن 10% (عشرة بالمئة) من صافي أرباحها السنوية كحد أدنى لتكوين احتياطي قانوني ويحق للشريكين اتخاذ قرار بتخصيص احتياطي إضافي حسبما يرونه مناسباً. كما يحق للشريكين اتخاذ قرار بإيقاف التخصيص من صافي الأرباح إلى الاحتياطي القانوني حال وصول الاحتياطي القانوني لنصف رأس مال الشركة.</p>
-          <p>2-16 يتم توزيع صافي الأرباح سنوياً بين الشريكين وفقاً للنسب التالية فوراً بعد انعقاد الجمعية العمومية السنوية:</p>
+          <p>2-16 يجوز توزيع صافي الأرباح وفق تقدير المدير العام، سنوياً بين الشريكين وفقاً للنسب التالية فوراً بعد انعقاد الجمعية العمومية السنوية:</p>
           <p>الشريك الأول: 99% (تسع وتسعون بالمائة)</p>
           <p>الشريك الثاني: 1% (واحد بالمائة)</p>
           <p>3-16 يجوز بناءً على طلب المدير توزيع الأرباح الصافية القابلة للتوزيع على أسس ربع أو نصف سنوية شريطة صدور البيانات المالية المدققة الربع و/أو النصف سنوية للشركة.</p>

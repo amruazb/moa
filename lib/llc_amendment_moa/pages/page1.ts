@@ -82,24 +82,6 @@ export function page1(ctx: LLCAmendmentMOAContext, pageNum: number = 1, headerSi
           </div>
         </div>
 
-        <!-- Legal Framework -->
-        <div class="article-pair">
-          <div class="block">
-            <h3 class="bold underline">LEGAL FRAMEWORK</h3>
-            <p>This addendum is executed in accordance with:</p>
-            <ul>
-              <li>UAE Federal Law No. 32 of 2021 concerning Commercial Companies</li>
-            </ul>
-          </div>
-          <div class="block rtl">
-            <h3 class="bold underline">الإطار القانوني</h3>
-            <p>يتم تنفيذ هذا الملحق وفقاً لـ:</p>
-            <ul>
-              <li>القانون الاتحادي الإماراتي رقم 32 لسنة 2021 بشأن الشركات التجارية</li>
-            </ul>
-          </div>
-        </div>
-
       </div>
       ${pageFooter(pageNum)}
     </div>`

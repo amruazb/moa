@@ -10,10 +10,10 @@ export function page2(ctx: LLCAmendmentMOAContext, pageNum: number = 2): string 
     const hasEmail = partner.email && partner.email.trim() !== '' && partner.email !== 'N/A'
 
     return `
-      <div class="article-pair" style="margin-bottom: 30px;">
+      <div class="article-pair" style="margin-bottom: 10px;">
         <div class="block">
           <h4 class="bold">${ordinalEn} Party (Assignor/Assignee):</h4>
-          <p><strong>Company Name:</strong> <span class="edited">${partner.name}</span></p>
+          <p><strong>Name:</strong> <span class="edited">${partner.name}</span></p>
           <p><strong>Country of Incorporation:</strong> <span class="edited">${partner.country}</span></p>
           <p><strong>Emirates ID No:</strong> <span class="edited">${partner.licenseNo}</span></p>
           <p><strong>Address:</strong> <span class="edited">${partner.address}</span></p>
@@ -29,7 +29,7 @@ export function page2(ctx: LLCAmendmentMOAContext, pageNum: number = 2): string 
         </div>
         <div class="block rtl">
           <h4 class="bold">الطرف ${ordinalAr} (المتنازل/المتنازل إليه):</h4>
-          <p><strong>اسم الشركة:</strong> <span class="edited">${partner.nameAr}</span></p>
+          <p><strong>الاسم:</strong> <span class="edited">${partner.nameAr}</span></p>
           <p><strong>بلد التأسيس:</strong> <span class="edited">${partner.countryAr}</span></p>
           <p><strong>رقم الهوية:</strong> <span class="edited">${partner.licenseNo}</span></p>
           <p><strong>العنوان:</strong> <span class="edited">${partner.addressAr}</span></p>
@@ -51,17 +51,23 @@ export function page2(ctx: LLCAmendmentMOAContext, pageNum: number = 2): string 
     <div class="page">
       <div class="page-content">
         
-        <!-- Legal Framework (Continuation) -->
+        <!-- Legal Framework -->
         <div class="article-pair">
           <div class="block">
-            <ul style="margin-top: 0; padding-left: 20px;">
+            <h3 class="bold underline">LEGAL FRAMEWORK</h3>
+            <p>This addendum is executed in accordance with:</p>
+            <ul style="padding-left: 20px;">
+              <li>UAE Federal Law No. 32 of 2021 concerning Commercial Companies</li>
               <li>The original Memorandum of Association of the Company</li>
               <li>The Articles of Association of the Company</li>
               <li>All applicable UAE laws and regulations</li>
             </ul>
           </div>
           <div class="block rtl">
-            <ul style="margin-top: 0; padding-right: 20px; direction: rtl; text-align: right;">
+            <h3 class="bold underline">الإطار القانوني</h3>
+            <p>يتم تنفيذ هذا الملحق وفقاً لـ:</p>
+            <ul style="padding-right: 20px; direction: rtl; text-align: right;">
+              <li>القانون الاتحادي الإماراتي رقم 32 لسنة 2021 بشأن الشركات التجارية</li>
               <li>عقد التأسيس الأصلي للشركة</li>
               <li>النظام الأساسي للشركة</li>
               <li>جميع القوانين واللوائح الإماراتية المعمول بها</li>

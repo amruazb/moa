@@ -1,9 +1,71 @@
 // POA Page 1: Header, Principal Info, Attorney Info, Section 1
-import { POAContext, poaPageFooter, POAAttorney } from '../types'
+import { POAContext, poaPageFooter, POAAttorney, POAPrincipal, POALicense, POAPrincipalRole } from '../types'
+
+function getLicenseCapacityEn(principals: POAPrincipal[], license: POALicense): string {
+  const roles = principals.map((p) => (p.role || 'owner') as POAPrincipalRole)
+  const hasMgr = roles.some((r) => r === 'manager')
+  const moaSuffixEn =
+    hasMgr && license.moaNumber && license.moaDate
+      ? ` by virtue of the Memorandum of Association No. <span class="edited no-break">${license.moaNumber}</span> dated <span class="edited">${license.moaDate}</span>`
+      : ''
+
+  if (principals.length === 1) {
+    const p = principals[0]
+    const role = (p.role || 'owner') as POAPrincipalRole
+    if (role === 'partner') return 'partner'
+    if (role === 'manager') return `manager${moaSuffixEn}`
+    return 'owner'
+  }
+
+  const uniq = [...new Set(roles)]
+  if (uniq.length === 1) {
+    if (uniq[0] === 'partner') return 'partners'
+    if (uniq[0] === 'owner') return 'owners'
+    if (uniq[0] === 'manager') return `managers${moaSuffixEn}`
+  }
+
+  const order: POAPrincipalRole[] = ['owner', 'partner', 'manager']
+  const sorted = [...uniq].sort((a, b) => order.indexOf(a) - order.indexOf(b))
+  const words = sorted.map((r) => (r === 'owner' ? 'owner' : r === 'partner' ? 'partner' : 'manager'))
+  if (words.length === 2) return `${words[0]} and ${words[1]}${moaSuffixEn}`
+  return `${words.slice(0, -1).join(', ')}, and ${words[words.length - 1]}${moaSuffixEn}`
+}
+
+function getLicenseCapacityAr(principals: POAPrincipal[], license: POALicense): string {
+  const roles = principals.map((p) => (p.role || 'owner') as POAPrincipalRole)
+  const hasMgr = roles.some((r) => r === 'manager')
+  const moaSuffixAr =
+    hasMgr && license.moaNumber && license.moaDate
+      ? ` بموجب عقد التأسيس رقم <span class="edited no-break">${license.moaNumber}</span> بتاريخ <span class="edited">${license.moaDate}</span>`
+      : ''
+
+  if (principals.length === 1) {
+    const p = principals[0]
+    const role = (p.role || 'owner') as POAPrincipalRole
+    if (role === 'manager') {
+      const title = p.salutation === 'mr' ? 'مدير' : 'مديرة'
+      return `${title}${moaSuffixAr}`
+    }
+    if (role === 'partner') return p.salutation === 'mr' ? 'شريك' : 'شريكة'
+    return p.salutation === 'mr' ? 'مالك' : 'مالكة'
+  }
+
+  const uniq = [...new Set(roles)] as POAPrincipalRole[]
+  if (uniq.length === 1) {
+    if (uniq[0] === 'partner') return 'شركاء'
+    if (uniq[0] === 'owner') return 'مالكين'
+    if (uniq[0] === 'manager') return `مديرين${moaSuffixAr}`
+  }
+
+  const order: POAPrincipalRole[] = ['owner', 'partner', 'manager']
+  const sorted = [...uniq].sort((a, b) => order.indexOf(a) - order.indexOf(b))
+  const words = sorted.map((r) => (r === 'owner' ? 'مالك' : r === 'partner' ? 'شريك' : 'مدير'))
+  return `${words.join(' و')}${moaSuffixAr}`
+}
 
 export function page1(ctx: POAContext, pageNum: number = 1): string {
   const { principals, license } = ctx
-  const attorneysList: POAAttorney[] = ctx.attorneys && ctx.attorneys.length > 0 ? ctx.attorneys : [ctx.attorney]
+  const attorneysList: POAAttorney[] = ctx.attorneys.length > 0 ? ctx.attorneys : [ctx.attorney]
 
   return `
     <div class="page page-1">
@@ -46,35 +108,10 @@ export function page1(ctx: POAContext, pageNum: number = 1): string {
       <!-- License Info -->
       <div class="article-pair intro-section">
         <div class="block">
-          <p>In ${principals.length > 1 ? 'Our' : 'My'} capacit${principals.length > 1 ? 'ies' : 'y'} as ${(() => {
-      if (principals.length > 1) return 'partners'
-      const p = principals[0]
-      if (!p) return 'owner'
-      const role = p.role || 'owner'
-      if (role === 'partner') return 'partner'
-      if (role === 'manager') {
-        const moaSuffixEn = license.moaNumber && license.moaDate ? ` by virtue of the Memorandum of Association No. <span class="edited no-break">${license.moaNumber}</span> dated <span class="edited">${license.moaDate}</span>` : ''
-        return `manager${moaSuffixEn}`
-      }
-      return 'owner'
-    })()} of the following License No. <span class="edited no-break">${license.licenseNumber}</span>, named: "<span class="edited">${license.companyName}</span>", issued from the <span class="edited">${license.issuingAuthority}</span>, do hereby authorize:</p>
+          <p>In ${principals.length > 1 ? 'Our' : 'My'} capacit${principals.length > 1 ? 'ies' : 'y'} as ${getLicenseCapacityEn(principals, license)} of the following License No. <span class="edited no-break">${license.licenseNumber}</span>, named: "<span class="edited">${license.companyName}</span>", issued from the <span class="edited">${license.issuingAuthority}</span>, do hereby authorize:</p>
         </div>
         <div class="block rtl">
-          <p>بصفت${principals.length > 1 ? 'نا' : 'ي'} ${(() => {
-      if (principals.length > 1) return 'شركاء'
-      const p = principals[0]
-      if (!p) return 'مالك'
-      const role = p.role || 'owner'
-      if (role === 'manager') {
-        const moaSuffixAr = license.moaNumber && license.moaDate ? ` بموجب عقد التأسيس رقم <span class="edited no-break">${license.moaNumber}</span> بتاريخ <span class="edited">${license.moaDate}</span>` : ''
-        const title = p.salutation === 'mr' ? 'مدير' : 'مديرة'
-        return `${title}${moaSuffixAr}`
-      }
-      if (role === 'partner') {
-        return p.salutation === 'mr' ? 'شريك' : 'شريكة'
-      }
-      return p.salutation === 'mr' ? 'مالك' : 'مالكة'
-    })()} في الرخصة رقم: <span class="edited no-break">${license.licenseNumber}</span>، المسماة: "<span class="edited">${license.companyNameAr}</span>"، الصادرة من <span class="edited">${license.issuingAuthorityAr}</span>، ${principals.length > 1 ? 'نوكل' : 'أوكل'}:</p>
+          <p>بصفت${principals.length > 1 ? 'نا' : 'ي'} ${getLicenseCapacityAr(principals, license)} في الرخصة رقم: <span class="edited no-break">${license.licenseNumber}</span>، المسماة: "<span class="edited">${license.companyNameAr}</span>"، الصادرة من <span class="edited">${license.issuingAuthorityAr}</span>، ${principals.length > 1 ? 'نوكل' : 'أوكل'}:</p>
         </div>
       </div>
 

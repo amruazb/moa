@@ -55,9 +55,8 @@ export function page26(ctx: LLCNewMOAContext, pageNum: number = 26): string {
           <p>(b) the depletion of the objective for which the Company was established;</p>
           <p>(c) amalgamation of the Company with another company;</p>
           <p>(d) pursuant to a Special Resolution of the General Assembly;</p>
-          <p>(e) if the losses of the Company (whether accumulated or in respect of any financial year) reached or exceeded 50% (fifty percent) of the Company's paid up capital, provided the issuance of a Special Resolution authorizing the dissolution;</p>
-          <p>(f) the depletion of all or most of the assets of the Company making beneficial investment of the remainder of the assets, if any, impracticable; or</p>
-          <p>(g) upon the rendering of a decision from a competent court in the Emirate of Abu Dhabi to dissolve the Company.</p>
+          <p>(e) the depletion of all or most of the assets of the Company making beneficial investment of the remainder of the assets, if any, impracticable; or</p>
+          <p>(f) upon the rendering of a decision from a competent court in the Emirate of Abu Dhabi to dissolve the Company.</p>
         </div>
         <div class="block rtl">
           <p>1-18 تحل الشركة لأي من الأسباب التالية:</p>
@@ -65,9 +64,8 @@ export function page26(ctx: LLCNewMOAContext, pageNum: number = 26): string {
           <p>(ب) انتهاء الغرض الذي أسست الشركة من أجله؛</p>
           <p>(ت) اندماج الشركة مع أية شركة أخرى؛</p>
           <p>(ث) بموجب قرار خاص من الجمعية العمومية؛</p>
-          <p>(ج) إذا وصلت خسائر الشركة المتراكمة أو خسائر أي سنة مالية أو زادت عن 50% (خمسين بالمئة) من رأس مال الشركة المدفوع بشرط صدور قرار خاص يأذن بحلها؛</p>
-          <p>(ح) هلاك جميع أو معظم أصول/موجودات الشركة حيث يتعذر استثمار الباقي، إن وجد، استثماراً مجدياً وعملياً؛ أو</p>
-          <p>(خ) بناءً على صدور قرار من محكمة مختصة في إمارة أبوظبي يقضي بحل الشركة.</p>
+          <p>(ج) هلاك جميع أو معظم أصول/موجودات الشركة حيث يتعذر استثمار الباقي، إن وجد، استثماراً مجدياً وعملياً؛ أو</p>
+          <p>(ح) بناءً على صدور قرار من محكمة مختصة في إمارة أبوظبي يقضي بحل الشركة.</p>
         </div>
       </div>
 

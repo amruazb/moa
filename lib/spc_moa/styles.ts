@@ -96,22 +96,22 @@ export const generateMoaStyles = (settings?: FontSettings): string => {
     display: none;
   }
 
-  /* Page content wrapper - calculated height = 297mm - footer (43mm) - top padding */
+  /* Page content wrapper - calculated height = 297mm - footer (38mm) - top padding */
   .page-content {
     flex: 1 1 auto;
-    height: calc(297mm - 43mm - 15mm); /* Available content height */
-    max-height: calc(297mm - 43mm - 15mm);
+    height: calc(297mm - 38mm - 15mm); /* Available content height */
+    max-height: calc(297mm - 38mm - 15mm);
     padding: 15mm ${pageMargin}mm 5mm ${pageMargin}mm;
     box-sizing: border-box;
     overflow: visible; /* Show overflow visually */
   }
 
-  /* Page footer - fixed 43mm at bottom */
+  /* Page footer - fixed 38mm at bottom */
   .page-footer {
     flex-shrink: 0;
-    height: 43mm;
-    min-height: 43mm;
-    max-height: 43mm;
+    height: 38mm;
+    min-height: 38mm;
+    max-height: 38mm;
     padding: 5mm ${pageMargin}mm;
     display: flex;
     justify-content: space-between;
@@ -194,8 +194,8 @@ export const generateMoaStyles = (settings?: FontSettings): string => {
     /* Content area - match live view exactly */
     .page-content {
       flex: 1 1 auto !important;
-      height: calc(297mm - 43mm - 15mm) !important;
-      max-height: calc(297mm - 43mm - 15mm) !important;
+      height: calc(297mm - 38mm - 15mm) !important;
+      max-height: calc(297mm - 38mm - 15mm) !important;
       padding: 15mm ${pageMargin}mm 5mm ${pageMargin}mm !important;
       overflow: hidden !important;
       box-sizing: border-box !important;
@@ -204,9 +204,9 @@ export const generateMoaStyles = (settings?: FontSettings): string => {
     /* Per-page footer at bottom - match live view exactly */
     .page-footer {
       flex-shrink: 0 !important;
-      height: 43mm !important;
-      min-height: 43mm !important;
-      max-height: 43mm !important;
+      height: 38mm !important;
+      min-height: 38mm !important;
+      max-height: 38mm !important;
       padding: 5mm ${pageMargin}mm !important;
       display: flex !important;
       box-sizing: border-box !important;
@@ -260,8 +260,8 @@ export const generateMoaStyles = (settings?: FontSettings): string => {
 
   .pdf-mode .page-footer {
     display: flex !important;
-    height: 43mm !important;
-    min-height: 43mm !important;
+    height: 38mm !important;
+    min-height: 38mm !important;
   }
 
   .pdf-mode .print-footer {
