@@ -102,22 +102,45 @@ export function generateLLCNewMOA(data: LLCNewMOAData, fontSettings?: FontSettin
             margin: 15px 0;
             font-size: ${getBaseFontSize(fontSettings?.baseFontSize || 'medium') + 1}pt;
         }
-        
+
         .capital-table th,
         .capital-table td {
             border: 1px solid #333;
             padding: 8px 5px;
             text-align: center;
         }
-        
+
         .capital-table th {
             background-color: #f0f0f0;
             font-weight: bold;
         }
-        
+
         .capital-table .total-row {
             background-color: #f8f8f8;
             font-weight: bold;
+        }
+
+        /* Paragraph spacing — all pages */
+        .block p {
+            margin-bottom: 8px !important;
+        }
+        .block p + p {
+            margin-top: 0 !important;
+        }
+        /* Remove the negative margin from shared styles */
+        .block p + p:not(:has(strong)) {
+            margin-top: 0 !important;
+        }
+        /* Space between article-pairs */
+        .article-pair {
+            margin-bottom: 8px !important;
+        }
+        /* Space between bilingual-content rows */
+        .bilingual-content {
+            margin-bottom: 10px !important;
+        }
+        .bilingual-content p {
+            margin-bottom: 8px !important;
         }
     </style>
 </head>

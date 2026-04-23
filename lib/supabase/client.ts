@@ -52,7 +52,7 @@ export const supabase = supabaseUrl && supabaseAnonKey && isValidUrl
   : createClient(dummyUrl, dummyKey) // Dummy client - operations will fail gracefully
 
 // Document types
-export type DocumentType = 'poa' | 'llc-moa' | 'llc-amendment-moa' | 'llc-new-moa' | 'llc-to-spc' | 'spc-moa'
+export type DocumentType = 'poa' | 'llc-moa' | 'llc-amendment-moa' | 'llc-new-moa' | 'llc-to-spc' | 'spc-moa' | 'label-maker'
 
 // Template metadata
 export interface TemplateMetadata {

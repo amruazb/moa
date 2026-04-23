@@ -19,5 +19,12 @@
         "timeout": 10000
       }
     ]
+  },
+  "permissions": {
+    "allow": [
+      "Bash(npx tsc *)",
+      "mcp__code-review-graph__detect_changes_tool",
+      "Bash(xargs grep *)"
+    ]
   }
 }

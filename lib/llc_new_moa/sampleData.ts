@@ -3,8 +3,8 @@ import { LLCNewMOAData, defaultActivities } from './types'
 
 export const sampleLLCNewMOAData: LLCNewMOAData = {
     company: {
-        name: 'ADVANZ PROJECT LOGISTICS - L.L.C',
-        nameAr: 'أدفانز بروجيكد لوجيستيكس - ذ.م.م',
+        name: 'ADVANZ PROJECT LOGISTICS  L.L.C',
+        nameAr: 'أدفانز بروجيكد لوجيستيكس  ذ.م.م',
         emirate: 'Abu Dhabi',
         emirateAr: 'أبوظبي',
         address: 'Abu Dhabi, U.A.E',

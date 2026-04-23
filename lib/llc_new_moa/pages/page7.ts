@@ -3,9 +3,13 @@ import { LLCNewMOAContext, pageFooter } from '../types'
 export function page7(ctx: LLCNewMOAContext, pageNum: number = 7): string {
   const { company, activities } = ctx
 
+  // Split activities: page 7 shows everything before "Project Management Services"
+  const splitIdx = activities.findIndex(a => a.nameEn.toLowerCase().includes('project management'))
+  const page7Acts = splitIdx >= 0 ? activities.slice(0, splitIdx) : activities
+
   // Generate activities list
-  const activitiesListEn = activities.map(a => `<p>➢ ${a.nameEn}</p>`).join('\n          ')
-  const activitiesListAr = activities.map(a => `<p>➢ ${a.nameAr}</p>`).join('\n          ')
+  const activitiesListEn = page7Acts.map(a => `<p>➢ ${a.nameEn}</p>`).join('\n          ')
+  const activitiesListAr = page7Acts.map(a => `<p>➢ ${a.nameAr}</p>`).join('\n          ')
 
   return `
     <div class="page">

@@ -204,6 +204,13 @@ export interface LLCNewMOAData {
 export const defaultActivities: Activity[] = [
     { code: '0910018', nameEn: 'Onshore And Offshore Oil And Gas Fields And Facilities Services', nameAr: 'خدمات حقول ومنشآت النفط والغاز البرية والبحرية' },
     { code: '5222005', nameEn: 'Ships Management And Operation', nameAr: 'ادارة السفن وتشغيلها' },
+    { code: '7711001', nameEn: 'Commercial Ships Rental', nameAr: 'تأجير السفن التجارية' },
+    { code: '7711002', nameEn: 'Ship Renting Intermediate', nameAr: 'وساطة تأجير السفن' },
+    { code: '4669014', nameEn: 'Wholesale Of Ships and Boats Trading', nameAr: 'تجارة الجملة للسفن والقوارب' },
+    { code: '3315001', nameEn: 'Repair And Maintenance of Ships', nameAr: 'إصلاح وصيانة السفن' },
+    { code: '4741001', nameEn: 'Retail Sale of Ships and Boats', nameAr: 'بيع التجزئة للسفن والقوارب' },
+    { code: '5012001', nameEn: 'Marine Transportation of Goods Between Countries', nameAr: 'النقل البحري للبضائع بين الدول' },
+    { code: '5200009', nameEn: 'Goods Marine Shipment Services', nameAr: 'خدمات الشحن البحري للبضائع' },
     { code: '5210008', nameEn: 'Storehouses and Warehouses Management and Operation', nameAr: 'إدارة وتشغيل المخازن والمستودعات' },
     { code: '5224006', nameEn: 'Shipment Containers Loading and Offloading Services', nameAr: 'خدمات تحميل حاويات الشحن وتفريغها' },
     { code: '8211015', nameEn: 'Project Management Services', nameAr: 'خدمات ادارة المشاريع' },

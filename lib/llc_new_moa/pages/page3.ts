@@ -10,7 +10,7 @@ export function page3(ctx: LLCNewMOAContext, pageNum: number = 3): string {
       <!-- Definitions continued -->
       <div class="article-pair">
         <div class="block">
-          <p><strong>"Business Day"</strong> means any day other than Fridays and Saturdays or public holidays on which commercial banks are closed in the Emirate of <span class="edited">${company.emirate}</span>.</p>
+          <p><strong>"Business Day"</strong> means any day other than Sundays and Saturdays or public holidays on which commercial banks are closed in the Emirate of <span class="edited">${company.emirate}</span>.</p>
 
           <p><strong>"Business Plan"</strong> means the business plan for the Company, prepared annually by the Managing Director.</p>
 
@@ -25,7 +25,7 @@ export function page3(ctx: LLCNewMOAContext, pageNum: number = 3): string {
           <p><strong>"General Assembly"</strong> means each meeting of the Partners of the Company (including the annual General Assembly) duly convened and held in accordance with this Memorandum.</p>
         </div>
         <div class="block rtl">
-          <p><strong>"يوم العمل"</strong> يعني أي يوم عدا أيام الجمعة والسبت أو العطلات الرسمية التي تكون فيها البنوك التجارية مغلقة في إمارة <span class="edited">${company.emirateAr}</span>.</p>
+          <p><strong>"يوم العمل"</strong> يعني أي يوم عدا أيام الأحد والسبت أو العطلات الرسمية التي تكون فيها البنوك التجارية مغلقة في إمارة <span class="edited">${company.emirateAr}</span>.</p>
 
           <p><strong>"خطة العمل"</strong> تعني خطة العمل الخاصة بالشركة، والتي يعدها المدير العام سنويًا.</p>
 
