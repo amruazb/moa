@@ -261,7 +261,7 @@ export function extractLLCContext(data: DocumentData): LLCMOAContext {
     const activitiesEn = (company.activities || '')
         .split(/[,;]/).map((s: string) => s.trim()).filter(Boolean)
     const activitiesAr = (company.activitiesAr || '')
-        .split(/[,؛]/).map((s: string) => s.trim()).filter(Boolean)
+        .split(/[,;؛]/).map((s: string) => s.trim()).filter(Boolean)
 
     return {
         company: {

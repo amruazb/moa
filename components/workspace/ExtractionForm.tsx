@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useCallback, useRef } from 'react'
+import { useState, useCallback, useRef, useEffect } from 'react'
 import { useDocumentStore } from '@/store/documentStore'
 import { DocumentType, EmiratesIDData, PassportData, TradeCertificateData } from '@/lib/ocr/types'
 
@@ -428,12 +428,14 @@ export function ExtractionForm() {
             <input type="date" className="mt-1 w-full rounded border px-2 py-1 text-xs" value={company.moaDate || ''} onChange={(e) => updateCompany('moaDate', e.target.value)} />
           </label>
         </div>
-        <label className="block text-xs text-gray-600">Activities (EN)
-          <textarea className="mt-1 w-full rounded border px-2 py-1 text-xs" rows={2} value={company.activities || ''} onChange={(e) => updateCompany('activities', e.target.value)} />
-        </label>
-        <label className="block text-xs text-gray-600">Activities (AR)
-          <textarea className="mt-1 w-full rounded border px-2 py-1 text-xs" dir="rtl" rows={2} value={company.activitiesAr || ''} onChange={(e) => updateCompany('activitiesAr', e.target.value)} />
-        </label>
+        <div className="space-y-1">
+          <span className="block text-xs text-gray-600 font-medium">Activities (EN)</span>
+          <ActivitiesEditor value={company.activities || ''} onChange={(v) => updateCompany('activities', v)} dir="ltr" />
+        </div>
+        <div className="space-y-1">
+          <span className="block text-xs text-gray-600 font-medium">Activities (AR)</span>
+          <ActivitiesEditor value={company.activitiesAr || ''} onChange={(v) => updateCompany('activitiesAr', v)} dir="rtl" />
+        </div>
         <div className="grid grid-cols-2 gap-2">
           <label className="block text-xs text-gray-600">Address (EN)
             <input className="mt-1 w-full rounded border px-2 py-1 text-xs" value={company.address || ''} onChange={(e) => updateCompany('address', e.target.value)} />
@@ -593,6 +595,72 @@ export function ExtractionForm() {
           </label>
         </div>
       </fieldset>
+    </div>
+  )
+}
+
+// ── Activities Editor ─────────────────────────────────────────────────────────
+function parseActivities(value: string): string[] {
+  if (!value.trim()) return []
+  return value
+    .split(/\n|;|(?<=\.)\s+/)
+    .map(s => s.replace(/^[\*\-•\d]+[\.\)]\s*/, '').replace(/\.$/, '').trim())
+    .filter(Boolean)
+}
+
+function ActivitiesEditor({ value, onChange, dir }: { value: string; onChange: (v: string) => void; dir: 'ltr' | 'rtl' }) {
+  const [items, setItems] = useState<string[]>(() => parseActivities(value))
+  const prevRef = useRef(value)
+
+  useEffect(() => {
+    const rejoined = items.filter(Boolean).join('; ')
+    if (value !== rejoined && value !== prevRef.current) {
+      prevRef.current = value
+      setItems(parseActivities(value))
+    }
+  }, [value])
+
+  const commit = (next: string[]) => {
+    setItems(next)
+    prevRef.current = next.filter(Boolean).join('; ')
+    onChange(next.filter(Boolean).join('; '))
+  }
+
+  const update = (i: number, v: string) => { const n = [...items]; n[i] = v; commit(n) }
+  const add    = () => commit([...items, ''])
+  const remove = (i: number) => commit(items.filter((_, idx) => idx !== i))
+
+  const handlePaste = (i: number, e: React.ClipboardEvent<HTMLInputElement>) => {
+    const parsed = parseActivities(e.clipboardData.getData('text'))
+    if (parsed.length > 1) {
+      e.preventDefault()
+      const n = [...items]; n.splice(i, 1, ...parsed); commit(n)
+    }
+  }
+
+  return (
+    <div className="space-y-1">
+      {items.map((item, i) => (
+        <div key={i} className="flex items-center gap-1.5">
+          <span className="text-[11px] font-semibold text-gray-500 w-5 text-right shrink-0">{i + 1}.</span>
+          <input
+            className="flex-1 rounded border px-2 py-1 text-xs focus:outline-none focus:border-indigo-400"
+            value={item}
+            dir={dir}
+            onChange={e => update(i, e.target.value)}
+            onPaste={e => handlePaste(i, e)}
+            placeholder={dir === 'rtl' ? 'النشاط...' : `Activity ${i + 1}...`}
+          />
+          <button type="button" onClick={() => remove(i)} className="text-red-300 hover:text-red-500 text-xs px-1 shrink-0">✕</button>
+        </div>
+      ))}
+      <button
+        type="button"
+        onClick={add}
+        className="mt-1 flex items-center gap-1 px-2 py-1 text-[11px] font-medium text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded border border-indigo-200 transition-colors"
+      >
+        <span className="font-bold">+</span> Add #{items.length + 1}
+      </button>
     </div>
   )
 }

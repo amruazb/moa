@@ -153,6 +153,52 @@ export async function loadTemplate(
 }
 
 /**
+ * Update (overwrite) an existing template in place
+ */
+export async function updateTemplate(
+  templateId: string,
+  name: string,
+  data: any,
+  description?: string,
+  originalCreatedAt?: string
+): Promise<{ success: boolean; error?: string }> {
+  try {
+    if (!supabase) {
+      return { success: false, error: 'Supabase is not configured. Please check your environment variables.' }
+    }
+
+    // Derive documentType from the templateId path (first segment)
+    const documentType = templateId.split('/')[0] as DocumentType
+
+    const template: Template = {
+      name,
+      documentType,
+      data,
+      description,
+      createdAt: originalCreatedAt || new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    }
+
+    const { error: uploadError } = await supabase.storage
+      .from(BUCKET_NAME)
+      .upload(templateId, JSON.stringify(template), {
+        contentType: 'application/json',
+        upsert: true,
+      })
+
+    if (uploadError) {
+      console.error('Supabase update error:', uploadError)
+      return { success: false, error: uploadError.message }
+    }
+
+    return { success: true }
+  } catch (error: any) {
+    console.error('Error updating template:', error)
+    return { success: false, error: error.message || 'Failed to update template' }
+  }
+}
+
+/**
  * Delete a template
  */
 export async function deleteTemplate(

@@ -2,6 +2,14 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { TemplateManager } from '@/components/templates/TemplateManager'
+import * as XLSX from 'xlsx'
+import { saveAs } from 'file-saver'
+import { jsPDF } from 'jspdf'
+import html2canvas from 'html2canvas'
+import {
+  Document, Packer, Table, TableRow, TableCell, Paragraph, TextRun,
+  WidthType, BorderStyle, ShadingType, AlignmentType, VerticalAlign,
+} from 'docx'
 
 interface Field {
   id: string
@@ -325,8 +333,11 @@ export function LabelMakerWorkspace() {
 
   const [printCols, setPrintCols] = useState<number>(() => (sv().printCols as number | undefined) ?? 2)
   const [printRows, setPrintRows] = useState<number>(() => (sv().printRows as number | undefined) ?? 5)
-  const [gapMm,     setGapMm]     = useState<number>(() => (sv().gapMm     as number | undefined) ?? 3)
-  const [marginMm,  setMarginMm]  = useState<number>(() => (sv().marginMm  as number | undefined) ?? 10)
+  const [gapMm,        setGapMm]        = useState<number>(() => (sv().gapMm        as number | undefined) ?? 3)
+  const [colGapMm,     setColGapMm]     = useState<number>(() => (sv().colGapMm     as number | undefined) ?? 3)
+  const [marginMm,     setMarginMm]     = useState<number>(() => (sv().marginMm     as number | undefined) ?? 10)
+  const [marginTopMm,  setMarginTopMm]  = useState<number>(() => (sv().marginTopMm  as number | undefined) ?? (sv().marginMm as number | undefined) ?? 10)
+  const [marginBotMm,  setMarginBotMm]  = useState<number>(() => (sv().marginBotMm  as number | undefined) ?? (sv().marginMm as number | undefined) ?? 10)
 
   const [tab, setTab] = useState<Tab>('logo')
 
@@ -338,20 +349,21 @@ export function LabelMakerWorkspace() {
         fieldsNextToLogo, fields, header, footer,
         borderColor, bgColor, paddingMm, fieldStyle,
         fieldFontSizeMm, labelColWidthMm, dir,
-        printCols, printRows, gapMm, marginMm,
+        printCols, printRows, gapMm, colGapMm, marginMm, marginTopMm, marginBotMm,
       }))
     } catch { /* quota exceeded — ignore */ }
   }, [cardW, cardH, logoUrl, logoWidthMm, logoXMm, logoYMm,
     fieldsNextToLogo, fields, header, footer,
     borderColor, bgColor, paddingMm, fieldStyle,
     fieldFontSizeMm, labelColWidthMm, dir,
-    printCols, printRows, gapMm, marginMm])
+    printCols, printRows, gapMm, colGapMm, marginMm, marginTopMm, marginBotMm])
 
   const fileInputRef = useRef<HTMLInputElement>(null)
   const dragRef      = useRef<{ startX: number; startY: number; initX: number; initY: number } | null>(null)
 
   const PREVIEW_SCALE    = 3.2
   const A4_PREVIEW_SCALE = 1.8
+  const PDF_PX_PER_MM    = 200 / 25.4   // 200 DPI — exact pixel-per-mm for PDF render
 
   // Auto-detect logo height when logo or width changes
   useEffect(() => {
@@ -470,8 +482,138 @@ export function LabelMakerWorkspace() {
     const id = 'lm-print-css'
     let el = document.getElementById(id) as HTMLStyleElement | null
     if (!el) { el = document.createElement('style'); el.id = id; document.head.appendChild(el) }
-    el.textContent = `@media print { @page{size:A4;margin:0} body>*{visibility:hidden!important} #lm-print-sheet{visibility:visible!important;position:fixed!important;top:0;left:0} #lm-print-sheet *{visibility:visible!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important} }`
+    el.textContent = `@media print { @page{size:A4;margin:0} body{margin:0!important;padding:0!important;visibility:hidden!important} #lm-print-sheet{visibility:visible!important;position:fixed!important;top:0!important;left:0!important;width:210mm!important;margin:0!important} #lm-print-sheet *{visibility:visible!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important} }`
     window.print()
+  }
+
+  // ── Excel export ──────────────────────────────────────────────────────────
+  const handleExcelExport = () => {
+    const headers = fields.map(f => f.label)
+    const values  = fields.map(f => f.value)
+    const ws = XLSX.utils.aoa_to_sheet([headers, values])
+    // Column widths
+    ws['!cols'] = headers.map(() => ({ wch: 20 }))
+    const wb = XLSX.utils.book_new()
+    XLSX.utils.book_append_sheet(wb, ws, 'Label Data')
+    const buf = XLSX.write(wb, { bookType: 'xlsx', type: 'array' })
+    saveAs(
+      new Blob([buf], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }),
+      'label-data.xlsx',
+    )
+  }
+
+  // ── Word export ───────────────────────────────────────────────────────────
+  const handleWordExport = async () => {
+    const isRtl = dir === 'rtl'
+    const headerHex = header.bgColor.replace('#', '')
+    const borderOpts = {
+      style: BorderStyle.SINGLE, size: 6, color: borderColor.replace('#', ''),
+    }
+    const cellBorders = { top: borderOpts, bottom: borderOpts, left: borderOpts, right: borderOpts }
+
+    const makeLabelTable = () => new Table({
+      width: { size: 4500, type: WidthType.DXA },
+      borders: { top: borderOpts, bottom: borderOpts, left: borderOpts, right: borderOpts, insideHorizontal: borderOpts, insideVertical: borderOpts },
+      rows: [
+        // Header band
+        ...(header.enabled ? [new TableRow({
+          children: [new TableCell({
+            columnSpan: 2,
+            shading: { fill: headerHex, type: ShadingType.CLEAR, color: 'auto' },
+            borders: cellBorders,
+            verticalAlign: VerticalAlign.CENTER,
+            children: [new Paragraph({
+              alignment: AlignmentType.CENTER,
+              bidirectional: isRtl,
+              children: [new TextRun({ text: header.text, bold: true, color: header.textColor.replace('#', ''), size: 22 })],
+            })],
+          })],
+        })] : []),
+        // Field rows
+        ...fields.map(f => new TableRow({
+          children: [
+            new TableCell({
+              width: { size: 1800, type: WidthType.DXA },
+              borders: cellBorders,
+              verticalAlign: VerticalAlign.CENTER,
+              children: [new Paragraph({
+                bidirectional: isRtl,
+                alignment: isRtl ? AlignmentType.RIGHT : AlignmentType.LEFT,
+                children: [new TextRun({ text: `${f.label}:`, bold: f.bold, size: 18 })],
+              })],
+            }),
+            new TableCell({
+              borders: cellBorders,
+              verticalAlign: VerticalAlign.CENTER,
+              children: [new Paragraph({
+                bidirectional: isRtl,
+                alignment: isRtl ? AlignmentType.RIGHT : AlignmentType.LEFT,
+                children: [new TextRun({ text: f.value, bold: f.bold, size: 18 })],
+              })],
+            }),
+          ],
+        })),
+      ],
+    })
+
+    // Build grid of label tables (same cols/rows as print layout)
+    const rows: TableRow[] = []
+    for (let r = 0; r < printRows; r++) {
+      rows.push(new TableRow({
+        children: Array.from({ length: printCols }, () => new TableCell({
+          width: { size: Math.floor(9000 / printCols), type: WidthType.DXA },
+          borders: { top: { style: BorderStyle.NONE }, bottom: { style: BorderStyle.NONE }, left: { style: BorderStyle.NONE }, right: { style: BorderStyle.NONE } },
+          children: [makeLabelTable(), new Paragraph('')],
+        })),
+      }))
+    }
+
+    const doc = new Document({
+      sections: [{
+        properties: { page: { size: { width: 11906, height: 16838 }, margin: { top: 720, bottom: 720, left: 720, right: 720 } } },
+        children: [new Table({
+          width: { size: 100, type: WidthType.PERCENTAGE },
+          borders: { top: { style: BorderStyle.NONE }, bottom: { style: BorderStyle.NONE }, left: { style: BorderStyle.NONE }, right: { style: BorderStyle.NONE }, insideHorizontal: { style: BorderStyle.NONE }, insideVertical: { style: BorderStyle.NONE } },
+          rows,
+        })],
+      }],
+    })
+
+    const blob = await Packer.toBlob(doc)
+    saveAs(blob, 'labels.docx')
+  }
+
+  // ── PDF export (accurate mm placement) ───────────────────────────────────
+  const [pdfLoading, setPdfLoading] = useState(false)
+
+  const handlePdfExport = async () => {
+    const renderEl = document.getElementById('lm-pdf-render')
+    if (!renderEl) return
+    setPdfLoading(true)
+    try {
+      const canvas = await html2canvas(renderEl as HTMLElement, {
+        scale: 1,
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: '#ffffff',
+        logging: false,
+      })
+      const imgData = canvas.toDataURL('image/png')
+
+      const pdf = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' })
+
+      for (let row = 0; row < printRows; row++) {
+        for (let col = 0; col < printCols; col++) {
+          const x = marginMm + col * (cardW + colGapMm)
+          const y = marginTopMm + row * (cardH + gapMm)
+          pdf.addImage(imgData, 'PNG', x, y, cardW, cardH)
+        }
+      }
+
+      pdf.save('labels.pdf')
+    } finally {
+      setPdfLoading(false)
+    }
   }
 
   const sharedProps: Omit<CardProps, 'scale' | 'printMode'> = {
@@ -906,17 +1048,42 @@ export function LabelMakerWorkspace() {
             {/* ── PRINT ── */}
             {tab === 'print' && (
               <>
+                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Sheet Presets</p>
+                <div className="space-y-1.5">
+                  {[
+                    { name: '99.1×57mm — 2×5 (10)',   w: 99.1, h: 57,   cols: 2, rows: 5,  rowGap: 0, colGap: 0, margin: 5.9, mTop: 6,   mBot: 6   },
+                    { name: '70×42.3mm — 3×7 (21)',   w: 70,   h: 42.3, cols: 3, rows: 7,  rowGap: 0, colGap: 0, margin: 6,   mTop: 6,   mBot: 6   },
+                    { name: '63.5×38.1mm — 3×8 (24)', w: 63.5, h: 38.1, cols: 3, rows: 8,  rowGap: 0, colGap: 0, margin: 5,   mTop: 5,   mBot: 5   },
+                    { name: '48.5×25.4mm — 4×10 (40)',w: 48.5, h: 25.4, cols: 4, rows: 10, rowGap: 0, colGap: 0, margin: 5,   mTop: 5,   mBot: 5   },
+                  ].map(p => (
+                    <button key={p.name} onClick={() => {
+                      setCardW(p.w); setCardH(p.h)
+                      setPrintCols(p.cols); setPrintRows(p.rows)
+                      setGapMm(p.rowGap); setColGapMm(p.colGap)
+                      setMarginMm(p.margin); setMarginTopMm(p.mTop); setMarginBotMm(p.mBot)
+                    }}
+                      className={`w-full text-left text-xs py-2 px-3 rounded-lg border transition-colors ${
+                        cardW === p.w && cardH === p.h && printCols === p.cols && printRows === p.rows
+                          ? 'bg-indigo-500 text-white border-indigo-500'
+                          : 'border-gray-200 hover:border-indigo-300 text-gray-700'}`}>
+                      {p.name}
+                    </button>
+                  ))}
+                </div>
                 <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">A4 Grid Layout</p>
                 <div className="grid grid-cols-2 gap-3">
                   {[
-                    { label: 'Columns', val: printCols, set: setPrintCols, max: 10 },
-                    { label: 'Rows',    val: printRows, set: setPrintRows, max: 30 },
-                    { label: 'Gap (mm)',val: gapMm,     set: setGapMm,     max: 20 },
-                    { label: 'Margin (mm)', val: marginMm, set: setMarginMm, max: 30 },
-                  ].map(({ label, val, set, max }) => (
+                    { label: 'Columns',          val: printCols,    set: setPrintCols,    max: 10,  step: 1   },
+                    { label: 'Rows',             val: printRows,    set: setPrintRows,    max: 30,  step: 1   },
+                    { label: 'Row Gap (mm)',      val: gapMm,        set: setGapMm,        max: 20,  step: 0.1 },
+                    { label: 'Col Gap (mm)',      val: colGapMm,     set: setColGapMm,     max: 20,  step: 0.1 },
+                    { label: 'Top Margin (mm)',   val: marginTopMm,  set: setMarginTopMm,  max: 30,  step: 0.1 },
+                    { label: 'Bottom Margin (mm)',val: marginBotMm,  set: setMarginBotMm,  max: 30,  step: 0.1 },
+                    { label: 'Side Margin (mm)',  val: marginMm,     set: setMarginMm,     max: 30,  step: 0.1 },
+                  ].map(({ label, val, set, max, step }) => (
                     <div key={label}>
                       <label className="text-xs text-gray-500">{label}</label>
-                      <input type="number" value={val} min={0} max={max}
+                      <input type="number" value={val} min={0} max={max} step={step}
                         onChange={e => set(Math.max(0, +e.target.value))}
                         className="w-full mt-1 text-sm border border-gray-200 rounded-lg px-2 py-1.5 focus:outline-none focus:border-indigo-400" />
                     </div>
@@ -928,6 +1095,21 @@ export function LabelMakerWorkspace() {
                 <button onClick={handlePrint}
                   className="w-full py-3 bg-indigo-600 text-white rounded-lg font-semibold text-sm hover:bg-indigo-700 transition-colors shadow-sm">
                   Print A4 Sheet
+                </button>
+                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Download</p>
+                <div className="grid grid-cols-2 gap-2">
+                  <button onClick={handleExcelExport}
+                    className="flex items-center justify-center gap-1.5 py-2.5 bg-emerald-600 text-white rounded-lg font-semibold text-sm hover:bg-emerald-700 transition-colors shadow-sm">
+                    <span>⬇</span> Excel
+                  </button>
+                  <button onClick={handleWordExport}
+                    className="flex items-center justify-center gap-1.5 py-2.5 bg-blue-600 text-white rounded-lg font-semibold text-sm hover:bg-blue-700 transition-colors shadow-sm">
+                    <span>⬇</span> Word
+                  </button>
+                </div>
+                <button onClick={handlePdfExport} disabled={pdfLoading}
+                  className="w-full flex items-center justify-center gap-1.5 py-2.5 bg-red-600 text-white rounded-lg font-semibold text-sm hover:bg-red-700 transition-colors shadow-sm disabled:opacity-60">
+                  {pdfLoading ? 'Generating PDF…' : '⬇ Download PDF (Accurate)'}
                 </button>
               </>
             )}
@@ -992,11 +1174,15 @@ export function LabelMakerWorkspace() {
               background: 'white',
               border: '1px solid #d1d5db',
               boxShadow: '2px 2px 8px rgba(0,0,0,0.1)',
-              padding: `${marginMm * A4_PREVIEW_SCALE}px`,
+              paddingTop:    `${marginTopMm * A4_PREVIEW_SCALE}px`,
+              paddingBottom: `${marginBotMm * A4_PREVIEW_SCALE}px`,
+              paddingLeft:   `${marginMm    * A4_PREVIEW_SCALE}px`,
+              paddingRight:  `${marginMm    * A4_PREVIEW_SCALE}px`,
               display: 'grid',
               gridTemplateColumns: `repeat(${printCols}, ${cardW * A4_PREVIEW_SCALE}px)`,
               gridTemplateRows: `repeat(${printRows}, ${cardH * A4_PREVIEW_SCALE}px)`,
-              gap: `${gapMm * A4_PREVIEW_SCALE}px`,
+              rowGap: `${gapMm * A4_PREVIEW_SCALE}px`,
+              columnGap: `${colGapMm * A4_PREVIEW_SCALE}px`,
               boxSizing: 'border-box',
               flexShrink: 0,
               overflow: 'hidden',
@@ -1009,15 +1195,38 @@ export function LabelMakerWorkspace() {
         </div>
       </div>
 
+      {/* Hidden high-res label render for PDF export (one label at 200 DPI) */}
+      <div
+        id="lm-pdf-render"
+        style={{
+          position: 'fixed',
+          left: '-99999px',
+          top: 0,
+          width:  Math.round(cardW * PDF_PX_PER_MM),
+          height: Math.round(cardH * PDF_PX_PER_MM),
+          pointerEvents: 'none',
+          zIndex: -1,
+        }}
+      >
+        <CardContent {...sharedProps} scale={PDF_PX_PER_MM} printMode={false} />
+      </div>
+
       {/* Print sheet */}
       <style>{`#lm-print-sheet{display:none}@media print{#lm-print-sheet{display:block}}`}</style>
       <div id="lm-print-sheet">
         <div style={{
-          width: '210mm', padding: `${marginMm}mm`,
+          width: '210mm',
+          paddingTop:    `${marginTopMm}mm`,
+          paddingBottom: `${marginBotMm}mm`,
+          paddingLeft:   `${marginMm}mm`,
+          paddingRight:  `${marginMm}mm`,
           display: 'grid',
           gridTemplateColumns: `repeat(${printCols}, ${cardW}mm)`,
-          gap: `${gapMm}mm`,
+          rowGap: `${gapMm}mm`,
+          columnGap: `${colGapMm}mm`,
           boxSizing: 'border-box',
+          justifyContent: 'center',
+          alignContent: 'start',
         }}>
           {Array.from({ length: totalCards }).map((_, i) => (
             <CardContent key={i} {...sharedProps} scale={0} printMode={true} />

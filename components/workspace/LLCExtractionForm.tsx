@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useCallback, useRef } from 'react'
+import { useState, useCallback, useRef, useEffect } from 'react'
 import { useDocumentStore, PartyData } from '@/store/documentStore'
 import { DocumentType, EmiratesIDData, PassportData, TradeCertificateData } from '@/lib/ocr/types'
 
@@ -511,12 +511,22 @@ export function LLCExtractionForm() {
                         <input className="mt-1 w-full rounded border px-2 py-1 text-xs" value={company.licenseNumber || ''} onChange={(e) => updateCompany('licenseNumber', e.target.value)} />
                     </label>
                 </div>
-                <label className="block text-xs text-gray-600">Activities (EN)
-                    <textarea className="mt-1 w-full rounded border px-2 py-1 text-xs" rows={2} value={company.activities || ''} onChange={(e) => updateCompany('activities', e.target.value)} />
-                </label>
-                <label className="block text-xs text-gray-600">Activities (AR)
-                    <textarea className="mt-1 w-full rounded border px-2 py-1 text-xs" dir="rtl" rows={2} value={company.activitiesAr || ''} onChange={(e) => updateCompany('activitiesAr', e.target.value)} />
-                </label>
+                <div className="space-y-1">
+                    <span className="block text-xs text-gray-600 font-medium">Activities (EN)</span>
+                    <ActivitiesEditor
+                        value={company.activities || ''}
+                        onChange={(v) => updateCompany('activities', v)}
+                        dir="ltr"
+                    />
+                </div>
+                <div className="space-y-1">
+                    <span className="block text-xs text-gray-600 font-medium">Activities (AR)</span>
+                    <ActivitiesEditor
+                        value={company.activitiesAr || ''}
+                        onChange={(v) => updateCompany('activitiesAr', v)}
+                        dir="rtl"
+                    />
+                </div>
             </fieldset>
 
             {/* Capital & Shares Section */}
@@ -638,6 +648,103 @@ export function LLCExtractionForm() {
                     </label>
                 </div>
             </fieldset>
+        </div>
+    )
+}
+
+// ── Activities Editor ─────────────────────────────────────────────────────────
+function parseActivities(value: string): string[] {
+    if (!value.trim()) return []
+    // Split by newline, semicolon, or period-space
+    return value
+        .split(/\n|;|(?<=\.)\s+/)
+        .map(s => s.replace(/^[\*\-•\d]+[\.\)]\s*/, '').replace(/\.$/, '').trim())
+        .filter(Boolean)
+}
+
+function ActivitiesEditor({
+    value,
+    onChange,
+    dir,
+}: {
+    value: string
+    onChange: (v: string) => void
+    dir: 'ltr' | 'rtl'
+}) {
+    const [items, setItems] = useState<string[]>(() => parseActivities(value))
+
+    // Sync when value changes externally (template load, cache restore)
+    const prevValueRef = useRef(value)
+    useEffect(() => {
+        const rejoined = items.filter(Boolean).join('; ')
+        if (value !== rejoined && value !== prevValueRef.current) {
+            prevValueRef.current = value
+            setItems(parseActivities(value))
+        }
+    }, [value])
+
+    const commit = (next: string[]) => {
+        setItems(next)
+        prevValueRef.current = next.filter(Boolean).join('; ')
+        onChange(next.filter(Boolean).join('; '))
+    }
+
+    const update = (i: number, v: string) => {
+        const next = [...items]
+        next[i] = v
+        commit(next)
+    }
+
+    const add = () => commit([...items, ''])
+
+    const remove = (i: number) => {
+        const next = items.filter((_, idx) => idx !== i)
+        commit(next)
+    }
+
+    // Auto-parse when user pastes multi-line / period-separated text
+    const handlePaste = (i: number, e: React.ClipboardEvent<HTMLInputElement>) => {
+        const text = e.clipboardData.getData('text')
+        const parsed = parseActivities(text)
+        if (parsed.length > 1) {
+            e.preventDefault()
+            const next = [...items]
+            next.splice(i, 1, ...parsed)
+            commit(next)
+        }
+    }
+
+    const nextNum = items.length + 1
+
+    return (
+        <div className="space-y-1">
+            {items.map((item, i) => (
+                <div key={i} className="flex items-center gap-1.5">
+                    <span className="text-[11px] font-semibold text-gray-500 w-5 text-right shrink-0">{i + 1}.</span>
+                    <input
+                        className="flex-1 rounded border px-2 py-1 text-xs focus:outline-none focus:border-indigo-400"
+                        value={item}
+                        dir={dir}
+                        onChange={(e) => update(i, e.target.value)}
+                        onPaste={(e) => handlePaste(i, e)}
+                        placeholder={dir === 'rtl' ? 'النشاط...' : `Activity ${i + 1}...`}
+                    />
+                    <button
+                        type="button"
+                        onClick={() => remove(i)}
+                        className="text-red-300 hover:text-red-500 text-xs px-1 shrink-0"
+                        title="Remove"
+                    >✕</button>
+                </div>
+            ))}
+            <button
+                type="button"
+                onClick={add}
+                className="mt-1 flex items-center gap-1 px-2 py-1 text-[11px] font-medium text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded border border-indigo-200 transition-colors"
+            >
+                <span className="text-indigo-400 font-bold">+</span>
+                Add #{nextNum}
+            </button>
         </div>
     )
 }

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { DocumentType, TemplateMetadata } from '@/lib/supabase/client'
-import { listTemplates, saveTemplate, loadTemplate, deleteTemplate } from '@/lib/supabase/templateService'
+import { listTemplates, saveTemplate, updateTemplate, loadTemplate, deleteTemplate } from '@/lib/supabase/templateService'
 import { Save, FolderOpen, Trash2, X, Loader2 } from 'lucide-react'
 
 interface TemplateManagerProps {
@@ -23,6 +23,9 @@ export function TemplateManager({
   const [templateName, setTemplateName] = useState('')
   const [templateDescription, setTemplateDescription] = useState('')
   const [templates, setTemplates] = useState<TemplateMetadata[]>([])
+  const [saveModalTemplates, setSaveModalTemplates] = useState<TemplateMetadata[]>([])
+  const [saveModalTemplatesLoading, setSaveModalTemplatesLoading] = useState(false)
+  const [replaceTarget, setReplaceTarget] = useState<TemplateMetadata | null>(null)
   const [loading, setLoading] = useState(false)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -34,6 +37,22 @@ export function TemplateManager({
       loadTemplates()
     }
   }, [showLoadModal, documentType])
+
+  // Load existing templates when save modal opens (for replace option)
+  useEffect(() => {
+    if (showSaveModal) {
+      setSaveModalTemplatesLoading(true)
+      listTemplates(documentType).then(result => {
+        if (result.success && result.templates) {
+          setSaveModalTemplates(result.templates)
+        }
+        setSaveModalTemplatesLoading(false)
+      })
+    } else {
+      setSaveModalTemplates([])
+      setReplaceTarget(null)
+    }
+  }, [showSaveModal, documentType])
 
   const loadTemplates = async () => {
     setLoading(true)
@@ -57,12 +76,25 @@ export function TemplateManager({
     setError(null)
     setSuccess(null)
 
-    const result = await saveTemplate(documentType, templateName.trim(), currentData, templateDescription.trim() || undefined)
+    let result: { success: boolean; error?: string }
+
+    if (replaceTarget) {
+      result = await updateTemplate(
+        replaceTarget.id!,
+        templateName.trim(),
+        currentData,
+        templateDescription.trim() || undefined,
+        replaceTarget.createdAt
+      )
+    } else {
+      result = await saveTemplate(documentType, templateName.trim(), currentData, templateDescription.trim() || undefined)
+    }
 
     if (result.success) {
-      setSuccess('Template saved successfully!')
+      setSuccess(replaceTarget ? 'Template replaced successfully!' : 'Template saved successfully!')
       setTemplateName('')
       setTemplateDescription('')
+      setReplaceTarget(null)
       setTimeout(() => {
         setShowSaveModal(false)
         setSuccess(null)
@@ -161,6 +193,7 @@ export function TemplateManager({
                   setShowSaveModal(false)
                   setTemplateName('')
                   setTemplateDescription('')
+                  setReplaceTarget(null)
                   setError(null)
                 }}
                 className="text-gray-500 hover:text-gray-700"
@@ -197,6 +230,38 @@ export function TemplateManager({
                 />
               </div>
 
+              {/* Replace existing template */}
+              {(saveModalTemplatesLoading || saveModalTemplates.length > 0) && (
+                <div className="border border-orange-200 rounded-lg p-3 bg-orange-50">
+                  <p className="text-xs font-semibold text-orange-700 mb-2">Replace existing template (optional)</p>
+                  {saveModalTemplatesLoading ? (
+                    <div className="flex items-center gap-2 text-xs text-gray-500">
+                      <Loader2 className="w-3 h-3 animate-spin" /> Loading...
+                    </div>
+                  ) : (
+                    <select
+                      value={replaceTarget?.id || ''}
+                      onChange={(e) => {
+                        const found = saveModalTemplates.find(t => t.id === e.target.value) || null
+                        setReplaceTarget(found)
+                        if (found) setTemplateName(found.name)
+                      }}
+                      className="w-full text-sm border border-orange-300 rounded-lg px-2 py-1.5 bg-white focus:ring-2 focus:ring-orange-400 focus:border-transparent"
+                    >
+                      <option value="">— Save as new —</option>
+                      {saveModalTemplates.map(t => (
+                        <option key={t.id} value={t.id!}>{t.name}</option>
+                      ))}
+                    </select>
+                  )}
+                  {replaceTarget && (
+                    <p className="text-xs text-orange-600 mt-1">
+                      This will overwrite "{replaceTarget.name}" with the current data.
+                    </p>
+                  )}
+                </div>
+              )}
+
               {error && <div className="text-red-600 text-sm">{error}</div>}
               {success && <div className="text-green-600 text-sm">{success}</div>}
 
@@ -206,6 +271,7 @@ export function TemplateManager({
                     setShowSaveModal(false)
                     setTemplateName('')
                     setTemplateDescription('')
+                    setReplaceTarget(null)
                     setError(null)
                   }}
                   className="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200"
@@ -215,10 +281,10 @@ export function TemplateManager({
                 <button
                   onClick={handleSave}
                   disabled={saving || !templateName.trim()}
-                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                  className={`px-4 py-2 text-white rounded-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 ${replaceTarget ? 'bg-orange-600 hover:bg-orange-700' : 'bg-blue-600 hover:bg-blue-700'}`}
                 >
                   {saving && <Loader2 className="w-4 h-4 animate-spin" />}
-                  Save
+                  {replaceTarget ? 'Replace' : 'Save'}
                 </button>
               </div>
             </div>

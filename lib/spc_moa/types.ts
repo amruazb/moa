@@ -135,7 +135,7 @@ export function extractContext(data: DocumentData): MOAContext {
   const activitiesEn = (company.activities || '')
     .split(/[,;]/).map((s: string) => s.trim()).filter(Boolean)
   const activitiesAr = (company.activitiesAr || '')
-    .split(/[,؛]/).map((s: string) => s.trim()).filter(Boolean)
+    .split(/[,;؛]/).map((s: string) => s.trim()).filter(Boolean)
 
   // Get capital values from store or use defaults
   const capital = capitalData.totalCapital || 10000
