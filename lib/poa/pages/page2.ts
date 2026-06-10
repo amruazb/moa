@@ -5,7 +5,7 @@ export function page2(ctx: POAContext, pageNum: number = 2): string {
   const { sections } = ctx
 
   // Dynamic section numbering
-  let sectionNum = 2
+  let sectionNum = sections.executeTransactions ? 2 : 1
   const empNum = sections.employees ? sectionNum++ : null
   const purchaseNum = sections.purchase ? sectionNum++ : null
   const motorNum = sections.motorVehicles ? sectionNum++ : null
@@ -14,6 +14,7 @@ export function page2(ctx: POAContext, pageNum: number = 2): string {
     <div class="page page-2">
       <div class="page-content">
 
+      ${sections.executeTransactions ? `
       <!-- Section 1 (cont.): Execute Transactions -->
       <div class="article-pair">
         <div class="block">
@@ -23,6 +24,7 @@ export function page2(ctx: POAContext, pageNum: number = 2): string {
           <p>والبلدية والمحاكم ومراكز الشـــرطة والإقامة والأجانب والهيئة الاتحادية للهوية والجنسيـــة وإدارة النفايات وهيئة التأمين الصحي ودائرة المشتريات ودائر النقل والمرور والترخيص والموانئ والجمـــارك والبريد والاتصالات ودو ودمان والدفاع المدني وجهاز حماية المنشـــآت الحيوية والسواحل وهيئة الماء والكهرباء (شـــركة طاقة للتوزيع) والهيئة الاتحادية للضـــرائب والمطارات والبنوك والشـــركات الخاصة والعامة والمؤسسات والأفراد واستلام وتسـليم وتقديم كافة الطلبات والمستندات والمعاملات والتوقيع عليـــها.</p>
         </div>
       </div>
+      ` : ''}
 
       ${empNum !== null ? `
       <!-- Section ${empNum}: Employees -->
@@ -57,11 +59,11 @@ export function page2(ctx: POAContext, pageNum: number = 2): string {
       <div class="numbered-section">
         <div class="block">
           <p><strong>${motorNum}</strong>&nbsp;&nbsp;&nbsp;<span class="section-title">Motor Vehicles:</span></p>
-          <p>To purchase, register and renew all types of vehicles with the Traffic Department and to receive all vehicle-related documents and registration cards from the Traffic Department.</p>
+          <p>To purchase, register, transfer ownership, sell, renew and deregister all types of vehicles before all competent traffic authorities in the UAE, including Abu Dhabi Police (Vehicles and Drivers Licensing Department) and Dubai Roads and Transport Authority (RTA), and to submit, receive, sign and collect all vehicle-related applications, forms, permits, ownership documents and registration cards.</p>
         </div>
         <div class="block rtl">
           <p><strong>${motorNum}</strong>&nbsp;&nbsp;&nbsp;<span class="section-title">السيارات:</span></p>
-          <p>شراء وتسجيل وتجديد جميع أنواع المركبات لدى إدارة المرور، واستلام جميع المستندات المتعلقة بالمركبات وبطاقات التسجيل من إدارة المرور.</p>
+          <p>شراء وتسجيل ونقل الملكية وبيع وتجديد وإسقاط جميع أنواع المركبات أمام جميع الجهات المرورية المختصة في دولة الإمارات، بما في ذلك شرطة أبوظبي (إدارة ترخيص السائقين والمركبات) وهيئة الطرق والمواصلات في دبي، وتقديم واستلام والتوقيع على جميع الطلبات والنماذج والتصاريح ووثائق الملكية وبطاقات تسجيل المركبات.</p>
         </div>
       </div>
       ` : ''}
@@ -75,8 +77,8 @@ export function page2(ctx: POAContext, pageNum: number = 2): string {
  * Returns the next available section number after page2's sections.
  * Used by page3 to continue numbering seamlessly.
  */
-export function page2NextSectionNum(sections: { employees: boolean; purchase: boolean; motorVehicles: boolean }): number {
-  let n = 2
+export function page2NextSectionNum(sections: { executeTransactions: boolean; employees: boolean; purchase?: boolean; motorVehicles: boolean }): number {
+  let n = sections.executeTransactions ? 2 : 1
   if (sections.employees) n++
   if (sections.purchase) n++
   if (sections.motorVehicles) n++

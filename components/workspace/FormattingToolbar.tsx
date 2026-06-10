@@ -212,6 +212,28 @@ export function FormattingToolbar() {
         </div>
       </div>
 
+      {/* Footer Size Selector */}
+      <div className="mt-4">
+        <label className="block text-xs font-medium text-gray-600 mb-2">
+          Footer Size
+        </label>
+        <div className="flex gap-2">
+          {(['small', 'medium', 'large'] as const).map((size) => (
+            <button
+              key={size}
+              onClick={() => setSettings({ footerSize: size })}
+              className={`flex-1 py-1.5 text-xs font-medium rounded-md border transition-colors ${
+                (settings.footerSize || 'medium') === size
+                  ? 'bg-blue-50 border-blue-200 text-blue-700'
+                  : 'bg-white border-gray-200 text-gray-600 hover:bg-gray-50'
+              }`}
+            >
+              {size.charAt(0).toUpperCase() + size.slice(1)}
+            </button>
+          ))}
+        </div>
+      </div>
+
       {/* Header Font Sizes Section */}
       <div className="mt-6 pt-4 border-t border-gray-200">
         <h4 className="text-xs font-semibold text-gray-700 mb-3">Header Font Sizes (LLC Amendment MOA)</h4>

@@ -67,6 +67,12 @@ export interface AuthorizedRepresentative {
     dob: string              // Date of birth YYYY-MM-DD
     nationality: string
     nationalityAr: string
+    docNameEn?: string
+    docNameAr?: string
+    docNo?: string
+    docDate?: string
+    mofaNo?: string
+    mofaDate?: string
 }
 
 // Company Partner (legal entity as shareholder)
@@ -179,6 +185,12 @@ export interface LLCNewMOAData {
             dob: string
             nationality: string
             nationalityAr: string
+            docNameEn?: string
+            docNameAr?: string
+            docNo?: string
+            docDate?: string
+            mofaNo?: string
+            mofaDate?: string
         }
     }>
     manager: {
@@ -250,7 +262,13 @@ export function extractLLCNewMOAContext(data: LLCNewMOAData): LLCNewMOAContext {
                 eid: (p.representative?.eid || '').replace(/-/g, ''),
                 dob: p.representative?.dob || '',
                 nationality: p.representative?.nationality || '',
-                nationalityAr: p.representative?.nationalityAr || ''
+                nationalityAr: p.representative?.nationalityAr || '',
+                docNameEn: p.representative?.docNameEn || '',
+                docNameAr: p.representative?.docNameAr || '',
+                docNo: p.representative?.docNo || '',
+                docDate: p.representative?.docDate || '',
+                mofaNo: p.representative?.mofaNo || '',
+                mofaDate: p.representative?.mofaDate || ''
             }
         }
     })

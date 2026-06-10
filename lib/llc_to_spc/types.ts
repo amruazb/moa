@@ -113,6 +113,7 @@ export interface LLCToSPCContext {
     agreementDate: string
     firstParty: TransferParty    // First selling partner
     secondParty: TransferParty   // Second selling partner
+    thirdParty: TransferParty    // Third selling partner
     newOwner: TransferParty      // New sole owner (buyer)
     manager: ManagerInfo         // Managing Director
     license: LicenseInfo
@@ -126,6 +127,8 @@ export interface LLCToSPCData {
     agreementDate?: string
     firstParty?: Partial<TransferParty>
     secondParty?: Partial<TransferParty>
+    thirdParty?: Partial<TransferParty>
+    sellers?: Partial<TransferParty>[]
     newOwner?: Partial<TransferParty>
     manager?: Partial<ManagerInfo>
     license?: Partial<LicenseInfo>
@@ -143,40 +146,60 @@ export const defaultLLCToSPCActivities: Activity[] = [
 
 // Extract context from store data with defaults
 export function extractLLCToSPCContext(data: LLCToSPCData): LLCToSPCContext {
-    const firstSalutation = (data.firstParty?.salutation || 'mr') as Salutation
-    const secondSalutation = (data.secondParty?.salutation || 'mr') as Salutation
+    const firstPartyData = data.sellers?.[0] || data.firstParty || {}
+    const secondPartyData = data.sellers?.[1] || data.secondParty || {}
+    const thirdPartyData = data.sellers?.[2] || data.thirdParty || {}
+
+    const firstSalutation = (firstPartyData.salutation || 'mr') as Salutation
+    const secondSalutation = (secondPartyData.salutation || 'mr') as Salutation
+    const thirdSalutation = (thirdPartyData.salutation || 'mr') as Salutation
 
     const firstParty: TransferParty = {
-        name: data.firstParty?.name || 'N/A',
-        nameAr: data.firstParty?.nameAr || 'غير متوفر',
+        name: firstPartyData.name || 'N/A',
+        nameAr: firstPartyData.nameAr || 'غير متوفر',
         salutation: firstSalutation,
         pronouns: getPronouns(firstSalutation),
-        nationality: data.firstParty?.nationality || 'Indian',
-        nationalityAr: data.firstParty?.nationalityAr || 'هندي',
-        eidOrPassport: data.firstParty?.eidOrPassport || 'N/A',
-        documentType: data.firstParty?.documentType || 'eid',
-        dob: data.firstParty?.dob || '',
-        address: data.firstParty?.address || 'Abu Dhabi',
-        addressAr: data.firstParty?.addressAr || 'أبوظبي',
-        sharesPercent: data.firstParty?.sharesPercent ?? 50
+        nationality: firstPartyData.nationality || 'Indian',
+        nationalityAr: firstPartyData.nationalityAr || 'هندي',
+        eidOrPassport: firstPartyData.eidOrPassport || 'N/A',
+        documentType: firstPartyData.documentType || 'eid',
+        dob: firstPartyData.dob || '',
+        address: firstPartyData.address || 'Abu Dhabi',
+        addressAr: firstPartyData.addressAr || 'أبوظبي',
+        sharesPercent: firstPartyData.sharesPercent ?? 50
     }
 
     const secondParty: TransferParty = {
-        name: data.secondParty?.name || 'N/A',
-        nameAr: data.secondParty?.nameAr || 'غير متوفر',
+        name: secondPartyData.name || 'N/A',
+        nameAr: secondPartyData.nameAr || 'غير متوفر',
         salutation: secondSalutation,
         pronouns: getPronouns(secondSalutation),
-        nationality: data.secondParty?.nationality || 'Indian',
-        nationalityAr: data.secondParty?.nationalityAr || 'هندي',
-        eidOrPassport: data.secondParty?.eidOrPassport || 'N/A',
-        documentType: data.secondParty?.documentType || 'eid',
-        dob: data.secondParty?.dob || '',
-        address: data.secondParty?.address || 'Abu Dhabi',
-        addressAr: data.secondParty?.addressAr || 'أبوظبي',
-        sharesPercent: data.secondParty?.sharesPercent ?? 50
+        nationality: secondPartyData.nationality || 'Indian',
+        nationalityAr: secondPartyData.nationalityAr || 'هندي',
+        eidOrPassport: secondPartyData.eidOrPassport || 'N/A',
+        documentType: secondPartyData.documentType || 'eid',
+        dob: secondPartyData.dob || '',
+        address: secondPartyData.address || 'Abu Dhabi',
+        addressAr: secondPartyData.addressAr || 'أبوظبي',
+        sharesPercent: secondPartyData.sharesPercent ?? 50
     }
 
-    // New Owner (buyer) - the 4th party who buys all shares
+    const thirdParty: TransferParty = {
+        name: thirdPartyData.name || '',
+        nameAr: thirdPartyData.nameAr || '',
+        salutation: thirdSalutation,
+        pronouns: getPronouns(thirdSalutation),
+        nationality: thirdPartyData.nationality || 'Indian',
+        nationalityAr: thirdPartyData.nationalityAr || 'هندي',
+        eidOrPassport: thirdPartyData.eidOrPassport || '',
+        documentType: thirdPartyData.documentType || 'eid',
+        dob: thirdPartyData.dob || '',
+        address: thirdPartyData.address || 'Abu Dhabi',
+        addressAr: thirdPartyData.addressAr || 'أبوظبي',
+        sharesPercent: thirdPartyData.sharesPercent ?? 0
+    }
+
+    // New Owner (buyer - Prardhana)
     const newOwnerSalutation = (data.newOwner?.salutation || 'ms') as Salutation
     const newOwner: TransferParty = {
         name: data.newOwner?.name || 'N/A',
@@ -234,6 +257,7 @@ export function extractLLCToSPCContext(data: LLCToSPCData): LLCToSPCContext {
         agreementDate: data.agreementDate || new Date().toISOString().split('T')[0],
         firstParty,
         secondParty,
+        thirdParty,
         newOwner,
         manager,
         license,

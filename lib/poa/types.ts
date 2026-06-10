@@ -68,6 +68,8 @@ export interface POARepresentative {
     addressAr: string
 }
 
+export type POAPrincipalRole = 'owner' | 'partner' | 'manager'
+
 // Principal (Power Giver) - Company owner or partner
 export interface POAPrincipal {
     name: string
@@ -80,6 +82,7 @@ export interface POAPrincipal {
     documentType: 'eid' | 'passport'
     address: string
     addressAr: string
+    role?: POAPrincipalRole  // Capacity in the company
     isRepresented?: boolean  // Whether this principal is signing through a representative
     representative?: POARepresentative  // Representative details if applicable
 }
@@ -105,12 +108,15 @@ export interface POALicense {
     companyNameAr: string
     issuingAuthority: string
     issuingAuthorityAr: string
+    moaNumber?: string
+    moaDate?: string
 }
 
 // Section toggles - which powers are granted
 export interface POASections {
     executeTransactions: boolean  // Section 1: Contact government departments
     employees: boolean            // Section 2: Appoint/terminate employees
+    purchase?: boolean            // Optional purchase section used by some templates
     utilities: boolean            // Section 3: Phone, internet, water, electricity
     banks: boolean                // Section 4: Open/manage bank accounts
     banksWithLoan: boolean        // Sub-toggle: with or without loan facilities
@@ -118,6 +124,10 @@ export interface POASections {
     receivables: boolean          // Section 6: Collect cash/cheques
     motorVehicles: boolean        // Section 7: Register, buy, sell vehicles
     approachCourts: boolean       // Section 8: Lawsuits, complaints, settlements
+    licenseTransfer?: boolean     // Optional transfer section used by some templates
+    noChequeBooks?: boolean       // Optional bank constraint
+    noSignCheques?: boolean       // Optional bank constraint
+    noLoansFacilities?: boolean   // Optional bank constraint
 }
 
 // Validity period
@@ -137,8 +147,10 @@ export interface POAContext {
 
 // POA Data stored in document store
 export interface POAData {
-    principals?: Partial<POAPrincipal>[]
-    attorney?: Partial<POAAttorney>
+    principals?: Array<Partial<Omit<POAPrincipal, 'representative' | 'pronouns'>> & {
+        representative?: Partial<Omit<POARepresentative, 'pronouns'>>
+    }>
+    attorney?: Partial<Omit<POAAttorney, 'pronouns'>>
     license?: Partial<POALicense>
     sections?: Partial<POASections>
     validity?: Partial<POAValidity>
@@ -176,6 +188,7 @@ export function extractPOAContext(data: POAData): POAContext {
             documentType: p.documentType || 'eid',
             address: p.address || '',
             addressAr: p.addressAr || '',
+            role: p.role || 'owner',
             isRepresented: p.isRepresented || false,
             representative
         };
@@ -200,7 +213,9 @@ export function extractPOAContext(data: POAData): POAContext {
         companyName: data.license?.companyName || 'N/A',
         companyNameAr: data.license?.companyNameAr || 'غير متوفر',
         issuingAuthority: data.license?.issuingAuthority || 'Department of Economic Development – Abu Dhabi',
-        issuingAuthorityAr: data.license?.issuingAuthorityAr || 'دائرة التنمية الاقتصادية – أبوظبي'
+        issuingAuthorityAr: data.license?.issuingAuthorityAr || 'دائرة التنمية الاقتصادية – أبوظبي',
+        moaNumber: data.license?.moaNumber || '',
+        moaDate: data.license?.moaDate || ''
     }
 
     const sections: POASections = {

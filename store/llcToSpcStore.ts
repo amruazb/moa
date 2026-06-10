@@ -11,6 +11,10 @@ interface LLCToSPCStore {
     toggleDynamicPaging: () => void
     updateFirstParty: (data: Partial<TransferParty>) => void
     updateSecondParty: (data: Partial<TransferParty>) => void
+    updateThirdParty: (data: Partial<TransferParty>) => void
+    updateSeller: (index: number, data: Partial<TransferParty>) => void
+    addSeller: () => void
+    removeSeller: (index: number) => void
     updateNewOwner: (data: Partial<LLCToSPCData['newOwner']>) => void
     updateManager: (data: Partial<LLCToSPCData['manager']>) => void
     updateLicense: (data: Partial<LLCToSPCData['license']>) => void
@@ -67,7 +71,14 @@ const clearCacheStorage = () => {
 }
 
 export const useLLCToSPCStore = create<LLCToSPCStore>((set, get) => ({
-    conversionData: { ...sampleLLCToSPCData, agreementDate: getCurrentDate() },
+    conversionData: { 
+        ...sampleLLCToSPCData, 
+        sellers: [
+            sampleLLCToSPCData.firstParty || {}, 
+            sampleLLCToSPCData.secondParty || {}
+        ],
+        agreementDate: getCurrentDate() 
+    },
     useDynamicPaging: false, // Default to stable fixed pages
 
     setConversionData: (data) => {
@@ -84,24 +95,74 @@ export const useLLCToSPCStore = create<LLCToSPCStore>((set, get) => ({
         set({ useDynamicPaging: !get().useDynamicPaging })
     },
 
-    updateFirstParty: (data) => {
-        set((state) => ({
-            conversionData: {
+    updateSeller: (index, data) => {
+        set((state) => {
+            const newSellers = [...(state.conversionData.sellers || [])]
+            newSellers[index] = { ...newSellers[index], ...data }
+            
+            // Sync with firstParty, secondParty, thirdParty for backwards compatibility
+            const syncObj: Partial<LLCToSPCData> = {}
+            if (index === 0) syncObj.firstParty = newSellers[0]
+            if (index === 1) syncObj.secondParty = newSellers[1]
+            if (index === 2) syncObj.thirdParty = newSellers[2]
+
+            const newState = {
                 ...state.conversionData,
-                firstParty: { ...state.conversionData.firstParty, ...data }
+                sellers: newSellers,
+                ...syncObj
             }
-        }))
+            return { conversionData: newState }
+        })
         saveToCache(get().conversionData)
     },
 
-    updateSecondParty: (data) => {
-        set((state) => ({
-            conversionData: {
+    addSeller: () => {
+        set((state) => {
+            const newSellers = [...(state.conversionData.sellers || [])]
+            newSellers.push({
+                name: '',
+                nameAr: '',
+                salutation: 'mr',
+                nationality: 'Indian',
+                nationalityAr: 'هندي',
+                eidOrPassport: '',
+                documentType: 'eid',
+                dob: '',
+                address: 'Abu Dhabi',
+                addressAr: 'أبوظبي',
+                sharesPercent: 0
+            })
+            const newState = {
                 ...state.conversionData,
-                secondParty: { ...state.conversionData.secondParty, ...data }
+                sellers: newSellers
             }
-        }))
+            return { conversionData: newState }
+        })
         saveToCache(get().conversionData)
+    },
+
+    removeSeller: (index) => {
+        set((state) => {
+            const newSellers = (state.conversionData.sellers || []).filter((_, i) => i !== index)
+            const newState = {
+                ...state.conversionData,
+                sellers: newSellers
+            }
+            return { conversionData: newState }
+        })
+        saveToCache(get().conversionData)
+    },
+
+    updateFirstParty: (data) => {
+        get().updateSeller(0, data)
+    },
+
+    updateSecondParty: (data) => {
+        get().updateSeller(1, data)
+    },
+
+    updateThirdParty: (data) => {
+        get().updateSeller(2, data)
     },
 
     updateNewOwner: (data) => {
@@ -209,21 +270,23 @@ export const useLLCToSPCStore = create<LLCToSPCStore>((set, get) => ({
     initializeFromCache: () => {
         const cachedData = loadFromCache()
         if (cachedData) {
-            // Always update to current date even when loading from cache
-            set({ conversionData: { ...cachedData, agreementDate: getCurrentDate() } })
+            const sellers = cachedData.sellers || [cachedData.firstParty || {}, cachedData.secondParty || {}]
+            set({ conversionData: { ...cachedData, sellers, agreementDate: getCurrentDate() } })
         } else {
-            // If no cache, use sample data with current date
-            set({ conversionData: { ...sampleLLCToSPCData, agreementDate: getCurrentDate() } })
+            const sellers = [sampleLLCToSPCData.firstParty || {}, sampleLLCToSPCData.secondParty || {}]
+            set({ conversionData: { ...sampleLLCToSPCData, sellers, agreementDate: getCurrentDate() } })
         }
     },
 
     clearCache: () => {
         clearCacheStorage()
-        set({ conversionData: { ...sampleLLCToSPCData, agreementDate: getCurrentDate() } })
+        const sellers = [sampleLLCToSPCData.firstParty || {}, sampleLLCToSPCData.secondParty || {}]
+        set({ conversionData: { ...sampleLLCToSPCData, sellers, agreementDate: getCurrentDate() } })
     },
 
     resetToDefault: () => {
-        set({ conversionData: { ...sampleLLCToSPCData, agreementDate: getCurrentDate() } })
+        const sellers = [sampleLLCToSPCData.firstParty || {}, sampleLLCToSPCData.secondParty || {}]
+        set({ conversionData: { ...sampleLLCToSPCData, sellers, agreementDate: getCurrentDate() } })
         clearCacheStorage()
     }
 }))

@@ -381,6 +381,10 @@ export function LabelMakerWorkspace() {
   const estFooterH = footer.enabled ? footer.fontSizeMm * 1.5 + footer.paddingMm * 2 : 0
   const contentH   = Math.max(10, cardH - estHeaderH - estFooterH)
 
+  // Horizontally center the grid on A4 (respect marginMm as minimum side gap)
+  const gridWidthMm    = printCols * cardW + Math.max(0, printCols - 1) * colGapMm
+  const centeredLeftMm = Math.max(marginMm, (210 - gridWidthMm) / 2)
+
   // ── Snap logo to one of 9 positions ──────────────────────────────────────
   const snapLogo = useCallback((row: number, col: number) => {
     const lw = logoWidthMm
@@ -478,11 +482,19 @@ export function LabelMakerWorkspace() {
   }
 
   // ── Print ─────────────────────────────────────────────────────────────────
+  const handlePrintSingleCard = () => {
+    const id = 'lm-print-css'
+    let el = document.getElementById(id) as HTMLStyleElement | null
+    if (!el) { el = document.createElement('style'); el.id = id; document.head.appendChild(el) }
+    el.textContent = `@media print { @page{size:A4;margin:0} html,body{max-height:297mm!important;overflow:hidden!important;margin:0!important;padding:0!important} body>*{height:0!important;min-height:0!important;overflow:hidden!important} body *{visibility:hidden!important} #lm-single-card-print{visibility:visible!important;position:fixed!important;top:10mm!important;left:10mm!important} #lm-single-card-print *{visibility:visible!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important} }`
+    window.print()
+  }
+
   const handlePrint = () => {
     const id = 'lm-print-css'
     let el = document.getElementById(id) as HTMLStyleElement | null
     if (!el) { el = document.createElement('style'); el.id = id; document.head.appendChild(el) }
-    el.textContent = `@media print { @page{size:A4;margin:0} body{margin:0!important;padding:0!important;visibility:hidden!important} #lm-print-sheet{visibility:visible!important;position:fixed!important;top:0!important;left:0!important;width:210mm!important;margin:0!important} #lm-print-sheet *{visibility:visible!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important} }`
+    el.textContent = `@media print { @page{size:A4;margin:0} html,body{max-height:297mm!important;overflow:hidden!important;margin:0!important;padding:0!important} body>*{height:0!important;min-height:0!important;overflow:hidden!important} body *{visibility:hidden!important} #lm-print-sheet{visibility:visible!important;position:fixed!important;top:0!important;left:0!important;width:210mm!important;height:297mm!important;overflow:hidden!important} #lm-print-sheet *{visibility:visible!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important} }`
     window.print()
   }
 
@@ -1129,9 +1141,20 @@ export function LabelMakerWorkspace() {
 
         {/* Single card preview — with drag overlay */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
-          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">
-            Label Preview — {cardW}×{cardH} mm
-          </p>
+          <div className="flex items-center justify-between mb-1">
+            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+              Label Preview — {cardW}×{cardH} mm
+            </p>
+            <button
+              onClick={handlePrintSingleCard}
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-indigo-600 text-white text-xs font-semibold rounded-lg hover:bg-indigo-700 transition-colors shadow-sm"
+            >
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+              </svg>
+              Print Card
+            </button>
+          </div>
           {logoUrl && (
             <p className="text-xs text-indigo-500 mb-3">Drag the logo to reposition it</p>
           )}
@@ -1174,22 +1197,24 @@ export function LabelMakerWorkspace() {
               background: 'white',
               border: '1px solid #d1d5db',
               boxShadow: '2px 2px 8px rgba(0,0,0,0.1)',
-              paddingTop:    `${marginTopMm * A4_PREVIEW_SCALE}px`,
-              paddingBottom: `${marginBotMm * A4_PREVIEW_SCALE}px`,
-              paddingLeft:   `${marginMm    * A4_PREVIEW_SCALE}px`,
-              paddingRight:  `${marginMm    * A4_PREVIEW_SCALE}px`,
-              display: 'grid',
-              gridTemplateColumns: `repeat(${printCols}, ${cardW * A4_PREVIEW_SCALE}px)`,
-              gridTemplateRows: `repeat(${printRows}, ${cardH * A4_PREVIEW_SCALE}px)`,
-              rowGap: `${gapMm * A4_PREVIEW_SCALE}px`,
-              columnGap: `${colGapMm * A4_PREVIEW_SCALE}px`,
-              boxSizing: 'border-box',
-              flexShrink: 0,
+              position: 'relative',
               overflow: 'hidden',
+              flexShrink: 0,
             }}>
-              {Array.from({ length: totalCards }).map((_, i) => (
-                <CardContent key={i} {...sharedProps} scale={A4_PREVIEW_SCALE} printMode={false} />
-              ))}
+              <div style={{
+                position: 'absolute',
+                top:  `${marginTopMm     * A4_PREVIEW_SCALE}px`,
+                left: `${centeredLeftMm * A4_PREVIEW_SCALE}px`,
+                display: 'grid',
+                gridTemplateColumns: `repeat(${printCols}, ${cardW * A4_PREVIEW_SCALE}px)`,
+                gridTemplateRows: `repeat(${printRows}, ${cardH * A4_PREVIEW_SCALE}px)`,
+                rowGap: `${gapMm * A4_PREVIEW_SCALE}px`,
+                columnGap: `${colGapMm * A4_PREVIEW_SCALE}px`,
+              }}>
+                {Array.from({ length: totalCards }).map((_, i) => (
+                  <CardContent key={i} {...sharedProps} scale={A4_PREVIEW_SCALE} printMode={false} />
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -1211,26 +1236,28 @@ export function LabelMakerWorkspace() {
         <CardContent {...sharedProps} scale={PDF_PX_PER_MM} printMode={false} />
       </div>
 
+      {/* Single card print target */}
+      <div id="lm-single-card-print" style={{ display: 'none' }}>
+        <CardContent {...sharedProps} scale={0} printMode={true} />
+      </div>
+
       {/* Print sheet */}
       <style>{`#lm-print-sheet{display:none}@media print{#lm-print-sheet{display:block}}`}</style>
       <div id="lm-print-sheet">
-        <div style={{
-          width: '210mm',
-          paddingTop:    `${marginTopMm}mm`,
-          paddingBottom: `${marginBotMm}mm`,
-          paddingLeft:   `${marginMm}mm`,
-          paddingRight:  `${marginMm}mm`,
-          display: 'grid',
-          gridTemplateColumns: `repeat(${printCols}, ${cardW}mm)`,
-          rowGap: `${gapMm}mm`,
-          columnGap: `${colGapMm}mm`,
-          boxSizing: 'border-box',
-          justifyContent: 'center',
-          alignContent: 'start',
-        }}>
-          {Array.from({ length: totalCards }).map((_, i) => (
-            <CardContent key={i} {...sharedProps} scale={0} printMode={true} />
-          ))}
+        <div style={{ width: '210mm', height: '297mm', position: 'relative', overflow: 'hidden' }}>
+          <div style={{
+            position: 'absolute',
+            top:  `${marginTopMm}mm`,
+            left: `${centeredLeftMm}mm`,
+            display: 'grid',
+            gridTemplateColumns: `repeat(${printCols}, ${cardW}mm)`,
+            rowGap: `${gapMm}mm`,
+            columnGap: `${colGapMm}mm`,
+          }}>
+            {Array.from({ length: totalCards }).map((_, i) => (
+              <CardContent key={i} {...sharedProps} scale={0} printMode={true} />
+            ))}
+          </div>
         </div>
       </div>
     </div>

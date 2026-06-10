@@ -27,6 +27,7 @@ export function generatePOAVehicle(ctx: POAVehicleContext, settings?: FontSettin
 }
 
 // Export types and utilities
-export { POAVehicleContext, POAVehicleData, extractPOAVehicleContext } from './types'
+export type { POAVehicleContext, POAVehicleData } from './types'
+export { extractPOAVehicleContext } from './types'
 export { samplePOAVehicleFilled, blankPOAVehicleSample } from './sampleData'
 export { generatePOAVehicleStyles } from './styles'

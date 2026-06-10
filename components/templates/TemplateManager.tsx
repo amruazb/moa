@@ -3,7 +3,9 @@
 import { useState, useEffect } from 'react'
 import { DocumentType, TemplateMetadata } from '@/lib/supabase/client'
 import { listTemplates, saveTemplate, updateTemplate, loadTemplate, deleteTemplate } from '@/lib/supabase/templateService'
-import { Save, FolderOpen, Trash2, X, Loader2 } from 'lucide-react'
+import { checkSupabaseHealth, type SupabaseHealthStatus } from '@/lib/supabase/health'
+import { getSupabaseSetupHint } from '@/lib/supabase/client'
+import { Save, FolderOpen, Trash2, X, Loader2, AlertCircle } from 'lucide-react'
 
 interface TemplateManagerProps {
   documentType: DocumentType
@@ -30,6 +32,21 @@ export function TemplateManager({
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState<string | null>(null)
+  const [health, setHealth] = useState<SupabaseHealthStatus | null>(null)
+  const [healthChecking, setHealthChecking] = useState(true)
+
+  useEffect(() => {
+    let cancelled = false
+    setHealthChecking(true)
+    checkSupabaseHealth().then(status => {
+      if (!cancelled) {
+        setHealth(status)
+        setHealthChecking(false)
+        if (!status.ok) setError(status.message)
+      }
+    })
+    return () => { cancelled = true }
+  }, [])
 
   // Load templates when modal opens
   useEffect(() => {
@@ -45,6 +62,8 @@ export function TemplateManager({
       listTemplates(documentType).then(result => {
         if (result.success && result.templates) {
           setSaveModalTemplates(result.templates)
+        } else if (result.error) {
+          setError(result.error)
         }
         setSaveModalTemplatesLoading(false)
       })
@@ -153,13 +172,39 @@ export function TemplateManager({
     })
   }
 
+  const setupHint = getSupabaseSetupHint()
+  const cloudDisabled = healthChecking || (health !== null && !health.ok)
+
   return (
     <>
+      {healthChecking && (
+        <p className="text-xs text-gray-500 flex items-center gap-1.5">
+          <Loader2 className="w-3 h-3 animate-spin" /> Checking Supabase connection…
+        </p>
+      )}
+      {!healthChecking && health && !health.ok && (
+        <div className="rounded-lg border border-red-200 bg-red-50 p-3 text-xs text-red-800 space-y-1">
+          <p className="font-semibold flex items-center gap-1.5">
+            <AlertCircle className="w-4 h-4 shrink-0" />
+            Supabase unavailable
+          </p>
+          <p>{health.message}</p>
+          {(health.hint || setupHint) && (
+            <p className="text-red-700/90">{health.hint ?? setupHint}</p>
+          )}
+        </div>
+      )}
+      {!healthChecking && health?.ok && (
+        <p className="text-xs text-green-700 bg-green-50 border border-green-200 rounded-lg px-2 py-1.5">
+          Supabase connected — cloud save/load is ready.
+        </p>
+      )}
+
       {/* Action Buttons */}
       <div className="flex items-center gap-2">
         <button
           onClick={() => setShowSaveModal(true)}
-          disabled={disabled}
+          disabled={disabled || cloudDisabled}
           className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition"
         >
           <Save className="w-4 h-4" />
@@ -167,7 +212,7 @@ export function TemplateManager({
         </button>
         <button
           onClick={() => setShowLoadModal(true)}
-          disabled={disabled}
+          disabled={disabled || cloudDisabled}
           className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition"
         >
           <FolderOpen className="w-4 h-4" />

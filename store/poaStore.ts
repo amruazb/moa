@@ -1,6 +1,6 @@
 // POA Document Store
 import { create } from 'zustand'
-import { POAData } from '@/lib/poa/types'
+import { POAData, POAPrincipal, POARepresentative, POAPrincipalRole, getPronouns } from '@/lib/poa/types'
 import { samplePOAFilled } from '@/lib/poa/sampleData'
 
 interface POAStore {
@@ -10,7 +10,10 @@ interface POAStore {
     updatePrincipal2: (data: Partial<POAPrincipal>) => void
     updatePrincipal1Representative: (data: Partial<POARepresentative>) => void
     updatePrincipal2Representative: (data: Partial<POARepresentative>) => void
+    updatePrincipal: (index: number, data: Partial<POAPrincipal>) => void
+    updatePrincipalRepresentative: (index: number, data: Partial<POARepresentative>) => void
     updateAttorney: (data: Partial<POAData['attorney']>) => void
+    updateAttorneyByIndex: (index: number, data: Partial<POAData['attorney']>) => void
     updateLicense: (data: Partial<POAData['license']>) => void
     updateSections: (data: Partial<POAData['sections']>) => void
     updateValidity: (data: Partial<POAData['validity']>) => void
@@ -99,11 +102,47 @@ export const usePOAStore = create<POAStore>((set, get) => ({
         saveToCache(newState)
     },
 
+    updatePrincipal: (index, data) => {
+        const newPrincipals = [...(get().poaData.principals || [])]
+        if (newPrincipals[index]) {
+            const updatedPrincipal = { ...newPrincipals[index], ...data }
+            if (data.salutation) {
+                updatedPrincipal.pronouns = getPronouns(data.salutation)
+            }
+            newPrincipals[index] = updatedPrincipal
+            const newState = { ...get().poaData, principals: newPrincipals }
+            set({ poaData: newState })
+            saveToCache(newState)
+        }
+    },
+
+    updatePrincipalRepresentative: (index, data) => {
+        const newPrincipals = [...(get().poaData.principals || [])]
+        if (newPrincipals[index]) {
+            const currentRep = newPrincipals[index].representative || {}
+            const updatedRep = { ...currentRep, ...data }
+            if (data.salutation) {
+                updatedRep.pronouns = getPronouns(data.salutation)
+            }
+            newPrincipals[index] = { 
+                ...newPrincipals[index], 
+                representative: updatedRep 
+            }
+            const newState = { ...get().poaData, principals: newPrincipals }
+            set({ poaData: newState })
+            saveToCache(newState)
+        }
+    },
+
     updateAttorney: (data) => {
         const newAttorney = { ...get().poaData.attorney, ...data }
         const newState = { ...get().poaData, attorney: newAttorney }
         set({ poaData: newState })
         saveToCache(newState)
+    },
+
+    updateAttorneyByIndex: (index, data) => {
+        get().updateAttorney(data)
     },
 
     updateLicense: (data) => {

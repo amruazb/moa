@@ -1,4 +1,9 @@
-import { LabelMakerWorkspace } from '@/components/LabelMakerWorkspace'
+import dynamic from 'next/dynamic'
+
+const LabelMakerWorkspace = dynamic(
+  () => import('@/components/LabelMakerWorkspace').then(m => ({ default: m.LabelMakerWorkspace })),
+  { ssr: false }
+)
 
 export default function LabelMakerPage() {
   return (

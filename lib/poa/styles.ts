@@ -18,6 +18,10 @@ export function generatePOAStyles(settings?: FontSettings): string {
   const englishLineHeight = settings?.englishLineSpacing ?? 1.5
   const arabicLineHeight = settings?.arabicLineSpacing ?? 1.6
   const pageMargin = settings?.pageMargin ?? 10
+  
+  const footerSize = settings?.footerSize ?? 'medium'
+  const footerHeightMap = { small: '30mm', medium: '46mm', large: '60mm' }
+  const footerHeight = footerHeightMap[footerSize]
 
   // Convert ratio to percentage for CSS
   const englishPercent = Math.round(columnRatio * 100)
@@ -99,20 +103,20 @@ export function generatePOAStyles(settings?: FontSettings): string {
   /* Page content wrapper */
   .page-content {
     flex: 1 1 auto;
-    height: calc(297mm - 46mm - 15mm);
-    max-height: calc(297mm - 46mm - 15mm);
+    height: calc(297mm - ${footerHeight} - 15mm);
+    max-height: calc(297mm - ${footerHeight} - 15mm);
     padding: 15mm ${pageMargin}mm 5mm ${pageMargin}mm;
     box-sizing: border-box;
     overflow: visible;
     text-align: justify;
   }
 
-  /* Page footer - fixed 46mm at bottom */
+  /* Page footer */
   .page-footer {
     flex-shrink: 0;
-    height: 46mm;
-    min-height: 46mm;
-    max-height: 46mm;
+    height: ${footerHeight};
+    min-height: ${footerHeight};
+    max-height: ${footerHeight};
     padding: 5mm ${pageMargin}mm;
     display: flex;
     justify-content: space-between;

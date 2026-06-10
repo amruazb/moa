@@ -29,7 +29,13 @@ export const sampleLLCNewMOAData: LLCNewMOAData = {
                 eid: '784198183848799',
                 dob: '1981-03-24',
                 nationality: 'Indian',
-                nationalityAr: 'هندي'
+                nationalityAr: 'هندي',
+                docNameEn: 'CERTIFICATE OF INCUMBENCY',
+                docNameAr: 'شهادة الصلاحية',
+                docNo: 'L62152',
+                docDate: '2026-04-30',
+                mofaNo: 'AEDA0525234939896354C5A',
+                mofaDate: '2026-05-11'
             }
         },
         {
@@ -38,8 +44,8 @@ export const sampleLLCNewMOAData: LLCNewMOAData = {
             country: 'United Arab Emirates',
             countryAr: 'الإمارات العربية المتحدة',
             licenseNo: '616526',
-            address: 'Office 1001, Malek The Onyx Four Development Limited – Al Thaniya Third',
-            addressAr: 'مكتب 1001، ملك ذا أونيكس فور ديفيلوبمنت ليمتد – الثنية الثالثة',
+            address: 'Office 1001, Malek The Onyx Four Development Limited – Al Thaniya Third, Dubai, UAE',
+            addressAr: 'مكتب 1001، ملك ذا أونيكس فور ديفيلوبمنت ليمتد – الثنية الثالثة، دبي، الإمارات العربية المتحدة',
             email: '',
             shareCount: 30,
             representative: {
@@ -49,7 +55,11 @@ export const sampleLLCNewMOAData: LLCNewMOAData = {
                 eid: '784198183848799',
                 dob: '1981-03-24',
                 nationality: 'Indian',
-                nationalityAr: 'هندي'
+                nationalityAr: 'هندي',
+                docNameEn: 'AMENDMENT TO THE MEMORANDUM OF ASSOCIATION',
+                docNameAr: 'ملحق تعديل عقد التأسيس',
+                docNo: '3706316',
+                docDate: '2021-09-08'
             }
         }
     ],

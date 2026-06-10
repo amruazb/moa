@@ -262,6 +262,12 @@ interface PartnerSectionProps {
             dob: string
             nationality: string
             nationalityAr: string
+            docNameEn?: string
+            docNameAr?: string
+            docNo?: string
+            docDate?: string
+            mofaNo?: string
+            mofaDate?: string
         }
     }
     updatePartner: (index: number, field: string, value: string | number) => void
@@ -445,6 +451,67 @@ function PartnerSection({ title, partnerIndex, partner, updatePartner, updatePar
                             className={`w-full px-3 py-2 text-sm border rounded-lg ${ringColor} focus:ring-2 text-right`}
                             placeholder="هندي"
                             dir="rtl"
+                        />
+                    </div>
+                    
+                    {/* Representative Document Details */}
+                    <div>
+                        <label className="block text-xs font-medium text-gray-600 mb-1">Authority Document Name (English)</label>
+                        <input
+                            type="text"
+                            value={partner.representative.docNameEn || ''}
+                            onChange={(e) => updatePartnerRepresentative(partnerIndex, 'docNameEn', e.target.value)}
+                            className={`w-full px-3 py-2 text-sm border rounded-lg ${ringColor} focus:ring-2`}
+                            placeholder="e.g. CERTIFICATE OF INCUMBENCY"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-xs font-medium text-gray-600 mb-1">Authority Document Name (Arabic)</label>
+                        <input
+                            type="text"
+                            value={partner.representative.docNameAr || ''}
+                            onChange={(e) => updatePartnerRepresentative(partnerIndex, 'docNameAr', e.target.value)}
+                            className={`w-full px-3 py-2 text-sm border rounded-lg ${ringColor} focus:ring-2 text-right`}
+                            placeholder="مثال: شهادة الصلاحية"
+                            dir="rtl"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-xs font-medium text-gray-600 mb-1">Notarized/Attested Number</label>
+                        <input
+                            type="text"
+                            value={partner.representative.docNo || ''}
+                            onChange={(e) => updatePartnerRepresentative(partnerIndex, 'docNo', e.target.value)}
+                            className={`w-full px-3 py-2 text-sm border rounded-lg ${ringColor} focus:ring-2`}
+                            placeholder="e.g. L62152"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-xs font-medium text-gray-600 mb-1">Notarized/Attested Date</label>
+                        <input
+                            type="date"
+                            value={partner.representative.docDate || ''}
+                            onChange={(e) => updatePartnerRepresentative(partnerIndex, 'docDate', e.target.value)}
+                            className={`w-full px-3 py-2 text-sm border rounded-lg ${ringColor} focus:ring-2`}
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-xs font-medium text-gray-600 mb-1">UAE MOFA Attestation Number (if foreign)</label>
+                        <input
+                            type="text"
+                            value={partner.representative.mofaNo || ''}
+                            onChange={(e) => updatePartnerRepresentative(partnerIndex, 'mofaNo', e.target.value)}
+                            className={`w-full px-3 py-2 text-sm border rounded-lg ${ringColor} focus:ring-2`}
+                            placeholder="e.g. AEDA052523..."
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-xs font-medium text-gray-600 mb-1">UAE MOFA Attestation Date (if foreign)</label>
+                        <input
+                            type="date"
+                            value={partner.representative.mofaDate || ''}
+                            onChange={(e) => updatePartnerRepresentative(partnerIndex, 'mofaDate', e.target.value)}
+                            className={`w-full px-3 py-2 text-sm border rounded-lg ${ringColor} focus:ring-2`}
                         />
                     </div>
                 </div>

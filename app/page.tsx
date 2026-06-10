@@ -262,6 +262,34 @@ export default function Home() {
           </Link>
 
           <Link
+            href="/daman-letter"
+            className="group relative rounded-xl border-2 border-gray-200 bg-white p-8 hover:border-teal-500 hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1"
+          >
+            <div className="flex items-start justify-between mb-4">
+              <div className="w-12 h-12 rounded-lg bg-teal-100 flex items-center justify-center group-hover:bg-teal-500 transition-colors">
+                <svg className="w-6 h-6 text-teal-600 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+              </div>
+              <span className="px-2 py-1 text-xs font-semibold text-teal-700 bg-teal-50 rounded-full border border-teal-200">
+                Daman
+              </span>
+            </div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-teal-600 transition-colors">
+              Daman Declaration
+            </h2>
+            <p className="text-gray-600 leading-relaxed">
+              Bilingual health insurance member enrollment/renewal declaration for Daman PJSC with company stamp block.
+            </p>
+            <div className="mt-4 flex items-center text-teal-600 font-medium group-hover:translate-x-2 transition-transform">
+              Open Workspace
+              <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+          </Link>
+
+          <Link
             href="/focus-erp-permission"
             className="group relative rounded-xl border-2 border-gray-200 bg-white p-8 hover:border-red-500 hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1"
           >
@@ -310,6 +338,34 @@ export default function Home() {
               Design custom labels with your logo, add fields, choose card size, and print A4 sheets with multiple labels.
             </p>
             <div className="mt-4 flex items-center text-violet-600 font-medium group-hover:translate-x-2 transition-transform">
+              Open Workspace
+              <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+          </Link>
+
+          <Link
+            href="/letterhead"
+            className="group relative rounded-xl border-2 border-gray-200 bg-white p-8 hover:border-sky-500 hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1"
+          >
+            <div className="flex items-start justify-between mb-4">
+              <div className="w-12 h-12 rounded-lg bg-sky-100 flex items-center justify-center group-hover:bg-sky-500 transition-colors">
+                <svg className="w-6 h-6 text-sky-600 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+              </div>
+              <span className="px-2 py-1 text-xs font-semibold text-sky-700 bg-sky-50 rounded-full border border-sky-200">
+                Stationery
+              </span>
+            </div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-sky-600 transition-colors">
+              Letterhead Maker
+            </h2>
+            <p className="text-gray-600 leading-relaxed">
+              Create professional A4 letterheads with your logo, colour themes, company header, and contact footer.
+            </p>
+            <div className="mt-4 flex items-center text-sky-600 font-medium group-hover:translate-x-2 transition-transform">
               Open Workspace
               <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

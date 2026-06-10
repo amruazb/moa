@@ -14,6 +14,7 @@ export function POAWorkspace() {
     const initializeFormattingFromCache = useFormattingStore((state) => state.initializeFromCache)
     const setPOAData = usePOAStore((state) => state.setPOAData)
     const poaData = usePOAStore((state) => state.poaData)
+    const samples = Array.isArray(POA_SAMPLES) ? POA_SAMPLES : []
 
     useEffect(() => {
         // Initialize from cache when component mounts
@@ -28,7 +29,9 @@ export function POAWorkspace() {
     const handleLoadSample = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const idx = parseInt(e.target.value)
         if (isNaN(idx)) return
-        setPOAData(POA_SAMPLES[idx].data)
+        const sample = samples[idx]
+        if (!sample?.data) return
+        setPOAData(sample.data)
         e.target.value = ''
     }
 
@@ -50,7 +53,7 @@ export function POAWorkspace() {
                             className="flex-1 text-sm border border-gray-300 rounded-lg px-2 py-1.5 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                         >
                             <option value="" disabled>— select a sample —</option>
-                            {POA_SAMPLES.map((s, i) => (
+                            {samples.map((s, i) => (
                                 <option key={i} value={i}>{s.label}</option>
                             ))}
                         </select>

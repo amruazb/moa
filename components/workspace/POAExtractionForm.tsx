@@ -18,6 +18,20 @@ export function POAExtractionForm() {
 
     const { principals, attorney, license, sections, validity } = poaData
 
+    const applyMotorVehicleOnlyTemplate = () => {
+        updateSections({
+            executeTransactions: false,
+            employees: false,
+            utilities: false,
+            banks: false,
+            banksWithLoan: false,
+            contracts: false,
+            receivables: false,
+            motorVehicles: true,
+            approachCourts: false,
+        })
+    }
+
     return (
         <div className="space-y-6 max-h-[calc(100vh-200px)] overflow-y-auto pr-2">
             {/* Principal 1 Information */}
@@ -440,6 +454,13 @@ export function POAExtractionForm() {
                     <span className="w-2 h-2 bg-orange-500 rounded-full"></span>
                     Powers Granted
                 </h3>
+                <button
+                    type="button"
+                    onClick={applyMotorVehicleOnlyTemplate}
+                    className="w-full px-3 py-2 text-sm text-orange-800 bg-orange-50 border border-orange-300 rounded-lg hover:bg-orange-100 transition"
+                >
+                    Use Motor Vehicles Only Template (Abu Dhabi + Dubai)
+                </button>
                 <div className="grid grid-cols-2 gap-2">
                     <label className="flex items-center gap-2 text-sm text-gray-700">
                         <input
@@ -499,7 +520,13 @@ export function POAExtractionForm() {
                         <input
                             type="checkbox"
                             checked={sections?.motorVehicles ?? true}
-                            onChange={(e) => updateSections({ motorVehicles: e.target.checked })}
+                            onChange={(e) => {
+                                if (e.target.checked) {
+                                    applyMotorVehicleOnlyTemplate()
+                                    return
+                                }
+                                updateSections({ motorVehicles: false })
+                            }}
                             className="w-4 h-4 text-orange-500 border-gray-300 rounded focus:ring-orange-500"
                         />
                         Motor Vehicles

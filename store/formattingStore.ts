@@ -18,6 +18,7 @@ export interface FontSettings {
   headerArTitle?: number
   headerArSubtitle?: number
   headerArCompany?: number
+  footerSize?: 'small' | 'medium' | 'large'
 }
 
 export const LINE_SPACINGS = [
@@ -79,6 +80,7 @@ const defaultSettings: FontSettings = {
   headerArTitle: 18,
   headerArSubtitle: 16,
   headerArCompany: 14,
+  footerSize: 'medium',
 }
 
 const loadFromCache = (): FontSettings => {

@@ -33,7 +33,13 @@ const getDefaultData = (): LLCNewMOAData => ({
                 eid: '',
                 dob: '',
                 nationality: '',
-                nationalityAr: ''
+                nationalityAr: '',
+                docNameEn: '',
+                docNameAr: '',
+                docNo: '',
+                docDate: '',
+                mofaNo: '',
+                mofaDate: ''
             }
         },
         {
@@ -53,7 +59,13 @@ const getDefaultData = (): LLCNewMOAData => ({
                 eid: '',
                 dob: '',
                 nationality: '',
-                nationalityAr: ''
+                nationalityAr: '',
+                docNameEn: '',
+                docNameAr: '',
+                docNo: '',
+                docDate: '',
+                mofaNo: '',
+                mofaDate: ''
             }
         }
     ],

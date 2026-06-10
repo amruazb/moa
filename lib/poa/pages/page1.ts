@@ -64,8 +64,11 @@ function getLicenseCapacityAr(principals: POAPrincipal[], license: POALicense): 
 }
 
 export function page1(ctx: POAContext, pageNum: number = 1): string {
-  const { principals, license } = ctx
-  const attorneysList: POAAttorney[] = ctx.attorneys.length > 0 ? ctx.attorneys : [ctx.attorney]
+  const { principals, license, sections } = ctx
+  const maybeAttorneys = (ctx as POAContext & { attorneys?: POAAttorney[] }).attorneys
+  const attorneysList: POAAttorney[] = Array.isArray(maybeAttorneys) && maybeAttorneys.length > 0
+    ? maybeAttorneys
+    : [ctx.attorney]
 
   return `
     <div class="page page-1">
@@ -139,6 +142,7 @@ export function page1(ctx: POAContext, pageNum: number = 1): string {
         </div>
       </div>
 
+      ${sections.executeTransactions ? `
       <!-- Section 1: Execute Transactions (header + first paragraph) -->
       <div class="numbered-section">
         <div class="block">
@@ -150,6 +154,7 @@ export function page1(ctx: POAContext, pageNum: number = 1): string {
           <p>مراجعة كافة الدوائر وكافة الجهات الحكومية حكومية والوزارات والهيئات المحلية والسفــارات واللجان والمجالس والدوائر حكومية والقنصليـــات والكتاب العدل ووزارة الموارد البشـــرية والتوطين ودائرة التنميـــة الاقتصادية لفتح فروعها واصـــدار كل الرخص المطلوبة وتعديل نشـــاطات والاســـم التجاري، وغرفة التجارة والصناعة وهيئة أبوظبي للسياحة والثقافية</p>
         </div>
       </div>
+      ` : ''}
 
       </div>
       ${poaPageFooter(pageNum)}

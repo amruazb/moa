@@ -39,7 +39,7 @@ export function page1(ctx: LLCNewMOAContext, pageNum: number = 1): string {
           <p><strong>Registration No.:</strong> <span class="edited">${partner.licenseNo}</span>,</p>
           <p><strong>Address:</strong> <span class="edited">${partner.address}</span>,</p>
           ${partner.email ? `<p><strong>Email:</strong> <span class="edited">${partner.email}</span>,</p>` : ''}
-          <p>duly represented by <strong>${repPronouns.title}</strong> <span class="edited">${rep.name}</span>, holder of Emirates ID No.: <span class="edited">${rep.eid}</span>, born on <span class="edited">${formattedDob}</span>, <span class="edited">${rep.nationality}</span> National, who is authorized to sign on behalf of the Company.</p>
+          <p>duly represented by <strong>${repPronouns.title}</strong> <span class="edited">${rep.name}</span>, holder of Emirates ID No.: <span class="edited">${rep.eid}</span>, born on <span class="edited">${formattedDob}</span>, <span class="edited">${rep.nationality}</span> National, who is authorized to sign on behalf of the Company${rep.docNameEn ? `, pursuant to the <strong><span class="edited">${rep.docNameEn}</span></strong> notarized/issued under No. <span class="edited">${rep.docNo}</span> dated <span class="edited">${formatDateDMY(rep.docDate || '')}</span>${rep.mofaNo ? ` and attested by the UAE Ministry of Foreign Affairs under No. <span class="edited">${rep.mofaNo}</span> dated <span class="edited">${formatDateDMY(rep.mofaDate || '')}</span>` : ''}` : ''}.</p>
         </div>
         <div class="block rtl">
           <h3 class="bold underline">الطرف ${getOrdinal(index, 'ar')}:</h3>
@@ -47,7 +47,7 @@ export function page1(ctx: LLCNewMOAContext, pageNum: number = 1): string {
           <p><strong>رقم التسجيل:</strong> <span class="edited">${partner.licenseNo}</span>،</p>
           <p><strong>العنوان:</strong> <span class="edited">${partner.addressAr}</span>،</p>
           ${partner.email ? `<p><strong>البريد الإلكتروني:</strong> <span class="edited">${partner.email}</span>،</p>` : ''}
-          <p>ويمثلها قانونًا <strong>${repPronouns.titleAr}/</strong><span class="edited">${rep.nameAr}</span>، حامل هوية إماراتية رقم: <span class="edited">${rep.eid}</span>، من مواليد <span class="edited">${formattedDob}</span>، ${rep.nationalityAr} الجنسية، والمخوّل بالتوقيع نيابة عن الشركة.</p>
+          <p>ويمثلها قانونًا <strong>${repPronouns.titleAr}/</strong><span class="edited">${rep.nameAr}</span>، حامل هوية إماراتية رقم: <span class="edited">${rep.eid}</span>، من مواليد <span class="edited">${formattedDob}</span>، ${rep.nationalityAr} الجنسية، والمخوّل بالتوقيع نيابة عن الشركة${rep.docNameAr ? ` بموجب <strong><span class="edited">${rep.docNameAr}</span></strong> الموثق/الصادر تحت رقم <span class="edited">${rep.docNo}</span> وتاريخ <span class="edited">${formatDateDMY(rep.docDate || '')}</span>${rep.mofaNo ? ` والمصدق من وزارة الخارجية الإماراتية تحت رقم <span class="edited">${rep.mofaNo}</span> وتاريخ <span class="edited">${formatDateDMY(rep.mofaDate || '')}</span>` : ''}` : ''}<span>.</span></p>
         </div>
       </div>
         `

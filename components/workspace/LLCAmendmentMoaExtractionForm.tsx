@@ -536,7 +536,7 @@ function ManagerSection({ manager, updateManager }: {
 // Capital Section Component
 function CapitalSection({ capital, updateCapital }: {
     capital: any
-    updateCapital: (field: string, value: number) => void
+    updateCapital: (field: 'totalCapital' | 'shareCount' | 'shareValue', value: number) => void
 }) {
     return (
         <div className="space-y-3">

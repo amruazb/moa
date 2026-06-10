@@ -1,5 +1,6 @@
 // Template Service for Saving/Loading Documents from Supabase Storage
-import { supabase, DocumentType, Template, TemplateMetadata } from './client'
+import { supabase, isSupabaseConfigured, getSupabaseSetupHint, DocumentType, Template, TemplateMetadata } from './client'
+import { formatSupabaseError } from './health'
 
 const BUCKET_NAME = 'document-templates'
 
@@ -13,8 +14,9 @@ export async function saveTemplate(
   description?: string
 ): Promise<{ success: boolean; error?: string; templateId?: string }> {
   try {
-    if (!supabase) {
-      return { success: false, error: 'Supabase is not configured. Please check your environment variables.' }
+    const setupHint = getSupabaseSetupHint()
+    if (!isSupabaseConfigured || setupHint) {
+      return { success: false, error: setupHint ?? 'Supabase is not configured. Check .env.local and restart the dev server.' }
     }
 
     // Create template object
@@ -27,6 +29,14 @@ export async function saveTemplate(
       updatedAt: new Date().toISOString(),
     }
 
+    const json = JSON.stringify(template)
+    if (json.length > 4_500_000) {
+      return {
+        success: false,
+        error: 'Template is too large to upload (logo image may be very large). Try a smaller logo or remove it before saving.',
+      }
+    }
+
     // Generate filename: documentType/timestamp-name.json
     const timestamp = Date.now()
     const sanitizedName = name.replace(/[^a-z0-9]/gi, '-').toLowerCase()
@@ -35,7 +45,7 @@ export async function saveTemplate(
     // Upload to Supabase Storage
     const { data: uploadData, error: uploadError } = await supabase.storage
       .from(BUCKET_NAME)
-      .upload(filename, JSON.stringify(template), {
+      .upload(filename, json, {
         contentType: 'application/json',
         upsert: false,
       })
@@ -54,9 +64,9 @@ export async function saveTemplate(
       success: true,
       templateId: uploadData.path,
     }
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error saving template:', error)
-    return { success: false, error: error.message || 'Failed to save template' }
+    return { success: false, error: formatSupabaseError(error) }
   }
 }
 
@@ -67,8 +77,9 @@ export async function listTemplates(
   documentType: DocumentType
 ): Promise<{ success: boolean; templates?: TemplateMetadata[]; error?: string }> {
   try {
-    if (!supabase) {
-      return { success: false, error: 'Supabase is not configured. Please check your environment variables.' }
+    const setupHint = getSupabaseSetupHint()
+    if (!isSupabaseConfigured || setupHint) {
+      return { success: false, error: setupHint ?? 'Supabase is not configured.' }
     }
 
     const { data, error } = await supabase.storage
@@ -84,7 +95,7 @@ export async function listTemplates(
     }
 
     // Parse template metadata from filenames and fetch data
-    const templates: TemplateMetadata[] = await Promise.all(
+    const templates = await Promise.all(
       (data || []).map(async (file) => {
         // Fetch the file to get metadata
         const { data: fileData, error: fetchError } = await supabase.storage
@@ -98,7 +109,7 @@ export async function listTemplates(
         const text = await fileData.text()
         const template: Template = JSON.parse(text)
 
-        return {
+        const meta: TemplateMetadata = {
           id: `${documentType}/${file.name}`,
           name: template.name,
           documentType: template.documentType,
@@ -106,6 +117,7 @@ export async function listTemplates(
           updatedAt: template.updatedAt || file.updated_at,
           description: template.description,
         }
+        return meta
       })
     )
 
@@ -113,9 +125,9 @@ export async function listTemplates(
       success: true,
       templates: templates.filter((t): t is TemplateMetadata => t !== null),
     }
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error listing templates:', error)
-    return { success: false, error: error.message || 'Failed to list templates' }
+    return { success: false, error: formatSupabaseError(error) }
   }
 }
 
@@ -126,8 +138,9 @@ export async function loadTemplate(
   templateId: string
 ): Promise<{ success: boolean; template?: Template; error?: string }> {
   try {
-    if (!supabase) {
-      return { success: false, error: 'Supabase is not configured. Please check your environment variables.' }
+    const setupHint = getSupabaseSetupHint()
+    if (!isSupabaseConfigured || setupHint) {
+      return { success: false, error: setupHint ?? 'Supabase is not configured.' }
     }
 
     const { data, error } = await supabase.storage
@@ -146,9 +159,9 @@ export async function loadTemplate(
       success: true,
       template,
     }
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error loading template:', error)
-    return { success: false, error: error.message || 'Failed to load template' }
+    return { success: false, error: formatSupabaseError(error) }
   }
 }
 
@@ -163,8 +176,9 @@ export async function updateTemplate(
   originalCreatedAt?: string
 ): Promise<{ success: boolean; error?: string }> {
   try {
-    if (!supabase) {
-      return { success: false, error: 'Supabase is not configured. Please check your environment variables.' }
+    const setupHint = getSupabaseSetupHint()
+    if (!isSupabaseConfigured || setupHint) {
+      return { success: false, error: setupHint ?? 'Supabase is not configured.' }
     }
 
     // Derive documentType from the templateId path (first segment)
@@ -192,9 +206,9 @@ export async function updateTemplate(
     }
 
     return { success: true }
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error updating template:', error)
-    return { success: false, error: error.message || 'Failed to update template' }
+    return { success: false, error: formatSupabaseError(error) }
   }
 }
 
@@ -205,8 +219,9 @@ export async function deleteTemplate(
   templateId: string
 ): Promise<{ success: boolean; error?: string }> {
   try {
-    if (!supabase) {
-      return { success: false, error: 'Supabase is not configured. Please check your environment variables.' }
+    const setupHint = getSupabaseSetupHint()
+    if (!isSupabaseConfigured || setupHint) {
+      return { success: false, error: setupHint ?? 'Supabase is not configured.' }
     }
 
     const { error } = await supabase.storage
@@ -219,8 +234,8 @@ export async function deleteTemplate(
     }
 
     return { success: true }
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error deleting template:', error)
-    return { success: false, error: error.message || 'Failed to delete template' }
+    return { success: false, error: formatSupabaseError(error) }
   }
 }

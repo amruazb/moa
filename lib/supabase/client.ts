@@ -42,17 +42,38 @@ if (!supabaseUrl || !supabaseAnonKey) {
 const dummyUrl = 'https://placeholder.supabase.co'
 const dummyKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBsYWNlaG9sZGVyIiwicm9sZSI6ImFub24iLCJpYXQiOjE1MTYyMzkwMjJ9.placeholder'
 
-export const supabase = supabaseUrl && supabaseAnonKey && isValidUrl
+export const isSupabaseConfigured = Boolean(
+  supabaseUrl && supabaseAnonKey && isValidUrl && isValidKey,
+)
+
+export function getSupabasePublicConfig() {
+  return { url: supabaseUrl, anonKey: supabaseAnonKey }
+}
+
+export function getSupabaseSetupHint(): string | null {
+  if (!supabaseUrl || !supabaseAnonKey) {
+    return 'Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY in .env.local'
+  }
+  if (!isValidUrl) {
+    return `Invalid Supabase URL (expected https://xxxx.supabase.co): ${supabaseUrl}`
+  }
+  if (!isValidKey) {
+    return 'Invalid Supabase key (use publishable sb_publishable_… or JWT eyJ… from Settings → API)'
+  }
+  return null
+}
+
+export const supabase = isSupabaseConfigured
   ? createClient(supabaseUrl, supabaseAnonKey, {
     auth: {
       persistSession: false,
       autoRefreshToken: false,
     },
   })
-  : createClient(dummyUrl, dummyKey) // Dummy client - operations will fail gracefully
+  : createClient(dummyUrl, dummyKey) // Fallback — storage calls will fail; use isSupabaseConfigured
 
 // Document types
-export type DocumentType = 'poa' | 'llc-moa' | 'llc-amendment-moa' | 'llc-new-moa' | 'llc-to-spc' | 'spc-moa' | 'label-maker'
+export type DocumentType = 'poa' | 'llc-moa' | 'llc-amendment-moa' | 'llc-new-moa' | 'llc-to-spc' | 'spc-moa' | 'label-maker' | 'letterhead'
 
 // Template metadata
 export interface TemplateMetadata {

@@ -136,3 +136,68 @@ export const blankPOASample: POAData = {
         attestationDate: ''
     }
 }
+
+export const samplePOAFusion: POAData = {
+    principals: [
+        {
+            name: 'THEERTHANANTHAN SIVALINGAM SIVALINGAM',
+            nameAr: 'ثيرثانانثن سيفالينغام سيفالينغام',
+            salutation: 'mr',
+            nationality: 'Indian',
+            nationalityAr: 'هندي',
+            eidOrPassport: '784197896929037',
+            documentType: 'eid',
+            address: 'Abu Dhabi, UAE',
+            addressAr: 'أبوظبي، الإمارات',
+            isRepresented: false
+        }
+    ],
+    attorney: {
+        name: 'Mugesh Balakrishnan Marisamy',
+        nameAr: 'موجيش بالاكريشنان ماريسامى',
+        salutation: 'mr',
+        nationality: 'Indian',
+        nationalityAr: 'هندي',
+        eidOrPassport: '784197859181527',
+        documentType: 'eid',
+        address: 'Abu Dhabi, UAE',
+        addressAr: 'أبوظبي، الإمارات'
+    },
+    license: {
+        licenseNumber: 'CN-1755941',
+        companyName: 'FUSION ENGINEERING SUPPLIERS - L.L.C - S.P.C',
+        companyNameAr: 'فيوشن انجينيرينغ سبلايرز - ذ.م.م - ش.ش.و',
+        issuingAuthority: 'Department of Economic Development – Abu Dhabi',
+        issuingAuthorityAr: 'دائرة التنمية الاقتصادية – أبوظبي'
+    },
+    sections: {
+        executeTransactions: true,
+        employees: true,
+        utilities: true,
+        banks: true,
+        banksWithLoan: false,
+        contracts: true,
+        receivables: true,
+        motorVehicles: true,
+        approachCourts: true
+    },
+    validity: {
+        years: 3,
+        attestationDate: ''
+    }
+}
+
+export const POA_SAMPLES: { label: string; data: POAData }[] = [
+    {
+        label: 'Sample POA (Filled)',
+        data: samplePOAFilled,
+    },
+    {
+        label: 'Sample POA (Fusion Engineering)',
+        data: samplePOAFusion,
+    },
+    {
+        label: 'Blank POA Template',
+        data: blankPOASample,
+    },
+]
