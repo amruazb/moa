@@ -65,6 +65,44 @@ export const samplePOAVehicleFilled: POAVehicleData = {
     poaDate: '14/04/2025'
 }
 
+export const samplePOAVehicleSingle: POAVehicleData = {
+    ...samplePOAVehicleFilled,
+    owner: {
+        ...samplePOAVehicleFilled.owner,
+        companyName: 'NAS OIL FIELD SERVICE - L.L.C',
+        capacityPhrase: 'in my capacity as partner and attorney of',
+        capacityPhraseAr: 'بصفتي شريكاً ووكيلاً عن شركة',
+        ownershipPhrase: 'being authorized for the company\'s vehicles',
+        ownershipPhraseAr: 'وبصفتي مفوض عن مركبات الشركة',
+    },
+    vehicles: [
+        {
+            vehicleType: 'SHACMOTO X5000',
+            vehicleTypeAr: 'شاكموتو X5000',
+            trademark: 'SHACMOTO',
+            trademarkAr: 'شاكموتو',
+            manufactureYear: '2026',
+            countryOfOrigin: 'CHINA',
+            countryOfOriginAr: 'الصين',
+            engineNumber: '71153081',
+            chassisNumber: 'LZGJL4X43TX001224',
+            licensePlate: '50995'
+        },
+        {
+            vehicleType: 'SHACMOTO X5000',
+            vehicleTypeAr: 'شاكموتو X5000',
+            trademark: 'SHACMOTO',
+            trademarkAr: 'شاكموتو',
+            manufactureYear: '2026',
+            countryOfOrigin: 'CHINA',
+            countryOfOriginAr: 'الصين',
+            engineNumber: '71157253',
+            chassisNumber: 'LZGJL4X43TX002597',
+            licensePlate: '14278'
+        }
+    ]
+}
+
 export const blankPOAVehicleSample: POAVehicleData = {
     owner: {
         name: '',
@@ -102,3 +140,14 @@ export const blankPOAVehicleSample: POAVehicleData = {
     validityYears: 3,
     attestationDate: ''
 }
+
+export const POA_VEHICLE_SAMPLES: { label: string; data: POAVehicleData }[] = [
+    {
+        label: '3 Vehicles (SHACMOTO X5000)',
+        data: samplePOAVehicleFilled,
+    },
+    {
+        label: '2 Vehicles (SHACMOTO X5000 - 50995 / 14278)',
+        data: samplePOAVehicleSingle,
+    },
+]

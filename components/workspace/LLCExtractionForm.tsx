@@ -1,8 +1,9 @@
 "use client"
 
 import { useState, useCallback, useRef, useEffect } from 'react'
-import { useDocumentStore, PartyData } from '@/store/documentStore'
+import { useDocumentStore, PartyData, ManagerArticle } from '@/store/documentStore'
 import { DocumentType, EmiratesIDData, PassportData, TradeCertificateData } from '@/lib/ocr/types'
+import { LLC_SAMPLES } from '@/lib/sampleData'
 
 // Inline OCR Upload Button Component
 function OCRButton({
@@ -145,7 +146,9 @@ function PartnerCard({
     canRemove: boolean
 }) {
     const shareCount = partner.shareCount || 0
-    const sharePercent = totalShares > 0 ? ((shareCount / totalShares) * 100).toFixed(2) : '0.00'
+    const sharePercent = totalShares > 0
+        ? String(Math.round((shareCount / totalShares) * 1000) / 10)
+        : '0'
 
     return (
         <div className="border border-purple-200 rounded-lg p-3 space-y-2 bg-purple-50/30">
@@ -294,11 +297,132 @@ function PartnerCard({
     )
 }
 
+function ManagerCard({
+    manager,
+    index,
+    partners,
+    onUpdate,
+    onRemove,
+    onCopyFromPartner,
+    onEIDExtracted,
+    onPassportExtracted,
+    canRemove
+}: {
+    manager: ManagerArticle
+    index: number
+    partners: PartyData[]
+    onUpdate: (field: string, value: string) => void
+    onRemove: () => void
+    onCopyFromPartner: (partnerIndex: number) => void
+    onEIDExtracted: (data: EmiratesIDData) => void
+    onPassportExtracted: (data: PassportData) => void
+    canRemove: boolean
+}) {
+    const label = manager.managerName
+        ? `Manager ${index + 1} — ${manager.managerName}`
+        : `Manager ${index + 1}`
+
+    return (
+        <div className="border border-gray-200 rounded-lg p-3 space-y-2 bg-slate-50/40">
+            <div className="flex items-center justify-between">
+                <h4 className="text-xs font-semibold text-slate-800">{label}</h4>
+                <div className="flex items-center gap-2">
+                    <OCRButton
+                        documentType="emirates_id"
+                        onExtracted={onEIDExtracted}
+                        label="Scan EID"
+                    />
+                    <OCRButton
+                        documentType="passport"
+                        onExtracted={onPassportExtracted}
+                        label="Scan Passport"
+                    />
+                    <select
+                        onChange={(e) => {
+                            const idx = parseInt(e.target.value)
+                            if (!isNaN(idx)) onCopyFromPartner(idx)
+                            e.currentTarget.value = ''
+                        }}
+                        className="text-xs rounded border px-2 py-1 bg-green-50 text-green-700"
+                        defaultValue=""
+                    >
+                        <option value="" disabled>Copy from Partner...</option>
+                        {partners.map((p, idx) => (
+                            <option key={idx} value={idx}>
+                                {p.name || `Partner ${idx + 1}`}
+                            </option>
+                        ))}
+                    </select>
+                    {canRemove && (
+                        <button
+                            onClick={onRemove}
+                            className="px-2 py-1 text-xs text-red-600 hover:bg-red-100 rounded"
+                            title="Remove manager"
+                        >
+                            ✕
+                        </button>
+                    )}
+                </div>
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+                <label className="block text-xs text-gray-600">Title
+                    <select
+                        className="mt-1 w-full rounded border px-2 py-1 text-xs"
+                        value={manager.managerSalutation || 'mr'}
+                        onChange={(e) => onUpdate('managerSalutation', e.target.value)}
+                    >
+                        <option value="mr">Mr.</option>
+                        <option value="ms">Ms.</option>
+                        <option value="mrs">Mrs.</option>
+                    </select>
+                </label>
+                <label className="block text-xs text-gray-600">ID Type
+                    <select
+                        className="mt-1 w-full rounded border px-2 py-1 text-xs"
+                        value={manager.managerDocType || 'eid'}
+                        onChange={(e) => onUpdate('managerDocType', e.target.value)}
+                    >
+                        <option value="eid">Emirates ID</option>
+                        <option value="passport">Passport</option>
+                    </select>
+                </label>
+                <label className="block text-xs text-gray-600">Manager Name (EN)
+                    <input className="mt-1 w-full rounded border px-2 py-1 text-xs" value={manager.managerName || ''} onChange={(e) => onUpdate('managerName', e.target.value)} />
+                </label>
+                <label className="block text-xs text-gray-600">Manager Name (AR)
+                    <input className="mt-1 w-full rounded border px-2 py-1 text-xs" dir="rtl" value={manager.managerNameAr || ''} onChange={(e) => onUpdate('managerNameAr', e.target.value)} />
+                </label>
+                <label className="block text-xs text-gray-600">Nationality (EN)
+                    <input className="mt-1 w-full rounded border px-2 py-1 text-xs" value={manager.managerNationality || ''} onChange={(e) => onUpdate('managerNationality', e.target.value)} />
+                </label>
+                <label className="block text-xs text-gray-600">Nationality (AR)
+                    <input className="mt-1 w-full rounded border px-2 py-1 text-xs" dir="rtl" value={manager.managerNationalityAr || ''} onChange={(e) => onUpdate('managerNationalityAr', e.target.value)} />
+                </label>
+                <label className="block text-xs text-gray-600">Manager ID Number
+                    <input className="mt-1 w-full rounded border px-2 py-1 text-xs" value={manager.managerIdNumber || ''} onChange={(e) => onUpdate('managerIdNumber', e.target.value)} />
+                </label>
+                <label className="block text-xs text-gray-600">UID Number
+                    <input className="mt-1 w-full rounded border px-2 py-1 text-xs" value={manager.managerUidNumber || ''} onChange={(e) => onUpdate('managerUidNumber', e.target.value)} />
+                </label>
+                <label className="block text-xs text-gray-600">Address (EN)
+                    <input className="mt-1 w-full rounded border px-2 py-1 text-xs" value={manager.managerAddress || ''} onChange={(e) => onUpdate('managerAddress', e.target.value)} placeholder="e.g., Abu Dhabi, U.A.E" />
+                </label>
+                <label className="block text-xs text-gray-600">Address (AR)
+                    <input className="mt-1 w-full rounded border px-2 py-1 text-xs" dir="rtl" value={manager.managerAddressAr || ''} onChange={(e) => onUpdate('managerAddressAr', e.target.value)} placeholder="مثال: أبوظبي، الإمارات" />
+                </label>
+            </div>
+        </div>
+    )
+}
+
 export function LLCExtractionForm() {
-    const { extractedData, setExtractedData, resetToLLCDefault } = useDocumentStore()
+    const { extractedData, setExtractedData, setDocumentData, resetToLLCDefault } = useDocumentStore()
+    const [sampleLabel, setSampleLabel] = useState('')
     const company = extractedData.company || {}
     const sourceParties = extractedData.sourceParties || [{}, {}] // Default 2 partners
-    const managerArticle = extractedData.managerArticle || {}
+    const managers: ManagerArticle[] = extractedData.managers?.length
+        ? extractedData.managers
+        : [extractedData.managerArticle || {}]
     const capitalData = extractedData.capital || { totalCapital: 10000, shareCount: 100, shareValue: 100 }
 
     // Calculate total shares from all partners
@@ -331,8 +455,25 @@ export function LLCExtractionForm() {
         setExtractedData({ sourceParties: updated })
     }
 
-    const updateManager = (field: string, value: string) => {
-        setExtractedData({ managerArticle: { ...managerArticle, [field]: value } })
+    const persistManagers = (next: ManagerArticle[]) => {
+        setExtractedData({
+            managers: next,
+            managerArticle: next[0] || {}
+        })
+    }
+
+    const updateManager = (idx: number, field: string, value: string) => {
+        const next = managers.map((m, i) => i === idx ? { ...m, [field]: value } : m)
+        persistManagers(next)
+    }
+
+    const addManager = () => {
+        persistManagers([...managers, {}])
+    }
+
+    const removeManager = (idx: number) => {
+        if (managers.length <= 1) return
+        persistManagers(managers.filter((_, i) => i !== idx))
     }
 
     const updateCapital = (field: string, value: number) => {
@@ -369,26 +510,24 @@ export function LLCExtractionForm() {
         setExtractedData({ sourceParties: updated })
     }
 
-    const handleManagerEIDExtracted = (data: EmiratesIDData) => {
-        setExtractedData({
-            managerArticle: {
-                ...managerArticle,
-                managerIdNumber: data.idNumber || managerArticle.managerIdNumber,
-                managerDob: data.dateOfBirth || managerArticle.managerDob,
-                managerDocType: 'eid'
-            }
-        })
+    const handleManagerEIDExtracted = (idx: number) => (data: EmiratesIDData) => {
+        const next = managers.map((m, i) => i === idx ? {
+            ...m,
+            managerIdNumber: data.idNumber || m.managerIdNumber,
+            managerDob: data.dateOfBirth || m.managerDob,
+            managerDocType: 'eid' as const
+        } : m)
+        persistManagers(next)
     }
 
-    const handleManagerPassportExtracted = (data: PassportData) => {
-        setExtractedData({
-            managerArticle: {
-                ...managerArticle,
-                managerIdNumber: data.passportNumber || managerArticle.managerIdNumber,
-                managerDob: data.dateOfBirth || managerArticle.managerDob,
-                managerDocType: 'passport'
-            }
-        })
+    const handleManagerPassportExtracted = (idx: number) => (data: PassportData) => {
+        const next = managers.map((m, i) => i === idx ? {
+            ...m,
+            managerIdNumber: data.passportNumber || m.managerIdNumber,
+            managerDob: data.dateOfBirth || m.managerDob,
+            managerDocType: 'passport' as const
+        } : m)
+        persistManagers(next)
     }
 
     const handleTradeCertificateExtracted = (data: TradeCertificateData) => {
@@ -428,39 +567,38 @@ export function LLCExtractionForm() {
                 setExtractedData({ sourceParties: newPartners })
             }
 
-            // Find and set manager
-            const manager = data.owners.find(o => o.role?.toLowerCase() === 'manager')
-            if (manager) {
-                setExtractedData({
-                    managerArticle: {
-                        ...managerArticle,
-                        managerName: manager.nameEn || managerArticle.managerName,
-                        managerNameAr: manager.nameAr || managerArticle.managerNameAr,
-                        managerNationality: manager.nationality || managerArticle.managerNationality,
-                        managerNationalityAr: manager.nationalityAr || managerArticle.managerNationalityAr,
-                    }
-                })
+            const foundManagers = data.owners.filter(o => o.role?.toLowerCase() === 'manager')
+            if (foundManagers.length > 0) {
+                const next = foundManagers.map((manager, idx) => ({
+                    ...(managers[idx] || {}),
+                    managerName: manager.nameEn || managers[idx]?.managerName,
+                    managerNameAr: manager.nameAr || managers[idx]?.managerNameAr,
+                    managerNationality: manager.nationality || managers[idx]?.managerNationality,
+                    managerNationalityAr: manager.nationalityAr || managers[idx]?.managerNationalityAr,
+                }))
+                persistManagers(next)
             }
         }
     }
 
-    const syncManagerFromPartner = (idx: number) => {
-        const partner = sourceParties[idx]
-        if (partner) {
-            setExtractedData({
-                managerArticle: {
-                    ...managerArticle,
-                    managerName: partner.name || '',
-                    managerNameAr: partner.nameAr || '',
-                    managerNationality: partner.nationality || '',
-                    managerNationalityAr: partner.nationalityAr || '',
-                    managerIdNumber: partner.eidNumber || partner.passportNumber || '',
-                    managerDocType: partner.eidNumber ? 'eid' : 'passport',
-                    managerAddress: partner.address || '',
-                    managerAddressAr: partner.addressAr || ''
-                }
-            })
-        }
+    const syncManagerFromPartner = (managerIdx: number, partnerIdx: number) => {
+        const partner = sourceParties[partnerIdx]
+        if (!partner) return
+        const next = managers.map((m, i) => i === managerIdx ? {
+            ...m,
+            managerName: partner.name || '',
+            managerNameAr: partner.nameAr || '',
+            managerNationality: partner.nationality || '',
+            managerNationalityAr: partner.nationalityAr || '',
+            managerIdNumber: partner.eidNumber || partner.passportNumber || '',
+            managerDocType: partner.eidNumber ? 'eid' as const : 'passport' as const,
+            managerAddress: partner.address || '',
+            managerAddressAr: partner.addressAr || '',
+            managerSalutation: partner.salutation || m.managerSalutation,
+            managerUidNumber: partner.uidNumber || m.managerUidNumber,
+            managerDob: partner.dob || m.managerDob,
+        } : m)
+        persistManagers(next)
     }
 
     const handleClearCache = () => {
@@ -473,12 +611,29 @@ export function LLCExtractionForm() {
         <div className="space-y-4 overflow-y-auto max-h-[calc(100vh-180px)]">
             <div className="flex justify-between items-center sticky top-0 bg-white py-2 z-10 border-b border-gray-100 -mx-4 px-4 -mt-4">
                 <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wide">Edit Data</h3>
-                <button
-                    onClick={handleClearCache}
-                    className="px-2 py-1 text-[10px] font-medium text-red-600 bg-red-50 rounded border border-red-200 hover:bg-red-100"
-                >
-                    Clear
-                </button>
+                <div className="flex items-center gap-2">
+                    <select
+                        value={sampleLabel}
+                        onChange={(e) => {
+                            const label = e.target.value
+                            setSampleLabel(label)
+                            const sample = LLC_SAMPLES.find((item) => item.label === label)
+                            if (sample) setDocumentData(sample.data)
+                        }}
+                        className="max-w-[220px] px-2 py-1 text-[10px] font-medium text-purple-700 bg-purple-50 rounded border border-purple-200"
+                    >
+                        <option value="">Load sample…</option>
+                        {LLC_SAMPLES.map((sample) => (
+                            <option key={sample.label} value={sample.label}>{sample.label}</option>
+                        ))}
+                    </select>
+                    <button
+                        onClick={handleClearCache}
+                        className="px-2 py-1 text-[10px] font-medium text-red-600 bg-red-50 rounded border border-red-200 hover:bg-red-100"
+                    >
+                        Clear
+                    </button>
+                </div>
             </div>
 
             {/* Company Section */}
@@ -595,58 +750,32 @@ export function LLCExtractionForm() {
             </fieldset>
 
             {/* Manager Section */}
-            <fieldset className="border border-gray-200 rounded-xl p-3 space-y-2">
-                <legend className="text-xs font-semibold text-slate-900 px-2">Manager (Article 10)</legend>
-                <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center gap-2">
-                        <OCRButton
-                            documentType="emirates_id"
-                            onExtracted={handleManagerEIDExtracted}
-                            label="Scan EID"
-                        />
-                        <OCRButton
-                            documentType="passport"
-                            onExtracted={handleManagerPassportExtracted}
-                            label="Scan Passport"
-                        />
-                    </div>
-                    <select
-                        onChange={(e) => {
-                            const idx = parseInt(e.target.value)
-                            if (!isNaN(idx)) syncManagerFromPartner(idx)
-                        }}
-                        className="text-xs rounded border px-2 py-1 bg-green-50 text-green-700"
-                        defaultValue=""
-                    >
-                        <option value="" disabled>Copy from Partner...</option>
-                        {sourceParties.map((_: any, idx: number) => (
-                            <option key={idx} value={idx}>Partner {idx + 1}</option>
-                        ))}
-                    </select>
-                </div>
-                <div className="grid grid-cols-2 gap-2">
-                    <label className="block text-xs text-gray-600">Manager Name (EN)
-                        <input className="mt-1 w-full rounded border px-2 py-1 text-xs" value={managerArticle.managerName || ''} onChange={(e) => updateManager('managerName', e.target.value)} />
-                    </label>
-                    <label className="block text-xs text-gray-600">Manager Name (AR)
-                        <input className="mt-1 w-full rounded border px-2 py-1 text-xs" dir="rtl" value={managerArticle.managerNameAr || ''} onChange={(e) => updateManager('managerNameAr', e.target.value)} />
-                    </label>
-                    <label className="block text-xs text-gray-600">Manager ID Number
-                        <input className="mt-1 w-full rounded border px-2 py-1 text-xs" value={managerArticle.managerIdNumber || ''} onChange={(e) => updateManager('managerIdNumber', e.target.value)} />
-                    </label>
-                    <label className="block text-xs text-gray-600">ID Type
-                        <select className="mt-1 w-full rounded border px-2 py-1 text-xs" value={managerArticle.managerDocType || 'eid'} onChange={(e) => updateManager('managerDocType', e.target.value)}>
-                            <option value="eid">Emirates ID</option>
-                            <option value="passport">Passport</option>
-                        </select>
-                    </label>
-                    <label className="block text-xs text-gray-600">Address (EN)
-                        <input className="mt-1 w-full rounded border px-2 py-1 text-xs" value={managerArticle.managerAddress || ''} onChange={(e) => updateManager('managerAddress', e.target.value)} placeholder="e.g., Abu Dhabi, U.A.E" />
-                    </label>
-                    <label className="block text-xs text-gray-600">Address (AR)
-                        <input className="mt-1 w-full rounded border px-2 py-1 text-xs" dir="rtl" value={managerArticle.managerAddressAr || ''} onChange={(e) => updateManager('managerAddressAr', e.target.value)} placeholder="مثال: أبوظبي، الإمارات" />
-                    </label>
-                </div>
+            <fieldset className="border border-gray-200 rounded-xl p-3 space-y-3">
+                <legend className="text-xs font-semibold text-slate-900 px-2">Managers (Article 10)</legend>
+                {managers.length > 1 && (
+                    <p className="text-[11px] text-slate-500">Each manager may sign individually or jointly.</p>
+                )}
+                {managers.map((manager, idx) => (
+                    <ManagerCard
+                        key={idx}
+                        manager={manager}
+                        index={idx}
+                        partners={sourceParties}
+                        onUpdate={(field, value) => updateManager(idx, field, value)}
+                        onRemove={() => removeManager(idx)}
+                        onCopyFromPartner={(partnerIdx) => syncManagerFromPartner(idx, partnerIdx)}
+                        onEIDExtracted={handleManagerEIDExtracted(idx)}
+                        onPassportExtracted={handleManagerPassportExtracted(idx)}
+                        canRemove={managers.length > 1}
+                    />
+                ))}
+                <button
+                    type="button"
+                    onClick={addManager}
+                    className="w-full py-2 text-xs font-medium text-slate-600 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                >
+                    + Add Manager
+                </button>
             </fieldset>
         </div>
     )

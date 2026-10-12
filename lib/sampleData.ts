@@ -122,73 +122,230 @@ export const sampleSpcFilled: DocumentData = {
   }
 }
 
-// LLC Sample - no SPC, with 2 partners
+// LLC Sample - LUMA LAB FITNESS, 48 / 47 / 5 partnership from trade name certificate TN-6763361
 export const sampleLlcFilled: DocumentData = {
   company: {
-    name: 'PICK N PACK BAQALA - L.L.C',
-    nameAr: 'بقالة بيك ان باك - ذ.م.م',
+    name: 'LUMA LAB FITNESS - L.L.C',
+    nameAr: 'لمى لاب للياقة البدنية - ذ.م.م',
     newName: '',
     newNameAr: '',
-    licenseNumber: '',
-    moaDate: '2026-01-02',
-    activities: 'Baqala - affiliated to a local chain store; Grocery; Retail Sale of Fresh Fruits and Vegetables',
-    activitiesAr: 'بقالة - تابعة لسلسلة متاجر محلية؛ بقالة؛ بيع الفواكه والخضروات الطازجة - بالتجزئة',
+    licenseNumber: 'TN-6763361',
+    moaDate: '2026-09-21',
+    activities: 'Women Health Club; Body Building Club; Women Body Fitness Club; Retail Sale of Dietary Supplements; Cold and Hot Beverages; Snack Selling (Cafeteria)',
+    activitiesAr: 'نادي صحي نسائي؛ نادي كمال أجسام؛ نادي لياقة بدنية للنساء؛ بيع المكملات الغذائية – بالتجزئة؛ مشروبات باردة و ساخنة؛ بيع الوجبات الخفيفة (كافتيريا)',
     address: 'Abu Dhabi, U.A.E',
     addressAr: 'أبوظبي، الإمارات',
     emirate: 'Abu Dhabi',
     emirateAr: 'أبوظبي',
     notarizationNumber: '',
     notarizationDate: '',
-    registrationDate: '2026-01-02'
+    registrationDate: '2026-09-14'
   },
   sourceParties: [
     {
-      name: 'IBRAHIM SHAFEEQ CHALILAKATH MOHMOOD CHALILAKATH',
-      nameAr: 'ابراهيم شفيق شاليلاكاث محمود شاليلاكاث',
-      salutation: 'mr',
-      nationality: 'India',
-      nationalityAr: 'الهند',
-      eidNumber: '784-1234-5678901-2',
+      name: 'RUTH DE LA TORRE DOMINGUEZ',
+      nameAr: 'روث دي لا توري دومينجويس',
+      salutation: 'mrs',
+      nationality: 'Mexico',
+      nationalityAr: 'المكسيك',
+      eidNumber: '784197932940642',
       passportNumber: '',
-      dob: '1985-05-15',
+      uidNumber: '41809464',
+      dob: '1979-08-13',
       address: 'Abu Dhabi, U.A.E',
       addressAr: 'أبوظبي، الإمارات',
       capacity: 'Partner',
       capacityAr: 'شريك',
       documentType: 'eid',
-      expiryDate: ''
+      expiryDate: '2033-12-17',
+      shareCount: 48
     },
     {
-      name: 'PANDARAPETTY ABDUL LATHEEF KUNHI MOITHEEN KUTTY',
-      nameAr: 'باندارابيتي عبداللطيف كونهي مويثين كوتي',
+      name: 'GERALD SHAUN GRUEN',
+      nameAr: 'جيرالد شون جروين',
       salutation: 'mr',
-      nationality: 'India',
-      nationalityAr: 'الهند',
-      eidNumber: '784-9876-5432109-8',
+      nationality: 'South Africa',
+      nationalityAr: 'جمهورية جنوب أفريقيا',
+      eidNumber: '784199042410268',
       passportNumber: '',
-      dob: '1980-08-20',
+      uidNumber: '42735442',
+      dob: '1990-10-03',
       address: 'Abu Dhabi, U.A.E',
       addressAr: 'أبوظبي، الإمارات',
       capacity: 'Partner',
       capacityAr: 'شريك',
       documentType: 'eid',
-      expiryDate: ''
+      expiryDate: '2027-09-18',
+      shareCount: 47
+    },
+    {
+      name: 'SHARMARKE ABDI MOHAMED',
+      nameAr: 'شارماركي عبدي محمد',
+      salutation: 'mr',
+      nationality: 'United Kingdom',
+      nationalityAr: 'المملكة المتحدة',
+      eidNumber: '784198579657028',
+      passportNumber: '',
+      uidNumber: '42757953',
+      dob: '1985-03-16',
+      address: 'Abu Dhabi, U.A.E',
+      addressAr: 'أبوظبي، الإمارات',
+      capacity: 'Partner',
+      capacityAr: 'شريك',
+      documentType: 'eid',
+      expiryDate: '2035-03-14',
+      shareCount: 5
     }
   ],
   destinationParties: [],
-  shares: { source: [50, 50], destination: [] },
+  shares: { source: [48, 47, 5], destination: [] },
   oldMoa: { notarizationNumber: '', notarizationDate: '', originalShares: [] },
   managerArticle: {
-    managerName: 'IBRAHIM SHAFEEQ CHALILAKATH MOHMOOD CHALILAKATH',
-    managerNameAr: 'ابراهيم شفيق شاليلاكاث محمود شاليلاكاث',
-    managerNationality: 'India',
-    managerNationalityAr: 'الهند',
-    managerIdNumber: '784-1234-5678901-2',
-    managerDocType: 'eid'
+    managerName: 'GERALD SHAUN GRUEN',
+    managerNameAr: 'جيرالد شون جروين',
+    managerNationality: 'South Africa',
+    managerNationalityAr: 'جمهورية جنوب أفريقيا',
+    managerIdNumber: '784199042410268',
+    managerUidNumber: '42735442',
+    managerDob: '1990-10-03',
+    managerDocType: 'eid',
+    managerAddress: 'Abu Dhabi, U.A.E',
+    managerAddressAr: 'أبوظبي، الإمارات',
+    managerSalutation: 'mr'
   },
+  managers: [
+    {
+      managerName: 'GERALD SHAUN GRUEN',
+      managerNameAr: 'جيرالد شون جروين',
+      managerNationality: 'South Africa',
+      managerNationalityAr: 'جمهورية جنوب أفريقيا',
+      managerIdNumber: '784199042410268',
+      managerUidNumber: '42735442',
+      managerDob: '1990-10-03',
+      managerDocType: 'eid',
+      managerAddress: 'Abu Dhabi, U.A.E',
+      managerAddressAr: 'أبوظبي، الإمارات',
+      managerSalutation: 'mr'
+    },
+    {
+      managerName: 'RUTH DE LA TORRE DOMINGUEZ',
+      managerNameAr: 'روث دي لا توري دومينجويس',
+      managerNationality: 'Mexico',
+      managerNationalityAr: 'المكسيك',
+      managerIdNumber: '784197932940642',
+      managerUidNumber: '41809464',
+      managerDob: '1979-08-13',
+      managerDocType: 'eid',
+      managerAddress: 'Abu Dhabi, U.A.E',
+      managerAddressAr: 'أبوظبي، الإمارات',
+      managerSalutation: 'mrs'
+    }
+  ],
   capital: {
-    totalCapital: 300000,
+    totalCapital: 100000,
     shareCount: 100,
-    shareValue: 3000
+    shareValue: 1000
   }
 }
+
+export const sampleLumaLlcFilled = sampleLlcFilled
+
+// LLC Sample — LA GAZELLE, trade name TN-6791618. Joynal 90% and manager; Md Shrif 10%.
+export const sampleLaGazelleLlcFilled: DocumentData = {
+  company: {
+    name: 'LA GAZELLE FACILITIES MANAGEMENT SERVICES LLC - L.L.C',
+    nameAr: 'لا كازيل لخدمات ادارة المنشآت ذ.م.م - ذ.م.م',
+    newName: '',
+    newNameAr: '',
+    licenseNumber: 'TN-6791618',
+    moaDate: '2026-09-25',
+    activities: 'Facilities Management Services; Interior Buildings Cleaning Services; Exterior cleaning services (fronts) of buildings; Buildings Maintenance',
+    activitiesAr: 'خدمات ادارة المنشآت؛ خدمات التنظيف الداخلية للمباني؛ خدمات التنظيف الخارجي ( واجهات ) المباني؛ صيانة المباني',
+    address: 'Abu Dhabi, U.A.E',
+    addressAr: 'أبوظبي، الإمارات',
+    emirate: 'Abu Dhabi',
+    emirateAr: 'أبوظبي',
+    notarizationNumber: '',
+    notarizationDate: '',
+    registrationDate: '2026-09-25'
+  },
+  sourceParties: [
+    {
+      name: 'JOYNAL ABEDIN ABU KALAM',
+      nameAr: 'زين العابدين ابو الكلام',
+      salutation: 'mr',
+      nationality: 'Bangladesh',
+      nationalityAr: 'بنجلاديش',
+      eidNumber: '784198735063582',
+      passportNumber: '',
+      uidNumber: '42375048',
+      dob: '1987-03-01',
+      address: 'Abu Dhabi, U.A.E',
+      addressAr: 'أبوظبي، الإمارات',
+      capacity: 'Partner',
+      capacityAr: 'شريك',
+      documentType: 'eid',
+      expiryDate: '2026-12-10',
+      shareCount: 90
+    },
+    {
+      name: 'MD SHRIF AHAMED SAKIB MD SHAFIKUL ISLAM',
+      nameAr: 'محمد شريف احمد ثاقب محمد شفيق الاسلام',
+      salutation: 'mr',
+      nationality: 'Bangladesh',
+      nationalityAr: 'بنجلاديش',
+      eidNumber: '784200013874514',
+      passportNumber: '',
+      uidNumber: '42761041',
+      dob: '2000-07-08',
+      address: 'Abu Dhabi, U.A.E',
+      addressAr: 'أبوظبي، الإمارات',
+      capacity: 'Partner',
+      capacityAr: 'شريك',
+      documentType: 'eid',
+      expiryDate: '2026-12-07',
+      shareCount: 10
+    }
+  ],
+  destinationParties: [],
+  shares: { source: [90, 10], destination: [] },
+  oldMoa: { notarizationNumber: '', notarizationDate: '', originalShares: [] },
+  managerArticle: {
+    managerName: 'JOYNAL ABEDIN ABU KALAM',
+    managerNameAr: 'زين العابدين ابو الكلام',
+    managerNationality: 'Bangladesh',
+    managerNationalityAr: 'بنجلاديش',
+    managerIdNumber: '784198735063582',
+    managerUidNumber: '42375048',
+    managerDob: '1987-03-01',
+    managerDocType: 'eid',
+    managerAddress: 'Abu Dhabi, U.A.E',
+    managerAddressAr: 'أبوظبي، الإمارات',
+    managerSalutation: 'mr'
+  },
+  managers: [
+    {
+      managerName: 'JOYNAL ABEDIN ABU KALAM',
+      managerNameAr: 'زين العابدين ابو الكلام',
+      managerNationality: 'Bangladesh',
+      managerNationalityAr: 'بنجلاديش',
+      managerIdNumber: '784198735063582',
+      managerUidNumber: '42375048',
+      managerDob: '1987-03-01',
+      managerDocType: 'eid',
+      managerAddress: 'Abu Dhabi, U.A.E',
+      managerAddressAr: 'أبوظبي، الإمارات',
+      managerSalutation: 'mr'
+    }
+  ],
+  capital: {
+    totalCapital: 100000,
+    shareCount: 100,
+    shareValue: 1000
+  }
+}
+
+export const LLC_SAMPLES: { label: string; data: DocumentData }[] = [
+  { label: 'LUMA LAB FITNESS (3 partners)', data: sampleLlcFilled },
+  { label: 'LA GAZELLE — Joynal 90% / Md Shrif 10%', data: sampleLaGazelleLlcFilled }
+]

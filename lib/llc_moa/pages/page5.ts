@@ -1,4 +1,5 @@
-import { LLCMOAContext, pageFooter, getOrdinal } from '../types'
+import { LLCMOAContext, pageFooter } from '../types'
+import { numberToWordsEn, numberToWordsAr } from '@/lib/utils/numberToWords'
 
 export function page5(ctx: LLCMOAContext, pageNum: number = 5): string {
   const { partners, capital, capitalWordsEn, capitalWordsAr, totalShares, shareValue, company } = ctx
@@ -17,10 +18,10 @@ export function page5(ctx: LLCMOAContext, pageNum: number = 5): string {
   const shareRowsAr = partners.map((partner) => {
     const value = partner.shareCount * shareValue
     return `<tr>
-      <td class="edited">${partner.nameAr}</td>
-      <td class="edited">${partner.shareCount}</td>
-      <td class="edited">${value.toLocaleString()}</td>
       <td class="edited">${partner.sharePercent}%</td>
+      <td class="edited">${value.toLocaleString()}</td>
+      <td class="edited">${partner.shareCount}</td>
+      <td class="edited">${partner.nameAr}</td>
     </tr>`
   }).join('')
 
@@ -45,11 +46,11 @@ export function page5(ctx: LLCMOAContext, pageNum: number = 5): string {
       <div class="article-pair">
         <div class="block">
           <h3 class="underline center">Article (6): Capital</h3>
-          <p>The Capital of the company is determined to be AED <span class="edited">${capital.toLocaleString()}</span> (<span class="edited">${capitalWordsEn}</span> Dirhams), distributed into one hundred (<span class="edited">${totalShares}</span>) equal shares. The value of each share is AED <span class="edited">${shareValue}</span> (Thousand And Five Hundred Dirhams). These shares are distributed among the partners as follows:</p>
+          <p>The Capital of the company is determined to be AED <span class="edited">${capital.toLocaleString()}</span> (<span class="edited">${capitalWordsEn}</span> Dirhams), distributed into <span class="edited">${totalShares}</span> equal shares. The value of each share is AED <span class="edited">${shareValue.toLocaleString()}</span> (<span class="edited">${numberToWordsEn(shareValue)}</span> Dirhams). These shares are distributed among the partners as follows:</p>
         </div>
         <div class="block rtl">
           <h3 class="underline center">المادة (6): رأس المال</h3>
-          <p>حدد رأس مال الشركة بمبلغ <span class="edited">${capital.toLocaleString()}</span> درهم (<span class="edited">${capitalWordsAr}</span> درهم) موزعة إلى مائة (<span class="edited">${totalShares}</span>) حصة متساوية قيمة كل حصة <span class="edited">${shareValue}</span> درهم (ألف وخمس مائة درهم) وهذه الحصص تقسم بين الشركاء على الوجه الآتي:</p>
+          <p>حدد رأس مال الشركة بمبلغ <span class="edited">${capital.toLocaleString()}</span> درهم (<span class="edited">${capitalWordsAr}</span> درهم) موزعة إلى (<span class="edited">${totalShares}</span>) حصة متساوية قيمة كل حصة <span class="edited">${shareValue.toLocaleString()}</span> درهم (<span class="edited">${numberToWordsAr(shareValue)}</span> درهم) وهذه الحصص تقسم بين الشركاء على الوجه الآتي:</p>
         </div>
       </div>
 

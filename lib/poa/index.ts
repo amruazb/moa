@@ -1,18 +1,26 @@
 // POA Document Generator
 // Main entry point for generating Power of Attorney HTML document
 
-import { POAData, extractPOAContext } from './types'
+import { POAData, extractPOAContext, poaPageFooter } from './types'
 import { generatePOAStyles } from './styles'
 import { FontSettings } from '@/store/formattingStore'
-import * as pages from './pages'
+import { page1FlowBlocks } from './pages/page1'
+import { contentFlowBlocks } from './pages/dynamicPages'
+import { poaPaginateScript } from './paginateClient'
+
+function footerTemplate(isLast: boolean): string {
+  return poaPageFooter(0, isLast).replace(
+    '<span class="page-num">0</span>',
+    '<span class="page-num">__PAGE__</span>'
+  )
+}
 
 export function generatePOAHTML(data: POAData, fontSettings?: FontSettings): string {
   const ctx = extractPOAContext(data)
   const styles = generatePOAStyles(fontSettings)
-
-  const page1Html = pages.page1(ctx, 1)
-  const dynamicPagesHtml = pages.generateDynamicPages(ctx, 2)
-  const pagesHTML = page1Html + '\n' + dynamicPagesHtml
+  const blocks = [...page1FlowBlocks(ctx), ...contentFlowBlocks(ctx)]
+    .map((html) => `<div class="flow-block">${html}</div>`)
+    .join('\n')
 
   return `
 <!DOCTYPE html>
@@ -24,9 +32,13 @@ export function generatePOAHTML(data: POAData, fontSettings?: FontSettings): str
   <style>${styles}</style>
 </head>
 <body>
-  <div class="doc">
-    ${pagesHTML}
+  <div id="flow-measure" class="page page-1">
+    <div class="page-content">
+      ${blocks}
+    </div>
   </div>
+  <div class="doc" id="poa-doc"></div>
+  ${poaPaginateScript(footerTemplate(false), footerTemplate(true))}
 </body>
 </html>
 `.trim()

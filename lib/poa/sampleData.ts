@@ -137,6 +137,57 @@ export const blankPOASample: POAData = {
     }
 }
 
+export const samplePOAGoldenDesert: POAData = {
+    principals: [
+        {
+            name: 'MOHAMED SHAMNAS CHAKEERI MOHAMED HASSAN CHAKEERI',
+            nameAr: 'محمد شمناس شاكيرى محمد حسن شاكيرى',
+            salutation: 'mr',
+            nationality: 'Indian',
+            nationalityAr: 'هندي',
+            eidOrPassport: '784-1986-9751927-4',
+            documentType: 'eid',
+            address: 'Abu Dhabi, UAE',
+            addressAr: 'أبوظبي، الإمارات',
+            role: 'owner',
+            isRepresented: false
+        }
+    ],
+    attorney: {
+        name: 'AMIR AROLI VEETTIL',
+        nameAr: 'امیر ارولی فیتیل',
+        salutation: 'mr',
+        nationality: 'Indian',
+        nationalityAr: 'هندي',
+        eidOrPassport: '784-1976-5936809-2',
+        documentType: 'eid',
+        address: 'Abu Dhabi, UAE',
+        addressAr: 'أبوظبي، الإمارات'
+    },
+    license: {
+        licenseNumber: 'CN-5831453',
+        companyName: 'GOLDEN DESERT WELDING AND SMITHERY - L.L.C - S.P.C',
+        companyNameAr: 'جولدن ديسرت للحام والحدادة - ذ.م.م - ش.ش.و',
+        issuingAuthority: 'Department of Economic Development – Abu Dhabi',
+        issuingAuthorityAr: 'دائرة التنمية الاقتصادية – أبوظبي'
+    },
+    sections: {
+        executeTransactions: true,
+        employees: true,
+        utilities: true,
+        banks: true,
+        banksWithLoan: false,
+        contracts: true,
+        receivables: true,
+        motorVehicles: true,
+        approachCourts: true
+    },
+    validity: {
+        years: 3,
+        attestationDate: ''
+    }
+}
+
 export const samplePOAFusion: POAData = {
     principals: [
         {
@@ -191,6 +242,10 @@ export const POA_SAMPLES: { label: string; data: POAData }[] = [
     {
         label: 'Sample POA (Filled)',
         data: samplePOAFilled,
+    },
+    {
+        label: 'Sample POA (Golden Desert Welding)',
+        data: samplePOAGoldenDesert,
     },
     {
         label: 'Sample POA (Fusion Engineering)',

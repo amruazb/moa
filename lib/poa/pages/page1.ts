@@ -63,23 +63,22 @@ function getLicenseCapacityAr(principals: POAPrincipal[], license: POALicense): 
   return `${words.join(' و')}${moaSuffixAr}`
 }
 
-export function page1(ctx: POAContext, pageNum: number = 1): string {
+export function page1FlowBlocks(ctx: POAContext): string[] {
   const { principals, license, sections } = ctx
   const maybeAttorneys = (ctx as POAContext & { attorneys?: POAAttorney[] }).attorneys
   const attorneysList: POAAttorney[] = Array.isArray(maybeAttorneys) && maybeAttorneys.length > 0
     ? maybeAttorneys
     : [ctx.attorney]
 
-  return `
-    <div class="page page-1">
-      <div class="page-content">
+  const blocks: string[] = []
 
-      <!-- Title -->
+  blocks.push(`
       <div class="title-pair">
         <div class="title-en">SPECIAL POWER OF ATTORNEY</div>
         <div class="title-ar rtl">وكـــالة خاصـــة</div>
-      </div>
+      </div>`)
 
+  blocks.push(`
       <!-- Principal Info -->
       <div class="article-pair intro-section">
         <div class="block">
@@ -106,8 +105,9 @@ export function page1(ctx: POAContext, pageNum: number = 1): string {
     return principalText + (index < principals.length - 1 ? '؛ و<br/>' : '،')
   }).join('')}</p>
         </div>
-      </div>
+      </div>`)
 
+  blocks.push(`
       <!-- License Info -->
       <div class="article-pair intro-section">
         <div class="block">
@@ -116,8 +116,9 @@ export function page1(ctx: POAContext, pageNum: number = 1): string {
         <div class="block rtl">
           <p>بصفت${principals.length > 1 ? 'نا' : 'ي'} ${getLicenseCapacityAr(principals, license)} في الرخصة رقم: <span class="edited no-break">${license.licenseNumber}</span>، المسماة: "<span class="edited">${license.companyNameAr}</span>"، الصادرة من <span class="edited">${license.issuingAuthorityAr}</span>، ${principals.length > 1 ? 'نوكل' : 'أوكل'}:</p>
         </div>
-      </div>
+      </div>`)
 
+  blocks.push(`
       <!-- Attorney Info with Authorization (multiple attorneys) -->
       <div class="article-pair intro-section">
         <div class="block">
@@ -140,9 +141,10 @@ export function page1(ctx: POAContext, pageNum: number = 1): string {
     }).join('')}،<br/>
           ل${principals.length > 1 ? 'نوب عنا' : 'نوب عني'}، ومثل الشركة، والتوقيع على المستندات بوكيل فرد أو مشترك في نطاق الصلاحيات التالية:</p>
         </div>
-      </div>
+      </div>`)
 
-      ${sections.executeTransactions ? `
+  if (sections.executeTransactions) {
+    blocks.push(`
       <!-- Section 1: Execute Transactions (header + first paragraph) -->
       <div class="numbered-section">
         <div class="block">
@@ -153,9 +155,17 @@ export function page1(ctx: POAContext, pageNum: number = 1): string {
           <p><strong>1</strong>&nbsp;&nbsp;&nbsp;<span class="section-title">إنهاء المعاملات:</span></p>
           <p>مراجعة كافة الدوائر وكافة الجهات الحكومية حكومية والوزارات والهيئات المحلية والسفــارات واللجان والمجالس والدوائر حكومية والقنصليـــات والكتاب العدل ووزارة الموارد البشـــرية والتوطين ودائرة التنميـــة الاقتصادية لفتح فروعها واصـــدار كل الرخص المطلوبة وتعديل نشـــاطات والاســـم التجاري، وغرفة التجارة والصناعة وهيئة أبوظبي للسياحة والثقافية</p>
         </div>
-      </div>
-      ` : ''}
+      </div>`)
+  }
 
+  return blocks
+}
+
+export function page1(ctx: POAContext, pageNum: number = 1): string {
+  return `
+    <div class="page page-1">
+      <div class="page-content">
+      ${page1FlowBlocks(ctx).join('\n')}
       </div>
       ${poaPageFooter(pageNum)}
     </div>`

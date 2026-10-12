@@ -47,13 +47,13 @@ export function page1(ctx: POAVehicleContext, pageNum: number = 1): string {
       <div class="article-pair intro-section">
         <div class="block">
           <p>I, the undersigned:<br/>
-          <span class="edited">${owner.name}</span>, <span class="edited">${owner.nationality}</span> national, holder of ${owner.documentType === 'eid' ? 'EID' : 'Passport'} No: <span class="edited no-break">${owner.eidOrPassport}</span>${owner.companyName ? `,<br/>in my capacity as Attorney under the Power of Attorney of <span class="edited">${owner.companyName}</span>, licensed by <span class="edited">${owner.issuingAuthority}</span> under License No.: <span class="edited no-break">${owner.licenseNumber}</span>` : ''},<br/>
-          by virtue of the Power of Attorney attested by the Notary Public under No.: <span class="edited no-break">${poaNumber || '__________'}</span> on <span class="edited no-break">${poaDate || '__________'}</span>, being the owner of the vehicles whose details are mentioned below:</p>
+          <span class="edited">${owner.name}</span>, <span class="edited">${owner.nationality}</span> national, holder of ${owner.documentType === 'eid' ? 'EID' : 'Passport'} No: <span class="edited no-break">${owner.eidOrPassport}</span>${owner.companyName ? `,<br/>${owner.capacityPhrase} <span class="edited">${owner.companyName}</span>, licensed by <span class="edited">${owner.issuingAuthority}</span> under License No.: <span class="edited no-break">${owner.licenseNumber}</span>` : ''},<br/>
+          by virtue of the Power of Attorney attested by the Notary Public under No.: <span class="edited no-break">${poaNumber || '__________'}</span> on <span class="edited no-break">${poaDate || '__________'}</span>, ${owner.ownershipPhrase} whose details are mentioned below:</p>
         </div>
         <div class="block rtl">
           <p>أنا الموقع أدناه:<br/>
-          <span class="edited">${owner.nameAr}</span>، <span class="edited">${owner.nationalityAr}</span> الجنسية، حامل ${owner.documentType === 'eid' ? 'بطاقة هوية' : 'جواز سفر'} رقم: <span class="edited no-break">${owner.eidOrPassport}</span>${owner.companyNameAr ? `،<br/>بصفتي وكيلاً بموجب الوكالة لشركة <span class="edited">${owner.companyNameAr}</span>، المرخصة من قبل <span class="edited">${owner.issuingAuthorityAr}</span> بموجب الرخصة رقم: <span class="edited no-break">${owner.licenseNumber}</span>` : ''}،<br/>
-          بموجب التوكيل المصدق من kاتب العدل تحت رقم: <span class="edited no-break">${poaNumber || '__________'}</span> بتاريخ <span class="edited no-break">${poaDate || '__________'}</span>، وبصفتي مالكاً للمركبات التي تفاصيلها مذكورة أدناه:</p>
+          <span class="edited">${owner.nameAr}</span>، <span class="edited">${owner.nationalityAr}</span> الجنسية، حامل ${owner.documentType === 'eid' ? 'بطاقة هوية' : 'جواز سفر'} رقم: <span class="edited no-break">${owner.eidOrPassport}</span>${owner.companyNameAr ? `،<br/>${owner.capacityPhraseAr} <span class="edited">${owner.companyNameAr}</span>، المرخصة من قبل <span class="edited">${owner.issuingAuthorityAr}</span> بموجب الرخصة رقم: <span class="edited no-break">${owner.licenseNumber}</span>` : ''}،<br/>
+          بموجب التوكيل المصدق من كاتب العدل تحت رقم: <span class="edited no-break">${poaNumber || '__________'}</span> بتاريخ <span class="edited no-break">${poaDate || '__________'}</span>، ${owner.ownershipPhraseAr} التي تفاصيلها مذكورة أدناه:</p>
         </div>
       </div>
 
@@ -71,8 +71,8 @@ export function page1(ctx: POAVehicleContext, pageNum: number = 1): string {
         </div>
       </div>
 
-      ${vehicles.length <= 2 ? `
-      <!-- Bank Authorization (if all vehicles fit on page 1) -->
+      ${vehicles.length === 1 ? `
+      <!-- Bank Authorization (only when a single vehicle leaves room on page 1) -->
       <div class="article-pair intro-section">
         <div class="block">
           <p>We authorize (<span class="edited">${bank.name}</span>), holding commercial license issued by Abu Dhabi Department of Economic Development under No. <span class="edited no-break">${bank.licenseNumber}</span>, without the need to serve any prior warning, to retrieve, sell or waive the above-mentioned ${vehicles.length > 1 ? 'vehicles' : 'vehicle'} to itself or third parties at any price deemed appropriate by the Bank. Also, the Bank shall be hereby authorized to sign any legal document and/or conclude any agreement to sell/waive the above-mentioned ${vehicles.length > 1 ? 'vehicles' : 'vehicle'} to settle any due debts to the Bank, including interest and/or any applicable fees.</p>

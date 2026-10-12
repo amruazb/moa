@@ -22,7 +22,7 @@ export interface CompanyData {
 export interface PartyData {
   name?: string
   nameAr?: string
-  salutation?: 'mr' | 'ms'
+  salutation?: 'mr' | 'ms' | 'mrs'
   eidNumber?: string
   passportNumber?: string
   uidNumber?: string  // UID number for passport holders
@@ -35,6 +35,7 @@ export interface PartyData {
   capacityAr?: string
   documentType?: 'eid' | 'passport'
   expiryDate?: string
+  shareCount?: number
 }
 
 export interface CapitalData {
@@ -43,24 +44,28 @@ export interface CapitalData {
   shareValue?: number
 }
 
+export interface ManagerArticle {
+  managerName?: string
+  managerNameAr?: string
+  managerNationality?: string
+  managerNationalityAr?: string
+  managerIdNumber?: string
+  managerUidNumber?: string  // UID number for passport holders
+  managerDob?: string
+  managerDocType?: 'eid' | 'passport'
+  managerAddress?: string
+  managerAddressAr?: string
+  managerSalutation?: 'mr' | 'ms' | 'mrs'
+}
+
 export interface DocumentData {
   company?: CompanyData
   sourceParties?: PartyData[]
   destinationParties?: PartyData[]
   shares?: { source: number[]; destination: number[] }
   oldMoa?: { notarizationNumber?: string; notarizationDate?: string; originalShares?: number[] }
-  managerArticle?: {
-    managerName?: string
-    managerNameAr?: string
-    managerNationality?: string
-    managerNationalityAr?: string
-    managerIdNumber?: string
-    managerUidNumber?: string  // UID number for passport holders
-    managerDob?: string
-    managerDocType?: 'eid' | 'passport'
-    managerAddress?: string
-    managerAddressAr?: string
-  }
+  managerArticle?: ManagerArticle
+  managers?: ManagerArticle[]
   ownerArticle?: {
     ownerName?: string
     ownerNameAr?: string

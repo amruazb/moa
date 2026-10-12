@@ -206,6 +206,34 @@ export default function Home() {
           </Link>
 
           <Link
+            href="/internal-agreement"
+            className="group relative rounded-xl border-2 border-gray-200 bg-white p-8 hover:border-slate-500 hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1"
+          >
+            <div className="flex items-start justify-between mb-4">
+              <div className="w-12 h-12 rounded-lg bg-slate-100 flex items-center justify-center group-hover:bg-slate-600 transition-colors">
+                <svg className="w-6 h-6 text-slate-600 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+              </div>
+              <span className="px-2 py-1 text-xs font-semibold text-slate-700 bg-slate-50 rounded-full border border-slate-200">
+                Internal
+              </span>
+            </div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-slate-600 transition-colors">
+              Internal Agreement
+            </h2>
+            <p className="text-gray-600 leading-relaxed">
+              Private shareholding record among partners. Bilingual UAE-style proof of agreed shares for internal keeping.
+            </p>
+            <div className="mt-4 flex items-center text-slate-600 font-medium group-hover:translate-x-2 transition-transform">
+              Open Workspace
+              <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+          </Link>
+
+          <Link
             href="/llc-amendment-moa"
             className="group relative rounded-xl border-2 border-gray-200 bg-white p-8 hover:border-indigo-500 hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1"
           >
@@ -394,6 +422,62 @@ export default function Home() {
               UAE Labour Law-compliant termination letter with one-month notice period and employee clearance instructions.
             </p>
             <div className="mt-4 flex items-center text-rose-600 font-medium group-hover:translate-x-2 transition-transform">
+              Open Workspace
+              <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+          </Link>
+
+          <Link
+            href="/cv"
+            className="group relative rounded-xl border-2 border-gray-200 bg-white p-8 hover:border-indigo-500 hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1"
+          >
+            <div className="flex items-start justify-between mb-4">
+              <div className="w-12 h-12 rounded-lg bg-indigo-100 flex items-center justify-center group-hover:bg-indigo-500 transition-colors">
+                <svg className="w-6 h-6 text-indigo-600 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+              </div>
+              <span className="px-2 py-1 text-xs font-semibold text-indigo-700 bg-indigo-50 rounded-full border border-indigo-200">
+                CV
+              </span>
+            </div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-indigo-600 transition-colors">
+              CV Builder
+            </h2>
+            <p className="text-gray-600 leading-relaxed">
+              Create professional curriculum vitae with live editing, skills, experience sections, and PDF download.
+            </p>
+            <div className="mt-4 flex items-center text-indigo-600 font-medium group-hover:translate-x-2 transition-transform">
+              Open Workspace
+              <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+          </Link>
+
+          <Link
+            href="/adnoc-letter"
+            className="group relative rounded-xl border-2 border-gray-200 bg-white p-8 hover:border-blue-600 hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1"
+          >
+            <div className="flex items-start justify-between mb-4">
+              <div className="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center group-hover:bg-blue-600 transition-colors">
+                <svg className="w-6 h-6 text-blue-600 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+              </div>
+              <span className="px-2 py-1 text-xs font-semibold text-blue-700 bg-blue-50 rounded-full border border-blue-200">
+                ADNOC
+              </span>
+            </div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
+              ADNOC Declaration Letter
+            </h2>
+            <p className="text-gray-600 leading-relaxed">
+              Generate declaration and undertaking letters for not working in ADNOC and its group of companies.
+            </p>
+            <div className="mt-4 flex items-center text-blue-600 font-medium group-hover:translate-x-2 transition-transform">
               Open Workspace
               <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

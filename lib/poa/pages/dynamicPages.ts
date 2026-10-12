@@ -5,7 +5,7 @@ interface POABlock {
     weight: number;
 }
 
-export function generateDynamicPages(ctx: POAContext, startPageNum: number = 2): string {
+function collectContentBlocks(ctx: POAContext): POABlock[] {
     const { sections, principals, validity } = ctx;
     const blocks: POABlock[] = [];
 
@@ -234,7 +234,11 @@ export function generateDynamicPages(ctx: POAContext, startPageNum: number = 2):
       </div>`
     });
 
-    const signaturesHtml = principals.map((principal, index) => `
+    principals.forEach((principal, index) => {
+        blocks.push({
+            weight: 16 + (principal.isRepresented ? 6 : 0),
+            html: `
+      <div class="signature-flow" style="margin-top: ${index === 0 ? 16 : 0}px;">
         <div class="signature-block">
           <div class="signature-area">
             <div class="signature-content">
@@ -271,19 +275,19 @@ export function generateDynamicPages(ctx: POAContext, startPageNum: number = 2):
             <div class="signature-line-block"></div>
           </div>
         </div>
-    `).join('');
-
-    // Signatures weight: 16 base + 4 for extra details per principal
-    const sigWeight = principals.reduce((total, p) => total + 16 + (p.isRepresented ? 6 : 0), 0);
-    
-    blocks.push({
-        weight: sigWeight,
-        html: `
-      <!-- Signature Block -->
-      <div style="margin-top: 40px;">
-        ${signaturesHtml}
       </div>`
+        });
     });
+
+    return blocks;
+}
+
+export function contentFlowBlocks(ctx: POAContext): string[] {
+    return collectContentBlocks(ctx).map((block) => block.html);
+}
+
+export function generateDynamicPages(ctx: POAContext, startPageNum: number = 2): string {
+    const blocks = collectContentBlocks(ctx);
 
     // Chunking algorithm
     const pages: string[] = [];

@@ -54,8 +54,8 @@ export function page2(ctx: POAVehicleContext, pageNum: number = 2): string {
       </div>
       ` : ''}
 
-      ${vehicles.length > 2 || vehiclesPage2.length === 0 ? `
-      <!-- Bank Authorization -->
+      ${vehicles.length !== 1 ? `
+      <!-- Bank Authorization (2+ vehicles: this starts page 2 so page 1 does not overflow) -->
       <div class="article-pair intro-section">
         <div class="block">
           <p>We authorize (<span class="edited">${bank.name}</span>), holding commercial license issued by Abu Dhabi Department of Economic Development under No. <span class="edited no-break">${bank.licenseNumber}</span>, without the need to serve any prior warning, to retrieve, sell or waive the above-mentioned ${vehicles.length > 1 ? 'vehicles' : 'vehicle'} to itself or third parties at any price deemed appropriate by the Bank. Also, the Bank shall be hereby authorized to sign any legal document and/or conclude any agreement to sell/waive the above-mentioned ${vehicles.length > 1 ? 'vehicles' : 'vehicle'} to settle any due debts to the Bank, including interest and/or any applicable fees.</p>

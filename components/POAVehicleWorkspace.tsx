@@ -1,24 +1,33 @@
 'use client'
 
-import { useEffect, useMemo } from 'react'
-import { generatePOAVehicle, extractPOAVehicleContext, samplePOAVehicleFilled } from '@/lib/poa_vehicle'
+import { useEffect, useMemo, useState } from 'react'
+import { generatePOAVehicle, extractPOAVehicleContext, POA_VEHICLE_SAMPLES } from '@/lib/poa_vehicle'
 import { useFormattingStore } from '@/store/formattingStore'
 import { FormattingToolbar } from './workspace/FormattingToolbar'
 
 export function POAVehicleWorkspace() {
     const settings = useFormattingStore((state) => state.settings)
     const initializeFormattingFromCache = useFormattingStore((state) => state.initializeFromCache)
+    const [selectedSampleLabel, setSelectedSampleLabel] = useState(POA_VEHICLE_SAMPLES[0]?.label ?? '')
+
+    const selectedSample = POA_VEHICLE_SAMPLES.find((sample) => sample.label === selectedSampleLabel) ?? POA_VEHICLE_SAMPLES[0]
 
     useEffect(() => {
         // Initialize formatting from cache when component mounts
         initializeFormattingFromCache()
     }, [initializeFormattingFromCache])
 
-    // Generate the document HTML using the sample data
+    // Generate the document HTML using the selected sample
     const htmlContent = useMemo(() => {
-        const context = extractPOAVehicleContext(samplePOAVehicleFilled)
+        const context = extractPOAVehicleContext(selectedSample?.data ?? {})
         return generatePOAVehicle(context, settings)
-    }, [settings])
+    }, [selectedSample, settings])
+
+    const handleLoadSample = (label: string) => {
+        setSelectedSampleLabel(label)
+    }
+
+    const vehicleSummary = selectedSample?.data.vehicles ?? []
 
     // Print handler
     const handlePrint = () => {
@@ -49,16 +58,36 @@ export function POAVehicleWorkspace() {
                     </div>
 
                     <div className="space-y-4">
+                        <div>
+                            <label className="text-xs font-medium text-gray-500 block mb-1">Load Sample</label>
+                            <select
+                                value={selectedSampleLabel}
+                                onChange={(e) => handleLoadSample(e.target.value)}
+                                className="w-full text-sm border border-gray-300 rounded-lg px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+                            >
+                                {POA_VEHICLE_SAMPLES.map((sample) => (
+                                    <option key={sample.label} value={sample.label}>
+                                        {sample.label}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+
                         <div className="p-4 bg-orange-50 border border-orange-200 rounded-lg">
                             <h3 className="font-semibold text-orange-900 mb-2">Document Type</h3>
                             <p className="text-sm text-orange-800">Power of Attorney for Selling Mortgaged Vehicles</p>
                         </div>
 
                         <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                            <h3 className="font-semibold text-blue-900 mb-2">Sample Data Included</h3>
+                            <h3 className="font-semibold text-blue-900 mb-2">Selected Sample</h3>
                             <ul className="text-sm text-blue-800 space-y-1">
                                 <li>• Owner: Mohamed Shamnas Chakeeri</li>
-                                <li>• 3 Vehicles (SHACMOTO X5000)</li>
+                                <li>• {vehicleSummary.length} {vehicleSummary.length === 1 ? 'Vehicle' : 'Vehicles'} (SHACMOTO X5000)</li>
+                                {vehicleSummary.map((vehicle, index) => (
+                                    <li key={`${vehicle.chassisNumber}-${index}`}>
+                                        • Plate {vehicle.licensePlate} / Chassis {vehicle.chassisNumber}
+                                    </li>
+                                ))}
                                 <li>• Bank: Bank of Baroda</li>
                                 <li>• Validity: 3 years</li>
                             </ul>

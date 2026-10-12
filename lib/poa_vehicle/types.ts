@@ -29,6 +29,10 @@ export interface POAVehicleOwner {
     licenseNumber?: string
     issuingAuthority?: string
     issuingAuthorityAr?: string
+    capacityPhrase?: string
+    capacityPhraseAr?: string
+    ownershipPhrase?: string
+    ownershipPhraseAr?: string
 }
 
 // Bank/Attorney details
@@ -74,7 +78,11 @@ export function extractPOAVehicleContext(data: POAVehicleData): POAVehicleContex
         companyNameAr: data.owner?.companyNameAr || '',
         licenseNumber: data.owner?.licenseNumber || '',
         issuingAuthority: data.owner?.issuingAuthority || 'Abu Dhabi Department of Economic Development',
-        issuingAuthorityAr: data.owner?.issuingAuthorityAr || 'دائرة التنمية الاقتصادية – أبوظبي'
+        issuingAuthorityAr: data.owner?.issuingAuthorityAr || 'دائرة التنمية الاقتصادية – أبوظبي',
+        capacityPhrase: data.owner?.capacityPhrase || 'in my capacity as Attorney under the Power of Attorney of',
+        capacityPhraseAr: data.owner?.capacityPhraseAr || 'بصفتي وكيلاً بموجب الوكالة لشركة',
+        ownershipPhrase: data.owner?.ownershipPhrase || 'being the owner of the vehicles',
+        ownershipPhraseAr: data.owner?.ownershipPhraseAr || 'وبصفتي مالكاً للمركبات'
     }
 
     const bank: POAVehicleBank = {

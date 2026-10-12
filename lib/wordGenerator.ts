@@ -263,7 +263,7 @@ export async function generateLLCMoaDocx(extractedData: DocumentData): Promise<v
 
     // Convert sourceParties to Partner-like objects for generating tables
     const partners: Partner[] = sourceParties.map((party, index: number) => {
-        const shareCount = Math.floor(totalShares / sourceParties.length)
+        const shareCount = party.shareCount || extractedData.shares?.source?.[index] || Math.floor(totalShares / sourceParties.length)
         return {
             name: party.name || '',
             nameAr: party.nameAr || '',
@@ -279,7 +279,7 @@ export async function generateLLCMoaDocx(extractedData: DocumentData): Promise<v
             address: party.address || '',
             addressAr: party.addressAr || '',
             shareCount,
-            sharePercent: totalShares > 0 ? Math.round((shareCount / totalShares) * 100) : 0
+            sharePercent: totalShares > 0 ? Math.round((shareCount / totalShares) * 1000) / 10 : 0
         }
     })
 

@@ -1,12 +1,9 @@
-import { LLCMOAContext, pageFooter } from '../types'
+import { LLCMOAContext, pageFooter, getPartiesPhrase } from '../types'
 
 export function page2(ctx: LLCMOAContext, pageNum: number = 2): string {
   const { partners, company } = ctx
 
-  // Generate preamble text based on number of partners
-  const partnerCount = partners.length
-  const partnersText = partnerCount === 2 ? 'both parties' : 'all parties'
-  const partnersTextAr = partnerCount === 2 ? 'كلا الطرفين' : 'جميع الأطراف'
+  const { en: partnersText, ar: partnersTextAr } = getPartiesPhrase(partners.length)
 
   return `
     <div class="page">

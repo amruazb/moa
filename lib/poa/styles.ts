@@ -20,7 +20,7 @@ export function generatePOAStyles(settings?: FontSettings): string {
   const pageMargin = settings?.pageMargin ?? 10
   
   const footerSize = settings?.footerSize ?? 'medium'
-  const footerHeightMap = { small: '30mm', medium: '46mm', large: '60mm' }
+  const footerHeightMap = { small: '14mm', medium: '18mm', large: '22mm' }
   const footerHeight = footerHeightMap[footerSize]
 
   // Convert ratio to percentage for CSS
@@ -103,9 +103,9 @@ export function generatePOAStyles(settings?: FontSettings): string {
   /* Page content wrapper */
   .page-content {
     flex: 1 1 auto;
-    height: calc(297mm - ${footerHeight} - 15mm);
-    max-height: calc(297mm - ${footerHeight} - 15mm);
-    padding: 15mm ${pageMargin}mm 5mm ${pageMargin}mm;
+    height: calc(297mm - ${footerHeight} - 4mm);
+    max-height: calc(297mm - ${footerHeight} - 4mm);
+    padding: 12mm ${pageMargin}mm 4mm ${pageMargin}mm;
     box-sizing: border-box;
     overflow: visible;
     text-align: justify;
@@ -117,7 +117,7 @@ export function generatePOAStyles(settings?: FontSettings): string {
     height: ${footerHeight};
     min-height: ${footerHeight};
     max-height: ${footerHeight};
-    padding: 5mm ${pageMargin}mm;
+    padding: 2mm ${pageMargin}mm 3mm ${pageMargin}mm;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -164,7 +164,7 @@ export function generatePOAStyles(settings?: FontSettings): string {
 
   .page-footer .footer-label {
     display: block;
-    margin-top: 3mm;
+    margin-top: 0;
     color: #555;
     font-size: ${basePt - 2}pt;
     text-align: center;
@@ -174,28 +174,6 @@ export function generatePOAStyles(settings?: FontSettings): string {
   .page-footer .page-num {
     font-size: ${basePt - 1}pt;
     color: #6b7280;
-  }
-
-  /* Page 2: footer 1cm smaller for more content space */
-  .page-2 .page-content {
-    height: calc(297mm - 36mm - 15mm);
-    max-height: calc(297mm - 36mm - 15mm);
-  }
-  .page-2 .page-footer {
-    height: 36mm;
-    min-height: 36mm;
-    max-height: 36mm;
-  }
-
-  /* Page 4 (last page): footer 1cm smaller so content does not overlap */
-  .page-4 .page-content {
-    height: calc(297mm - 30mm - 15mm);
-    max-height: calc(297mm - 30mm - 15mm);
-  }
-  .page-4 .page-footer {
-    height: 30mm;
-    min-height: 30mm;
-    max-height: 30mm;
   }
 
   /* Print Styles */
@@ -239,44 +217,24 @@ export function generatePOAStyles(settings?: FontSettings): string {
 
     .page-content {
       flex: 1 1 auto !important;
-      height: calc(297mm - 46mm - 15mm) !important;
-      max-height: calc(297mm - 46mm - 15mm) !important;
-      padding: 15mm ${pageMargin}mm 5mm ${pageMargin}mm !important;
+      height: calc(297mm - ${footerHeight} - 4mm) !important;
+      max-height: calc(297mm - ${footerHeight} - 4mm) !important;
+      padding: 12mm ${pageMargin}mm 4mm ${pageMargin}mm !important;
       overflow: hidden !important;
       box-sizing: border-box !important;
     }
     .page-1 .page-content {
-      padding-top: 20mm !important;
+      padding-top: 16mm !important;
     }
 
     .page-footer {
       flex-shrink: 0 !important;
-      height: 46mm !important;
-      min-height: 46mm !important;
-      max-height: 46mm !important;
-      padding: 5mm ${pageMargin}mm !important;
+      height: ${footerHeight} !important;
+      min-height: ${footerHeight} !important;
+      max-height: ${footerHeight} !important;
+      padding: 2mm ${pageMargin}mm 3mm ${pageMargin}mm !important;
       display: flex !important;
       box-sizing: border-box !important;
-    }
-
-    .page-2 .page-content {
-      height: calc(297mm - 36mm - 15mm) !important;
-      max-height: calc(297mm - 36mm - 15mm) !important;
-    }
-    .page-2 .page-footer {
-      height: 36mm !important;
-      min-height: 36mm !important;
-      max-height: 36mm !important;
-    }
-
-    .page-4 .page-content {
-      height: calc(297mm - 30mm - 15mm) !important;
-      max-height: calc(297mm - 30mm - 15mm) !important;
-    }
-    .page-4 .page-footer {
-      height: 30mm !important;
-      min-height: 30mm !important;
-      max-height: 30mm !important;
     }
 
     .article-pair, .numbered-section {
@@ -305,24 +263,9 @@ export function generatePOAStyles(settings?: FontSettings): string {
 
   .pdf-mode .page-footer {
     display: flex !important;
-    height: 46mm !important;
-    min-height: 46mm !important;
-  }
-  .pdf-mode .page-2 .page-content {
-    height: calc(297mm - 36mm - 15mm) !important;
-    max-height: calc(297mm - 36mm - 15mm) !important;
-  }
-  .pdf-mode .page-2 .page-footer {
-    height: 36mm !important;
-    min-height: 36mm !important;
-  }
-  .pdf-mode .page-4 .page-content {
-    height: calc(297mm - 30mm - 15mm) !important;
-    max-height: calc(297mm - 30mm - 15mm) !important;
-  }
-  .pdf-mode .page-4 .page-footer {
-    height: 30mm !important;
-    min-height: 30mm !important;
+    height: ${footerHeight} !important;
+    min-height: ${footerHeight} !important;
+    max-height: ${footerHeight} !important;
   }
 
   /* Title Styles - clean two-column alignment */
@@ -521,7 +464,7 @@ export function generatePOAStyles(settings?: FontSettings): string {
   .signature-block {
     display: flex;
     gap: 10px;
-    margin-bottom: 30px;
+    margin-bottom: ${Math.max(10, Math.round(basePt * 1.2))}px;
     width: 100%;
     align-items: stretch;
   }
@@ -539,7 +482,7 @@ export function generatePOAStyles(settings?: FontSettings): string {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    min-height: 180px;
+    min-height: ${Math.max(185, Math.round(Math.max(englishPt, arabicPt) * 15))}px;
   }
 
   .signature-area.rtl {
@@ -558,8 +501,8 @@ export function generatePOAStyles(settings?: FontSettings): string {
 
   .signature-line-block {
     border-top: 1px solid #000;
-    padding-top: 5px;
-    margin-top: auto;
+    margin-top: ${Math.max(40, Math.round(basePt * 4))}px;
+    height: ${Math.max(26, Math.round(basePt * 2.6))}px;
   }
 
   /* Single centered signature block - one place to sign */
@@ -606,6 +549,32 @@ export function generatePOAStyles(settings?: FontSettings): string {
 
   /* Avoid page breaks inside elements */
   .article-pair, .numbered-section, .block, .signature-block, .signature-block-single { page-break-inside: avoid; }
+
+  /* Off-screen source used to measure blocks before they are packed into pages */
+  .flow-block { display: flow-root; }
+  #flow-measure {
+    position: fixed !important;
+    left: 0 !important;
+    top: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    border: 0 !important;
+    z-index: -1 !important;
+  }
+  #flow-measure::after { display: none !important; }
+  #flow-measure .page-content {
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+  @media print {
+    #flow-measure { display: none !important; }
+  }
 `
 }
 
