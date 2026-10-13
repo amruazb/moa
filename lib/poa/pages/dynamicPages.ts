@@ -200,6 +200,25 @@ function collectContentBlocks(ctx: POAContext): POABlock[] {
         currentSectionNum++;
     }
 
+    if (sections.smartHub) {
+        blocks.push({
+            weight: 8,
+            html: `
+      <!-- Section ${currentSectionNum}: DMT Smart Hub / TAMM -->
+      <div class="numbered-section">
+        <div class="block">
+          <p><strong>${currentSectionNum}</strong>&nbsp;&nbsp;&nbsp;<span class="section-title">Smart Hub / TAMM (DMT):</span></p>
+          <p>To manage the above-mentioned company and represent it before the Department of Municipalities and Transport (DMT) – Abu Dhabi, the Smart Hub platform and the TAMM platform, and to register, open, manage and operate the company's account on DMT Smart Hub / TAMM, and to submit, sign and follow up all applications, transactions and documents related thereto, and to receive their outputs.</p>
+        </div>
+        <div class="block rtl">
+          <p><strong>${currentSectionNum}</strong>&nbsp;&nbsp;&nbsp;<span class="section-title">المركز الذكي / تم (دائرة البلديات والنقل):</span></p>
+          <p>إدارة الشركة المذكورة أعلاه وتمثيلها أمام دائرة البلديات والنقل – أبوظبي ومنصة المركز الذكي (Smart Hub) ومنصة تم (TAMM)، وتسجيل وفتح وإدارة وتشغيل حساب الشركة على المركز الذكي / تم، وتقديم والتوقيع على ومتابعة كافة الطلبات والمعاملات والمستندات المتعلقة بذلك واستلام مخرجاتها.</p>
+        </div>
+      </div>`
+        });
+        currentSectionNum++;
+    }
+
     if (sections.approachCourts) {
         blocks.push({
             weight: 15,
@@ -265,7 +284,7 @@ function collectContentBlocks(ctx: POAContext): POABlock[] {
               <p><strong>ممثل بـ:</strong></p>
               <p><span class="edited">${principal.representative.pronouns.titleAr} / ${principal.representative.nameAr}</span>، ${principal.representative.nationalityAr} الجنسية،</p>
               <p>تاريخ الميلاد: <span class="edited">${principal.representative.dateOfBirth}</span></p>
-              <p>حامل بطاقة الهوية الإماراتية رقم: <span class="edited">${principal.representative.eidOrPassport}</span></p>
+              <p>حامل بطاقة الهوية الإماراتية رقم: <span class="edited" dir="ltr">${principal.representative.eidOrPassport}</span></p>
               <p>بموجب التوكيل المصدق من كاتب العدل، ${principal.representative.poaLocation}، تحت رقم: <span class="edited">${principal.representative.poaNumber}</span></p>
               <p>بتاريخ <span class="edited">${principal.representative.poaDate}</span>،</p>
               <p>مقيم في <span class="edited">${principal.representative.addressAr}</span>.</p>

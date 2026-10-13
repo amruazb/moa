@@ -238,6 +238,58 @@ export const samplePOAFusion: POAData = {
     }
 }
 
+export const samplePOAIceLabCafe: POAData = {
+    principals: [
+        {
+            name: 'JIN ZHENG',
+            nameAr: 'جين زهينج',
+            salutation: 'mr',
+            nationality: 'Chinese',
+            nationalityAr: 'صيني',
+            eidOrPassport: '784-1987-9374986-6',
+            documentType: 'eid',
+            address: 'Abu Dhabi, UAE',
+            addressAr: 'أبوظبي، الإمارات',
+            role: 'partner',
+            isRepresented: false
+        }
+    ],
+    attorney: {
+        name: 'LIXIA SHI',
+        nameAr: 'ليكسيا شى',
+        salutation: 'ms',
+        nationality: 'Chinese',
+        nationalityAr: 'صينية',
+        eidOrPassport: '784-1987-7634497-4',
+        documentType: 'eid',
+        address: 'Abu Dhabi, UAE',
+        addressAr: 'أبوظبي، الإمارات'
+    },
+    license: {
+        licenseNumber: 'CN-5625371',
+        companyName: 'ICE LAB CAFE - L.L.C',
+        companyNameAr: 'كافيه ايس لاب - ذ.م.م',
+        issuingAuthority: 'Department of Economic Development – Abu Dhabi',
+        issuingAuthorityAr: 'دائرة التنمية الاقتصادية – أبوظبي'
+    },
+    sections: {
+        executeTransactions: true,
+        employees: true,
+        utilities: true,
+        banks: true,
+        banksWithLoan: true,
+        contracts: true,
+        receivables: true,
+        motorVehicles: true,
+        approachCourts: true,
+        smartHub: true
+    },
+    validity: {
+        years: 3,
+        attestationDate: ''
+    }
+}
+
 export const POA_SAMPLES: { label: string; data: POAData }[] = [
     {
         label: 'Sample POA (Filled)',
@@ -250,6 +302,10 @@ export const POA_SAMPLES: { label: string; data: POAData }[] = [
     {
         label: 'Sample POA (Fusion Engineering)',
         data: samplePOAFusion,
+    },
+    {
+        label: 'Sample POA (Ice Lab Cafe)',
+        data: samplePOAIceLabCafe,
     },
     {
         label: 'Blank POA Template',

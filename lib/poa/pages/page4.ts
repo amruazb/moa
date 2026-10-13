@@ -75,7 +75,7 @@ export function page4(ctx: POAContext, pageNum: number = 4): string {
               <p><strong>ممثل بـ:</strong></p>
               <p><span class="edited">${principal.representative.pronouns.titleAr} / ${principal.representative.nameAr}</span>، ${principal.representative.nationalityAr} الجنسية،</p>
               <p>تاريخ الميلاد: <span class="edited">${principal.representative.dateOfBirth}</span></p>
-              <p>حامل بطاقة الهوية الإماراتية رقم: <span class="edited">${principal.representative.eidOrPassport}</span></p>
+              <p>حامل بطاقة الهوية الإماراتية رقم: <span class="edited" dir="ltr">${principal.representative.eidOrPassport}</span></p>
               <p>بموجب التوكيل المصدق من كاتب العدل، ${principal.representative.poaLocation}، تحت رقم: <span class="edited">${principal.representative.poaNumber}</span></p>
               <p>بتاريخ <span class="edited">${principal.representative.poaDate}</span>،</p>
               <p>مقيم في <span class="edited">${principal.representative.addressAr}</span>.</p>

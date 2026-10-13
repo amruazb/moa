@@ -29,6 +29,7 @@ export function POAExtractionForm() {
             receivables: false,
             motorVehicles: true,
             approachCourts: false,
+            smartHub: false,
         })
     }
 
@@ -539,6 +540,15 @@ export function POAExtractionForm() {
                             className="w-4 h-4 text-orange-500 border-gray-300 rounded focus:ring-orange-500"
                         />
                         Approach Courts
+                    </label>
+                    <label className="flex items-center gap-2 text-sm text-gray-700">
+                        <input
+                            type="checkbox"
+                            checked={sections?.smartHub ?? false}
+                            onChange={(e) => updateSections({ smartHub: e.target.checked })}
+                            className="w-4 h-4 text-orange-500 border-gray-300 rounded focus:ring-orange-500"
+                        />
+                        Smart Hub / TAMM (DMT)
                     </label>
                 </div>
 

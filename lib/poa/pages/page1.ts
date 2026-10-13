@@ -94,12 +94,12 @@ export function page1FlowBlocks(ctx: POAContext): string[] {
   }).join('')}</p>
         </div>
         <div class="block rtl">
-          <p>${principals.length > 1 ? 'نحن الموقعون أدناه' : 'أنا الموقعة أدناه'}:${principals.length > 1 ? '' : '<br/>'}
+          <p>${principals.length > 1 ? 'نحن الموقعون أدناه' : (principals[0]?.salutation === 'mr' ? 'أنا الموقع أدناه' : 'أنا الموقعة أدناه')}:${principals.length > 1 ? '' : '<br/>'}
           ${principals.map((principal, index) => {
-    let principalText = `${principal.pronouns.titleAr} / <span class="edited">${principal.nameAr}</span>، <span class="edited">${principal.nationalityAr}</span> الجنسية، حامل بطاقة هوية مقيم رقم: <span class="edited no-break">${principal.eidOrPassport}</span>`
+    let principalText = `${principal.pronouns.titleAr} / <span class="edited">${principal.nameAr}</span>، <span class="edited">${principal.nationalityAr}</span> الجنسية، حامل بطاقة هوية مقيم رقم: <span class="edited no-break" dir="ltr">${principal.eidOrPassport}</span>`
 
     if (principal.isRepresented && principal.representative) {
-      principalText += `<br/>ممثل بـ: ${principal.representative.pronouns.titleAr} / <span class="edited">${principal.representative.nameAr}</span>، <span class="edited">${principal.representative.nationalityAr}</span> الجنسية، حامل بطاقة الهوية الإماراتية رقم: <span class="edited no-break">${principal.representative.eidOrPassport}</span>، بموجب التوكيل المصدق من كاتب العدل، <span class="edited">${principal.representative.poaLocation}</span>، تحت رقم: <span class="edited no-break">${principal.representative.poaNumber}</span> بتاريخ <span class="edited">${principal.representative.poaDate}</span>، مقيم في <span class="edited">${principal.representative.addressAr}</span>.`
+      principalText += `<br/>ممثل بـ: ${principal.representative.pronouns.titleAr} / <span class="edited">${principal.representative.nameAr}</span>، <span class="edited">${principal.representative.nationalityAr}</span> الجنسية، حامل بطاقة الهوية الإماراتية رقم: <span class="edited no-break" dir="ltr">${principal.representative.eidOrPassport}</span>، بموجب التوكيل المصدق من كاتب العدل، <span class="edited">${principal.representative.poaLocation}</span>، تحت رقم: <span class="edited no-break">${principal.representative.poaNumber}</span> بتاريخ <span class="edited">${principal.representative.poaDate}</span>، مقيم في <span class="edited">${principal.representative.addressAr}</span>.`
     }
 
     return principalText + (index < principals.length - 1 ? '؛ و<br/>' : '،')
@@ -133,7 +133,7 @@ export function page1FlowBlocks(ctx: POAContext): string[] {
         </div>
         <div class="block rtl">
           <p>${attorneysList.map((attorney: POAAttorney, index: number) => {
-      const idPart = `حامل بطاقة هوية مقيم رقم: <span class="edited no-break">${attorney.eidOrPassport}</span>`
+      const idPart = `حامل بطاقة هوية مقيم رقم: <span class="edited no-break" dir="ltr">${attorney.eidOrPassport}</span>`
       const namePart = `<span class="edited">${attorney.pronouns.titleAr} / ${attorney.nameAr}</span>، <span class="edited">${attorney.nationalityAr}</span> الجنسية، ${idPart}`
       if (index === 0) return namePart
       if (index === attorneysList.length - 1) return `<br/><br/>، و${namePart}`

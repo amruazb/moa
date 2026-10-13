@@ -125,6 +125,7 @@ export interface POASections {
     motorVehicles: boolean        // Section 7: Register, buy, sell vehicles
     approachCourts: boolean       // Section 8: Lawsuits, complaints, settlements
     licenseTransfer?: boolean     // Optional transfer section used by some templates
+    smartHub?: boolean            // Optional: manage company account on DMT Smart Hub / TAMM
     noChequeBooks?: boolean       // Optional bank constraint
     noSignCheques?: boolean       // Optional bank constraint
     noLoansFacilities?: boolean   // Optional bank constraint
@@ -227,7 +228,8 @@ export function extractPOAContext(data: POAData): POAContext {
         contracts: data.sections?.contracts ?? true,
         receivables: data.sections?.receivables ?? true,
         motorVehicles: data.sections?.motorVehicles ?? true,
-        approachCourts: data.sections?.approachCourts ?? true
+        approachCourts: data.sections?.approachCourts ?? true,
+        smartHub: data.sections?.smartHub ?? false
     }
 
     const validity: POAValidity = {
