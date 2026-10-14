@@ -1,3 +1,4 @@
+import { signatureCard, ordinalParty } from '../../utils/signatureCard'
 import { LLCToSPCContext, conversionPageFooter } from '../types'
 
 export function page13(ctx: LLCToSPCContext, pageNum: number = 13): string {
@@ -24,45 +25,11 @@ export function page13(ctx: LLCToSPCContext, pageNum: number = 13): string {
         <!-- Single centered heading with underline -->
         <h3 class="underline center" style="text-align: center; width: 100%; margin-bottom: 25px;">Signatures / التوقيعات</h3>
 
-        <div class="article-pair" style="margin-top: 25px;">
-          <div class="block" style="text-align: center; padding: 15px; min-height: 180px; display: flex; flex-direction: column; justify-content: space-between;">
-            <div>
-              <p style="margin-bottom: 10px; font-weight: bold;">First Party / الطرف الأول</p>
-              <p class="edited" style="margin: 5px 0; font-size: 11pt;">${firstParty.pronouns.title} ${firstParty.name}</p>
-              <p class="edited" style="direction: rtl; margin: 5px 0; font-size: 11pt;">${firstParty.pronouns.titleAr}/ ${firstParty.nameAr}</p>
-            </div>
-            <div>
-              <div style="border-bottom: 1px solid #000; width: 220px; margin: 98px auto 8px;"></div>
-              <p style="font-size: 9pt; margin: 0;">Signature / التوقيع</p>
-            </div>
-          </div>
-          <div class="block" style="text-align: center; padding: 15px; min-height: 180px; display: flex; flex-direction: column; justify-content: space-between;">
-            <div>
-              <p style="margin-bottom: 10px; font-weight: bold;">Second Party / الطرف الثاني</p>
-              <p class="edited" style="margin: 5px 0; font-size: 11pt;">${secondParty.pronouns.title} ${secondParty.name}</p>
-              <p class="edited" style="direction: rtl; margin: 5px 0; font-size: 11pt;">${secondParty.pronouns.titleAr}/ ${secondParty.nameAr}</p>
-            </div>
-            <div>
-              <div style="border-bottom: 1px solid #000; width: 220px; margin: 98px auto 8px;"></div>
-              <p style="font-size: 9pt; margin: 0;">Signature / التوقيع</p>
-            </div>
-          </div>
-        </div>
-
-
-        <div style="margin-top: 25px; display: flex; justify-content: center;">
-          <div style="text-align: center; padding: 15px; min-height: 180px; width: 50%; display: flex; flex-direction: column; justify-content: space-between;">
-            <div>
-              <p style="margin-bottom: 10px; font-weight: bold;">Third Party (New Owner) / الطرف الثالث (المالك الجديد)</p>
-              <p class="edited" style="margin: 5px 0; font-size: 11pt;">${newOwner.pronouns.title} ${newOwner.name}</p>
-              <p class="edited" style="direction: rtl; margin: 5px 0; font-size: 11pt;">${newOwner.pronouns.titleAr}/ ${newOwner.nameAr}</p>
-            </div>
-            <div>
-              <div style="border-bottom: 1px solid #000; width: 220px; margin: 98px auto 8px;"></div>
-              <p style="font-size: 9pt; margin: 0;">Signature / التوقيع</p>
-            </div>
-          </div>
-        </div>
+        ${[firstParty, secondParty].map((p, i) => {
+          const o = ordinalParty(i)
+          return signatureCard({ roleEn: o.en, roleAr: o.ar, nameEn: `${p.pronouns.title} ${p.name}`, nameAr: `${p.pronouns.titleAr}/ ${p.nameAr}` })
+        }).join('')}
+        ${signatureCard({ roleEn: 'Third Party (New Owner)', roleAr: 'الطرف الثالث (المالك الجديد)', nameEn: `${newOwner.pronouns.title} ${newOwner.name}`, nameAr: `${newOwner.pronouns.titleAr}/ ${newOwner.nameAr}` })}
       </div>
 
       </div>

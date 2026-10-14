@@ -1,3 +1,4 @@
+import { signatureCard } from '../../utils/signatureCard'
 import { MOAContext, pageFooter } from '../types'
 
 export function page13(ctx: MOAContext, pageNum: number = 13, isLastPage: boolean = true): string {
@@ -17,20 +18,8 @@ export function page13(ctx: MOAContext, pageNum: number = 13, isLastPage: boolea
         </div>
       </div>
 
-      <div style="margin-top: 150px; text-align: center;">
-        <div style="margin-bottom: 40px;">
-          <p style="font-size: 13pt; margin-bottom: 8px;"><strong>${pronouns.title} ${primary.name}</strong></p>
-          <p style="font-size: 13pt; direction: rtl;"><strong>${pronouns.titleAr}/ ${primary.nameAr}</strong></p>
-        </div>
-        
-        <div style="margin-top: 150px; margin-bottom: 20px;">
-          <div style="border-bottom: 2px solid #000; width: 300px; margin: 0 auto;"></div>
-        </div>
-        
-        <div>
-          <p style="font-size: 11pt; margin-bottom: 5px;"><strong>Signature</strong></p>
-          <p style="font-size: 11pt; direction: rtl;"><strong>التوقيع</strong></p>
-        </div>
+      <div style="margin-top: 60px;">
+        ${signatureCard({ roleEn: 'The Owner', roleAr: 'المالك', nameEn: `${pronouns.title} ${primary.name}`, nameAr: `${pronouns.titleAr}/ ${primary.nameAr}` })}
       </div>
       </div>
       ${pageFooter(pageNum, isLastPage)}

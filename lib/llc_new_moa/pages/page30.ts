@@ -1,6 +1,17 @@
+import { signatureCard, ordinalParty, splitSignatureCards } from '../../utils/signatureCard'
 import { LLCNewMOAContext, pageFooter } from '../types'
 
 export function page30(ctx: LLCNewMOAContext, pageNum: number = 30): string {
+  const titleEn = (s: string) => (s === 'mr' ? 'Mr.' : s === 'mrs' ? 'Mrs.' : 'Ms.')
+  const titleAr = (s: string) => (s === 'mr' ? 'السيد/' : s === 'mrs' ? 'السيدة/' : 'الآنسة/')
+  const cards = ctx.partners.map((p, index) => {
+    const o = ordinalParty(index)
+    return signatureCard({
+      roleEn: o.en, roleAr: o.ar, nameEn: p.name, nameAr: p.nameAr,
+      extraLines: [{ en: `${titleEn(p.representative.salutation)} ${p.representative.name}`, ar: `${titleAr(p.representative.salutation)} ${p.representative.nameAr}` }],
+    })
+  })
+  const { first: signatureBlocks, overflow } = splitSignatureCards(cards, 1)
   return `
     <div class="page">
       <div class="page-content">
@@ -36,35 +47,19 @@ export function page30(ctx: LLCNewMOAContext, pageNum: number = 30): string {
         <h3 class="bold" style="text-decoration: underline; font-size: 16px;">Signatures / التوقيعات</h3>
       </div>
 
-      <!-- Signature Boxes Side by Side -->
-      <div style="display: flex; gap: 20px; margin-top: 20px;">
-        <!-- First Party Signature Box -->
-        <div style="flex: 1; border: 1px solid #000; padding: 20px; text-align: center;">
-          <p class="bold" style="margin-bottom: 10px;">First Party / الطرف الأول</p>
-          <p class="bold" style="margin-bottom: 5px;">${ctx.partners[0].name}</p>
-          <p class="bold" style="margin-bottom: 15px;">${ctx.partners[0].nameAr}</p>
-          <p style="margin-bottom: 5px;">${ctx.partners[0].representative.salutation === 'mr' ? 'Mr.' : ctx.partners[0].representative.salutation === 'mrs' ? 'Mrs.' : 'Ms.'} ${ctx.partners[0].representative.name}</p>
-          <p style="margin-bottom: 80px;">${ctx.partners[0].representative.salutation === 'mr' ? 'السيد/' : ctx.partners[0].representative.salutation === 'mrs' ? 'السيدة/' : 'الآنسة/'} ${ctx.partners[0].representative.nameAr}</p>
-          <div style="border-top: 1px solid #000; padding-top: 5px; margin: 0 30px;">
-            <p style="font-size: 12px;">Signature / التوقيع</p>
-          </div>
-        </div>
-
-        <!-- Second Party Signature Box -->
-        <div style="flex: 1; border: 1px solid #000; padding: 20px; text-align: center;">
-          <p class="bold" style="margin-bottom: 10px;">Second Party / الطرف الثاني</p>
-          <p class="bold" style="margin-bottom: 5px;">${ctx.partners[1].name}</p>
-          <p class="bold" style="margin-bottom: 15px;">${ctx.partners[1].nameAr}</p>
-          <p style="margin-bottom: 5px;">${ctx.partners[1].representative.salutation === 'mr' ? 'Mr.' : ctx.partners[1].representative.salutation === 'mrs' ? 'Mrs.' : 'Ms.'} ${ctx.partners[1].representative.name}</p>
-          <p style="margin-bottom: 80px;">${ctx.partners[1].representative.salutation === 'mr' ? 'السيد/' : ctx.partners[1].representative.salutation === 'mrs' ? 'السيدة/' : 'الآنسة/'} ${ctx.partners[1].representative.nameAr}</p>
-          <div style="border-top: 1px solid #000; padding-top: 5px; margin: 0 30px;">
-            <p style="font-size: 12px;">Signature / التوقيع</p>
-          </div>
-        </div>
+      <!-- One centered signature card per partner -->
+      <div style="margin-top: 20px;">
+        ${signatureBlocks}
       </div>
 
       </div>
-      ${pageFooter(pageNum, true)}
-    </div>`
+      ${pageFooter(pageNum, overflow.length === 0)}
+    </div>${overflow.map((html, i) => `
+    <div class="page">
+      <div class="page-content">
+      <div style="margin-top: 30px;">${html}</div>
+      </div>
+      ${pageFooter(pageNum + i + 1, i === overflow.length - 1)}
+    </div>`).join('')}`
 }
 

@@ -1,3 +1,4 @@
+import { signatureCard, ordinalParty, splitSignatureCards } from '../../utils/signatureCard'
 import { LLCMOAContext, pageFooter, getOrdinal, getCopyCount, getCopiesWords, listManagersNamesEn, listManagersNamesAr } from '../types'
 
 export function page14(ctx: LLCMOAContext, pageNum: number = 14): string {
@@ -7,26 +8,12 @@ export function page14(ctx: LLCMOAContext, pageNum: number = 14): string {
   const authorizedEn = listManagersNamesEn(managers)
   const authorizedAr = listManagersNamesAr(managers)
 
-  // Generate unified signature blocks with both languages side by side
-  const signatureBlocks = partners.map((partner, index) => {
-    const ordinalEn = getOrdinal(index, 'en')
-    const ordinalAr = getOrdinal(index, 'ar')
-    return `
-      <div class="signature-block-unified" style="margin-bottom: 50px;">
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 20px;">
-          <div style="flex: 1;">
-            <p style="margin-bottom: 5px;"><strong>${ordinalEn} Party:</strong></p>
-            <p class="edited" style="margin-bottom: 0;">${partner.pronouns.title} ${partner.name}</p>
-          </div>
-          <div style="flex: 1; text-align: right;" dir="rtl">
-            <p style="margin-bottom: 5px;"><strong>الطرف ${ordinalAr}:</strong></p>
-            <p class="edited" style="margin-bottom: 0;">${partner.pronouns.titleAr}/ ${partner.nameAr}</p>
-          </div>
-        </div>
-        <p style="text-align: center; margin-top: 70px;">Signature / التوقيع: _______________________________</p>
-      </div>
-    `
-  }).join('')
+  // One centered bilingual signature card per partner, flowing onto extra pages if needed
+  const cards = partners.map((partner, index) => {
+    const o = ordinalParty(index)
+    return signatureCard({ roleEn: o.en, roleAr: o.ar, nameEn: `${partner.pronouns.title} ${partner.name}`, nameAr: `${partner.pronouns.titleAr}/ ${partner.nameAr}` })
+  })
+  const { first: signatureBlocks, overflow } = splitSignatureCards(cards, 2)
 
   return `
     <div class="page">
@@ -59,6 +46,12 @@ export function page14(ctx: LLCMOAContext, pageNum: number = 14): string {
       </div>
 
       </div>
-      ${pageFooter(pageNum, true)}
-    </div>`
+      ${pageFooter(pageNum, overflow.length === 0)}
+    </div>${overflow.map((html, i) => `
+    <div class="page">
+      <div class="page-content">
+      <div style="margin-top: 30px;">${html}</div>
+      </div>
+      ${pageFooter(pageNum + i + 1, i === overflow.length - 1)}
+    </div>`).join('')}`
 }
