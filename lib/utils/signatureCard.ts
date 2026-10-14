@@ -25,7 +25,7 @@ export function signatureCard(c: SignatureCardInput): string {
           <p style="margin: 0 0 4px;"><strong>${c.roleEn}</strong>${sep}<strong dir="rtl">${c.roleAr}</strong></p>
           <p style="margin: 2px 0;"><span class="edited">${c.nameEn}</span></p>
           <p dir="rtl" style="margin: 2px 0;"><span class="edited">${c.nameAr}</span></p>${extra}
-          <div style="margin: ${c.compact ? 36 : 48}px auto 6px; border-top: 1px solid #000; width: 70%; height: 6px;"></div>
+          <div style="margin: 76px auto 6px; border-top: 1px solid #000; width: 70%; height: 6px;"></div>
           <p style="margin: 0;"><strong>Signature</strong>${sep}<strong dir="rtl">التوقيع</strong>${c.dateLabel ? `<span style="margin-left: 28px;"><strong>Date</strong>${sep}<strong dir="rtl">التاريخ</strong></span>` : ''}</p>
         </div>
       </div>`

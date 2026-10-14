@@ -271,7 +271,7 @@ function collectContentBlocks(ctx: POAContext): POABlock[] {
             <p>POA No. / رقم التوكيل: <span class="edited">${principal.representative.poaNumber}</span> (${principal.representative.poaDate})</p>
             ` : ''}
           </div>
-          <div class="signature-line-single" style="margin-top: ${grid ? 36 : 48}px; height: 6px; width: 70%;"></div>
+          <div class="signature-line-single" style="margin-top: 76px; height: 6px; width: 70%;"></div>
           <p class="signature-block-single-content"><strong>Signature</strong><span class="signature-block-single-sep">|</span><strong dir="rtl">التوقيع</strong></p>
         </div>
       </div>`).join('')
