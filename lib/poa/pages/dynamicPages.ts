@@ -257,42 +257,22 @@ function collectContentBlocks(ctx: POAContext): POABlock[] {
         blocks.push({
             weight: 16 + (principal.isRepresented ? 6 : 0),
             html: `
-      <div class="signature-flow" style="margin-top: ${index === 0 ? 16 : 0}px;">
-        <div class="signature-block">
-          <div class="signature-area">
-            <div class="signature-content">
-              <p><strong>The Principal:</strong></p>
-              <p><span class="edited">${principal.pronouns.title} ${principal.name}</span>,</p>
-              ${principal.isRepresented && principal.representative ? `
-              <p><strong>Represented by:</strong></p>
-              <p><span class="edited">${principal.representative.pronouns.title} ${principal.representative.name}</span>, ${principal.representative.nationality} National,</p>
-              <p>Date of Birth: <span class="edited">${principal.representative.dateOfBirth}</span></p>
-              <p>Holder of Emirates ID No.: <span class="edited">${principal.representative.eidOrPassport}</span></p>
-              <p>By virtue of Power of Attorney attested by Notary Public, ${principal.representative.poaLocation}, under No.: <span class="edited">${principal.representative.poaNumber}</span></p>
-              <p>dated <span class="edited">${principal.representative.poaDate}</span>,</p>
-              <p>residing at <span class="edited">${principal.representative.address}</span>.</p>
-              ` : ''}
-              <p><strong>Signature:</strong></p>
-            </div>
-            <div class="signature-line-block"></div>
+      <div class="signature-flow signature-block-single-wrap" style="margin-top: ${index === 0 ? 24 : 0}px;">
+        <div class="signature-block-single" style="padding: 12px 20px; margin-bottom: 12px;">
+          <div class="signature-block-single-content">
+            <p class="signature-block-single-title"><strong>The Principal</strong><span class="signature-block-single-sep">|</span><strong dir="rtl">الموكل</strong></p>
+            <p><span class="edited">${principal.pronouns.title} ${principal.name}</span></p>
+            <p dir="rtl"><span class="edited">${principal.pronouns.titleAr} / ${principal.nameAr}</span></p>
+            ${principal.isRepresented && principal.representative ? `
+            <p><strong>Represented by</strong><span class="signature-block-single-sep">|</span><strong dir="rtl">ممثل بـ</strong></p>
+            <p><span class="edited">${principal.representative.pronouns.title} ${principal.representative.name}</span></p>
+            <p dir="rtl"><span class="edited">${principal.representative.pronouns.titleAr} / ${principal.representative.nameAr}</span></p>
+            <p>Emirates ID No. / رقم الهوية: <span class="edited" dir="ltr">${principal.representative.eidOrPassport}</span></p>
+            <p>POA No. / رقم التوكيل: <span class="edited">${principal.representative.poaNumber}</span> (${principal.representative.poaDate})</p>
+            ` : ''}
           </div>
-          <div class="signature-area rtl">
-            <div class="signature-content">
-              <p><strong>الموكل:</strong></p>
-              <p><span class="edited">${principal.pronouns.titleAr} / ${principal.nameAr}</span></p>
-              ${principal.isRepresented && principal.representative ? `
-              <p><strong>ممثل بـ:</strong></p>
-              <p><span class="edited">${principal.representative.pronouns.titleAr} / ${principal.representative.nameAr}</span>، ${principal.representative.nationalityAr} الجنسية،</p>
-              <p>تاريخ الميلاد: <span class="edited">${principal.representative.dateOfBirth}</span></p>
-              <p>حامل بطاقة الهوية الإماراتية رقم: <span class="edited" dir="ltr">${principal.representative.eidOrPassport}</span></p>
-              <p>بموجب التوكيل المصدق من كاتب العدل، ${principal.representative.poaLocation}، تحت رقم: <span class="edited">${principal.representative.poaNumber}</span></p>
-              <p>بتاريخ <span class="edited">${principal.representative.poaDate}</span>،</p>
-              <p>مقيم في <span class="edited">${principal.representative.addressAr}</span>.</p>
-              ` : ''}
-              <p><strong>التوقيع:</strong></p>
-            </div>
-            <div class="signature-line-block"></div>
-          </div>
+          <div class="signature-line-single" style="margin-top: 48px; height: 6px; width: 70%;"></div>
+          <p class="signature-block-single-content"><strong>Signature</strong><span class="signature-block-single-sep">|</span><strong dir="rtl">التوقيع</strong></p>
         </div>
       </div>`
         });
