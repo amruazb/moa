@@ -79,15 +79,6 @@ export function page9(ctx: LLCAmendmentMOAContext, pageNum: number = 8): string 
         ${block9b}
         ${closingArticles}
 
-        <!-- Partners' Acknowledgment -->
-        <div class="article-pair" style="margin-top: 30px;">
-          <div class="block">
-            <p>The First and Second Party undertake that they had received all their entitlements from the company.</p>
-          </div>
-          <div class="block rtl">
-            <p>يقر الطرف الأول والثاني بأنهما قد استلما كافة حقوقهما من الشركة.</p>
-          </div>
-        </div>
 
       </div>
       ${pageFooter(pageNum, false)}

@@ -253,12 +253,12 @@ function collectContentBlocks(ctx: POAContext): POABlock[] {
       </div>`
     });
 
-    principals.forEach((principal, index) => {
-        blocks.push({
-            weight: 16 + (principal.isRepresented ? 6 : 0),
-            html: `
-      <div class="signature-flow signature-block-single-wrap" style="margin-top: ${index === 0 ? 24 : 0}px;">
-        <div class="signature-block-single" style="padding: 12px 20px; margin-bottom: 12px;">
+    // All principals' signature cards form ONE block so they always stay together on the last page
+    // (2 compact cards per row, centered, for 3+ principals).
+    const grid = principals.length >= 3
+    const cards = principals.map((principal) => `
+      <div class="signature-block-single-wrap" style="${grid ? 'width: calc(50% - 6px);' : ''}">
+        <div class="signature-block-single" style="padding: ${grid ? '8px 12px' : '12px 20px'}; margin-bottom: ${grid ? 10 : 12}px;">
           <div class="signature-block-single-content">
             <p class="signature-block-single-title"><strong>The Principal</strong><span class="signature-block-single-sep">|</span><strong dir="rtl">الموكل</strong></p>
             <p><span class="edited">${principal.pronouns.title} ${principal.name}</span></p>
@@ -271,11 +271,15 @@ function collectContentBlocks(ctx: POAContext): POABlock[] {
             <p>POA No. / رقم التوكيل: <span class="edited">${principal.representative.poaNumber}</span> (${principal.representative.poaDate})</p>
             ` : ''}
           </div>
-          <div class="signature-line-single" style="margin-top: 48px; height: 6px; width: 70%;"></div>
+          <div class="signature-line-single" style="margin-top: ${grid ? 36 : 48}px; height: 6px; width: 70%;"></div>
           <p class="signature-block-single-content"><strong>Signature</strong><span class="signature-block-single-sep">|</span><strong dir="rtl">التوقيع</strong></p>
         </div>
+      </div>`).join('')
+    blocks.push({
+        weight: principals.reduce((w, p) => w + (grid ? 9 : 16) + (p.isRepresented ? 6 : 0), 0),
+        html: `
+      <div class="signature-flow" style="margin-top: 24px;${grid ? ' display: flex; flex-wrap: wrap; justify-content: center; gap: 0 12px;' : ''}">${cards}
       </div>`
-        });
     });
 
     return blocks;

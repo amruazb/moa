@@ -1,4 +1,4 @@
-import { signatureCard, ordinalParty } from '../../utils/signatureCard'
+import { signatureCards, ordinalParty } from '../../utils/signatureCard'
 import { LLCToSPCContext, conversionPageFooter } from '../types'
 
 export function page13(ctx: LLCToSPCContext, pageNum: number = 13): string {
@@ -25,11 +25,13 @@ export function page13(ctx: LLCToSPCContext, pageNum: number = 13): string {
         <!-- Single centered heading with underline -->
         <h3 class="underline center" style="text-align: center; width: 100%; margin-bottom: 25px;">Signatures / التوقيعات</h3>
 
-        ${[firstParty, secondParty].map((p, i) => {
-          const o = ordinalParty(i)
-          return signatureCard({ roleEn: o.en, roleAr: o.ar, nameEn: `${p.pronouns.title} ${p.name}`, nameAr: `${p.pronouns.titleAr}/ ${p.nameAr}` })
-        }).join('')}
-        ${signatureCard({ roleEn: 'Third Party (New Owner)', roleAr: 'الطرف الثالث (المالك الجديد)', nameEn: `${newOwner.pronouns.title} ${newOwner.name}`, nameAr: `${newOwner.pronouns.titleAr}/ ${newOwner.nameAr}` })}
+        ${signatureCards([
+          ...[firstParty, secondParty].map((p, i) => {
+            const o = ordinalParty(i)
+            return { roleEn: o.en, roleAr: o.ar, nameEn: `${p.pronouns.title} ${p.name}`, nameAr: `${p.pronouns.titleAr}/ ${p.nameAr}` }
+          }),
+          { roleEn: 'Third Party (New Owner)', roleAr: 'الطرف الثالث (المالك الجديد)', nameEn: `${newOwner.pronouns.title} ${newOwner.name}`, nameAr: `${newOwner.pronouns.titleAr}/ ${newOwner.nameAr}` },
+        ])}
       </div>
 
       </div>

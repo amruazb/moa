@@ -1,4 +1,4 @@
-import { signatureCard, ordinalParty } from '../../utils/signatureCard'
+import { signatureCards, ordinalParty } from '../../utils/signatureCard'
 // Final articles and signature chunks - Chapters V-VIII
 // Articles 19-28 plus signature blocks
 
@@ -300,11 +300,13 @@ export const signatureBlocksChunk: ContentChunk = {
         <!-- Single centered heading with underline -->
         <h3 class="underline center" style="text-align: center; width: 100%; margin-bottom: 25px;">Signatures / التوقيعات</h3>
 
-        ${[firstParty, secondParty, thirdParty].map((p, i) => {
-          const o = ordinalParty(i)
-          return signatureCard({ roleEn: o.en, roleAr: o.ar, nameEn: `${p.pronouns.title} ${p.name}`, nameAr: `${p.pronouns.titleAr}/ ${p.nameAr}` })
-        }).join('')}
-        ${signatureCard({ roleEn: 'Fourth Party (New Owner)', roleAr: 'الطرف الرابع (المالك الجديد)', nameEn: `${newOwner.pronouns.title} ${newOwner.name}`, nameAr: `${newOwner.pronouns.titleAr}/ ${newOwner.nameAr}` })}
+        ${signatureCards([
+          ...[firstParty, secondParty, thirdParty].map((p, i) => {
+            const o = ordinalParty(i)
+            return { roleEn: o.en, roleAr: o.ar, nameEn: `${p.pronouns.title} ${p.name}`, nameAr: `${p.pronouns.titleAr}/ ${p.nameAr}` }
+          }),
+          { roleEn: 'Fourth Party (New Owner)', roleAr: 'الطرف الرابع (المالك الجديد)', nameEn: `${newOwner.pronouns.title} ${newOwner.name}`, nameAr: `${newOwner.pronouns.titleAr}/ ${newOwner.nameAr}` },
+        ])}
       </div>`
   }
 }

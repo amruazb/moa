@@ -171,6 +171,29 @@ export function poaPaginateScript(footerMid: string, footerLast: string): string
     page.insertAdjacentHTML('beforeend', html);
   }
 
+  // Never leave a page holding only signatures: carry the last clause(s) from the
+  // previous page over so clause content and all signatures share the last page.
+  function keepClauseWithSignatures(doc) {
+    var pageEls = Array.prototype.slice.call(doc.querySelectorAll('.page')).filter(function (page) {
+      var c = page.querySelector('.page-content');
+      return c && c.children.length;
+    });
+    if (pageEls.length < 2) return;
+    var lastContent = pageEls[pageEls.length - 1].querySelector('.page-content');
+    var prevContent = pageEls[pageEls.length - 2].querySelector('.page-content');
+    var onlySigs = Array.prototype.every.call(lastContent.children, isSignatureBlock);
+    if (!onlySigs) return;
+    var cap = contentCapacity(lastContent);
+    var moved = 0;
+    while (moved < 3 && prevContent.lastElementChild && !isSignatureBlock(prevContent.lastElementChild)) {
+      var block = prevContent.lastElementChild;
+      if (moved > 0 && usedHeight(lastContent) + block.offsetHeight > cap) break;
+      lastContent.insertBefore(block, lastContent.firstElementChild);
+      moved++;
+      if (usedHeight(lastContent) <= cap) break;
+    }
+  }
+
   function pullSignaturesOntoPreviousPage(doc) {
     var pageEls = Array.prototype.slice.call(doc.querySelectorAll('.page'));
     for (var i = 1; i < pageEls.length; i++) {
@@ -185,6 +208,8 @@ export function poaPaginateScript(footerMid: string, footerLast: string): string
         prevContent.appendChild(block);
       }
     }
+
+    keepClauseWithSignatures(doc);
 
     var kept = Array.prototype.slice.call(doc.querySelectorAll('.page')).filter(function (page) {
       var content = page.querySelector('.page-content');

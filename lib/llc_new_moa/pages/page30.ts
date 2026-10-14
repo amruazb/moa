@@ -1,17 +1,17 @@
-import { signatureCard, ordinalParty, splitSignatureCards } from '../../utils/signatureCard'
+import { signatureCards, ordinalParty } from '../../utils/signatureCard'
 import { LLCNewMOAContext, pageFooter } from '../types'
 
 export function page30(ctx: LLCNewMOAContext, pageNum: number = 30): string {
   const titleEn = (s: string) => (s === 'mr' ? 'Mr.' : s === 'mrs' ? 'Mrs.' : 'Ms.')
   const titleAr = (s: string) => (s === 'mr' ? 'السيد/' : s === 'mrs' ? 'السيدة/' : 'الآنسة/')
-  const cards = ctx.partners.map((p, index) => {
+  // All partner signature cards stay together on this page (2 per row, centered)
+  const signatureBlocks = signatureCards(ctx.partners.map((p, index) => {
     const o = ordinalParty(index)
-    return signatureCard({
+    return {
       roleEn: o.en, roleAr: o.ar, nameEn: p.name, nameAr: p.nameAr,
       extraLines: [{ en: `${titleEn(p.representative.salutation)} ${p.representative.name}`, ar: `${titleAr(p.representative.salutation)} ${p.representative.nameAr}` }],
-    })
-  })
-  const { first: signatureBlocks, overflow } = splitSignatureCards(cards, 1)
+    }
+  }), 2)
   return `
     <div class="page">
       <div class="page-content">
@@ -53,13 +53,7 @@ export function page30(ctx: LLCNewMOAContext, pageNum: number = 30): string {
       </div>
 
       </div>
-      ${pageFooter(pageNum, overflow.length === 0)}
-    </div>${overflow.map((html, i) => `
-    <div class="page">
-      <div class="page-content">
-      <div style="margin-top: 30px;">${html}</div>
-      </div>
-      ${pageFooter(pageNum + i + 1, i === overflow.length - 1)}
-    </div>`).join('')}`
+      ${pageFooter(pageNum, true)}
+    </div>`
 }
 

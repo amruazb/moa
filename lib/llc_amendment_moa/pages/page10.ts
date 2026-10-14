@@ -1,9 +1,21 @@
-import { signatureCard, ordinalParty, splitSignatureCards } from '../../utils/signatureCard'
+import { signatureCards, ordinalParty } from '../../utils/signatureCard'
 import { LLCAmendmentMOAContext, pageFooter } from '../types'
 
 /** Third Party acknowledgment (if applicable), then signatures; last page of the LLC Amendment MOA. */
 export function page10(ctx: LLCAmendmentMOAContext, pageNum: number = 9): string {
   const { partners } = ctx
+
+  // Partners' acknowledgment (carried over from the previous page so the signature page always has clause content)
+  const partnersAcknowledgment = `
+        <!-- Partners' Acknowledgment -->
+        <div class="article-pair" style="margin-top: 10px;">
+          <div class="block">
+            <p>The First and Second Party undertake that they had received all their entitlements from the company.</p>
+          </div>
+          <div class="block rtl">
+            <p>يقر الطرف الأول والثاني بأنهما قد استلما كافة حقوقهما من الشركة.</p>
+          </div>
+        </div>`
 
   const thirdPartyAck =
     partners.length > 2
@@ -18,15 +30,17 @@ export function page10(ctx: LLCAmendmentMOAContext, pageNum: number = 9): string
         </div>`
       : ''
 
-  const cards = partners.map((partner, index) => {
+  // All signature cards stay together on this page (2 per row for 3+ parties)
+  const signatureBlocks = signatureCards(partners.map((partner, index) => {
     const o = ordinalParty(index)
-    return signatureCard({ roleEn: o.en, roleAr: o.ar, nameEn: partner.name, nameAr: partner.nameAr, dateLabel: true })
-  })
-  const { first: signatureBlocks, overflow } = splitSignatureCards(cards, partners.length > 2 ? 3 : 4)
+    return { roleEn: o.en, roleAr: o.ar, nameEn: partner.name, nameAr: partner.nameAr, dateLabel: true }
+  }))
 
   return `
     <div class="page">
       <div class="page-content">
+
+        ${partnersAcknowledgment}
 
         ${thirdPartyAck}
 
@@ -37,12 +51,6 @@ export function page10(ctx: LLCAmendmentMOAContext, pageNum: number = 9): string
         ${signatureBlocks}
 
       </div>
-      ${pageFooter(pageNum, overflow.length === 0)}
-    </div>${overflow.map((html, i) => `
-    <div class="page">
-      <div class="page-content">
-      <div style="margin-top: 30px;">${html}</div>
-      </div>
-      ${pageFooter(pageNum + i + 1, i === overflow.length - 1)}
-    </div>`).join('')}`
+      ${pageFooter(pageNum, true)}
+    </div>`
 }
