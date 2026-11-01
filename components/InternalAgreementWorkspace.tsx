@@ -93,7 +93,7 @@ export function InternalAgreementWorkspace({ initialSampleId }: { initialSampleI
           </h1>
           <p className="text-gray-600 mt-1">
             {isYardLease
-              ? 'Bilingual yard lease for Liwa, Al Dhafra. Edit the fields, including the blank area, and print.'
+              ? 'Bilingual yard lease for Liwa, Al Dhafra. Empty fields print as a blank in both languages.'
               : 'Private bilingual record of agreed shares among the parties, for internal keeping.'}
           </p>
         </div>

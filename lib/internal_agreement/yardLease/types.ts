@@ -1,11 +1,14 @@
 import { numberToWordsAr, numberToWordsEn } from '@/lib/utils/numberToWords'
 
+export type PaymentMethod = 'transfer' | 'cheque'
+
 export interface YardLeasePerson {
   name: string
   nameAr: string
   nationality: string
   nationalityAr: string
   eid: string
+  dob: string
 }
 
 export interface YardLeaseData {
@@ -26,18 +29,25 @@ export interface YardLeaseData {
   poaAuthorityAr: string
   propertyLocation: string
   propertyLocationAr: string
-  /** Blank prints as a marked blank. Square metres. */
+  lengthM: string
+  widthM: string
   areaSqm: string
+  blockNo: string
   rent: number
   firstInstallment: number
+  firstMethod: PaymentMethod
+  firstTransferRef: string
+  firstChequeNo: string
+  firstChequeDate: string
+  firstChequeBank: string
   secondInstallment: number
-  /** Blank prints as a marked blank. */
-  securityDeposit: string
-  /** Blank prints as a marked blank. Public-liability limit per occurrence. */
-  liabilityLimit: string
-  chequeNo: string
-  chequeBank: string
-  chequeDate: string
+  secondMethod: PaymentMethod
+  secondTransferRef: string
+  secondChequeNo: string
+  secondChequeDate: string
+  secondChequeBank: string
+  commencementDate: string
+  endDate: string
 }
 
 export interface YardLeaseContext extends YardLeaseData {
@@ -71,6 +81,10 @@ function stripEid(value: string | undefined): string {
   return (value ?? '').replace(/-/g, '').trim()
 }
 
+function clean(value: string | undefined): string {
+  return (value ?? '').trim()
+}
+
 export function extractYardLeaseContext(data: YardLeaseData): YardLeaseContext {
   const rent = Number(data.rent) || 0
   const firstInstallment = Number(data.firstInstallment) || 0
@@ -78,17 +92,35 @@ export function extractYardLeaseContext(data: YardLeaseData): YardLeaseContext {
 
   return {
     ...data,
-    agreementDate: data.agreementDate ?? '',
-    areaSqm: (data.areaSqm ?? '').trim(),
-    securityDeposit: (data.securityDeposit ?? '').trim(),
-    liabilityLimit: (data.liabilityLimit ?? '').trim(),
-    chequeNo: (data.chequeNo ?? '').trim(),
-    chequeBank: (data.chequeBank ?? '').trim(),
-    chequeDate: (data.chequeDate ?? '').trim(),
-    licenseNo: (data.licenseNo ?? '').trim(),
-    poaNumber: (data.poaNumber ?? '').trim(),
-    lessor: { ...data.lessor, eid: stripEid(data.lessor?.eid) },
-    attorney: { ...data.attorney, eid: stripEid(data.attorney?.eid) },
+    agreementDate: clean(data.agreementDate),
+    blockNo: clean(data.blockNo),
+    lengthM: clean(data.lengthM),
+    widthM: clean(data.widthM),
+    areaSqm: clean(data.areaSqm),
+    firstMethod: data.firstMethod === 'cheque' ? 'cheque' : 'transfer',
+    firstTransferRef: clean(data.firstTransferRef),
+    firstChequeNo: clean(data.firstChequeNo),
+    firstChequeDate: clean(data.firstChequeDate),
+    firstChequeBank: clean(data.firstChequeBank),
+    secondMethod: data.secondMethod === 'cheque' ? 'cheque' : 'transfer',
+    secondTransferRef: clean(data.secondTransferRef),
+    secondChequeNo: clean(data.secondChequeNo),
+    secondChequeDate: clean(data.secondChequeDate),
+    secondChequeBank: clean(data.secondChequeBank),
+    commencementDate: clean(data.commencementDate),
+    endDate: clean(data.endDate),
+    licenseNo: clean(data.licenseNo),
+    poaNumber: clean(data.poaNumber),
+    lessor: {
+      ...data.lessor,
+      eid: stripEid(data.lessor?.eid),
+      dob: clean(data.lessor?.dob),
+    },
+    attorney: {
+      ...data.attorney,
+      eid: stripEid(data.attorney?.eid),
+      dob: clean(data.attorney?.dob),
+    },
     rent,
     firstInstallment,
     secondInstallment,

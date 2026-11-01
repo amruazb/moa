@@ -35,7 +35,7 @@ export type { InternalAgreementContext, InternalAgreementData, InternalParty } f
 export { extractInternalAgreementContext } from './types'
 export { sampleInternalAgreementData } from './sampleData'
 export { generateInternalAgreementStyles } from './styles'
-export type { YardLeaseContext, YardLeaseData, YardLeasePerson } from './yardLease'
+export type { PaymentMethod, YardLeaseContext, YardLeaseData, YardLeasePerson } from './yardLease'
 export { extractYardLeaseContext, sampleYardLeaseNas, generateYardLease } from './yardLease'
 export type { InternalAgreementSample } from './samples'
 export { INTERNAL_AGREEMENT_SAMPLES } from './samples'
