@@ -1,0 +1,43 @@
+import { YardLeaseData } from './types'
+
+/** Yard Lease - NAS Oil Field. Area, deposit, insurance limit and cheque particulars are intentionally blank. */
+export const sampleYardLeaseNas: YardLeaseData = {
+  agreementDate: '',
+  place: 'Abu Dhabi, United Arab Emirates',
+  placeAr: 'أبوظبي، الإمارات العربية المتحدة',
+  lessor: {
+    name: 'Khalifa Aber Ahmed Khalaf Alqubaisi',
+    nameAr: 'خليفة عابر أحمد خلف القبيسي',
+    nationality: 'UAE',
+    nationalityAr: 'إماراتي',
+    eid: '784197219152879',
+  },
+  lesseeCompany: 'NAS OIL FIELD SERVICE - L.L.C',
+  lesseeCompanyAr: 'ناس لخدمات حقول النفط - ذ.م.م',
+  legalForm: 'limited liability company',
+  legalFormAr: 'شركة ذات مسؤولية محدودة',
+  licenseNo: 'CN-2415224',
+  issuingAuthority: 'Department of Economic Development - Abu Dhabi',
+  issuingAuthorityAr: 'دائرة التنمية الاقتصادية - أبوظبي',
+  attorney: {
+    name: 'Amir Aroli Veettil',
+    nameAr: 'أمير أرولي فيتيل',
+    nationality: 'Indian',
+    nationalityAr: 'هندي',
+    eid: '784197659368092',
+  },
+  poaNumber: '2699021841',
+  poaAuthority: 'Abu Dhabi Judicial Department',
+  poaAuthorityAr: 'دائرة القضاء في أبوظبي',
+  propertyLocation: 'Liwa, Al Dhafra Region (Western Region), Emirate of Abu Dhabi, United Arab Emirates',
+  propertyLocationAr: 'ليوا، منطقة الظفرة (المنطقة الغربية)، إمارة أبوظبي، دولة الإمارات العربية المتحدة',
+  areaSqm: '',
+  rent: 33000,
+  firstInstallment: 16500,
+  secondInstallment: 16500,
+  securityDeposit: '',
+  liabilityLimit: '',
+  chequeNo: '',
+  chequeBank: '',
+  chequeDate: '',
+}
