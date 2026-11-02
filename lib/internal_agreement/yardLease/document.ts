@@ -112,8 +112,8 @@ function paymentClause(
   if (method === 'transfer') {
     const ref = blankOr(second ? ctx.secondTransferRef : ctx.firstTransferRef)
     return {
-      en: `<p>${labelEn} of ${sumEn} is payable by direct bank transfer upon signing. Transfer reference / date: ${ref}.</p>`,
-      ar: `<p>${labelAr} وقدره ${sumAr} يُدفع بالتحويل المصرفي المباشر عند التوقيع. مرجع التحويل / التاريخ: ${ref}.</p>`,
+      en: `<p>${labelEn} of ${sumEn} is payable by direct bank transfer upon signing. Transfer reference: ${ref}. Transfer date: ${blankOr(ctx.agreementDate)}.</p>`,
+      ar: `<p>${labelAr} وقدره ${sumAr} يُدفع بالتحويل المصرفي المباشر عند التوقيع. مرجع التحويل: ${ref}. تاريخ التحويل: ${blankOr(ctx.agreementDate)}.</p>`,
     }
   }
 
@@ -178,9 +178,9 @@ function buildPages(ctx: YardLeaseContext): string[] {
     'ARTICLE (1) — THE YARD',
     'المادة (1) — الساحة',
     `<p>The yard is at ${edited(ctx.propertyLocation)}. Its area is ${plainMeasure(ctx.lengthM)} m × ${plainMeasure(ctx.widthM)} m (${plainMeasure(ctx.areaSqm)} sq. m).</p>
-     <p>Block No. / plot number: ${block}.</p>`,
+     <p>Farm No.: ${block}.</p>`,
     `<p>تقع الساحة في ${edited(ctx.propertyLocationAr)}. ومساحتها ${areaRun(ctx)} متراً مربعاً.</p>
-     <p>رقم المربع / رقم القطعة: ${block}.</p>`,
+     <p>رقم المزرعة: ${block}.</p>`,
   )
 
   const use = article(
