@@ -358,15 +358,43 @@ function leaseStyles(settings?: FontSettings): string {
     .yard-lease .page.lead .block.rtl {
       line-height: 1.95;
     }
-    .lease-signatures { margin-top: 4mm; }
+    .yard-lease .page.no-footer .block {
+      font-size: 11pt;
+      line-height: 1.45;
+      padding: 10px 11px;
+    }
+    .yard-lease .page.no-footer .block.rtl {
+      font-size: 12pt;
+      line-height: 1.52;
+    }
+    .yard-lease .page.no-footer .article-pair {
+      margin-bottom: 2px;
+    }
+    .yard-lease .page.no-footer .block h3 {
+      font-size: 12pt;
+      padding: 8px 12px;
+    }
+    .yard-lease .page.no-footer .block.rtl h3 {
+      font-size: 13pt;
+    }
+    .lease-signatures { margin-top: 2mm; }
+    .lease-signatures .signature-card {
+      margin-bottom: 8px !important;
+      padding: 8px 16px !important;
+    }
+    .lease-signatures .signature-card > div {
+      margin-top: 92px !important;
+    }
     .page.no-footer .page-content {
-      height: calc(297mm - 8mm);
-      max-height: calc(297mm - 8mm);
+      height: calc(297mm - 4mm);
+      max-height: calc(297mm - 4mm);
+      padding: 6mm 10mm 2mm;
     }
     @media print {
       .page.no-footer .page-content {
-        height: calc(297mm - 8mm) !important;
-        max-height: calc(297mm - 8mm) !important;
+        height: calc(297mm - 4mm) !important;
+        max-height: calc(297mm - 4mm) !important;
+        padding: 6mm 10mm 2mm !important;
       }
     }
   `
