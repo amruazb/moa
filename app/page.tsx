@@ -234,6 +234,34 @@ export default function Home() {
           </Link>
 
           <Link
+            href="/internal-agreement?sample=yard-lease-nas"
+            className="group relative rounded-xl border-2 border-gray-200 bg-white p-8 hover:border-cyan-600 hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1"
+          >
+            <div className="flex items-start justify-between mb-4">
+              <div className="w-12 h-12 rounded-lg bg-cyan-100 flex items-center justify-center group-hover:bg-cyan-600 transition-colors">
+                <svg className="w-6 h-6 text-cyan-700 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4h16v16H4zM4 12h16M12 4v16" />
+                </svg>
+              </div>
+              <span className="px-2 py-1 text-xs font-semibold text-cyan-800 bg-cyan-50 rounded-full border border-cyan-200">
+                Lease
+              </span>
+            </div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-cyan-700 transition-colors">
+              Land / Yard Lease
+            </h2>
+            <p className="text-gray-600 leading-relaxed">
+              Bilingual yard and land lease. Opens the NAS Oil Field sample for Liwa, Al Dhafra, ready to edit and print.
+            </p>
+            <div className="mt-4 flex items-center text-cyan-700 font-medium group-hover:translate-x-2 transition-transform">
+              Open Workspace
+              <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+          </Link>
+
+          <Link
             href="/llc-amendment-moa"
             className="group relative rounded-xl border-2 border-gray-200 bg-white p-8 hover:border-indigo-500 hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1"
           >
