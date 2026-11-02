@@ -24,6 +24,23 @@ function blankOr(value: string, blank = '________'): string {
   return ltr(trimmed || blank)
 }
 
+function refLine(value: string): string {
+  const trimmed = value.trim()
+  if (!trimmed) return `<span class="ref-line" dir="ltr"></span>`
+  return ltr(trimmed)
+}
+
+const ADCB_EN = 'ADCB (Abu Dhabi Commercial Bank)'
+
+function bankName(value: string, lang: 'en' | 'ar'): string {
+  const trimmed = value.trim()
+  if (!trimmed) return blankOr('')
+  if (lang === 'ar' && trimmed === ADCB_EN) {
+    return `بنك أبوظبي التجاري (<span class="ltr-num" dir="ltr">ADCB</span>)`
+  }
+  return edited(trimmed)
+}
+
 function aedFigure(amount: number): string {
   return ltr(formatAed(amount))
 }
@@ -86,8 +103,9 @@ function leaseFooter(pageNum: number, totalPages: number): string {
 }
 
 function sheet(inner: string, pageNum: number, totalPages: number, withFooter: boolean): string {
+  const tone = withFooter ? (pageNum === 1 ? ' roomy lead' : ' roomy') : ' no-footer'
   return `
-    <div class="page${withFooter ? '' : ' no-footer'}">
+    <div class="page${tone}">
       <div class="page-content">
         ${inner}
       </div>
@@ -110,16 +128,21 @@ function paymentClause(
   const sumAr = `${aedFigure(amount)} درهم إماراتي (${wordsAr} درهم إماراتي)`
 
   if (method === 'transfer') {
-    const ref = blankOr(second ? ctx.secondTransferRef : ctx.firstTransferRef)
+    const ref = refLine(second ? ctx.secondTransferRef : ctx.firstTransferRef)
     return {
-      en: `<p>${labelEn} of ${sumEn} is payable by direct bank transfer upon signing. Transfer reference: ${ref}. Transfer date: ${blankOr(ctx.agreementDate)}.</p>`,
-      ar: `<p>${labelAr} وقدره ${sumAr} يُدفع بالتحويل المصرفي المباشر عند التوقيع. مرجع التحويل: ${ref}. تاريخ التحويل: ${blankOr(ctx.agreementDate)}.</p>`,
+      en: `<p>${labelEn} of ${sumEn} is payable by direct bank transfer upon signing. Transfer date: ${blankOr(ctx.agreementDate)}.</p>
+           <p class="ref-label">Transfer reference:</p>
+           <p class="ref-row">${ref}</p>`,
+      ar: `<p>${labelAr} وقدره ${sumAr} يُدفع بالتحويل المصرفي المباشر عند التوقيع. تاريخ التحويل: ${blankOr(ctx.agreementDate)}.</p>
+           <p class="ref-label">مرجع التحويل:</p>
+           <p class="ref-row">${ref}</p>`,
     }
   }
 
   const chequeNo = blankOr(second ? ctx.secondChequeNo : ctx.firstChequeNo)
   const chequeDate = blankOr(second ? ctx.secondChequeDate : ctx.firstChequeDate)
-  const chequeBank = blankOr(second ? ctx.secondChequeBank : ctx.firstChequeBank)
+  const bankEn = bankName(second ? ctx.secondChequeBank : ctx.firstChequeBank, 'en')
+  const bankAr = bankName(second ? ctx.secondChequeBank : ctx.firstChequeBank, 'ar')
   const timingEn = second
     ? 'by post-dated cheque (PDC) due six (6) months from commencement'
     : 'by cheque upon signing'
@@ -128,8 +151,8 @@ function paymentClause(
     : 'بموجب شيك عند التوقيع'
 
   return {
-    en: `<p>${labelEn} of ${sumEn} is payable ${timingEn}. Cheque No. ${chequeNo}. Cheque date: ${chequeDate}. Bank: ${chequeBank}.</p>`,
-    ar: `<p>${labelAr} وقدره ${sumAr} يُدفع ${timingAr}. رقم الشيك: ${chequeNo}. تاريخ الشيك: ${chequeDate}. المصرف: ${chequeBank}.</p>`,
+    en: `<p>${labelEn} of ${sumEn} is payable ${timingEn}. Cheque No. ${chequeNo}. Cheque date: ${chequeDate}. Bank: ${bankEn}.</p>`,
+    ar: `<p>${labelAr} وقدره ${sumAr} يُدفع ${timingAr}. رقم الشيك: ${chequeNo}. تاريخ الشيك: ${chequeDate}. المصرف: ${bankAr}.</p>`,
   }
 }
 
@@ -215,10 +238,10 @@ function buildPages(ctx: YardLeaseContext): string[] {
   const term = article(
     'ARTICLE (5) — TERM, VACATING AND RENEWAL',
     'المادة (5) — المدة والإخلاء والتجديد',
-    `<p>The term is one (1) year from the date of signing. Commencement date: ${start}. End date: ${end}.</p>
+    `<p>The term is one (1) year from the commencement date. Commencement date: ${start}. End date: ${end}.</p>
      <p>If the Lessor asks the Lessee to vacate before the end of the term, the unused rent is refunded pro rata to the Lessee.</p>
      <p>The lease may be renewed after the one (1) year by mutual agreement of both parties.</p>`,
-    `<p>المدة سنة واحدة (1) من تاريخ التوقيع. تاريخ البدء: ${start}. تاريخ الانتهاء: ${end}.</p>
+    `<p>المدة سنة واحدة (1) من تاريخ البدء. تاريخ البدء: ${start}. تاريخ الانتهاء: ${end}.</p>
      <p>إذا طلب المؤجر من المستأجر الإخلاء قبل انتهاء المدة، تُرد إلى المستأجر الأجرة غير المستعملة بالتناسب.</p>
      <p>ويجوز تجديد الإيجار بعد السنة الواحدة (1) باتفاق الطرفين.</p>`,
   )
@@ -291,15 +314,87 @@ function leaseStyles(settings?: FontSettings): string {
       white-space: nowrap;
     }
     .article-pair.tight p { margin-bottom: 3px; }
-    .lease-signatures { margin-top: 4mm; }
+    .ref-label { margin-bottom: 2px; }
+    .ref-row { margin-top: 0; }
+    .ref-line {
+      display: block;
+      width: 100%;
+      border-bottom: 1.5px solid #111;
+      height: 1.35em;
+    }
+    .yard-lease .page.roomy .bilingual-header {
+      margin-bottom: 10mm;
+      padding: 18px 18px;
+    }
+    .yard-lease .page.roomy .article-pair {
+      margin-bottom: 6.5mm;
+    }
+    .yard-lease .page.roomy .block {
+      font-size: 11pt;
+      line-height: 1.65;
+      padding: 10px 11px;
+    }
+    .yard-lease .page.roomy .block.rtl {
+      font-size: 12pt;
+      line-height: 1.75;
+    }
+    .yard-lease .page.roomy .block h3 {
+      font-size: 12pt;
+      padding: 8px 12px;
+    }
+    .yard-lease .page.roomy .block.rtl h3 {
+      font-size: 13pt;
+    }
+    .yard-lease .page.lead .bilingual-header {
+      margin-bottom: 11mm;
+    }
+    .yard-lease .page.lead .article-pair {
+      margin-bottom: 10mm;
+    }
+    .yard-lease .page.lead .block {
+      line-height: 1.75;
+      padding: 12px 12px;
+    }
+    .yard-lease .page.lead .block.rtl {
+      line-height: 1.95;
+    }
+    .yard-lease .page.no-footer .block {
+      font-size: 11pt;
+      line-height: 1.45;
+      padding: 10px 11px;
+    }
+    .yard-lease .page.no-footer .block.rtl {
+      font-size: 12pt;
+      line-height: 1.52;
+    }
+    .yard-lease .page.no-footer .article-pair {
+      margin-bottom: 2px;
+    }
+    .yard-lease .page.no-footer .block h3 {
+      font-size: 12pt;
+      padding: 8px 12px;
+    }
+    .yard-lease .page.no-footer .block.rtl h3 {
+      font-size: 13pt;
+    }
+    .lease-signatures { margin-top: 2mm; }
+    .lease-signatures .signature-card {
+      margin-bottom: 8px !important;
+      padding: 8px 16px !important;
+    }
+    .lease-signatures .signature-card > div {
+      margin-top: 92px !important;
+    }
     .page.no-footer .page-content {
-      height: calc(297mm - 8mm);
-      max-height: calc(297mm - 8mm);
+      height: calc(297mm - 4mm);
+      max-height: calc(297mm - 4mm);
+      padding: 6mm 10mm 2mm;
     }
     @media print {
       .page.no-footer .page-content {
-        height: calc(297mm - 8mm) !important;
-        max-height: calc(297mm - 8mm) !important;
+        height: calc(297mm - 4mm) !important;
+        max-height: calc(297mm - 4mm) !important;
+        padding: 6mm 10mm 2mm !important;
       }
     }
   `

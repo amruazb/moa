@@ -49,7 +49,7 @@ export const sampleYardLeaseNas: YardLeaseData = {
   secondTransferRef: '',
   secondChequeNo: '106',
   secondChequeDate: '10/06/2027',
-  secondChequeBank: '',
+  secondChequeBank: 'ADCB (Abu Dhabi Commercial Bank)',
   commencementDate: '10/11/2026',
   endDate: '09/11/2027',
 }
