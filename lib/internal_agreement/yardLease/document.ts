@@ -129,11 +129,17 @@ function paymentClause(
 
   if (method === 'transfer') {
     const ref = refLine(second ? ctx.secondTransferRef : ctx.firstTransferRef)
+    const timingEn = second
+      ? `by direct bank transfer upon signing. Transfer date: ${blankOr(ctx.agreementDate)}`
+      : 'by direct bank transfer immediately after signing this agreement'
+    const timingAr = second
+      ? `بالتحويل المصرفي المباشر عند التوقيع. تاريخ التحويل: ${blankOr(ctx.agreementDate)}`
+      : 'بالتحويل المصرفي المباشر فور توقيع هذا العقد'
     return {
-      en: `<p>${labelEn} of ${sumEn} is payable by direct bank transfer upon signing. Transfer date: ${blankOr(ctx.agreementDate)}.</p>
+      en: `<p>${labelEn} of ${sumEn} is payable ${timingEn}.</p>
            <p class="ref-label">Transfer reference:</p>
            <p class="ref-row">${ref}</p>`,
-      ar: `<p>${labelAr} وقدره ${sumAr} يُدفع بالتحويل المصرفي المباشر عند التوقيع. تاريخ التحويل: ${blankOr(ctx.agreementDate)}.</p>
+      ar: `<p>${labelAr} وقدره ${sumAr} يُدفع ${timingAr}.</p>
            <p class="ref-label">مرجع التحويل:</p>
            <p class="ref-row">${ref}</p>`,
     }
@@ -218,12 +224,10 @@ function buildPages(ctx: YardLeaseContext): string[] {
     'المادة (3) — الأجرة',
     `<p>The total rent for the year is AED ${aedFigure(ctx.rent)} (${ctx.rentWordsEn} UAE Dirhams), payable as follows:</p>
      ${firstPay.en}
-     ${secondPay.en}
-     <p>Security deposit: None.</p>`,
+     ${secondPay.en}`,
     `<p>مجموع الأجرة عن السنة ${aedFigure(ctx.rent)} درهم إماراتي (${ctx.rentWordsAr} درهم إماراتي)، تُدفع على الوجه الآتي:</p>
      ${firstPay.ar}
-     ${secondPay.ar}
-     <p>مبلغ التأمين: لا يوجد.</p>`,
+     ${secondPay.ar}`,
   )
 
   const works = article(
