@@ -1,7 +1,7 @@
 import { FontSettings } from '@/store/formattingStore'
 import { generateMoaStyles } from '@/lib/spc_moa/styles'
 import { signatureCards } from '@/lib/utils/signatureCard'
-import { PaymentMethod, YardLeaseContext, formatAed } from './types'
+import { YardLeaseContext, formatAed } from './types'
 
 function esc(value: string): string {
   return value
@@ -28,17 +28,6 @@ function refLine(value: string): string {
   const trimmed = value.trim()
   if (!trimmed) return `<span class="ref-line" dir="ltr"></span>`
   return ltr(trimmed)
-}
-
-const ADCB_EN = 'ADCB (Abu Dhabi Commercial Bank)'
-
-function bankName(value: string, lang: 'en' | 'ar'): string {
-  const trimmed = value.trim()
-  if (!trimmed) return blankOr('')
-  if (lang === 'ar' && trimmed === ADCB_EN) {
-    return `بنك أبوظبي التجاري (<span class="ltr-num" dir="ltr">ADCB</span>)`
-  }
-  return edited(trimmed)
 }
 
 function aedFigure(amount: number): string {
@@ -113,56 +102,12 @@ function sheet(inner: string, pageNum: number, totalPages: number, withFooter: b
     </div>`
 }
 
-function paymentClause(
-  ctx: YardLeaseContext,
-  which: 'first' | 'second',
-): { en: string; ar: string } {
-  const second = which === 'second'
-  const method: PaymentMethod = second ? ctx.secondMethod : ctx.firstMethod
-  const amount = second ? ctx.secondInstallment : ctx.firstInstallment
-  const wordsEn = second ? ctx.secondWordsEn : ctx.firstWordsEn
-  const wordsAr = second ? ctx.secondWordsAr : ctx.firstWordsAr
-  const labelEn = second ? 'The second instalment' : 'The first instalment'
-  const labelAr = second ? 'القسط الثاني' : 'القسط الأول'
-  const sumEn = `AED ${aedFigure(amount)} (${wordsEn} UAE Dirhams)`
-  const sumAr = `${aedFigure(amount)} درهم إماراتي (${wordsAr} درهم إماراتي)`
-
-  if (method === 'transfer') {
-    const ref = refLine(second ? ctx.secondTransferRef : ctx.firstTransferRef)
-    return {
-      en: `<p>${labelEn} of ${sumEn} is payable by direct bank transfer upon signing. Transfer date: ${blankOr(ctx.agreementDate)}.</p>
-           <p class="ref-label">Transfer reference:</p>
-           <p class="ref-row">${ref}</p>`,
-      ar: `<p>${labelAr} وقدره ${sumAr} يُدفع بالتحويل المصرفي المباشر عند التوقيع. تاريخ التحويل: ${blankOr(ctx.agreementDate)}.</p>
-           <p class="ref-label">مرجع التحويل:</p>
-           <p class="ref-row">${ref}</p>`,
-    }
-  }
-
-  const chequeNo = blankOr(second ? ctx.secondChequeNo : ctx.firstChequeNo)
-  const chequeDate = blankOr(second ? ctx.secondChequeDate : ctx.firstChequeDate)
-  const bankEn = bankName(second ? ctx.secondChequeBank : ctx.firstChequeBank, 'en')
-  const bankAr = bankName(second ? ctx.secondChequeBank : ctx.firstChequeBank, 'ar')
-  const timingEn = second
-    ? 'by post-dated cheque (PDC) due six (6) months from commencement'
-    : 'by cheque upon signing'
-  const timingAr = second
-    ? 'بموجب شيك مؤجل الاستحقاق يحل بعد ستة (6) أشهر من تاريخ البدء'
-    : 'بموجب شيك عند التوقيع'
-
-  return {
-    en: `<p>${labelEn} of ${sumEn} is payable ${timingEn}. Cheque No. ${chequeNo}. Cheque date: ${chequeDate}. Bank: ${bankEn}.</p>`,
-    ar: `<p>${labelAr} وقدره ${sumAr} يُدفع ${timingAr}. رقم الشيك: ${chequeNo}. تاريخ الشيك: ${chequeDate}. المصرف: ${bankAr}.</p>`,
-  }
-}
-
 function buildPages(ctx: YardLeaseContext): string[] {
   const date = blankOr(ctx.agreementDate)
   const block = blankOr(ctx.blockNo)
   const start = blankOr(ctx.commencementDate)
   const end = blankOr(ctx.endDate)
-  const firstPay = paymentClause(ctx, 'first')
-  const secondPay = paymentClause(ctx, 'second')
+  const transferRef = refLine(ctx.firstTransferRef)
 
   const header = `
     <div class="bilingual-header">
@@ -216,14 +161,12 @@ function buildPages(ctx: YardLeaseContext): string[] {
   const rent = article(
     'ARTICLE (3) — RENT',
     'المادة (3) — الأجرة',
-    `<p>The total rent for the year is AED ${aedFigure(ctx.rent)} (${ctx.rentWordsEn} UAE Dirhams), payable as follows:</p>
-     ${firstPay.en}
-     ${secondPay.en}
-     <p>Security deposit: None.</p>`,
-    `<p>مجموع الأجرة عن السنة ${aedFigure(ctx.rent)} درهم إماراتي (${ctx.rentWordsAr} درهم إماراتي)، تُدفع على الوجه الآتي:</p>
-     ${firstPay.ar}
-     ${secondPay.ar}
-     <p>مبلغ التأمين: لا يوجد.</p>`,
+    `<p>The total rent for the four (4) months is AED ${aedFigure(ctx.rent)} (${ctx.rentWordsEn} UAE Dirhams), payable in one payment by direct bank transfer immediately after signing this agreement.</p>
+     <p class="ref-label">Transfer reference:</p>
+     <p class="ref-row">${transferRef}</p>`,
+    `<p>مجموع الأجرة عن الأربعة (4) أشهر ${aedFigure(ctx.rent)} درهم إماراتي (${ctx.rentWordsAr} درهم إماراتي)، تُدفع دفعة واحدة بالتحويل المصرفي المباشر فور توقيع هذا العقد.</p>
+     <p class="ref-label">مرجع التحويل:</p>
+     <p class="ref-row">${transferRef}</p>`,
   )
 
   const works = article(
@@ -236,14 +179,14 @@ function buildPages(ctx: YardLeaseContext): string[] {
   )
 
   const term = article(
-    'ARTICLE (5) — TERM, VACATING AND RENEWAL',
-    'المادة (5) — المدة والإخلاء والتجديد',
-    `<p>The term is one (1) year from the commencement date. Commencement date: ${start}. End date: ${end}.</p>
+    'ARTICLE (5) — TERM, VACATING AND EXTENSION',
+    'المادة (5) — المدة والإخلاء والتمديد',
+    `<p>The term is four (4) months from the commencement date. Commencement date: ${start}. End date: ${end}.</p>
      <p>If the Lessor asks the Lessee to vacate before the end of the term, the unused rent is refunded pro rata to the Lessee.</p>
-     <p>The lease may be renewed after the one (1) year by mutual agreement of both parties.</p>`,
-    `<p>المدة سنة واحدة (1) من تاريخ البدء. تاريخ البدء: ${start}. تاريخ الانتهاء: ${end}.</p>
+     <p>The lease may be extended for a further four (4) months by mutual agreement of both parties.</p>`,
+    `<p>المدة أربعة (4) أشهر من تاريخ البدء. تاريخ البدء: ${start}. تاريخ الانتهاء: ${end}.</p>
      <p>إذا طلب المؤجر من المستأجر الإخلاء قبل انتهاء المدة، تُرد إلى المستأجر الأجرة غير المستعملة بالتناسب.</p>
-     <p>ويجوز تجديد الإيجار بعد السنة الواحدة (1) باتفاق الطرفين.</p>`,
+     <p>ويجوز تمديد الإيجار لمدة أربعة (4) أشهر أخرى باتفاق الطرفين.</p>`,
   )
 
   const exclusions = article(
@@ -286,8 +229,8 @@ function buildPages(ctx: YardLeaseContext): string[] {
 
   return [
     header + intro + lessor + lessee,
-    property + use + rent,
-    works + term + exclusions + witness + signatures,
+    property + use + rent + works,
+    term + exclusions + witness + signatures,
   ]
 }
 
@@ -360,15 +303,15 @@ function leaseStyles(settings?: FontSettings): string {
     }
     .yard-lease .page.no-footer .block {
       font-size: 11pt;
-      line-height: 1.45;
+      line-height: 1.65;
       padding: 10px 11px;
     }
     .yard-lease .page.no-footer .block.rtl {
       font-size: 12pt;
-      line-height: 1.52;
+      line-height: 1.75;
     }
     .yard-lease .page.no-footer .article-pair {
-      margin-bottom: 2px;
+      margin-bottom: 5mm;
     }
     .yard-lease .page.no-footer .block h3 {
       font-size: 12pt;

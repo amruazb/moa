@@ -60,11 +60,13 @@ export interface YardLeaseContext extends YardLeaseData {
 }
 
 const RENT_WORDS_EN: Record<number, string> = {
+  11000: 'Eleven Thousand',
   33000: 'Thirty-Three Thousand',
   16500: 'Sixteen Thousand Five Hundred',
 }
 
 const RENT_WORDS_AR: Record<number, string> = {
+  11000: 'أحد عشر ألف',
   33000: 'ثلاثة وثلاثون ألف',
   16500: 'ستة عشر ألفاً وخمسمائة',
 }

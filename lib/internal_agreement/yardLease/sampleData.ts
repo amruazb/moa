@@ -2,7 +2,7 @@ import { YardLeaseData } from './types'
 
 /** Yard Lease - NAS Oil Field. Unknown particulars are left blank on purpose. */
 export const sampleYardLeaseNas: YardLeaseData = {
-  agreementDate: '03/11/2026',
+  agreementDate: '04/11/2026',
   place: 'Abu Dhabi, United Arab Emirates',
   placeAr: 'أبوظبي، الإمارات العربية المتحدة',
   lessor: {
@@ -37,19 +37,19 @@ export const sampleYardLeaseNas: YardLeaseData = {
   widthM: '40',
   areaSqm: '1600',
   blockNo: '61',
-  rent: 33000,
-  firstInstallment: 16500,
+  rent: 11000,
+  firstInstallment: 11000,
   firstMethod: 'transfer',
   firstTransferRef: '',
   firstChequeNo: '',
   firstChequeDate: '',
   firstChequeBank: '',
-  secondInstallment: 16500,
-  secondMethod: 'cheque',
+  secondInstallment: 0,
+  secondMethod: 'transfer',
   secondTransferRef: '',
-  secondChequeNo: '106',
-  secondChequeDate: '10/06/2027',
-  secondChequeBank: 'ADCB (Abu Dhabi Commercial Bank)',
+  secondChequeNo: '',
+  secondChequeDate: '',
+  secondChequeBank: '',
   commencementDate: '10/11/2026',
-  endDate: '09/11/2027',
+  endDate: '09/03/2027',
 }
