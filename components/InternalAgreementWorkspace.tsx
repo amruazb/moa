@@ -8,14 +8,18 @@ import {
   generateYardLease,
   extractYardLeaseContext,
   sampleYardLeaseNas,
+  sampleWaterSupplyNas,
+  generateWaterSupply,
   INTERNAL_AGREEMENT_SAMPLES,
   InternalAgreementData,
   InternalParty,
   YardLeaseData,
+  WaterSupplyData,
 } from '@/lib/internal_agreement'
 import { useFormattingStore } from '@/store/formattingStore'
 import { FormattingToolbar } from './workspace/FormattingToolbar'
 import { YardLeaseForm } from './YardLeaseForm'
+import { WaterSupplyForm } from './WaterSupplyForm'
 
 const inputClass =
   'w-full text-sm border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:border-slate-400 focus:ring-1 focus:ring-slate-200'
@@ -34,8 +38,12 @@ export function InternalAgreementWorkspace({ initialSampleId }: { initialSampleI
   const [leaseData, setLeaseData] = useState<YardLeaseData>(
     initialSample?.kind === 'yard-lease' ? structuredClone(initialSample.data) : sampleYardLeaseNas,
   )
+  const [waterData, setWaterData] = useState<WaterSupplyData>(
+    initialSample?.kind === 'water-supply' ? structuredClone(initialSample.data) : sampleWaterSupplyNas,
+  )
   const activeSample = INTERNAL_AGREEMENT_SAMPLES.find(sample => sample.id === sampleId) ?? INTERNAL_AGREEMENT_SAMPLES[0]
   const isYardLease = activeSample?.kind === 'yard-lease'
+  const isWaterSupply = activeSample?.kind === 'water-supply'
 
   useEffect(() => {
     initializeFormattingFromCache()
@@ -55,13 +63,11 @@ export function InternalAgreementWorkspace({ initialSampleId }: { initialSampleI
 
   const context = useMemo(() => extractInternalAgreementContext(formData), [formData])
   const leaseContext = useMemo(() => extractYardLeaseContext(leaseData), [leaseData])
-  const htmlContent = useMemo(
-    () =>
-      isYardLease
-        ? generateYardLease(leaseContext, settings)
-        : generateInternalAgreement(context, settings),
-    [isYardLease, leaseContext, context, settings],
-  )
+  const htmlContent = useMemo(() => {
+    if (isWaterSupply) return generateWaterSupply(waterData, settings)
+    if (isYardLease) return generateYardLease(leaseContext, settings)
+    return generateInternalAgreement(context, settings)
+  }, [isWaterSupply, isYardLease, waterData, leaseContext, context, settings])
 
   const handleLoadSample = (id: string) => {
     const sample = INTERNAL_AGREEMENT_SAMPLES.find(item => item.id === id)
@@ -69,6 +75,10 @@ export function InternalAgreementWorkspace({ initialSampleId }: { initialSampleI
     setSampleId(sample.id)
     if (sample.kind === 'yard-lease') {
       setLeaseData(structuredClone(sample.data))
+      return
+    }
+    if (sample.kind === 'water-supply') {
+      setWaterData(structuredClone(sample.data))
       return
     }
     setFormData(structuredClone(sample.data))
@@ -89,10 +99,12 @@ export function InternalAgreementWorkspace({ initialSampleId }: { initialSampleI
       <header className="mb-8 flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">
-            {isYardLease ? 'Yard Lease Agreement' : 'Internal Shareholding Agreement'}
+            {isWaterSupply ? 'Water Supply Agreement' : isYardLease ? 'Yard Lease Agreement' : 'Internal Shareholding Agreement'}
           </h1>
           <p className="text-gray-600 mt-1">
-            {isYardLease
+            {isWaterSupply
+              ? 'Bilingual water supply for the NAS yard at Farm 61. Empty fields print as a blank in both languages.'
+              : isYardLease
               ? 'Bilingual yard lease for Liwa, Al Dhafra. Empty fields print as a blank in both languages.'
               : 'Private bilingual record of agreed shares among the parties, for internal keeping.'}
           </p>
@@ -124,11 +136,13 @@ export function InternalAgreementWorkspace({ initialSampleId }: { initialSampleI
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
             <h2 className="text-sm font-semibold text-gray-900">
-              {isYardLease ? 'Yard Lease Agreement' : 'Internal Shareholding Agreement'}
+              {isWaterSupply ? 'Water Supply Agreement' : isYardLease ? 'Yard Lease Agreement' : 'Internal Shareholding Agreement'}
             </h2>
           </div>
 
-          {isYardLease ? (
+          {isWaterSupply ? (
+            <WaterSupplyForm data={waterData} onChange={setWaterData} />
+          ) : isYardLease ? (
             <YardLeaseForm data={leaseData} onChange={setLeaseData} />
           ) : (
           <>
@@ -260,7 +274,7 @@ export function InternalAgreementWorkspace({ initialSampleId }: { initialSampleI
               <iframe
                 srcDoc={htmlContent}
                 className="w-full h-[900px] bg-white rounded border border-gray-300"
-                title={isYardLease ? 'Yard Lease Agreement Preview' : 'Internal Shareholding Agreement Preview'}
+                title={isWaterSupply ? 'Water Supply Agreement Preview' : isYardLease ? 'Yard Lease Agreement Preview' : 'Internal Shareholding Agreement Preview'}
               />
             </div>
           </div>
