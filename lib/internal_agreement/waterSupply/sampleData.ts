@@ -6,10 +6,10 @@ const lease = sampleYardLeaseNas
 /**
  * Party particulars are the Farm 61 yard-lease sample (PR #3, be60214).
  * That sample has no phone and no address, so none are added here.
- * The signing date and the payment period were not given, so they stay blank.
+ * The payment period was not given, so it stays blank. The signing date is 10/11/2026.
  */
 export const sampleWaterSupplyNas: WaterSupplyData = {
-  agreementDate: '',
+  agreementDate: '10/11/2026',
   place: lease.place,
   placeAr: lease.placeAr,
   supplier: lease.lessor,
