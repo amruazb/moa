@@ -262,6 +262,34 @@ export default function Home() {
           </Link>
 
           <Link
+            href="/internal-agreement?sample=water-supply-nas"
+            className="group relative rounded-xl border-2 border-gray-200 bg-white p-8 hover:border-sky-600 hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1"
+          >
+            <div className="flex items-start justify-between mb-4">
+              <div className="w-12 h-12 rounded-lg bg-sky-100 flex items-center justify-center group-hover:bg-sky-600 transition-colors">
+                <svg className="w-6 h-6 text-sky-700 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3c2 3 6 5 6 9a6 6 0 11-12 0c0-4 4-6 6-9z" />
+                </svg>
+              </div>
+              <span className="px-2 py-1 text-xs font-semibold text-sky-800 bg-sky-50 rounded-full border border-sky-200">
+                Supply
+              </span>
+            </div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-sky-700 transition-colors">
+              Water Supply
+            </h2>
+            <p className="text-gray-600 leading-relaxed">
+              Bilingual water supply to the storage tank at Farm 61, Liwa. AED 400 per trip for the winter season.
+            </p>
+            <div className="mt-4 flex items-center text-sky-700 font-medium group-hover:translate-x-2 transition-transform">
+              Open Workspace
+              <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+          </Link>
+
+          <Link
             href="/llc-amendment-moa"
             className="group relative rounded-xl border-2 border-gray-200 bg-white p-8 hover:border-indigo-500 hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1"
           >
