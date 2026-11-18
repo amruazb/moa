@@ -80,7 +80,6 @@ function buildPages(ctx: WaterSupplyContext): string[] {
   const date = blankOr(ctx.agreementDate)
   const start = blankOr(ctx.commencementDate)
   const end = blankOr(ctx.endDate)
-  const period = blankOr(ctx.paymentPeriod)
   const priceFigure = ltr(formatAed(ctx.pricePerTrip))
 
   const header = `
@@ -136,9 +135,9 @@ function buildPages(ctx: WaterSupplyContext): string[] {
     'ARTICLE (3) — PRICE AND PAYMENT',
     'المادة (3) — السعر والسداد',
     `<p>The price is AED ${priceFigure} (${edited(ctx.priceWordsEn)} UAE Dirhams) per trip (one tank load of drinking fresh water (potable) delivered), covering the drinking fresh water and transport.</p>
-     <p>Trips are recorded and paid by the Recipient. Payment period: ${period}.</p>`,
+     <p>Trips are recorded and paid by the Recipient. Payment shall be made in cash.</p>`,
     `<p>السعر ${priceFigure} درهم إماراتي (${edited(ctx.priceWordsAr)} درهم إماراتي) عن كل رحلة (حمولة خزان واحدة من مياه شرب عذبة تُسلّم)، ويشمل مياه الشرب العذبة والنقل.</p>
-     <p>تُسجّل الرحلات ويدفعها المستلم. مدة السداد: ${period}.</p>`,
+     <p>تُسجّل الرحلات ويدفعها المستلم. يتم السداد نقداً.</p>`,
   )
 
   const signatures = `
