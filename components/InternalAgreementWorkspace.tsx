@@ -103,7 +103,7 @@ export function InternalAgreementWorkspace({ initialSampleId }: { initialSampleI
           </h1>
           <p className="text-gray-600 mt-1">
             {isWaterSupply
-              ? 'Bilingual water supply for the NAS yard at Farm 61. Empty fields print as a blank in both languages.'
+              ? 'Bilingual water supply to the storage tank at Farm 61. Empty fields print as a blank in both languages.'
               : isYardLease
               ? 'Bilingual yard lease for Liwa, Al Dhafra. Empty fields print as a blank in both languages.'
               : 'Private bilingual record of agreed shares among the parties, for internal keeping.'}

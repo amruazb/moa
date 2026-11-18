@@ -25,23 +25,6 @@ function blankOr(value: string, blank = '________'): string {
   return ltr(trimmed || blank)
 }
 
-function plainMeasure(value: string): string {
-  const trimmed = value.trim()
-  if (!trimmed) return blankOr('')
-  const amount = Number(trimmed.replace(/,/g, ''))
-  if (!Number.isFinite(amount)) return blankOr(trimmed)
-  return ltr(amount.toLocaleString('en-AE'))
-}
-
-function areaRun(ctx: WaterSupplyContext): string {
-  const length = ctx.lengthM.trim() || '________'
-  const width = ctx.widthM.trim() || '________'
-  const raw = ctx.areaSqm.trim()
-  const amount = Number(raw.replace(/,/g, ''))
-  const area = !raw ? '________' : Number.isFinite(amount) ? amount.toLocaleString('en-AE') : raw
-  return `<span class="ltr-num" dir="ltr">${esc(length)} م × ${esc(width)} م (${esc(area)})</span>`
-}
-
 function article(titleEn: string, titleAr: string, bodyEn: string, bodyAr: string): string {
   return `
     <div class="article-pair tight">
@@ -95,7 +78,6 @@ function sheet(inner: string, pageNum: number, totalPages: number, withFooter: b
 
 function buildPages(ctx: WaterSupplyContext): string[] {
   const date = blankOr(ctx.agreementDate)
-  const block = blankOr(ctx.blockNo)
   const start = blankOr(ctx.commencementDate)
   const end = blankOr(ctx.endDate)
   const period = blankOr(ctx.paymentPeriod)
@@ -122,25 +104,23 @@ function buildPages(ctx: WaterSupplyContext): string[] {
 
   const supplier = prose(
     `<h3 class="bold underline">The Supplier (the First Party):</h3>
-     <p><strong>Mr.</strong> ${edited(ctx.supplier.name)}, ${edited(ctx.supplier.nationality)} national, holder of Emirates ID No. ${ltr(ctx.supplier.eid)}, Date of Birth ${blankOr(ctx.supplier.dob)}.</p>`,
+     <p>${edited(ctx.recipientCompany)}, a ${edited(ctx.legalForm)} licensed by the ${edited(ctx.issuingAuthority)} under Trade Licence No. ${ltr(ctx.licenseNo)}, represented by its authorized attorney <strong>Mr.</strong> ${edited(ctx.attorney.name)}, ${edited(ctx.attorney.nationality)} national, holder of Emirates ID No. ${ltr(ctx.attorney.eid)}, Date of Birth ${blankOr(ctx.attorney.dob)}, under Special Power of Attorney notarized No. ${ltr(ctx.poaNumber)} (${edited(ctx.poaAuthority)}).</p>`,
     `<h3 class="bold underline">المورد (الطرف الأول):</h3>
-     <p><strong>السيد/</strong> ${edited(ctx.supplier.nameAr)}، مواطن ${edited(ctx.supplier.nationalityAr)}، يحمل بطاقة هوية إماراتية رقم ${ltr(ctx.supplier.eid)}، تاريخ الميلاد ${blankOr(ctx.supplier.dob)}.</p>`,
+     <p>${edited(ctx.recipientCompanyAr)}، ${edited(ctx.legalFormAr)} مرخّصة من ${edited(ctx.issuingAuthorityAr)} بموجب الرخصة التجارية رقم ${ltr(ctx.licenseNo)}، يمثلها وكيلها المفوض <strong>السيد/</strong> ${edited(ctx.attorney.nameAr)}، ${edited(ctx.attorney.nationalityAr)} الجنسية، يحمل بطاقة هوية إماراتية رقم ${ltr(ctx.attorney.eid)}، تاريخ الميلاد ${blankOr(ctx.attorney.dob)}، بموجب وكالة خاصة موثقة رقم ${ltr(ctx.poaNumber)} (${edited(ctx.poaAuthorityAr)}).</p>`,
   )
 
   const recipient = prose(
     `<h3 class="bold underline">The Recipient (the Second Party):</h3>
-     <p>${edited(ctx.recipientCompany)}, a ${edited(ctx.legalForm)} licensed by the ${edited(ctx.issuingAuthority)} under Trade Licence No. ${ltr(ctx.licenseNo)}, represented by its authorized attorney <strong>Mr.</strong> ${edited(ctx.attorney.name)}, ${edited(ctx.attorney.nationality)} national, holder of Emirates ID No. ${ltr(ctx.attorney.eid)}, Date of Birth ${blankOr(ctx.attorney.dob)}, under Special Power of Attorney notarized No. ${ltr(ctx.poaNumber)} (${edited(ctx.poaAuthority)}).</p>`,
+     <p><strong>Mr.</strong> ${edited(ctx.supplier.name)}, ${edited(ctx.supplier.nationality)} national, holder of Emirates ID No. ${ltr(ctx.supplier.eid)}, Date of Birth ${blankOr(ctx.supplier.dob)}.</p>`,
     `<h3 class="bold underline">المستلم (الطرف الثاني):</h3>
-     <p>${edited(ctx.recipientCompanyAr)}، ${edited(ctx.legalFormAr)} مرخّصة من ${edited(ctx.issuingAuthorityAr)} بموجب الرخصة التجارية رقم ${ltr(ctx.licenseNo)}، يمثلها وكيلها المفوض <strong>السيد/</strong> ${edited(ctx.attorney.nameAr)}، ${edited(ctx.attorney.nationalityAr)} الجنسية، يحمل بطاقة هوية إماراتية رقم ${ltr(ctx.attorney.eid)}، تاريخ الميلاد ${blankOr(ctx.attorney.dob)}، بموجب وكالة خاصة موثقة رقم ${ltr(ctx.poaNumber)} (${edited(ctx.poaAuthorityAr)}).</p>`,
+     <p><strong>السيد/</strong> ${edited(ctx.supplier.nameAr)}، مواطن ${edited(ctx.supplier.nationalityAr)}، يحمل بطاقة هوية إماراتية رقم ${ltr(ctx.supplier.eid)}، تاريخ الميلاد ${blankOr(ctx.supplier.dob)}.</p>`,
   )
 
   const subject = article(
     'ARTICLE (1) — SUPPLY',
     'المادة (1) — التوريد',
-    `<p>The First Party shall supply drinking fresh water (potable), transported and delivered into the Second Party's storage tank at the yard, as requested by the Second Party.</p>
-     <p>The yard is at ${edited(ctx.propertyLocation)}. Its area is ${plainMeasure(ctx.lengthM)} m × ${plainMeasure(ctx.widthM)} m (${plainMeasure(ctx.areaSqm)} sq. m). Farm No.: ${block}. The Second Party leases this yard from the First Party under the yard lease.</p>`,
-    `<p>يورد الطرف الأول مياه شرب عذبة، تُنقل وتُسلّم إلى خزان تخزين الطرف الثاني في الساحة، بناءً على طلب الطرف الثاني.</p>
-     <p>تقع الساحة في ${edited(ctx.propertyLocationAr)}. ومساحتها ${areaRun(ctx)} متراً مربعاً. رقم المزرعة: ${block}. ويستأجر الطرف الثاني هذه الساحة من الطرف الأول بموجب عقد إيجار الساحة.</p>`,
+    `<p>The Supplier (the First Party) shall supply drinking fresh water (potable), transported and delivered into the Recipient's storage tank at ${edited(ctx.propertyLocation)}, as requested by the Recipient.</p>`,
+    `<p>يورد المورد (الطرف الأول) مياه شرب عذبة، تُنقل وتُسلّم إلى خزان تخزين المستلم في ${edited(ctx.propertyLocationAr)}، بناءً على طلب المستلم.</p>`,
   )
 
   const term = article(
@@ -156,9 +136,9 @@ function buildPages(ctx: WaterSupplyContext): string[] {
     'ARTICLE (3) — PRICE AND PAYMENT',
     'المادة (3) — السعر والسداد',
     `<p>The price is AED ${priceFigure} (${edited(ctx.priceWordsEn)} UAE Dirhams) per trip (one tank load of drinking fresh water (potable) delivered), covering the drinking fresh water and transport.</p>
-     <p>Trips are recorded and paid by the Second Party. Payment period: ${period}.</p>`,
+     <p>Trips are recorded and paid by the Recipient. Payment period: ${period}.</p>`,
     `<p>السعر ${priceFigure} درهم إماراتي (${edited(ctx.priceWordsAr)} درهم إماراتي) عن كل رحلة (حمولة خزان واحدة من مياه شرب عذبة تُسلّم)، ويشمل مياه الشرب العذبة والنقل.</p>
-     <p>تُسجّل الرحلات ويدفعها الطرف الثاني. مدة السداد: ${period}.</p>`,
+     <p>تُسجّل الرحلات ويدفعها المستلم. مدة السداد: ${period}.</p>`,
   )
 
   const signatures = `
@@ -167,13 +147,6 @@ function buildPages(ctx: WaterSupplyContext): string[] {
         {
           roleEn: 'The Supplier (First Party)',
           roleAr: 'المورد (الطرف الأول)',
-          nameEn: `Mr. ${ctx.supplier.name}`,
-          nameAr: `السيد/ ${ctx.supplier.nameAr}`,
-          dateLabel: true,
-        },
-        {
-          roleEn: 'The Recipient (Second Party)',
-          roleAr: 'المستلم (الطرف الثاني)',
           nameEn: ctx.recipientCompany,
           nameAr: ctx.recipientCompanyAr,
           extraLines: [
@@ -182,6 +155,13 @@ function buildPages(ctx: WaterSupplyContext): string[] {
               ar: `بواسطة وكيلها المفوض، السيد/ ${esc(ctx.attorney.nameAr)}`,
             },
           ],
+          dateLabel: true,
+        },
+        {
+          roleEn: 'The Recipient (Second Party)',
+          roleAr: 'المستلم (الطرف الثاني)',
+          nameEn: `Mr. ${ctx.supplier.name}`,
+          nameAr: `السيد/ ${ctx.supplier.nameAr}`,
           dateLabel: true,
         },
       ])}

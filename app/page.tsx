@@ -279,7 +279,7 @@ export default function Home() {
               Water Supply
             </h2>
             <p className="text-gray-600 leading-relaxed">
-              Bilingual water supply for the NAS yard at Farm 61, Liwa. AED 400 per trip for the winter season.
+              Bilingual water supply to the storage tank at Farm 61, Liwa. AED 400 per trip for the winter season.
             </p>
             <div className="mt-4 flex items-center text-sky-700 font-medium group-hover:translate-x-2 transition-transform">
               Open Workspace

@@ -30,14 +30,15 @@ export function WaterSupplyForm({
         </div>
       </section>
       <section className="space-y-2 text-sm text-gray-700">
-        <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500">Parties from the Farm 61 yard lease</h3>
-        <p><span className="text-gray-500">Supplier:</span> {data.supplier.name}</p>
+        <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500">Parties</h3>
+        <p><span className="text-gray-500">Supplier:</span> {data.recipientCompany}</p>
+        <p dir="rtl" className="text-right">{data.recipientCompanyAr}</p>
+        <p><span className="text-gray-500">Recipient:</span> {data.supplier.name}</p>
         <p dir="rtl" className="text-right">{data.supplier.nameAr}</p>
         <p><span className="text-gray-500">EID / DOB:</span> {data.supplier.eid} · {data.supplier.dob}</p>
-        <p><span className="text-gray-500">Recipient:</span> {data.recipientCompany}</p>
         <p><span className="text-gray-500">Licence:</span> {data.licenseNo}</p>
         <p><span className="text-gray-500">Attorney:</span> {data.attorney.name}</p>
-        <p><span className="text-gray-500">Yard:</span> {data.propertyLocation} · {data.lengthM} m × {data.widthM} m</p>
+        <p><span className="text-gray-500">Tank location:</span> {data.propertyLocation}</p>
       </section>
     </div>
   )
