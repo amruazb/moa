@@ -9,7 +9,8 @@ export interface AdSpcOwner {
   nameAr: string
   nationalityEn: string
   nationalityAr: string
-  passport: string
+  /** Omitted from the memorandum when unset. */
+  passport?: string
   eid: string
   dob: string
   residenceEn: string
@@ -29,7 +30,7 @@ export interface AdSpcFoundingMoaData {
   authorityEn?: string
   authorityAr?: string
   owner: AdSpcOwner
-  /** Blank lines when the specific address is not yet known. */
+  /** Place only, e.g. Abu Dhabi, United Arab Emirates. No street or blank line. */
   addressEn: string
   addressAr: string
   contractDate: string

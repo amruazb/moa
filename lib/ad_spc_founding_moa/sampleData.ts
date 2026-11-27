@@ -11,14 +11,13 @@ export const veristarAdSpcSample: AdSpcFoundingMoaData = {
     nameAr: 'سامر محمد سليم طباره',
     nationalityEn: 'Lebanese',
     nationalityAr: 'لبناني',
-    passport: 'LR3495959',
     eid: '784198238161610',
     dob: '08/10/1982',
-    residenceEn: 'the United Arab Emirates',
-    residenceAr: 'دولة الإمارات العربية المتحدة',
+    residenceEn: 'Abu Dhabi, United Arab Emirates',
+    residenceAr: 'أبوظبي، الإمارات العربية المتحدة',
   },
-  addressEn: 'Address: ______',
-  addressAr: 'العنوان: ______',
+  addressEn: 'Abu Dhabi, United Arab Emirates',
+  addressAr: 'أبوظبي، الإمارات العربية المتحدة',
   contractDate: '__/__/____',
   activities: [
     {

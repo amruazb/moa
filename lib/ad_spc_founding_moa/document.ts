@@ -10,6 +10,14 @@ function L(value: string): string {
   return `<bdi class="ltr">${value}</bdi>`
 }
 
+function passportEn(passport?: string): string {
+  return passport ? `, holder of Passport No. <span class="edited">${L(passport)}</span>` : ''
+}
+
+function passportAr(passport?: string): string {
+  return passport ? `، ويحمل جواز سفر رقم <span class="edited">${L(passport)}</span>` : ''
+}
+
 function reservationParagraphs(data: AdSpcFoundingMoaData): { en: string; ar: string } | null {
   const { transactionNo, economicRegistryNo, reservationDate, authorityEn, authorityAr } = data
   if (!transactionNo && !economicRegistryNo && !reservationDate) return null
@@ -115,15 +123,13 @@ export function generateAdSpcFoundingMoaHtml(data: AdSpcFoundingMoaData): string
          <p><strong>Legal form:</strong> <span class="edited">${data.legalFormEn}</span></p>
          <p><strong>Trade name:</strong> <span class="edited">${data.tradeNameEn}</span></p>
          ${reservation ? reservation.en : ''}
-         <p><strong>Sole owner and Manager:</strong> Mr. <span class="edited">${o.nameEn}</span>, <span class="edited">${o.nationalityEn}</span> national, holder of Passport No. <span class="edited">${L(o.passport)}</span>, Emirates ID No. <span class="edited">${L(o.eid)}</span>, date of birth <span class="edited">${L(o.dob)}</span>, resident in <span class="edited">${o.residenceEn}</span>.</p>
-         <p><span class="edited">${data.addressEn}</span></p>`,
+         <p><strong>Sole owner and Manager:</strong> Mr. <span class="edited">${o.nameEn}</span>, <span class="edited">${o.nationalityEn}</span> national${passportEn(o.passport)}, Emirates ID No. <span class="edited">${L(o.eid)}</span>, date of birth <span class="edited">${L(o.dob)}</span>, resident in <span class="edited">${o.residenceEn}</span>.</p>`,
         `<h3>مقدمة</h3>
          <p>حُرر عقد التأسيس هذا لـ<span class="edited">${data.legalFormAr}</span> في يوم <span class="edited">${L(data.contractDate)}</span> في إمارة ${data.emirateAr}.</p>
          <p><strong>الشكل القانوني:</strong> <span class="edited">${data.legalFormAr}</span></p>
          <p><strong>الاسم التجاري:</strong> <span class="edited">${data.tradeNameAr}</span></p>
          ${reservation ? reservation.ar : ''}
-         <p><strong>المالك الوحيد والمدير:</strong> السيد <span class="edited">${o.nameAr}</span>، <span class="edited">${o.nationalityAr}</span> الجنسية، ويحمل جواز سفر رقم <span class="edited">${L(o.passport)}</span>، ورقم الهوية الإماراتية <span class="edited">${L(o.eid)}</span>، تاريخ الميلاد <span class="edited">${L(o.dob)}</span>، مقيم في <span class="edited">${o.residenceAr}</span>.</p>
-         <p><span class="edited">${data.addressAr}</span></p>`
+         <p><strong>المالك الوحيد والمدير:</strong> السيد <span class="edited">${o.nameAr}</span>، <span class="edited">${o.nationalityAr}</span> الجنسية${passportAr(o.passport)}، ورقم الهوية الإماراتية <span class="edited">${L(o.eid)}</span>، تاريخ الميلاد <span class="edited">${L(o.dob)}</span>، مقيم في <span class="edited">${o.residenceAr}</span>.</p>`
       )}
       ${pair(
         `<h3>ARTICLE (1): PREAMBLE</h3>
@@ -138,15 +144,13 @@ export function generateAdSpcFoundingMoaHtml(data: AdSpcFoundingMoaData): string
         `<h3>ARTICLE (2): THE OWNER / FOUNDER</h3>
          <p>The founder and sole owner of the capital of the Company is:</p>
          <ul>
-           <li>Mr. <span class="edited">${o.nameEn}</span>, <span class="edited">${o.nationalityEn}</span> national, holder of Passport No. <span class="edited">${L(o.passport)}</span>, Emirates ID No. <span class="edited">${L(o.eid)}</span>, date of birth <span class="edited">${L(o.dob)}</span>, resident in <span class="edited">${o.residenceEn}</span>.</li>
-         </ul>
-         <p><span class="edited">${data.addressEn}</span></p>`,
+           <li>Mr. <span class="edited">${o.nameEn}</span>, <span class="edited">${o.nationalityEn}</span> national${passportEn(o.passport)}, Emirates ID No. <span class="edited">${L(o.eid)}</span>, date of birth <span class="edited">${L(o.dob)}</span>, resident in <span class="edited">${o.residenceEn}</span>.</li>
+         </ul>`,
         `<h3>المادة (2): المالك / المؤسس</h3>
          <p>المؤسس والمالك الوحيد لرأس مال الشركة هو:</p>
          <ul>
-           <li>السيد <span class="edited">${o.nameAr}</span>، <span class="edited">${o.nationalityAr}</span> الجنسية، ويحمل جواز سفر رقم <span class="edited">${L(o.passport)}</span>، ورقم الهوية الإماراتية <span class="edited">${L(o.eid)}</span>، تاريخ الميلاد <span class="edited">${L(o.dob)}</span>، مقيم في <span class="edited">${o.residenceAr}</span>.</li>
-         </ul>
-         <p><span class="edited">${data.addressAr}</span></p>`
+           <li>السيد <span class="edited">${o.nameAr}</span>، <span class="edited">${o.nationalityAr}</span> الجنسية${passportAr(o.passport)}، ورقم الهوية الإماراتية <span class="edited">${L(o.eid)}</span>، تاريخ الميلاد <span class="edited">${L(o.dob)}</span>، مقيم في <span class="edited">${o.residenceAr}</span>.</li>
+         </ul>`
       )}
       ${pair(
         `<h3>ARTICLE (3): NAME OF THE COMPANY</h3>
@@ -169,12 +173,10 @@ export function generateAdSpcFoundingMoaHtml(data: AdSpcFoundingMoaData): string
   const p3 = page(3, total, `
       ${pair(
         `<h3>ARTICLE (5): THE COMPANY ADDRESS &amp; THE HEAD OFFICE</h3>
-         <p>The company address and the head office shall be in the Emirate of ${data.emirateEn}.</p>
-         <p><span class="edited">${data.addressEn}</span></p>
+         <p>The company address and the head office shall be in <span class="edited">${data.addressEn}</span>.</p>
          <p>It shall be permissible for the Company to establish branches, offices and/or agencies in the United Arab Emirates and abroad.</p>`,
         `<h3>المادة (5): عنوان الشركة ومركزها الرئيسي</h3>
-         <p>يكون عنوان الشركة ومركزها الرئيسي في إمارة ${data.emirateAr}.</p>
-         <p><span class="edited">${data.addressAr}</span></p>
+         <p>يكون عنوان الشركة ومركزها الرئيسي في <span class="edited">${data.addressAr}</span>.</p>
          <p>ويجوز للشركة أن تنشئ لها فروعاً أو مكاتب أو توكيلات داخل الدولة وخارجها.</p>`
       )}
       ${pair(
@@ -328,11 +330,9 @@ export function generateAdSpcFoundingMoaHtml(data: AdSpcFoundingMoaData): string
   const p8 = page(8, total, `
       ${pair(
         `<h3>ARTICLE (16): NOTICES</h3>
-         <p>Notices from the company to the company owner shall be made by registered letters to the address of the company owner as indicated in this contract.</p>
-         <p><span class="edited">${data.addressEn}</span></p>`,
+         <p>Notices from the company to the company owner shall be made by registered letters to the address of the company owner as indicated in this contract: <span class="edited">${data.addressEn}</span>.</p>`,
         `<h3>المادة (16): الإخطارات</h3>
-         <p>تكون الإخطارات الموجهة من الشركة إلى مالك الشركة بواسطة خطابات مسجلة على عنوان مالك رأس مال الشركة كما هو مبين في هذا العقد.</p>
-         <p><span class="edited">${data.addressAr}</span></p>`
+         <p>تكون الإخطارات الموجهة من الشركة إلى مالك الشركة بواسطة خطابات مسجلة على عنوان مالك رأس مال الشركة كما هو مبين في هذا العقد: <span class="edited">${data.addressAr}</span>.</p>`
       )}
       ${pair(
         `<h3>ARTICLE (17): MISCELLANEOUS</h3>
