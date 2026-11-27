@@ -97,6 +97,18 @@ export default function Home() {
           </Link>
 
           <Link
+            href="/poa-muroor"
+            className="group relative rounded-xl border-2 border-gray-200 bg-white p-8 hover:border-amber-600 hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1"
+          >
+            <h2 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-amber-700 transition-colors">
+              Muroor POA
+            </h2>
+            <p className="text-gray-600 leading-relaxed">
+              Abu Dhabi Police traffic and licensing Power of Attorney, limited to company and grantor vehicles.
+            </p>
+          </Link>
+
+          <Link
             href="/poa-vehicle"
             className="group relative rounded-xl border-2 border-gray-200 bg-white p-8 hover:border-orange-500 hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1"
           >
