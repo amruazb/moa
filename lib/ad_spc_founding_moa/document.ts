@@ -10,6 +10,27 @@ function L(value: string): string {
   return `<bdi class="ltr">${value}</bdi>`
 }
 
+function reservationParagraphs(data: AdSpcFoundingMoaData): { en: string; ar: string } | null {
+  const { transactionNo, economicRegistryNo, reservationDate, authorityEn, authorityAr } = data
+  if (!transactionNo && !economicRegistryNo && !reservationDate) return null
+  const enBits = [
+    transactionNo ? `Transaction No. <span class="edited">${L(transactionNo)}</span>` : '',
+    economicRegistryNo ? `Economic Registry No. <span class="edited">${L(economicRegistryNo)}</span>` : '',
+    reservationDate ? `issued on <span class="edited">${L(reservationDate)}</span>` : '',
+    authorityEn ? `by the <span class="edited">${authorityEn}</span>` : '',
+  ].filter(Boolean)
+  const arBits = [
+    transactionNo ? `رقم المعاملة <span class="edited">${L(transactionNo)}</span>` : '',
+    economicRegistryNo ? `رقم السجل الاقتصادي <span class="edited">${L(economicRegistryNo)}</span>` : '',
+    reservationDate ? `الصادر بتاريخ <span class="edited">${L(reservationDate)}</span>` : '',
+    authorityAr ? `عن <span class="edited">${authorityAr}</span>` : '',
+  ].filter(Boolean)
+  return {
+    en: `<p><strong>Trade name reservation:</strong> ${enBits.join(', ')}.</p>`,
+    ar: `<p><strong>حجز الاسم التجاري:</strong> ${arBits.join('، ')}.</p>`,
+  }
+}
+
 function pair(en: string, ar: string): string {
   return `
       <div class="article-pair">
@@ -47,6 +68,23 @@ function signatureCard(d: AdSpcFoundingMoaData): string {
 
 export function generateAdSpcFoundingMoaHtml(data: AdSpcFoundingMoaData): string {
   const o = data.owner
+  const reservation = reservationParagraphs(data)
+  const nameReservationEn = reservation
+    ? `, reserved under ${[
+        data.transactionNo ? `Transaction No. <span class="edited">${L(data.transactionNo)}</span>` : '',
+        data.economicRegistryNo ? `Economic Registry No. <span class="edited">${L(data.economicRegistryNo)}</span>` : '',
+        data.reservationDate ? `issued on <span class="edited">${L(data.reservationDate)}</span>` : '',
+        data.authorityEn ? `by the <span class="edited">${data.authorityEn}</span>` : '',
+      ].filter(Boolean).join(', ')}`
+    : ''
+  const nameReservationAr = reservation
+    ? `، والمحجوز بموجب ${[
+        data.transactionNo ? `رقم المعاملة <span class="edited">${L(data.transactionNo)}</span>` : '',
+        data.economicRegistryNo ? `ورقم السجل الاقتصادي <span class="edited">${L(data.economicRegistryNo)}</span>` : '',
+        data.reservationDate ? `الصادر بتاريخ <span class="edited">${L(data.reservationDate)}</span>` : '',
+        data.authorityAr ? `عن <span class="edited">${data.authorityAr}</span>` : '',
+      ].filter(Boolean).join('، ')}`
+    : ''
   const actsEn = data.activities.map((a) => `<li><span class="edited">${L(a.code)}</span> ${a.en}</li>`).join('')
   const actsAr = data.activities.map((a) => `<li><span class="edited">${L(a.code)}</span> ${a.ar}</li>`).join('')
   const total = 8
@@ -76,14 +114,14 @@ export function generateAdSpcFoundingMoaHtml(data: AdSpcFoundingMoaData): string
          <p>This Memorandum of Association of a <span class="edited">${data.legalFormEn}</span> has been made on <span class="edited">${L(data.contractDate)}</span> in the Emirate of ${data.emirateEn}.</p>
          <p><strong>Legal form:</strong> <span class="edited">${data.legalFormEn}</span></p>
          <p><strong>Trade name:</strong> <span class="edited">${data.tradeNameEn}</span></p>
-         <p><strong>Trade name reservation:</strong> Transaction No. <span class="edited">${L(data.transactionNo)}</span>, Economic Registry No. <span class="edited">${L(data.economicRegistryNo)}</span>, issued on <span class="edited">${L(data.reservationDate)}</span> by the <span class="edited">${data.authorityEn}</span>.</p>
+         ${reservation ? reservation.en : ''}
          <p><strong>Sole owner and Manager:</strong> Mr. <span class="edited">${o.nameEn}</span>, <span class="edited">${o.nationalityEn}</span> national, holder of Passport No. <span class="edited">${L(o.passport)}</span>, Emirates ID No. <span class="edited">${L(o.eid)}</span>, date of birth <span class="edited">${L(o.dob)}</span>, resident in <span class="edited">${o.residenceEn}</span>.</p>
          <p><span class="edited">${data.addressEn}</span></p>`,
         `<h3>مقدمة</h3>
          <p>حُرر عقد التأسيس هذا لـ<span class="edited">${data.legalFormAr}</span> في يوم <span class="edited">${L(data.contractDate)}</span> في إمارة ${data.emirateAr}.</p>
          <p><strong>الشكل القانوني:</strong> <span class="edited">${data.legalFormAr}</span></p>
          <p><strong>الاسم التجاري:</strong> <span class="edited">${data.tradeNameAr}</span></p>
-         <p><strong>حجز الاسم التجاري:</strong> رقم المعاملة <span class="edited">${L(data.transactionNo)}</span>، رقم السجل الاقتصادي <span class="edited">${L(data.economicRegistryNo)}</span>، الصادر بتاريخ <span class="edited">${L(data.reservationDate)}</span> عن <span class="edited">${data.authorityAr}</span>.</p>
+         ${reservation ? reservation.ar : ''}
          <p><strong>المالك الوحيد والمدير:</strong> السيد <span class="edited">${o.nameAr}</span>، <span class="edited">${o.nationalityAr}</span> الجنسية، ويحمل جواز سفر رقم <span class="edited">${L(o.passport)}</span>، ورقم الهوية الإماراتية <span class="edited">${L(o.eid)}</span>، تاريخ الميلاد <span class="edited">${L(o.dob)}</span>، مقيم في <span class="edited">${o.residenceAr}</span>.</p>
          <p><span class="edited">${data.addressAr}</span></p>`
       )}
@@ -112,9 +150,9 @@ export function generateAdSpcFoundingMoaHtml(data: AdSpcFoundingMoaData): string
       )}
       ${pair(
         `<h3>ARTICLE (3): NAME OF THE COMPANY</h3>
-         <p>The name of the Company shall be <span class="edited">${data.tradeNameEn}</span>, reserved under Transaction No. <span class="edited">${L(data.transactionNo)}</span>, Economic Registry No. <span class="edited">${L(data.economicRegistryNo)}</span>, issued on <span class="edited">${L(data.reservationDate)}</span> by the <span class="edited">${data.authorityEn}</span>.</p>`,
+         <p>The name of the Company shall be <span class="edited">${data.tradeNameEn}</span>${nameReservationEn}.</p>`,
         `<h3>المادة (3): اسم الشركة</h3>
-         <p>اسم الشركة هو <span class="edited">${data.tradeNameAr}</span>، والمحجوز بموجب رقم المعاملة <span class="edited">${L(data.transactionNo)}</span>، ورقم السجل الاقتصادي <span class="edited">${L(data.economicRegistryNo)}</span>، الصادر بتاريخ <span class="edited">${L(data.reservationDate)}</span> عن <span class="edited">${data.authorityAr}</span>.</p>`
+         <p>اسم الشركة هو <span class="edited">${data.tradeNameAr}</span>${nameReservationAr}.</p>`
       )}
       ${pair(
         `<h3>ARTICLE (4): OBJECT OF THE COMPANY</h3>

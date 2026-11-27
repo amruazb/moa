@@ -6,11 +6,6 @@ export const veristarAdSpcSample: AdSpcFoundingMoaData = {
   legalFormAr: 'شركة ذات مسؤولية محدودة - شركة الشخص الواحد',
   tradeNameEn: 'VERISTAR ELECTROMECHANICAL CONTRACTING - L.L.C - S.P.C',
   tradeNameAr: 'فيريستار للمقاولات الكهروميكانيكية - ذ.م.م - ش.ش.و',
-  transactionNo: 'TN-6896346',
-  economicRegistryNo: '1012000000006896346',
-  reservationDate: '25/11/2026',
-  authorityEn: 'Abu Dhabi Registration and Licensing Authority (ADRA), Department of Economic Development - Abu Dhabi',
-  authorityAr: 'هيئة تسجيل وترخيص أبوظبي (ADRA)، دائرة التنمية الاقتصادية - أبوظبي',
   owner: {
     nameEn: 'SAMER MOHAMAD SALIM TABBARA',
     nameAr: 'سامر محمد سليم طباره',

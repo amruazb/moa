@@ -22,11 +22,12 @@ export interface AdSpcFoundingMoaData {
   legalFormAr: string
   tradeNameEn: string
   tradeNameAr: string
-  transactionNo: string
-  economicRegistryNo: string
-  reservationDate: string
-  authorityEn: string
-  authorityAr: string
+  /** Omitted from the memorandum when unset. */
+  transactionNo?: string
+  economicRegistryNo?: string
+  reservationDate?: string
+  authorityEn?: string
+  authorityAr?: string
   owner: AdSpcOwner
   /** Blank lines when the specific address is not yet known. */
   addressEn: string
