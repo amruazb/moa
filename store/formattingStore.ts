@@ -19,6 +19,9 @@ export interface FontSettings {
   headerArSubtitle?: number
   headerArCompany?: number
   footerSize?: 'small' | 'medium' | 'large'
+  /** Used by the CV and ADNOC letter styles. */
+  fontFamily?: string
+  fontSize?: string
 }
 
 export const LINE_SPACINGS = [
